@@ -16,7 +16,7 @@ DATABASES = {
         'NAME': 'park0odf_testparkingsector',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'park0odf_tespark',
-        'PASSWORD': '6249409391',
+        'PASSWORD': '*********',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '3306',                      # Set to empty string for default.
     }

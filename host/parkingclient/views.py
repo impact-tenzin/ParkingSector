@@ -103,10 +103,10 @@ def SaveParkingInfo(request):
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("Error", content_type="text/html; charset=utf-8") 
-
+"""
 def LeavingDriver(request):
     """
-    Increase the number of available spaces by one when a driver is leaving the parking
+    #Increase the number of available spaces by one when a driver is leaving the parking
     """
     if request.is_ajax():
         parking_id = request.POST['id']
@@ -119,7 +119,7 @@ def LeavingDriver(request):
 
 def ArrivingDriver(request):
     """
-    Decrease the number of available soaces by one when a driver is ariving on the parking
+    #Decrease the number of available soaces by one when a driver is ariving on the parking
     """ 
     if request.is_ajax():
         parking_id = request.POST['id']
@@ -129,6 +129,7 @@ def ArrivingDriver(request):
         return HttpResponse("Completed", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+"""
 
 @csrf_exempt 
 def SignInBeforeBooking(request):
@@ -158,14 +159,6 @@ def GetParkingRequests(request):
             return HttpResponse(data, content_type="application/json; charset=utf-8")
         else:
             return HttpResponse("Error", content_type="text/html; charset=utf-8")
-    else:
-        return HttpResponse("Error", content_type="text/html; charset=utf-8")
-
-def DeleteBooking(request):
-    if request.is_ajax():
-        booking_id = request.POST['booking_id']
-        BookedSpots.objects.get(id=booking_id).delete()
-        return HttpResponse("Deleted", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
@@ -208,5 +201,25 @@ def ConfirmBooking(request):
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+def send_data():
+    pass
+  
+def cancel_booking(request):
+    if request.is_ajax():
+        if request.user.is_authenticated():
+            if request.method == "POST":
+                booking_id = request.POST["booking_id"]
+                try:
+                    BookedSpots.objects.get(id=booking_id).delete()
+                except BookedSpots.DoesNotExist:
+                    send_data()
+                    return HttpResponse("does not exist", content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
