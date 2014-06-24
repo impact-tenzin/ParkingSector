@@ -209,11 +209,8 @@
 					//colorNavElement();
 					//checkForSubscribe();
 					if ("{{geolocate}}"=="true"){
-						alert("{{parkings}}");
-						parseParkings(parkings);
-						parseFeatures(features);
-						parsePaymentMethods(paymentMethods);
 						searchLocations();
+						ajaxCall("{{lat}}", "{{lng}}");
 						}
 					else{
 						searchLocations();

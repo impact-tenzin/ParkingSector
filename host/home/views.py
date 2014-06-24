@@ -49,15 +49,14 @@ def home(request):
                 address = address_form.cleaned_data['address']
                 if address == '':
                     increaseAroundMeStat()
-                parkings = [parking for parking in ParkingMarker.objects.all() if distance([parking.lat, parking.lng], [latAddress, lngAddress]) < 1]
-                features = [ParkingFeatures.objects.get(id=parking.features_id) for parking in parkings]
-                payment_methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id) for parking in parkings];
-                context = {'addressForm':address_form,'subscribeForm':subscribe_form, 'parkings':parkings, 'features':features, 'paymentMethods':payment_methods,
-                             'address':address,'geolocate':'true','lat':latAddress, 'lng':lngAddress,}
+                #parkings = [parking for parking in ParkingMarker.objects.all() if distance([parking.lat, parking.lng], [latAddress, lngAddress]) < 1]
+                #features = [ParkingFeatures.objects.get(id=parking.features_id) for parking in parkings]
+                #payment_methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id) for parking in parkings];
+                context = {'address':address,'geolocate':'true','lat':latAddress, 'lng':lngAddress,}
                 return render_to_response('findparking.html', context , context_instance=RequestContext(request))
             else:
                 parkings = ParkingMarker.objects.all();#has to take parkings for homepage
-                return render_to_response('index.html', {'addressForm':address_form,'subscribeForm':subscribe_form, 'parkings':parkings,} , context_instance=RequestContext(request))
+                return render_to_response('index.html', {'addressForm':address_form,'subscribeForm':subscribe_form,} , context_instance=RequestContext(request))
 
 def home_view(request):
     subscribe_form = SubscribeForm()
