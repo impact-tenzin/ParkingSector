@@ -105,9 +105,6 @@ def SaveParkingInfo(request):
             return HttpResponse("Error", content_type="text/html; charset=utf-8") 
 """
 def LeavingDriver(request):
-    """
-    #Increase the number of available spaces by one when a driver is leaving the parking
-    """
     if request.is_ajax():
         parking_id = request.POST['id']
         available_spots = int(ParkingMarker.objects.get(id=parking_id).availableSpaces)
@@ -118,9 +115,6 @@ def LeavingDriver(request):
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
 def ArrivingDriver(request):
-    """
-    #Decrease the number of available soaces by one when a driver is ariving on the parking
-    """ 
     if request.is_ajax():
         parking_id = request.POST['id']
         available_spots = int(ParkingMarker.objects.get(id=parking_id).availableSpaces)
