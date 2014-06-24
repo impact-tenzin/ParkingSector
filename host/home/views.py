@@ -48,7 +48,7 @@ def home(request):
                 lngAddress = address_form.cleaned_data['lng']
                 address = address_form.cleaned_data['address']
                 if address == '':
-                    increaseAroundMeStat()
+                    increase_aroundme_stat()
                 #parkings = [parking for parking in ParkingMarker.objects.all() if distance([parking.lat, parking.lng], [latAddress, lngAddress]) < 1]
                 #features = [ParkingFeatures.objects.get(id=parking.features_id) for parking in parkings]
                 #payment_methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id) for parking in parkings];
