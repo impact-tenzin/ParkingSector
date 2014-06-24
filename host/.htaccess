@@ -1,0 +1,22 @@
+AuthName "testarea"
+AuthUserFile "/home/park0odf/.htpasswds/www.testparkingsector.bg/passwd"
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.vicktormarkov\.parkingsector.com$ [OR]
+RewriteCond %{HTTP_HOST} ^vicktormarkov\.parkingsector.com$
+RewriteRule .* - [F,L]
+
+#AddHandler cgi-script .py
+AddHandler fcgid-script .fcgi
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^testparkingsector.bg$
+RewriteRule ^/?$ "http\:\/\/www\.testparkingsector\.bg" [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ mysite.fcgi/$1 [QSA,L]
+
+Header add Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Headers "X-Requested-With"
+AuthType Basic
+require valid-user

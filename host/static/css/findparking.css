@@ -1,0 +1,698 @@
+.cf:before, .cf:after {
+	content: "";
+	display: table;
+}
+
+.cf:after {
+	clear: both;
+}
+body{
+	height:100%;
+	width:100%;
+}
+.wrapper{
+	position:relative;
+	margin:0 auto;
+	height:100%;
+	width:100%;
+}
+.searchBarAndFilters {
+	background-color: white;
+	border: 1px thin black;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	padding:20px 10px 10px;
+	border-radius: 4px;
+}
+.services {
+	padding: 5px 0;
+}
+.filters-title {
+	font-size: 18px;	background-color: rgba(255,255,255,0.7);
+
+	margin-bottom: 5px;
+	color: #5a5a5a;
+}
+.filters {
+	color: #5a5a5a;
+}
+.column {
+	float: left;
+	width: 50%;
+}
+.column label {
+	display: block;
+}
+.searchBar {
+	width: 235px;
+	padding: 5px;
+}
+.searchBar-wrapper {
+	width: 235px;
+	margin-bottom: 20px;
+	box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.2);
+}
+.timeFields {
+	margin-bottom: 10px;
+}
+
+.date {
+	width: 120px;
+	height: 20px;
+}
+
+#map {
+	height: 100%;
+	width: 100%;
+	position:fixed !important;
+}
+/* ottuk nadolu e css-sa za parkingsekciqta */
+.displayedParkingsBar {
+	width: 100%;
+	position: fixed;
+	bottom:0;
+	background: rgba(255, 255, 255, 0.5 );
+	white-space: nowrap;
+}
+.currentParkings {
+	position: relative;
+	bottom: 0;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding:5px 5px 5px 5px;
+}
+
+.displayedParking {
+	position: relative;
+	display: inline-block;
+	width: 163px;
+	height: 110px;
+	margin:0px 5px 0px 0px;
+	background: #ededed;
+	opacity: 0.7;
+	border:1px solid #aaadad;
+	cursor:pointer;
+	color:black;
+}
+.parkingAddress {
+	position:absolute;
+	top:5px;
+	left: 25px;
+	width: 145px;
+	height: 20px;
+	margin-left: 2px;
+	font-size: 12px;
+}
+.parkingPrice {
+	position:absolute;
+	top:30px;
+	left:25px;
+	height: 19px;
+}
+.parkingDistance {
+	position:absolute;
+	top:55px;
+	left:25px;
+	height: 19px;
+	/*background-color: #1465a1;*/
+	padding: 0 5px 0 5px;
+}
+.parkingSpaces {
+	position:absolute;
+	top:80px;
+	left:25px;
+	height: 19px;
+	font-size:13px;
+}
+.park-image{
+	position:absolute;
+	top:7px;
+	left:5px;
+}
+.price-image{
+	position:absolute;
+	top:32px;
+	left:5px;
+}
+.dist-image{
+	position:absolute;
+	top:57px;
+	left:5px;
+}
+.space-image{
+	position:absolute;
+	top:82px;
+	left:5px;
+}
+/*-----------------------------------------------------------------------------------------*/
+
+.controls {
+	margin-top: 16px;
+	border: 1px solid transparent;
+	border-radius: 2px 0 0 2px;
+	box-sizing: border-box;
+	moz-box-sizing: border-box;
+	height: 32px;
+	outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.pac-container {
+	font-family: Roboto;
+}
+
+#type-selector {
+	color: #fff;
+	background-color: #4d90fe;
+	padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+	font-family: Roboto;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+#searchPlace {
+	background: url('/static/imgs/searchPanel2.png') no-repeat;
+	width: 557px;
+	height: 126px;
+	float: left;
+	margin-top: 10px;
+}
+#location {
+	height: 55px;
+}
+#searchPlaceAndFilters {
+	margin: 0px;
+	float: left;
+}
+#destination {
+	margin-left: 18px;
+	margin-top: 13px;
+	font-size: 12px;
+}
+#fromTo {
+	margin-top: 13px;
+	margin-left: 20px;
+	float: left;
+	height: 43px;
+}
+#fromTo div {
+	height: 19px;
+}
+#to {
+	margin-left: 215px;
+}
+#from, #to {
+	font-size: 12px;
+}
+/*
+ #fromHour, #toHour, #fromPeriod, #toPeriod {
+ width: 45px;
+ height: 23px;
+ border: none;
+ outline: none;
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ text-indent: 0.01px;
+ text-overflow: '';
+ background: url('/static/imgs/Arrow.png') no-repeat;
+ background-position: right 5px center;
+ }
+ select::-ms-expand {
+ display: none;
+ }
+ #fromDate, #toDate {
+ background: url('/static/imgs/calendar.png') no-repeat;
+ background-position: right center;
+ width: 94px;
+ border: none;
+ }
+ */
+
+#findButton {
+	float: left;
+	margin-top: 30px;
+	margin-left: 20px;
+	padding: 0 4px 0 4px;
+}
+#servicePanel {
+	background: url('/static/imgs/servicesPanel.png') no-repeat;
+	width: 389px;
+	height: 126px;
+	float: left;
+	margin-top: 10px;
+	margin-left: 13px;
+	font-size: 15px;
+}
+
+#firstLayer {
+	margin-top: 15px;
+	margin-left: 18px;
+	width: 389px;
+	height: 18px;
+}
+#firstLayer span {
+	height: 51px;
+}
+
+#secondLayer {
+	margin-top: 15px;
+	margin-left: 18px;
+	width: 389px;
+	height: 18px;
+}
+.unticked {
+	background: url('/static/imgs/serviceIcon.png') no-repeat;
+	padding: 17px;
+	cursor: pointer;
+	width: auto;
+	height: auto;
+}
+
+.ticked {
+	background: url('/static/imgs/serviceIconTick.png') no-repeat;
+	padding: 17px;
+	cursor: pointer;
+	width: auto;
+}
+
+.filteredParking {
+	float: left;
+	width: 228px;
+	height: auto;
+	cursor: pointer;
+}
+.filteredParking img {
+	width: 130px;
+	height: 96px;
+}
+.address {
+	width: 225px;
+	float: left;
+	display: block;
+	font-size: 13px;
+	margin: 0 0 0 6px;
+}
+.separator {
+	width: 227px;
+	border-bottom: 1px solid grey;
+	margin-left: 2px;
+	float: left;
+}
+.smallPrice {
+	margin-left: 5px;
+	float: left;
+	font-size: 16px;
+	color: rgb(27,162,217);
+}
+.smallDistance {
+	float: right;
+	font-size: 16px;
+	margin-left: 3px;
+	color: rgb(27,162,217);
+}
+.price {
+	margin-left: 10px;
+	float: left;
+	font-size: 22px;
+	color: rgb(27,162,217);
+}
+.distance {
+	float: left;
+	font-size: 22px;
+	margin-left: 10px;
+	color: rgb(27,162,217);
+}
+.currency {
+	margin-left: 15px;
+	font-size: 18px;
+	float: left;
+	margin-top: -5px;
+}
+.km {
+	font-size: 18px;
+	margin-left: 19px;
+	float: left;
+	margin-top: -5px;
+}
+#filteredParkings {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	width: 247px;
+	height: 457px;
+}
+.infoBox > img {
+	z-index: 999999;
+}
+.labels p {
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	font-size: 15px;
+	width: 60px;
+}
+
+#windowAddress {
+	margin-left: 10px;
+	width: 230px;
+	font-size: 14px;
+}
+#windowSmallAddress {
+	margin-left: 10px;
+	width: 230px;
+	font-size: 11px;
+}
+.windowImage {
+	width: 130px;
+	height: 96px;
+	margin-left: 10px;
+	float: left;
+}
+#windowPrice, #windowDistance, #windowCapacity {
+	float: left;
+	margin-left: 5px;
+	font-size: 18px;
+}
+#displayedPrice, #displayedDistance, #displayedCapacity {
+	float: right;
+	margin-right: 5px;
+	font-size: 20px;
+	color: rgb(27,162,217);
+}
+#lv, #windowKm {
+	float: right;
+	font-size: 18px;
+	margin-right: 8px;
+}
+#imgAndPrice {
+	margin-top: 5px;
+	float: left;
+}
+#workHours, #capacityPercentage, #paymentMethod {
+	float: left;
+	font-size: 16px;
+	margin-left: 10px;
+}
+#displayedPercentage {
+	color: rgb(27,162,217);
+}
+#displayedHours {
+	float: right;
+	margin-right: 5px;
+	font-size: 16px;
+}
+#displayedPercentage, #displayedMethod {
+	float: right;
+	margin-right: 15px;
+	font-size: 16px;
+}
+#displayedSmallPrice, #displayedSmallDistance {
+	float: right;
+	margin-right: 5px;
+	font-size: 14px;
+	color: rgb(27,162,217);
+}
+.spanlv {
+	font-size: 12px;
+}
+#reminder {
+	position: absolute;
+	top: 250px;
+	left: 290px;
+	background: url('/static/imgs/price_popUp.png') no-repeat;
+	width: 271px;
+	height: 123px;
+	z-index: 10000;
+}
+.infoWindow {
+	position: absolute;
+	bottom: 48px;
+	left: 42px;
+	background-color: #FFFFFF;
+	width: 200px;
+	padding: 5px 5px 0px 5px;
+	border-radius:0px;
+}
+.win-address {
+	font-size: 15px;
+	color: blue;
+}
+.win-price span {
+	background-color: #f7685c;
+	color: #DDDDDD;
+	padding: 0px 5px;
+}
+.win-price {
+	margin-bottom:5px;
+	font-size:14px;
+}
+.win-distance {
+	width: 100%;
+}
+.parameters {
+	width: 100%;
+	font-size:14px;
+	text-align: center;
+	color: rgb(27,162,217);
+}
+
+.win-info {
+	float: left;
+	font-size:14px;
+	color:#000000;
+	opacity:0.8;
+}
+.win-book{
+	width:100%;
+	height:30px;
+	background-color:#2ecc71;
+	color:#FFFFFF;
+	line-height:30px;
+	text-align:center;
+	border-radius: 0px;
+	margin-bottom:5px;
+	font-size:16px;
+	cursor:pointer;
+}
+.closeX{
+	position:absolute !important;
+	top:2px !important;
+	left:175px;
+	padding-left:5px;
+	font-size:17px;
+	opacity:0.6;
+	cursor:pointer;
+}
+.close-filters{
+	float:right;
+	font-size:20px;
+	padding:10px;
+	margin-top:-5px;
+	opacity: 0.7;
+}
+.open-filters{
+	float:right;
+	margin-top:-25px;
+	font-size:20px;
+	padding:10px;
+	color:#000000;
+	opacity:1;
+}
+/*NEW FORM*/
+.subscribeBox {
+	max-width: 500px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	margin: 10% auto 0px auto;
+	background-color: rgba(255, 255, 255, 0.85);
+	border-radius: 0px !important;
+	border: 1px solid #000 !important;
+	padding: 10px 25px 20px;
+	z-index: 99999;
+	text-align: center !important;
+	font-family: Verdana;
+}
+.subscribePanel{
+	margin-bottom: 10px ;
+	height: 50px !important;
+	border-radius: 0px !important;
+}
+.subscribeButton{
+	border-radius: 0px !important;
+	border: 1px solid #DDD !important;
+	background: #e2bc0b !important;
+	font-size: 16px !important;
+	color: #FFF !important;
+	height: 35px !important;
+	padding-left: 30px !important;
+	padding-right: 30px !important;
+	font-family: Verdana !important;
+}
+.license-box-dropdown{
+	width: 60% !important;
+	display: inline-block !important; 
+}
+.license-box{
+	display: inline-block !important; 
+	width: 38% !important;
+}
+/*//END NEW FORM*/
+/*SAVEBOX*/
+/*END SAVEBOX*/
+/*TABLE*/
+.prices th,td{
+	padding: 3px;
+	border: 2px solid #FFF;
+}
+.prices{
+	border: 1px solid #FFF;
+	text-align: center;
+	margin-top: 2px;
+	margin-bottom: 5px;
+}
+.prices td{
+	background-color: #EEE;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.prices th {
+	background-color: #3d619f;
+	color: #FFF;
+}
+
+/*END TABLE*/
+.top-label {
+	color: #1b456f;
+	font-size: 22px;
+	text-align: center;
+}
+.msg{
+	margin-top:10px;
+	max-width: 500px;
+	color:#000000;
+	font-family: Verdana;
+	opacity:1;
+}
+.msg-confirm{
+	margin-top:10px;
+	max-width: 500px;
+	color:#000000;
+	font-family: Verdana;
+	opacity:1;
+}
+.sub-name,.sub-email{
+	max-width:100%;
+	max-height:35px;
+	margin-top:5px;
+}
+
+.under-label-line {
+	border-bottom: 1px solid #0078f3;
+}
+.sub-wrapper{
+	margin-top:30px;
+}
+.close{
+	position:relative;
+	top:0px;
+	left:15px;
+	cursor:pointer;
+}
+.subscribeButton {
+	position: relative;
+	margin: 10px auto;
+	top: 5px;
+	max-width: 498px;
+	max-height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 21px;
+	color: #FFFFFF;
+	background-color: #0078f3;
+	border: 1px solid #1b456f;
+	border-radius: 4px;
+	transition: background-color ease-in 0.5s;
+}
+.subscribeButton:hover {
+	background-color: #001DC4;
+	cursor: pointer;
+}
+.sub-email{
+	margin-top:5px;
+}
+
+.filters-label{
+	position:absolute;
+	top:0;
+	left:10px;
+	padding:3px 50px 3px 10px;
+	font-size:17px;
+	cursor:pointer;
+	color:#000000;
+	opacity:1;
+}
+
+.close-parkingsBar{
+	position:absolute;
+	right:0px;
+	bottom:137px;
+	font-size:17px;
+	padding: 10px;
+	background-color:rgba(255,255,255,0.8);
+	border-top-left-radius:6px;
+	cursor:pointer;
+}
+.open-parkingsBar{
+	position:absolute;
+	right:0px;
+	bottom:0px;
+	width:250px;
+	height:40px;
+	line-height:40px;
+	background-color:rgba(255,255,255,0.6);
+	font-size:17px;
+	line-height: 30px;
+	padding:0px 5px 0px 5px;
+	cursor:pointer;
+}
+
+.close-list
+{
+	line-height:40px;
+	font-size:20px;
+	float:right;
+}
+.parkings-list{
+	font-size:18px;
+	line-height:40px;
+	color:black;
+	opacity:1;
+	float:left;
+}
+
+.highlighted{
+	border:3px solid #0078f3;
+}
+.non-highlighted{
+	border:1px solid #aaadad;
+}
+.z-control{
+	z-index: 999999999;
+}
+.padding{
+	padding-top: 5px !important;
+}
+.xdsoft_datetimepicker{
+	z-index: 999999999 !important;
+}
+
+
+
+
+
+

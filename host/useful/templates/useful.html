@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% block extrahead %}
+
+{% endblock %}
+{% block content %}
+<p id="pageId" class="useful" hidden="hidden"></p>
+<div style="margin-top:55px;">
+	<span>Разгледайте информация за град:</span>
+	<select id="cityInfo" onchange="if(this.options[this.selectedIndex].value != ''){window.top.location.href=this.options[this.selectedIndex].value}">
+		<option hidden="hidden">София</option>
+		<option>София</option>
+		<option>Пловдив</option>
+		<option>Стара Загора</option>
+		<option>Бургас</option>
+		<option>Варна</option>
+	</select>
+</div>
+<script>
+	function load() {
+		colorNavElement();
+	}
+
+
+	window.onload = load(); 
+</script>
+{% endblock %}

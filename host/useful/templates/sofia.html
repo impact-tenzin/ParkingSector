@@ -1,0 +1,111 @@
+{% extends "index.html" %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="/static/css/sofia.css" />
+<script type="text/javascript" src="/static/js/thickbox.js"></script>
+<link rel="stylesheet" href="/static/css/thickbox.css" type="text/css" media="screen" />
+{% endblock %}
+{% block content %}
+<p id="pageId" class="useful" hidden="hidden"></p>
+<div style="margin-top:55px;">
+	<span>Разгледайте информация за град:</span>
+	<select id="cityInfo" onchange="if(this.options[this.selectedIndex].value != ''){window.top.location.href=this.options[this.selectedIndex].value;}">
+		<option hidden="hidden">София</option>
+		<option class="city">София</option>
+		<option class="city">Пловдив</option>
+		<option class="city">Стара Загора</option>
+		<option class="city">Бургас</option>
+		<option class="city">Варна</option>
+	</select>
+</div>
+<div style="margin-top:10px;">
+	<p class="summaryLines">
+		Зони за паркиране
+	</p>
+	<p class="summaryLines">
+		Наказателни паркинги
+	</p>
+	<p class="summaryLines">
+		Информация за действие при ПТП
+	</p>
+</div>
+<div id="parkingRegions">
+	<p style="font-size:12px;">
+		Кликнете върху снимката за по - голям размер.
+	</p>
+	<a href="/static/imgs/parkingRegions.png" class="thickbox"><img style="width:412px;" src="/static/imgs/parkingRegions.png" alt="Single Image"/></a>
+</div>
+<div class="sectionHeading">
+	Зони за паркиране - център
+</div>
+<div id="blueAndGreenZones">
+	<div id="blueZone">
+		<p class="headings">
+			Синя зона
+		</p>
+		<div id="blueZoneInfo">
+			{{blueZone.info | safe}}
+		</div>
+	</div>
+	<div id="greenZone">
+		<p class="headings">
+			Зелена зона
+		</p>
+		<div id="greenZoneInfo">
+			{{greenZone.info |safe}}
+		</div>
+	</div>
+</div>
+<div id="finesAndNotifications">
+	<div id="fines">
+		<p class="headings">
+			Глоби
+		</p>
+		<div id="finesInfo">
+			{{finesInfo.info | safe}}
+		</div>
+	</div>
+	<div id="notifications">
+		<p class="headings">
+			Забележки
+		</p>
+		<div id="notificationsInfo">
+			{{notificationsInfo.info | safe}}
+		</div>
+	</div>
+</div>
+<div class="sectionHeading">
+	Наказателни паркинги
+</div>
+<div id="fineParks">
+	<div class="finePark"></div>
+	<div class="finePark"></div>
+	<div class="finePark"></div>
+	<div id="addresses">
+		<span>Ул. Дунав и ул. Козлодуй</span><span>Ул. Евлоги и Христо Георгиеви и бул. Мадрид</span><span>Ж.п. гара "Подуяне"</span>
+	</div>
+</div>
+<div id="findCar">
+	<span>За да научите дали вашият автомобил е преместен в наказателен паркинг и в кой от трите се
+		намира, проверете онлайн </span><span><a href="http://www.sofiatraffic.bg/bg/tow-away/">ТУК.</a></span><span> <a href="http://www.sofiatraffic.bg/bg/tow-away/">http://www.sofiatraffic.bg/bg/tow-away/</a></span>
+</div>
+<div id="bottomRightInfo">
+	Информацията и материалите предоставени по - горе са официални данни, оповестени на сайта на Център за градска мобилност и са собственост на съответната организация.
+</div>
+
+<script>
+	function load() {
+		colorNavElement();
+		selectCity();
+	}
+
+	function selectCity()
+	{
+		var len = document.getElementsByClassName('city').length;
+		for (var i=0; i < len; i++) {
+		  if (document.getElementsByClassName('city')[i].value=="{{selectedCity}}")
+		  		document.getElementsByClassName('city')[i].selected=true;
+		};
+	}
+	window.onload = load(); 
+</script>
+{% endblock %}

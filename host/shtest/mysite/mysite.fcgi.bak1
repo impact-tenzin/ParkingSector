@@ -1,0 +1,21 @@
+#!/usr/bin/python
+import sys, os
+#print "sys.path is ", sys.path
+
+#add a custom Python path and pray it works dddd
+#sys.path.insert(0, "/home3/fernsten/local/lib/python2.7/site-packages")
+#sys.path.insert(0, "/home3/fernsten/local/lib/python2.7")
+#sys.path.insert(0, "/home3/fernsten/local/lib/python2.7/site-packages/flup-1.0.2-py2.7.egg")
+#sys.path.insert(0, "/home3/fernsten/django_projects")
+#sys.path.insert(0, "/home3/fernsten/django_projects/gallery")
+#sys.path.insert(0, "/home3/fernsten/local/lib/python2.7/site-packages/MySQL_python-1.2.3-   py2.7-linux-x86_64.egg")
+
+os.chdir("/home/park0odf/public_html/shtest/mysite")
+
+os.environ['DJANGO_SETTINGS_MODULE'] = "mysite.settings"
+
+from django.core.servers.fastcgi import runfastcgi
+#runfastcgi(method="prefork", daemonize="false")
+
+
+runfastcgi(protocol="fcgi", socket="/home/park0odf/public_html/shtest/mysite/aaa.sock", method="prefork", daemonize="false", errlog="/home/park0odf/public_html/shtest/mysite/file.err")

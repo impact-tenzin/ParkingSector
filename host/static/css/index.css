@@ -1,0 +1,308 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+.cf:before, .cf:after {
+	content: "";
+	display: table;
+}
+.cf:after {
+	clear: both;
+}
+/*
+ body {
+ background: url('/static/imgs/bg.jpg') no-repeat center center fixed;
+ background-size: 100% 100%;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+ background-color: #efefef;
+ height: 100% !important;
+ }*/
+
+.carousel, .carousel-inner, .item, .bgroundImage {
+	position: absolute !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+.pic1 {
+	background: url('/static/imgs/bg.jpg') no-repeat center center fixed;
+}
+.pic2 {
+	background: url('/media/images/attempt.png') no-repeat center center fixed;
+}
+html {
+	height: 100% !important;
+}
+.navbar-brand {
+	padding: 0px !important;
+	margin: 0px 10px 0px 10px !important;
+}
+/*
+ .wrapper {
+ position: relative;
+ margin: 0 auto;
+ height: 100% !important;
+ }*/
+
+.mainbody {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+.addressBox {
+	position: relative;
+	margin: 0 auto;
+	margin-top: 15%;
+	max-width: 500px;
+	background-color: rgba(255,255,255,0.8);
+	border-radius: 4px 4px;
+	border: 1px solid #000000;
+	padding: 10px 25px 20px 25px;
+	z-index: 5;
+}
+.subscribeBox {
+	position: relative;
+	margin: 0 auto;
+	margin-top: 15%;
+	max-width: 500px;
+	background-color: rgba(255,255,255,0.8);
+	border-radius: 4px 4px;
+	border: 1px solid #000000;
+	padding: 10px 25px 20px 25px;
+	z-index: 5;
+}
+.searchBar-wrapper {
+	box-shadow: 0px 5px 10px 0px rgba(50, 50, 50, 0.2);
+}
+.subscribe-info {
+	display: inline-block;
+}
+.sub-wrapper {
+	margin-top: 30px;
+}
+.sub-name, .sub-email {
+	max-width: 100%;
+	max-height: 35px;
+	margin-top: 5px;
+}
+.top-label {
+	color: #1b456f;
+	font-size: 22px;
+	text-align: center;
+}
+.msg {
+	margin-top: 10px;
+}
+.under-label-line {
+	border-bottom: 1px solid #0078f3;
+}
+.formAddress {
+
+}
+#addressInput {
+	background-color: rgba(255,255,255,1);
+	max-width: 440px;
+	max-height: 35px;
+	margin-top: 20px;
+	margin-left: 5px;
+	margin-bottom: 15px;
+	font-size: 18px;
+	padding-left: 5px;
+}
+.navigation {
+	height: 50px;
+	background-color: #1b456f;
+}
+.under-input-label {
+	margin-top: 35px;
+	font-size: 22px;
+	color: rgba(0,0,0,0.6);
+}
+.timeFields {
+	margin-top: 15px;
+}
+.fromDate, .toDate {
+	width: 150px;
+	height: 25px;
+	font-size: 18px;
+	color: rgba(0,0,0,0.7);
+	border-radius: 4px 4px;
+	border: 1px solid blue;
+}
+.fromDate {
+	margin-right: 60px;
+}
+.from-to {
+	color: rgba(0,0,0,0.6);
+	font-size: 18px;
+}
+
+.subscribe-line {
+	padding-left: 10px;
+	display: inline-block;
+	width: 100%;
+	font-size: 18px;
+	background-color: rgba(255,255,255,0.8);
+	text-align: center;
+}
+.subscribe-label {
+	display: inline-block;
+}
+.social-networks {
+	display: inline-block;
+	text-align: center;
+}
+
+.bottom-label {
+	padding-left: 10px;
+	background-color: #1b456f;
+	color: #ffffff;
+	text-align: center;
+}
+.info {
+	line-height: 30px;
+}
+.customers {
+	background-color: #0dd216;
+	border-radius: 2px;
+	padding: 2px;
+}
+.bookingButton {
+	position: relative;
+	margin: 0 auto;
+	top: 10px;
+	max-width: 498px;
+	max-height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 21px;
+	color: #FFFFFF;
+	background-color: #0dd216;
+	border: 1px solid #0f8b16;
+	border-radius: 4px;
+	transition: background-color ease-in 0.5s;
+	z-index: 5;
+}
+.subscribeButton {
+	position: relative;
+	margin: 10px auto;
+	top: 10px;
+	max-width: 498px;
+	max-height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 21px;
+	color: #FFFFFF;
+	background-color: #0078f3;
+	border: 1px solid #1b456f;
+	border-radius: 4px;
+	transition: background-color ease-in 0.5s;
+}
+.geolocateButton {
+	position: relative;
+	margin: 10px auto;
+	top: 10px;
+	max-width: 498px;
+	max-height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 21px;
+	color: #FFFFFF;
+	background-color: #0078f3;
+	border: 1px solid #1b456f;
+	border-radius: 4px;
+	transition: background-color ease-in 0.5s;
+	z-index: 5;
+}
+.close {
+	position: relative;
+	top: 0px;
+	left: 15px;
+}
+.geolocateButton:hover {
+	background-color: #003673;
+	cursor: pointer;
+}
+.subscribeButton:hover {
+	background-color: #001DC4;
+	cursor: pointer;
+}
+.bookingButton:hover {
+	background-color: #0f8b16;
+	cursor: pointer;
+}
+.navbar {
+	margin: 0px !important;
+	border: none !important;
+}
+.nav {
+	margin: 0px !important;
+}
+.nav li:hover {
+	background-color: #1465a1;
+}
+.nav li {
+	color: #FFFFFF;
+	background-color: #1b456f;
+	margin-left: 20px !important;
+}
+.navbar-nav > li > a {
+	color: #FFFFFF !important;
+}
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+	background-color: #1465a1 !important;
+}
+.dropdown-menu{
+	border:none !important;
+	padding:0px !important;
+	min-width:99px !important;
+}
+.dropdown-menu > li{
+	margin:0px !important;
+	width:100% !important;
+}
+.dropdown-menu > li > a{
+	padding-left:15px !important;
+	color:#FFFFFF !important;
+}
+.dropdown-menu > li > a:hover{
+	background-color: #1465a1;
+}
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.filler {
+	width: 100%;
+	height: 100px;
+	border: 1px solid black;
+}
+.facebbok, .twitter {
+	cursor: pointer;
+}
+.facebbok:hover, .twitter:hover {
+	opacity: 0.9;
+}
+.inputForm{
+	height: 45px !important;
+	margin-bottom: 10px;
+	border: 1px solid #DDD !important;
+}
+.textareaForm{
+	height: 100px !important;
+	border: 1px solid #DDD !important;
+}
+.submit-button{
+	border: 1px solid #DDD;
+	padding-left: 30px;
+	padding-right: 30px;
+	height: 45px;
+}
+.btnHolder{
+	text-align: center;
+}
+

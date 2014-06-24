@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" href="/static/css/findparking.css" >
+		<link rel="stylesheet" type="text/css" href="/static/test/css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="/static/test/font-awesome-4.1.0/css/font-awesome.css" />
+		<link rel="stylesheet" type="text/css" href="/static/test/css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="/static/test/css/component.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/findparking.css" >
+		<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" >
+		<script src="/static/test/js/modernizr.custom.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+		<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js" type="text/javascript"></script>
+		<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js" type="text/javascript"></script>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<link rel="stylesheet" href="/static/css/jquery.datetimepicker.css">
+		<script src="/static/js/jquery.js"></script>
+		<script type="text/javascript" src="/static/js/jquery.datetimepicker.js"></script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+		<!--Sign in before booking if not logged in-->
+		<div class='signInBox subscribeBox' hidden>
+				<span class='glyphicon glyphicon-remove close' onclick='closeSignIn();'></span>
+				<p class='top-label'>
+					Влезте в профила си
+				</p>
+				<div class='under-label-line'></div>
+				<p class="msg">
+					
+				</p>
+					<div class='sub-wrapper'>
+						<div>
+							<input type="text" class="sign-name form-control subscribePanel" placeholder="Потребителско име" />
+						</div>
+						<div>
+							<input type="password" class="sign-pass form-control subscribePanel" placeholder="Парола" />
+						</div>
+					</div>
+				<button class='signInButton subscribeButton' onclick='signIn();'>
+					Готово!
+				</button>
+			</div>
+			<!--Sign in before booking if not logged in-->
+			<!--Confrim booking form-->
+			<div class='confirmBox subscribeBox' hidden>
+				<span class='glyphicon glyphicon-remove close' onclick='closeConfirm();'></span>
+				<p class="msg-confirm"></p>
+					<div class='sub-wrapper'>
+						<div>
+							<label for="time">Час на пристигане </label><input id="time" type="text" class="form-control arrival-time subscribePanel"/>
+							<label for="duration">Продължителност на престоя</label>							<select id="duration" class="form-control duration-time subscribePanel padding">								<option value="1">1 час</option>								<option value="2">2 часа</option>								<option value="3">3 часа</option>								<option value="4">4 часа</option>								<option value="5">5 часа</option>								<option value="6">6 часа</option>								<option value="7">7 часа</option>								<option value="8">8 часа</option>								<option value="9">9 часа</option>								<option value="10">10 часа</option>								<option value="11">11 часа</option>								<option value="12">12 часа</option>							</select> 
+						</div>
+						<div>
+							<label for="license">Регистрационен номер на автомобила</label><br>
+							<select id="license" class="form-control duration-time subscribePanel padding license-box-dropdown">
+								<!--<option value="1">CA 1256 PC</option>
+								<option value="2">CA 1327 KT</option>		
+								<option value="3">CA 1568 TK</option>-->
+							</select>
+							<input type="text" class="form-control licence-plate subscribePanel license-box" placeholder="Друг Номер"/>
+						</div>
+					</div>
+				<button class='confirmButton subscribeButton' onclick='confirmBooking();'>
+					Потвърди запазване!
+				</button>
+			</div>
+			<!--Confrim booking form-->
+		<div id="map"></div>
+			<div class="container">
+			<ul id="gn-menu" class="gn-menu-main">
+				<li class="gn-trigger">
+					<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+					<nav class="gn-menu-wrapper">
+						<div class="gn-scroller">
+							<ul class="gn-menu">
+								<li>
+									<span class="leftPad">Паркоместа по: <span class="bordered nonsorted" id="price" onclick="sortParkingsByPrice();"><i class="fa fa-usd"></i> Цена</span> <span class="bordered nonsorted" id="distance" onclick="sortParkingsByDistance();"><i class="fa fa-road"></i> Км</span></span>
+								</li>
+								 <!--<li>
+								 <input type="checkbox" id="security" />
+								 <input type="checkbox" id="carwash" />
+								 <input type="checkbox" id="indoor" />
+								 <span class="leftPad"><label for="security"><span onclick="filterParkings();" class="bordered1"><img src="/static/test/img/camera.png" width="27" /></span></label>
+								 <label for="carwash"><span onclick="filterParkings();" class="bordered1"><img src="/static/test/img/carwash.png" width="27" /></label></span>
+								 <label for="indoor"><span onclick="filterParkings();" class="bordered1"><img src="/static/test/img/car_home.png" width="27" /></span></label></span>
+								</li>-->
+								<div class="currentParkings">
+								</div>
+							</ul>
+						</div><!-- /gn-scroller -->
+					</nav>
+				</li>
+				<li><a href="http://www.parkingsector.bg" style="background: #FFF;"><img style="margin-top: 3px;" src="/static/imgs/logo_web.png" /></a></li>
+				
+			</ul>
+				
+		</div><!-- /container -->
+
+		</div>
+		<script src="/static/test/js/classie.js"></script>
+		<script src="/static/test/js/gnmenu.js"></script>
+		<script>
+			var leftMenu = new gnMenu( document.getElementById( 'gn-menu' ) );
+		</script>
+		<script src="/static/js/findparking.js" type="text/javascript"></script>
+			<script>
+				var map;
+				var markers = [];
+				var locationSelect;
+				var geocoder = new google.maps.Geocoder();
+				var ib;
+				var parkings = [];
+				var excluded = [];
+				var features = [];
+				var paymentMethods = [];
+				var allParkings = [];
+				var handlers = [];
+				var address;
+				var markerCenter;
+				
+		// defines if there is a place that matches the address
+				function searchLocations() {
+					if ("{{loadDefaultParkings}}" == "defaultSofia" || "{{geolocate}}" == "true") {
+						searchLocationsNear();
+						return;
+					} else {
+						$('.searchBar').val('{{address}}');
+						var address = '{{address}}';
+					}
+
+				}
+				
+				// finds locations near the address
+				function searchLocationsNear() {
+					if (parkings.length != 0)
+						clearLocations();
+					allParkings = parkings;
+					sortAscendingByPrice(allParkings);
+					displayFoundParkings(allParkings);
+					var bounds = new google.maps.LatLngBounds();
+					for (var i = 0, len = parkings.length; i < len; i++) {
+						createMarker(parkings[i], i);
+						bounds.extend(new google.maps.LatLng(parseFloat(parkings[i].lat), parseFloat(parkings[i].lng)));
+					}
+
+					lat = "{{lat}}";
+					lng = "{{lng}}";
+					map.setCenter(new google.maps.LatLng(lat, lng));
+					markerCenter = new google.maps.Marker({
+						map : map,
+						draggable : true,
+						position : new google.maps.LatLng(lat, lng)
+					});
+					google.maps.event.addListener(markerCenter, 'dragend', function() {
+						ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
+						map.setCenter(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
+					});
+
+					//displayNumberOfFoundParkings(parkings);
+					map.setZoom(16);
+
+					if ("{{chosenParking}}" != "")
+						triggerWindowForChosenParking("{{chosenParking.lat}}", "{{chosenParking.lng}}");
+				}
+				
+				// executes on page onload
+				function load() {
+					/*var options = {
+						componentRestrictions : {
+							country : "bg"
+						}
+					};
+					var input = (document.getElementById('adressBar'));
+					var autocomplete = new google.maps.places.Autocomplete(input, options);
+					closeFilters();
+					google.maps.event.addListener(autocomplete, 'place_changed', function() {
+						getCoords(autocomplete);
+						closeFilters();
+					});*/
+					//loadDateTimePickers();
+					map = new google.maps.Map(document.getElementById("map"), {
+						center : new google.maps.LatLng(42.7000, 23.3333),
+						zoom : 14,
+						mapTypeId : google.maps.MapTypeId.ROADMAP,
+						disableDefaultUI : true,
+						//panControl : true,
+						zoomControl : true,
+						zoomControlOptions : {
+							position : google.maps.ControlPosition.RIGHT_CENTER
+						},
+						mapTypeControl : true,
+						scaleControl : true,
+						streetViewControl : true,
+						streetViewControlOptions : {
+							position : google.maps.ControlPosition.RIGHT_CENTER
+						},
+						overviewMapControl : true
+					});
+
+					var trafficLayer = new google.maps.TrafficLayer();
+					trafficLayer.setMap(map);
+
+					ib = new InfoBox();
+
+					//colorNavElement();
+					//checkForSubscribe();
+					if ("{{geolocate}}"=="true"){
+						alert("{{parkings}}");
+						parseParkings(parkings);
+						parseFeatures(features);
+						parsePaymentMethods(paymentMethods);
+						searchLocations();
+						}
+					else{
+						searchLocations();
+						getSofiaParkings();
+						}
+					//displayNumberOfFoundParkings(parkings);
+					//setFocus();
+					google.maps.event.addListener(map, 'dragend', function() {
+						ajaxCall(map.getCenter().lat(), map.getCenter().lng());
+						markerCenter.setMap(null);
+						markerCenter = new google.maps.Marker({
+							map : map,
+							draggable : true,
+							position : new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
+						});
+
+						google.maps.event.addListener(markerCenter, 'dragend', function() {
+							ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
+							map.panTo(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
+						});
+					});
+				}
+				
+				function parseParkings(arr) {
+					{% for parking in parkings %}
+					var loadParking = new Object();
+					loadParking.id = "{{ parking.id }}";
+					loadParking.name = "{{parking.name}}";
+					loadParking.address = "{{parking.address}}";
+					loadParking.lat = parseFloat("{{parking.lat}}");
+					loadParking.lng = parseFloat("{{parking.lng}}");
+					loadParking.distance = distance("{{lat}}", "{{lng}}", "{{parking.get_lat}}", "{{parking.get_lng}}");
+					loadParking.capacity = "{{ parking.capacity }}";
+					loadParking.workFrom = (parseFloat("{{ parking.workFrom }}")).toFixed(2);
+					loadParking.workTo = (parseFloat("{{ parking.workTo }}")).toFixed(2);
+					loadParking.pricePerHour = "{{ parking.pricePerHour }}";
+					loadParking.paymentmethod = "{{ parking.paymentMethod }}";
+					loadParking.features = parseInt("{{ parking.features }}");
+					loadParking.availableSpaces = parseInt("{{ parking.availableSpaces }}");
+					arr.push(loadParking);
+					{% endfor %}
+				}
+
+				// retrievs all paymentMethods
+				function parsePaymentMethods(arr) {
+
+					{% for method in paymentMethods %}
+					var loadPMethod = new Object();
+					loadPMethod.parkingmeter = "{{method.parkingmeter}}";
+					loadPMethod.creditcard = "{{method.creditcard}}";
+					loadPMethod.cash = "{{method.cash}}";
+					arr.push(loadPMethod);
+					{% endfor %}
+				}
+
+				// retrievs all Features
+				function parseFeatures(arr) {
+					{% for feature in features %}
+					var loadFeature = new Object();
+					loadFeature.elCars = "{{feature.elCars}}";
+					loadFeature.security = "{{feature.security}}";
+					loadFeature.valet = "{{feature.valet}}";
+					loadFeature.discount = "{{feature.discount}}";
+					loadFeature.SUV = "{{feature.SUV}}";
+					loadFeature.motor = "{{ feature.motor }}";
+					loadFeature.carwash = "{{ feature.carwash }}";
+					loadFeature.handicap = "{{ feature.handicap }}";
+					loadFeature.personnel = "{{ feature.personnel }}";
+					loadFeature.indoor = "{{ feature.indoor }}";
+					loadFeature.id = "{{ feature.id }}";
+					arr.push(loadFeature);
+					{% endfor %}
+
+				}
+				
+				function markBooking(parkingId) {
+					$.ajax({
+						url : "/markBooking/",
+						type : 'POST', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						data : {
+							id : parkingId,
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+						dataType : 'html',
+						error : function(error) {
+
+							// Log any error.
+							console.log("ERROR:", error);
+
+						},
+					});
+				}
+				
+				function signIn() {
+					$.ajax({
+						url : "/signIn/",
+						type : 'POST', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						data : {
+							name : $('.sign-name').val(),
+							pass : $('.sign-pass').val(),
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+						dataType : 'html',
+
+						success : function(data) {
+							renderBookingMsg(data);
+						},
+						error : function(error) {
+
+							// Log any error.
+							console.log("ERROR:", error);
+
+						},
+					});
+				}
+				
+				function confirmBooking() {
+					var parking_id = $('#window-selected-id').attr('class');
+					var duration = $('.duration-time').val();
+					var arrival_time = $('.arrival-time').val();
+					var licence_plate = $('#license').html();
+					var new_plate = $('.licence-plate').val();
+
+					if(!checkForUnFilledInputs(parking_id, duration, arrival_time, licence_plate, new_plate)) return;
+					
+					if(new_plate!="")
+						var vehicle_plate = new_plate;
+					else
+						var vehicle_plate = $("#license option:selected").text();
+					
+					$.ajax({
+						url : "/confirmBooking/",
+						type : 'POST', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						data : {
+							parking_id : parking_id,
+							duration : duration,
+							arrival_time : arrival_time,
+							licence_plate : vehicle_plate,
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+						dataType : 'html',
+
+						success : function(data) {
+							renderConfirmMsg(data);
+						},
+						error : function(error) {
+							alert("Error occured on booking. Booking was not confirm. Please try again!");
+							// Log any error.
+							console.log("ERROR:", error);
+
+						},
+					});
+				}
+				
+				function checkForUnFilledInputs(parking_id, duration, arrival_time, licence_plate, new_plate){
+					if(parking_id == ""){
+						alert("Възникна грешка при запазване на място. Пробвайте отново!");
+						return false;
+					}
+					
+					if (duration==""){
+						alert("Трябва да отбележите времетраене!");
+						return false;
+					}
+					
+					if (arrival_time==""){
+						alert("Трябва да отбележите час на пристигане!");
+						return false;
+					}
+					
+					if (licence_plate==""){
+						if (new_plate==""){
+							alert("Трябва да отбележите регистрационен номер на колата!");
+							return false;
+						}
+					}
+					
+					return true;
+				}
+				
+				window.onload = function() {
+					//loadDatePickers();
+					load();
+				};
+			</script>		
+	</body>
+</html>

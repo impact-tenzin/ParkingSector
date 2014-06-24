@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/static/css/profile.css" >
+		<link rel="stylesheet" href="/static/bootstrap-3.1.1-dist/css/bootstrap.min.css">
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div>User:{{user.user}};USEREEE</div>
+			<div class="prices">
+				<div>
+					Ценоразпис
+				</div>
+				<div class="prices-table">
+					<div class="left"></div>
+					<div class="right"></div>
+				</div>
+			</div>
+			<div class="top-right-elements">
+				<div class="spaces-info">
+					<div class="available-spaces">Свободни места: 12</div>
+					<div class="reserved-spaces">Резервирани места: 4</div>
+					<a class="logout" href="/logout/" >Logout</a>
+				</div>
+				<div class="plus-minus-wrapper">
+					<div class="plus-button" onclick="leavingDriver();"><span class="glyphicon glyphicon-plus"></span></div>
+					<div class="minus-button" onclick="arrivingDriver();"><span class="glyphicon glyphicon-minus"></span></div>
+				</div>
+			</div>
+			<div class="management-panel">
+				<div class="labels">
+					<span class="reg-label">Регистрационен номер</span>
+					<span class="time-label">Час на пристигане</span>
+					<span class="duration-label">Продължителност</span>
+					<span class="price-label">Цена</span>
+					<span class="status-label">Статус</span>
+				</div>
+				<div class="reserved-parkingspots">
+					<div class="parking-spot">
+						<span class="reg-number">CT123G</span>
+						<span class="arrival-time">27.05.2014 14:30</span>
+						<span class="duration">2 часа</span>
+						<span class="price"><a>Ценоразпис</a></span>
+						<span class="status">
+							<button value="Паркирал">Паркирал</button>
+							<button value="Напуснал">Напуснал</button>
+						</span>
+					</div>
+					<div class="parking-spot">
+						<span class="reg-number">CT123G</span>
+						<span class="arrival-time">27.05.2014 14:30</span>
+						<span class="duration">2 часа</span>
+						<span class="price"><a>Ценоразпис</a></span>
+						<span class="status">
+							<button value="Паркирал">Паркирал</button>
+							<button value="Напуснал">Напуснал</button>
+						</span>
+					</div>
+					<div class="parking-spot">
+						<span class="reg-number">CT123G</span>
+						<span class="arrival-time">27.05.2014 14:30</span>
+						<span class="duration">2 часа</span>
+						<span class="price"><a>Ценоразпис</a></span>
+						<span class="status">
+							<button value="Паркирал">Паркирал</button>
+							<button value="Напуснал">Напуснал</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function leavingDriver() {
+				var parkingId = '{{client.parking_id}}';
+					$.ajax({
+						url : "/leavingDriver/",
+						type : 'POST', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						data : {
+							id : parkingId,
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+						dataType : 'html',
+						error : function(error) {
+
+							// Log any error.
+							console.log("ERROR:", error);
+
+						},
+					});
+				}
+				
+				function arrivingDriver() {
+					$.ajax({
+						url : "/arrivingDriver/",
+						type : 'POST', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						data : {
+							id : "{{client.parking_id}}",
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+						dataType : 'html',
+						error : function(error) {
+
+							// Log any error.
+							console.log("ERROR:", error);
+
+						},
+					});
+				}
+		</script>
+	</body>
+</html>

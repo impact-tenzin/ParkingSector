@@ -1,0 +1,272 @@
+@font-face {
+    font-family: Orpheus;
+    src: url(fonts/Orpheus.otf) format("truetype");
+}
+body, html {
+	height: 100%;
+	width: 100%;
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 700;
+}
+h1{
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000 !important; 
+}
+.lead {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.intro-header {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+	background: url(../img/336727.jpg) no-repeat center center;
+	background-size: cover;
+	text-align: center;
+}
+
+.intro-message {
+	position: relative;
+	padding-top: 20%;
+	padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+	margin: 0;
+	margin-top: -50px;
+	font-size: 4.7em;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.intro-divider {
+	width: 400px;
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.intro-message > h3 {
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 767px) {
+	.intro-message {
+		padding-bottom: 15%;
+	}
+
+	.intro-message > h1 {
+		font-size: 3em;
+	}
+
+	ul.intro-social-buttons > li {
+		display: block;
+		margin-bottom: 20px;
+		padding: 0;
+	}
+
+	ul.intro-social-buttons > li:last-child {
+		margin-bottom: 0;
+	}
+
+	.intro-divider {
+		width: 100%;
+	}
+}
+
+.network-name {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: 2px;
+}
+
+.content-section-a {
+	background-color: #f8f8f8;
+	padding: 50px 0;
+}
+
+.content-section-b {
+	border-top: 1px solid #e7e7e7;
+	border-bottom: 1px solid #e7e7e7;
+	padding: 50px 0;
+}
+
+.section-heading {
+	margin-bottom: 30px;
+}
+
+.section-heading-spacer {
+	border-top: 3px solid #e7e7e7;
+	width: 200px;
+	float: left;
+}
+
+.banner {
+	padding: 100px 0;
+	color: #f8f8f8;
+	background: url(../img/map_sofia.jpg) no-repeat center center;
+	background-size: cover;
+}
+
+.banner h2 {
+	margin: 0;
+	text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.6);
+	font-size: 3em;
+	color: #F0F0F0;
+}
+
+.banner ul {
+	margin-bottom: 0;
+}
+
+.banner-social-buttons {
+	float: right;
+	margin-top: 0;
+}
+
+@media (max-width: 1199px) {
+	ul.banner-social-buttons {
+		float: left;
+		margin-top: 15px;
+	}	
+}
+
+@media (max-width: 767px) {
+	.banner h2 {
+		margin: 0;
+		text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+		font-size: 3em;
+	}
+
+	ul.banner-social-buttons > li {
+		display: block;
+		margin-bottom: 20px;
+		padding: 0;
+	}
+
+	ul.banner-social-buttons > li:last-child {
+		margin-bottom: 0;
+	}	
+}
+
+footer {
+	background-color: #f8f8f8;
+	padding: 50px 0;
+}
+
+p.copyright {
+	margin: 15px 0 0;
+}
+
+/*Searchfield*/	.searchbox{		margin-top: 20px;	}	.searchbox input[type=text] {	background: #FFFFFF;	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;	font-weight: 400;	border: 0;	border-radius:0 !important;	text-align: left;	vertical-align: middle;	margin-bottom:0 !important;	min-width: 290px !important;	margin-top: -16px;	padding-left: 20px;	}	.searchbox input[type=text]:focus {	background: #43413e;	color: #eff1ef;	transition: background 0.25 ease-in;	-moz-transition: background 0.25 ease-in;	-webkit-transition: background 0.25 ease-in;	}	.searchbox input[type=text] {	height: 2.9em;	width:50%;	border-radius: none;	color: #43413e;	font-size: 18px;	text-transform: uppercase;	font-weight: 400;	letter-spacing: 0px;	}.searchbox div {	display: inline-block;	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;	font-weight: 700;	color: #fff;	width: 63px;	height: 52px;	font-size: 32px; /* 21px */	padding:0.5em;	padding-top: 2px;	letter-spacing: 0.05em;	margin-top: 1px;	border: 0;	text-transform: none;	border-radius: none !important;	background: #f0bf00 !important;}.searchbox input[type=submit]:hover, #headerwrap input[type=submit]:active {	background: #43413e !important;}
+/*Flat Colors*/
+.alyzarin{
+background: #e74c3c !important;
+}
+.alyzarin:hover{
+background: #c0392b !important;
+}
+.emerald{
+background: #2ecc71 !important;
+}
+.emerald:hover{
+background: #27AE60 !important;
+}
+.amethyst{
+background: #9B59B6 !important;
+}
+.amethyst:hover{
+background: #8e44ad !important;
+}
+.petermannriver{
+background: #3498DB !important;
+}
+.petermannriver:hover{
+background: #2980B9 !important;
+}
+.sunflower{
+background: #eec500 !important;
+}
+.sunflower:hover{
+background: #f09e00 !important;
+}
+.btn-one
+{
+	color: #d94850 !important;
+}
+.btn-two
+{
+	color: #56b6d4 !important;
+}
+.btn-three
+{
+	color: #2d3441 !important;
+}
+/*End Colors*/
+.entries{
+	background: #56b6d4;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+.entries h4{
+	text-align: center;
+	color: #FFF;
+	font-size: 22px;
+}
+.number{
+	color:  #2d3441;
+}
+/*Columns*/
+.services {
+  background: #F0F0F0;
+  padding: 50px 0;
+  color: #ffffff;
+  margin-bottom: 80px;
+}
+.services h2{
+	color: #4f545c;
+}
+.services hr{
+display: block; height: 1px;
+    border: 0; border-top: 1px solid #4f545c;
+    margin: 1em 0; padding: 0;
+}
+.service-item {
+  padding-bottom: 80px;
+  padding-top: 80px;
+}
+.service-item p{
+	font-size: 16px;
+}
+
+i.service-icon {
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 56px;
+  width: 140px;
+  height: 140px;
+  line-height: 136px;
+  vertical-align: middle; 
+  text-align: center;
+}
+.alyzarin2{
+background: #e74c3c !important;
+}
+.emerald2{
+background: #2ecc71 !important;
+}
+.petermannriver2{
+background: #3498DB !important;
+}
+.sunflower2{
+background: #eec500 !important;
+}/*Subscribe Box*/.subscribeBox {	position: relative;	margin: 0 auto;	margin-top: 15%;	max-width: 500px;	background-color: rgba(255,255,255,0.8);	border-radius: none;	border: 1px solid #000000;	padding: 10px 25px 20px 25px;	z-index: 5;		margin-bottom: 216px;}.top-label {	color: #666666;	font-size: 22px;	text-align: center;}.under-label-line {	border-bottom: 1px solid  #43413e;}.msg {	margin-top: 10px;	color: #777 !important;}.sub-wrapper {	margin-top: 30px;}.sub-name, .sub-email {	max-width: 100%;	max-height: 65px;	margin-top: 5px;		height: 50px;		border-radius: 0px !important;}.subscribeButton {	position: relative;	margin: 10px auto;	top: 10px;	max-width: 498px;	max-height: 35px;	line-height: 35px;	text-align: center;	font-size: 21px;	color: #F0F0F0;	background-color: #eec500;	border-radius: none;}.subscribeButton:hover, .subscribeButton:focus{	background-color: #43413e;	cursor: pointer;}/*Header*/ul.intro-social-buttons li a{	color: #D9D9D9 !important;	border: 1px solid #DDD !important;}

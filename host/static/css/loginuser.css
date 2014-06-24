@@ -1,0 +1,101 @@
+body, html {
+	height: 100%;
+	width: 100%;
+}
+.login_client{
+	background-color: #e0e0e0 !important;
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+	background-size: cover;
+	text-align: center;
+}
+.login{
+	margin-top: 0px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background: #459f86;
+}
+.login h1{
+	color: #ffffff;
+	border: 0px !important;
+	text-shadow: none !important;
+	font-size: 24px;
+}
+/*Loginfield*/
+	.loginbox{
+		margin-top: 20px;
+	}
+	.loginbox input[type=text] {
+	background: #FFFFFF;
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 100;
+	border: 1px solid #dddddd;
+	border-radius:0 !important;
+	text-align: left;
+	vertical-align: middle;
+	margin-bottom:0 !important;
+	min-width: 270px !important;
+	margin-top: 20px;
+	padding-left: 20px;
+	}
+	/*.loginbox input[type=text]:focus {
+	background: #43413e;
+	color: #eff1ef;
+	transition: background 0.25 ease-in;
+	-moz-transition: background 0.25 ease-in;
+	-webkit-transition: background 0.25 ease-in;
+	}*/
+	.loginbox input[type=text] {
+	height: 3.2em;
+	width:50%;
+	border-radius: none;
+	color: #9c9b9b;
+	font-size: 18px;
+	font-weight: 100;
+	letter-spacing: 0px;
+	}	.loginbox input[type=password] {	background: #FFFFFF;	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;	font-weight: 100;	border: 1px solid #dddddd;	border-radius:0 !important;	text-align: left;	vertical-align: middle;	margin-bottom:0 !important;	min-width: 270px !important;	margin-top: 20px;	padding-left: 20px;	}	/*.loginbox input[type=text]:focus {	background: #43413e;	color: #eff1ef;	transition: background 0.25 ease-in;	-moz-transition: background 0.25 ease-in;	-webkit-transition: background 0.25 ease-in;	}*/	.loginbox input[type=password] {	height: 3.2em;	width:50%;	border-radius: none;	color: #9c9b9b;	font-size: 18px;	font-weight: 100;	letter-spacing: 0px;	}
+.loginbox button {
+	display: inline-block;
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 600;
+	color: #fff;
+	width: 163px;
+	height: 52px;
+	font-size: 24px; /* 21px */
+	padding:0.5em;
+	padding-top: 6px;
+	letter-spacing: 0.05em;
+	margin-top: 20px;
+	border: 0;
+	text-transform: none;
+	border-radius: none !important;
+	background: #4fc5ad !important;
+	border-bottom: 2px solid #3a8974;
+}
+.login a{
+	color: #ffffff;
+}
+.submit:hover{
+	cursor: pointer;
+	background: #848484 !important;
+}
+.loginbox input[type=submit]:hover {
+	background: #43413e !important;
+}
+.users{
+	font-size: 120px;
+	color: #ffffff;
+}
+.btn-one
+{
+	color: #d94850 !important;
+}
+.btn-two
+{
+	color: #56b6d4 !important;
+}
+.btn-three
+{
+	color: #2d3441 !important;
+}	

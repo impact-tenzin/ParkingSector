@@ -1,0 +1,469 @@
+.controls {
+	margin-top: 16px;
+	border: 1px solid transparent;
+	border-radius: 2px 0 0 2px;
+	box-sizing: border-box;
+	moz-box-sizing: border-box;
+	height: 32px;
+	outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.pac-container {
+	font-family: Roboto;
+}
+
+#type-selector {
+	color: #fff;
+	background-color: #4d90fe;
+	padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+	font-family: Roboto;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+#searchPlaceAndPromoEvent {
+	position: relative;
+	margin-top: 10px;
+	width: 960px;
+	height: auto;
+	float: left;
+}
+
+#searchPlace {
+	background: url('/static/imgs/searchPanel.png') no-repeat;
+	width: 529px;
+	height: 211px;
+	float: left;
+	margin: 0px;
+}
+#promoEvent {
+	background: url('/static/imgs/Event panel.png') no-repeat;
+	text-align: center;
+	width: 412px;
+	height: 211px;
+	margin-left: 17px;
+	float: left;
+}
+#fromTo {
+	margin-top: 17px;
+	margin-left: 16.5px;
+	width: 470px;
+}
+#to {
+	margin-left: 245px;
+}
+#from, #to {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#recommendedParkings, #recommended, #searchPlaceAndPromoEvent, #navigationMenu {
+	font-family: Arial, Helvetica, sans-serif;
+}
+#id_from_period, #id_to_period {
+	margin-left: 6px;
+}
+
+#id_to_hour {
+	margin-left: 47px;
+}
+#id_from_date, #id_to_date {
+	background: url('/static/imgs/calendar.png') no-repeat;
+	background-position: right 2px center;
+	width: 94px;
+	border: none;
+	margin-left: 10px;
+}
+.hasDatePicker {
+	height: 16px;
+}
+#id_from_hour, #id_to_hour, #id_from_period, #id_to_period {
+	width: 45px;
+	height: 23px;
+	border: none;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 0.01px;
+	text-overflow: '';
+	background: url('/static/imgs/Arrow.png') no-repeat;
+	background-position: right 5px center;
+}
+select::-ms-expand {
+	display: none;
+}
+#findParkingLines {
+	font-size: 20px;
+	text-align: left;
+	padding-left: 18px;
+	margin-top: 10px;
+	height: 25px;
+	width:511px;
+}
+#findParkingLines b{
+	width:413px;
+	height:24px;
+}
+#id_address {
+	margin-left: 18px;
+	margin-top: 3.5px;
+	width: 455px;
+	height: 30px;
+	font-size: 16px;
+	border-radius: 4px 4px;
+	padding-left: 10px;
+	border: none;
+	outline: none;
+}
+#fastChoice {
+	text-align: left;
+	font-size: 12px;
+	margin: 20px 0 0 10px;
+	float: left;
+	width: 960px;
+}
+#destination {
+	font-size: 12px;
+	margin-left: 18px;
+	margin-top: 22.9px;
+	height: 15px;
+}
+
+#recommendedParkings {
+	position: relative;
+	width: 960px;
+	height: auto;
+	margin-top: 10px;
+	float: left;
+}
+.fourLine {
+	width: 960px;
+	height: 190px;
+}
+#first, #second, #third, #fourth {
+	background: url('/static/imgs/parkingAdd.png') no-repeat;
+	float: left;
+	width: 227px;
+	height: 190px;
+}
+
+#first, #second, #third {
+	margin-right: 17px;
+}
+
+#submitButton {
+	margin-top: 12px;
+	margin-left: 388px;
+	width: 100px;
+}
+#button {
+	margin-top: 10px;
+	height: 82px;
+}
+.info {
+	width: 227px;
+	height: 190px;
+}
+.address {
+	margin: 5px 5px 5px 5px;
+	font-size: 14px;
+	color: white;
+	height: 16px;
+}
+.smallAddress {
+	margin: 2px 5px 2px 5px;
+	font-size: 10px;
+	color: white;
+	height:26px;
+}
+.price {
+	float: left;
+	margin-left: 15px;
+	color: black;
+	font-size: 17px;
+}
+.priceTag {
+	margin-left: 5px;
+	float: left;
+	font-size: 15px;
+	color: white;
+}
+.capacity {
+	float: right;
+	margin-right: 5px;
+	font-size: 17px;
+}
+.capacityTag {
+	float: right;
+	margin-right: 15px;
+	font-size: 15px;
+	color: white;
+}
+.parkingImg {
+	margin: 4px 0 0 4px;
+	width: 219px;
+	height: 138px;
+}
+#informationDiv {
+	margin-top: 15px;
+	float: left;
+	width: 960px;
+}
+#infoWhy, #infoWhat, #infoHow {
+	background: url('/static/imgs/WHW_tile.png') no-repeat;
+	width: 302px;
+	height: 236px;
+	float: left;
+}
+#infoWhy, #infoWhat {
+	margin-right: 26px;
+}
+.infoTitle {
+	margin: 2px 0 0 25px;
+	color: white;
+	height: 20px;
+	width: 165px;
+	text-align: center;
+}
+#imgs {
+	width: 50px;
+	height: 190px;
+	margin: 15px 0 0 5px;
+	float: left;
+}
+#dollar, #clock, #gas, #smile {
+	float: left;
+	margin: 0 0 7px 10px;
+}
+#dollar {
+	background: url('/static/imgs/dollar.png') no-repeat;
+	padding: 20px;
+}
+#clock {
+	background: url('/static/imgs/clock.png') no-repeat;
+	padding: 20px;
+}
+#gas {
+	background: url('/static/imgs/oil_drop.png') no-repeat;
+	padding: 20px;
+	margin-left: 15px;
+}
+#smile {
+	background: url('/static/imgs/smile.png') no-repeat;
+	padding: 20px;
+}
+#ticks {
+	width: 50px;
+	height: 150px;
+	margin: 45px 0 0 10px;
+	float: left;
+}
+#ticks span {
+	background: url('/static/imgs/tick_home.png') no-repeat;
+	float: left;
+	padding: 20px;
+	margin-bottom: 30px;
+}
+#text1 {
+	margin: 35px 0 0 0;
+	width: 230px;
+	float: left;
+	height: 57px;
+}
+#text2 {
+	margin: 15px 0 0 0;
+	float: left;
+	width: 230px;
+	height: 57px;
+}
+#text3, #text4, #text5, #text6 {
+	margin: 8px 0 0 0;
+	float: left;
+	width: 230px;
+	height: 38px;
+}
+#text3 {
+	width: 200px;
+}
+#created {
+	margin: 15px 0 0 8px;
+}
+.sector {
+	color: rgb(27,162,217);
+}
+#imgs2 {
+	width: 60px;
+	height: 150px;
+	margin: 5px 0 0 30px;
+	float: left;
+}
+#pointer {
+	background: url('/static/imgs/pointer_home.png') no-repeat;
+	padding: 25px;
+	float: left;
+	margin-top: 15px;
+}
+#tick {
+	background: url('/static/imgs/circle_tick_home.png') no-repeat;
+	padding: 20px;
+	float: left;
+	margin: 20px 0 0 7px;
+}
+#text7 {
+	margin: 10px 0 0 0;
+	float: left;
+	width: 200px;
+	height: 57px;
+}
+#text8 {
+	margin: 8px 0 0 0;
+	float: left;
+	width: 200px;
+	height: 57px;
+}
+#environmentInfo {
+	margin: 10px 0 0 0;
+	width: 960px;
+	float: left;
+}
+.envLine {
+	margin: 10px 0 0 270px;
+	width: 500px;
+	font-size: 20px;
+	float: left;
+}
+#air, #traffic, #co2 {
+	float: left;
+	width: 217px;
+	height: 217px;
+	margin: 20px 0 0 80px;
+	background: url('/static/imgs/environment_circle.png') no-repeat;
+}
+#airImage, #trafficImage, #co2Image {
+	width: 217px;
+	height: 217px;
+	margin: 3px 0 0 3px;
+}
+#airImage {
+	background: url('/static/imgs/forest1.png') no-repeat;
+}
+#trafficImage {
+	background: url('/static/imgs/city2.png') no-repeat;
+}
+#co2Image {
+	background: url('/static/imgs/air.png') no-repeat;
+}
+#explain {
+	width: 960px;
+	float: left;
+	margin: 10px 0 0 0;
+}
+#explain div {
+	color: rgb(27,162,217);
+	font-size: 19px;
+	float: left;
+}
+#airLine {
+	margin-left: 80px;
+	width: 230px;
+}
+#trafficLine {
+	margin-left: 80px;
+	width: 220px;
+}
+#co2Line {
+	margin-left: 80px;
+	width: 220px;
+}
+.dotbg {
+	color: black;
+}
+.newsFeed {
+	margin: 10px 0 0 10px;
+	width: 390px;
+	height: 180px;
+}
+#previous {
+	float: left;
+	width: 10px;
+	height: 15px;
+	margin: 1px 5px 0 185px;
+	background: url('/static/imgs/Arrow.png') no-repeat;
+	background-position: right center;
+}
+#next {
+	float: left;
+	width: 10px;
+	height: 15px;
+	margin: 1px 175px 0 10px;
+	background: url('/static/imgs/arrowInverted.png') no-repeat;
+	background-position: left center;
+}
+#firstImage, #secondImage, #thirdImage, #fourthImage {
+	width: 227px;
+	height: 142px;
+}
+//
+ssss
+
+#news {
+	width: 390px;
+	height: 165px;
+	box-shadow: 0 5px 15px #013;
+	float: left;
+	margin: 5px 0 0 10px;
+}
+#carousel {
+	width: 217px;
+	height: 217px;
+	overflow: hidden;
+}
+
+#pager {
+	text-align: right;
+	margin: 5px 180px 0 180px;
+}
+#pager a {
+	float: left;
+	background-color: rgb(27,162,217);
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	margin-right: 6px;
+	border-radius: 10px;
+	box-shadow: 0 1px 1px #cef;
+}
+#pager a.selected {
+	background-color: rgb(3, 2, 10);
+}
+#pager a span {
+	display: none;
+}
+
+#pager1 {
+	float: center;
+	margin: 10px 180px 0 450px;
+}
+#pager1 a {
+	float: left;
+	background-color: rgb(27,162,217);
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin-right: 6px;
+	border-radius: 10px;
+	box-shadow: 0 1px 1px #cef;
+}
+#pager1 a.selected {
+	background-color: rgb(3, 2, 10);
+}
+#pager1 a span {
+	display: none;
+}
+.priceCap {
+	float: left;
+	width: 227px;
+}

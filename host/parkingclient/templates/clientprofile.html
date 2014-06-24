@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ParkingSector | Admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="/static/css/style_admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/test/font-awesome-4.1.0/css/font-awesome.min.css">
+  </head>
+
+  <body>
+
+    <div id="wrapper">
+      <nav class="navbar navbar-inverse navbar-fixed-top clear" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="admin.html">ParkingSector.bg</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+
+          <ul class="nav navbar-nav navbar-right navbar-user" id="user">
+            <li class="dropdown user-dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			  {% if user.is_authenticated %}
+									 <i class="fa fa-user"></i>{{ user.username }}<b class="caret"></b>
+								{% else %}
+									 <i class="fa fa-user"></i>Logout<b class="caret"></b>
+								{% endif %}			  
+			  </a>
+              <ul class="dropdown-menu">
+                <li><a href="/logout/"><i class="fa fa-power-off"></i> Излез</a></li>
+              </ul>
+            </li>
+          </ul>
+		</nav>
+        </div><!-- /.navbar-collapse -->
+
+
+      <div id="page-wrapper">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h1><small>Добре дошли в Административния панел. <br></small></h1>
+          </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h2>Паркирали коли</h2><br><br><span class="freeSpaces">Свободни места: <span class="spaces">0</span> <button onclick="increaseNumber();"><i class="fa fa-plus"></i></button><button onclick="decreaseNumber();"><i class="fa fa-minus"></i></button></span>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-striped tablesorter" id="table">
+                <thead>
+                  <tr>
+                    <th class="emerald_light"><i class="fa fa-car"></i> Регистрационен номер <i class="fa fa-sort"></i></th>
+                    <th class="alyzarin_light"><i class="fa fa-clock-o"></i> Час на пристигане <i class="fa fa-sort"></i></th>
+                    <th class="petermannriver_light"><i class="fa fa-circle-o-notch"></i> Продължителност <i class="fa fa-sort"></i></th>
+                    <th class="sunflower_light"><i class="fa fa-money"></i> Цена <i class="fa fa-sort"></i></th>
+					<th class="clouds"><i class="fa fa-square-o"></i> Статус <i class="fa fa-sort"></i></th>
+                  </tr>
+                </thead>
+                <tbody id="table-body">
+                  <!--<tr id="tableRow">
+                    <td>CT123G</td>
+                    <td><i class="fa fa-clock-o"> 27.05.2014 14:30</td>
+                    <td>2 часа</td>
+                    <td>5.00 лева</td>
+					<td><button class="emerald button" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+                  <tr id="tableRow1">
+                    <td>KT123G</td>
+                    <td><i class="fa fa-clock-o"> 27.05.2014 14:30</td>
+                    <td>2 часа</td>
+                    <td>5.00 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+				  <tr>
+                    <td>CT123G</td>
+                    <td><i class="fa fa-clock-o"> 27.05.2014 16:30</td>
+                    <td>1 часа</td>
+                    <td>2.00 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+				  <tr>
+                    <td>В123G</td>
+                    <td><i class="fa fa-clock-o"> 27.05.2014 12:30</td>
+                    <td>5 часа</td>
+                    <td>3.00 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+				  <tr>
+                    <td>М123G</td>
+                    <td><i class="fa fa-clock-o"> 01.05.2014 14:30</td>
+                    <td>2 часа</td>
+                    <td>5.00 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+				  <tr>
+                    <td>СА123G</td>
+                    <td><i class="fa fa-clock-o"> 25.05.2014 16:30</td>
+                    <td>2 часа</td>
+                    <td>3.00 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+				  <tr>
+                    <td>КТ123G</td>
+                    <td><i class="fa fa-clock-o"> 27.05.2014 14:30</td>
+                    <td>6 часа</td>
+                    <td>9.00 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+				  <tr>
+                    <td>М123G</td>
+                    <td><i class="fa fa-clock-o"> 01.05.2014 14:30</td>
+                    <td>2 часа</td>
+                    <td>5.00 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+				  <tr>
+                    <td>СА123G</td>
+                    <td><i class="fa fa-clock-o"> 25.05.2014 16:30</td>
+                    <td>2 часа</td>
+                    <td>3.00 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>
+				  <tr>
+                    <td>КТ123G</td>
+                    <td><i class="fa fa-clock-o"> 27.05.2014 14:30</td>
+                    <td>6 часа</td>
+                    <td>9.50 лева</td>
+					<td><button class="emerald" value="Паркирал">Паркирал <i class="fa fa-check"></i></button><button onclick="removeParking(this);" class="alyzarin" id="button" value="Напуснал">Напуснал <i class="fa fa-times"></i></button></td>
+                  </tr>	-->			  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div><!-- /.row -->
+
+      </div><!-- /#page-wrapper -->
+
+
+    <!-- JavaScript -->
+    <script src="/static/js/jquery-1.10.2.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+
+    <!-- Page Specific Plugins -->
+    <script src="/static/js/tablesorter/jquery.tablesorter.js"></script>
+    <script src="/static/js/tablesorter/tables.js"></script>
+	<script>
+		var currentRequests = [];
+		function getParkingRequests() {
+				$.ajax({
+					url : "/getParkingRequests/",
+					type : 'GET', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					dataType : 'json',
+
+					success : function(requests) {
+						//parseData(currentReqeusts, data);
+						manageData(requests);
+						updateTableSorter();
+					},
+					error : function(error) {
+
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
+			}
+			
+			function manageData(requests) {
+				if (currentRequests.length == 0) {
+					for (var i = 0, len = requests.length; i < len; i++) {
+						addRequest(requests[i]);
+						currentRequests.push(requests[i]);
+					};
+				} else {	
+					for (var i=0,len = currentRequests.length; i < len; i++) {
+					  	for (var j=0,len2 = requests.length; j < len2; j++) {
+							if(currentRequests[i].fields['user_id']==requests[j].fields['user_id'])
+							{
+								//console.log(currentRequests[i].fields['user_id']);
+								//console.log(requests[j].fields['user_id']);
+								var index=requests.indexOf(requests[j]);
+								requests.splice(index,1);
+								len2 = requests.length;
+								j=j-1;
+								//console.log(requests.length);
+							}
+						};
+					};
+					//console.log("after "+requests.length);
+					for (var i=0,len = requests.length; i < len; i++) {
+						addRequest(requests[i]);
+						currentRequests.push(requests[i]);
+					};
+					//currentRequests = currentRequests.concat(toBeAdded);
+				}
+			}
+			/*else {
+					toBeAdded = [];			
+					for (var i=0,len = currentRequests.length; i < len; i++) {
+					  	toBeAdded = requests.filter(function(request){
+					  		return (request.fields['user_id']!= currentRequests[i].fields['user_id']);
+					  	});
+						requests=toBeAdded;
+					};*/
+		function removeParking(self)
+		{
+			var list = document.getElementById('table-body');
+			var toBeRemoved = self.parentNode.parentNode;
+			var pk = parseInt(toBeRemoved.id)
+			list.removeChild(toBeRemoved);
+			for (var i=0, len = currentRequests.length; i < len; i++) {
+			  	if (currentRequests[i].pk==pk)
+			  	{
+					var index= currentRequests.indexOf(currentRequests[i]);
+					currentRequests.splice(index,1);
+			  		break;
+			  	}
+			};
+			//alert(1);
+			//alert(currentRequests.length + " "+currentRequests[0].fileds['licence_plate']);
+			//alert(currentRequests.splice(toRemove,1));
+			deleteFromDatebase(pk);
+			updateTableSorter();
+		}
+		
+		function deleteFromDatebase(id)
+		{
+				$.ajax({
+					url : "/deleteBooking/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					dataType : 'html',
+					data : {
+							booking_id : id,
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+					error : function(error) {
+
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
+		}
+		
+		//$(".tablesorter").tablesorter();
+		function addRequest(request)
+		{	
+			tr=document.createElement('tr');
+			tr.className=request.fields['user_id'];
+			tr.id=request.pk;
+			tr.innerHTML=
+				 " <td>"+request.fields['licence_plate']+"</td>"+
+                  "  <td><i class='fa fa-clock-o'>"+request.fields['arrival_time']+"</td>"+
+                  "  <td>"+request.fields['duration']+" часа</td>"+
+                  "  <td>"+request.fields['price_list']+" лева</td>"+
+					"<td><button onclick='alreadyParked(this);' class='emerald' value='Паркирал'>Паркирал <i class='fa fa-check'></i></button><button onclick='removeParking(this);' class='alyzarin' id='button' value='Напуснал'>Напуснал <i class='fa fa-times'></i></button></td>"
+					;
+			//alert("in");
+			document.getElementById('table-body').appendChild(tr);
+		}
+		
+		function updateTableSorter()
+		{
+			$(".tablesorter").trigger("update");
+			var sorting = [[[0,0]]];
+			$(".tablesorter").trigger("sorton",[sorting]);
+		}
+		/*function addEls()
+		{	
+			i++;
+			tr=document.createElement('tr');
+			tr.innerHTML=
+				 " <td>М123G</td>"+
+                  "  <td><i class='fa fa-clock-o'> 01.05.2014 14:30</td>"+
+                  "  <td>"+i+" часа</td>"+
+                  "  <td>5.00 лева</td>"+
+					"<td><button onclick='alreadyParked(this);' class='emerald' value='Паркирал'>Паркирал <i class='fa fa-check'></i></button><button onclick='removeParking(this);' class='alyzarin' id='button' value='Напуснал'>Напуснал <i class='fa fa-times'></i></button></td>"
+					;
+		
+			document.getElementById('table-body').appendChild(tr);
+			$(".tablesorter").trigger("update");
+			var sorting = [[[0,0]]];
+			$(".tablesorter").trigger("sorton",[sorting]);
+		}*/
+		
+		function increaseNumber()
+		{
+			$('.spaces').html(parseInt($('.spaces').html())+1);
+		}
+		
+		function decreaseNumber()
+		{
+			if(parseInt($('.spaces').html())>0)
+				$('.spaces').html(parseInt($('.spaces').html())-1);
+		}
+		
+		function alreadyParked(self)
+		{
+			self.parentNode.parentNode.className="checked";
+		}
+		setInterval(function(){getParkingRequests();}, 3000);
+	</script>
+  </body>
+</html>

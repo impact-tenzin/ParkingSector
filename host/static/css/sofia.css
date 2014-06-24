@@ -1,0 +1,93 @@
+.summaryLines {
+	margin: 0px;
+}
+#parkingRegions {
+	margin-top: 15px;
+	display: block;
+}
+.sectionHeading {
+	margin-top: 10px;
+	font-size: 20px;
+	padding-bottom: 5px;
+	background: url('/static/imgs/Line.png') no-repeat;
+	background-position: bottom;
+	width: 470px;
+	height: 20px;
+	float: left;
+}
+
+#blueAndGreenZones {
+	margin-top: 10px;
+	width: 960px;
+	height: auto;
+	float: left;
+}
+#blueZone {
+	background: url('/static/imgs/bluePanel.png') no-repeat;
+	background-position: top;
+	width: 456px;
+	height: 420px;
+	float: left;
+}
+#greenZone {
+	float: left;
+	margin-left: 48px;
+	background: url('/static/imgs/greenPanel.png') no-repeat;
+	background-position: top;
+	width: 456px;
+	height: 420px;
+}
+.headings {
+	margin: 4px 0 0 10px;
+	font-size: 20px;
+}
+#finesAndNotifications {
+	margin-top: 10px;
+	width: 960px;
+	height: auto;
+	float: left;
+}
+#fines, #notifications {
+	background: url('/static/imgs/silverPanel.png') no-repeat;
+	background-position: top;
+	width: 456px;
+	height: 320px;
+	float: left;
+}
+#notifications {
+	margin-left: 48px;
+}
+#blueZoneInfo, #greenZoneInfo, #finesInfo, #notificationsInfo {
+	margin-top: 10px;
+}
+#fineParks {
+	width: 960px;
+	height: auto;
+	margin-top: 20px;
+	float: left;
+}
+.finePark {
+	width: 280px;
+	height: 250px;
+	border: 1px solid black;
+	margin-right: 20px;
+	float: left;
+}
+#addresses {
+	float: left;
+}
+#addresses span {
+	margin-right: 120px;
+}
+#findCar {
+	margin-top: 20px;
+	float: left;
+	width: 800px;
+	font-size: 20px;
+}
+#bottomRightInfo {
+	margin-top: 70px;
+	width: 450px;
+	float: right;
+	font-size: 18px;
+}
