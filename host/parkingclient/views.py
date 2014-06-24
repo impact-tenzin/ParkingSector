@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
-def LoginRequest(request, type):
+def login_request(request, type):
         if request.user.is_authenticated():
                 return HttpResponseRedirect('/profile/')
         if request.method == 'POST':
@@ -59,7 +59,7 @@ def LoginRequest(request, type):
                     return render_to_response('loginclient.html', context, context_instance=RequestContext(request))
 
 @login_required
-def Profile(request):
+def profile(request):
         if not request.user.is_authenticated():
             return HttpResponseRedirect('/login/')
         #client = request.user.get_profile
@@ -79,11 +79,11 @@ def Profile(request):
         
         return HttpResponseRedirect('/admin')
 
-def LogoutRequest(request):
+def logout_request(request):
         logout(request)
         return HttpResponseRedirect('/')
 
-def SaveParkingInfo(request):
+def save_parking_info(request):
         """
         save the date duration and the pricelist of the person leaving the parking
         who has booked his place from ParkingSector platform
@@ -126,7 +126,7 @@ def ArrivingDriver(request):
 """
 
 @csrf_exempt 
-def SignInBeforeBooking(request):
+def signin_before_booking(request):
     if request.is_ajax():
         username = request.POST['name']
         password = request.POST['pass']
@@ -144,7 +144,7 @@ def SignInBeforeBooking(request):
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
 
-def GetParkingRequests(request):
+def get_parking_requests(request):
     if request.is_ajax():
         if request.user.is_authenticated:
             parking_id = Client.objects.get(user=request.user.id).parking_id
@@ -156,7 +156,7 @@ def GetParkingRequests(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
-def BookParkingSpot(request):
+def booking_parkingspot(request):
     if request.is_ajax():
         if not request.user.is_authenticated():
             return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
@@ -168,7 +168,7 @@ def BookParkingSpot(request):
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
 @csrf_exempt
-def ConfirmBooking(request):
+def confirm_booking(request):
     if request.is_ajax():
         if request.user.is_authenticated():
             try:           

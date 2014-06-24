@@ -10,7 +10,7 @@ from home.models import Viewer
 from django.core import serializers
 from itertools import chain
 
-def FindParking(request):  
+def find_parking(request):  
     """
     function that take a request from the website
     and if request is GET then returns html with a form containing base values for 
@@ -57,7 +57,7 @@ def FindParking(request):
         """
 
 @csrf_exempt     
-def ajaxCall(request, latlng):
+def ajax_call(request, latlng):
     if request.is_ajax():
         lat = float(latlng.split('/')[0])
         lng = float(latlng.split('/')[1])
@@ -73,7 +73,7 @@ def ajaxCall(request, latlng):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
-def SofiaParkings(request):
+def sofia_parkings(request):
     if request.is_ajax():
         parkings = ParkingMarker.objects.filter(city__exact='София')
         features = [ParkingFeatures.objects.get(id=parking.features_id) for parking in parkings]
@@ -84,7 +84,7 @@ def SofiaParkings(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
-def markBooking(request):
+def mark_booking(request):
     if request.is_ajax():
         parking_id = request.POST['id']
         current_counter = int(ParkingMarker.objects.get(id=parking_id).bookingCounter)
@@ -94,7 +94,7 @@ def markBooking(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
     
-def saveViewer(request):
+def save_viewer(request):
     if request.is_ajax():
         try:
             email = request.POST['email']

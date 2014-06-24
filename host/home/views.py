@@ -64,7 +64,7 @@ def home_view(request):
     context = {'addressForm':address_form,'subscribeForm':subscribe_form,"counter":customers,}
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
-def increaseAroundMeStat():
+def increase_aroundme_stat():
     aroundMeStat = int(Statistics.objects.get(name__exact='findAroundMe').stat)
     aroundMeStat = aroundMeStat + 1
     Statistics.objects.filter(name__exact='findAroundMe').update(stat=aroundMeStat)
@@ -87,7 +87,7 @@ def distance(origin, destination):
 
     return d
 
-def increaseCustomer(request):
+def increase_customer(request):
     global customers
     if request.is_ajax():
         customers = int(Statistics.objects.get(name__exact='customers').stat)
@@ -106,7 +106,7 @@ def is_logged_in(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
-def homeBooking(request):
+def home_booking(request):
     if request.is_ajax():
         current_counter = int(Statistics.objects.get(name__exact='homeBooking').stat)
         current_counter = current_counter + 1
