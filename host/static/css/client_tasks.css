@@ -1,0 +1,26 @@
+.clientHolder{
+	text-align: center !important;
+}
+.clientHolder{
+	color: #313131;
+	
+}
+.client{
+	font-size: 30px;
+	display: inline-block;
+	float: left;
+	color: #fe9249;
+}
+.margin{
+	border: 4px solid #28b9e7;
+	margin-bottom: 4px;
+}
+.delete{
+	font-size: 20px;
+	color: #FFF;
+	border: 1px solid #DDD;
+	border-bottom: 2px solid #2d97be;
+	border-radius: 0px;
+	background: #2dbae8;
+	padding: 10px 20px 10px 20px;
+}
