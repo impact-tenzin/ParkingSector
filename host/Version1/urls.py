@@ -66,7 +66,7 @@ urlpatterns = patterns('',
                     auth_views.password_reset_confirm,
                     name='password_reset_confirm'),
       #and now add the registration urls
-    url(r'', include('registration.backends.default.urls')),
+    url(r'', include('registration.urls')),
     url(r'^useful/(?P<city>.*)$', 'useful.views.loadInfoForCity'),
              url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': settings.MEDIA_ROOT,
