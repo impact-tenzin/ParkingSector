@@ -30,6 +30,28 @@ body, html {
 .loginbox input[type=submit]:hover {
 	background: #43413e !important;
 }
+.loginbox button {
+    display: inline-block;
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    color: #FFF;
+    width: 163px;
+    height: 52px;
+    font-size: 24px;
+    padding: 6px 0.5em 0.5em;
+    letter-spacing: 0.05em;
+    margin-top: 20px;
+    border-width: 0px 0px 2px;
+    border-style: none none solid;
+    border-color: -moz-use-text-color -moz-use-text-color #B93E40;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    text-transform: none;
+    background: none repeat scroll 0% 0% #EB4141 !important;
+}
 .users{
 	font-size: 120px;
 	color: #ffffff;
