@@ -173,6 +173,9 @@
 						manageData(requests);
 						updateTableSorter();
 					},
+					complete : function(requests) {
+						setInterval(function(){getParkingRequests();}, 3000);
+					},
 					error : function(error) {
 
 						// Log any error.
