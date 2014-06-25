@@ -26,9 +26,11 @@ def login_request(request, type):
                                     login(request, reguser)
                                     return HttpResponseRedirect('/findparking/')
                                 except RegularUser.DoesNotExist:
-                                    return render_to_response('loginuser.html', {'form': form}, context_instance=RequestContext(request))
+                                    return render_to_response('loginuser.html', {'form': form, 'msg':'Грешно потребителско име или парола'},
+                                                               context_instance=RequestContext(request))
                             else:
-                                    return render_to_response('loginuser.html', {'form': form}, context_instance=RequestContext(request))
+                                    return render_to_response('loginuser.html', {'form': form, 'msg':'Грешно потребителско име или парола'},
+                                                               context_instance=RequestContext(request))
                     else:
                             return render_to_response('loginuser.html', {'form': form}, context_instance=RequestContext(request))
                 else:
@@ -42,9 +44,11 @@ def login_request(request, type):
                                     login(request, client)
                                     return HttpResponseRedirect('/profile/')
                                 except Client.DoesNotExist:
-                                    return render_to_response('loginclient.html', {'form': form}, context_instance=RequestContext(request))
+                                    return render_to_response('loginclient.html', {'form': form, 'msg':'Грешно потребителско име или парола'},
+                                                               context_instance=RequestContext(request))
                             else:
-                                    return render_to_response('loginclient.html', {'form': form}, context_instance=RequestContext(request))
+                                    return render_to_response('loginclient.html', {'form': form, 'msg':'Грешно потребителско име или парола'},
+                                                               context_instance=RequestContext(request))
                     else:
                             return render_to_response('loginclient.html', {'form': form}, context_instance=RequestContext(request))
         else:
