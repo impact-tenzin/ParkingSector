@@ -213,6 +213,7 @@ def confirm_booking(request):
 def send_data():
     pass
 
+@csrf_exempt 
 def cancel_booking(request):
     if request.is_ajax():
         if request.user.is_authenticated():
