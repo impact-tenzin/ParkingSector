@@ -220,6 +220,7 @@ def cancel_booking(request):
                 booking_id = request.POST["booking_id"]
                 try:
                     BookedSpots.objects.get(id=booking_id).delete()
+                    return HttpResponse("deletion complete", content_type="text/html; charset=utf-8")
                 except BookedSpots.DoesNotExist:
                     send_data()
                     return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
