@@ -139,6 +139,7 @@ INSTALLED_APPS = (
 	'parkingclient',
     'tinymce',
 	'widget_tweaks',
+    'registration',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
