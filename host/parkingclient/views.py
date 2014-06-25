@@ -128,18 +128,21 @@ def ArrivingDriver(request):
 @csrf_exempt 
 def signin_before_booking(request):
     if request.is_ajax():
-        username = request.POST['name']
-        password = request.POST['pass']
-        reguser = authenticate(username=username, password=password)
-        if reguser is not None:
-            try:
-                RegularUser.objects.get(user = reguser.id)
-                login(request, reguser)
-                return HttpResponse("Login Successful", content_type="text/html; charset=utf-8")
-            except RegularUser.DoesNotExist:
-                return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
+        if request.method == "POST":
+            username = request.POST['name']
+            password = request.POST['pass']
+            reguser = authenticate(username=username, password=password)
+            if reguser is not None:
+                try:
+                    RegularUser.objects.get(user = reguser.id)
+                    login(request, reguser)
+                    return HttpResponse("Login Successful", content_type="text/html; charset=utf-8")
+                except RegularUser.DoesNotExist:
+                    return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("Cant authenticate", content_type="text/html; charset=utf-8")
         else:
-            return HttpResponse("Cant authenticate", content_type="text/html; charset=utf-8")
+            return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
@@ -147,7 +150,11 @@ def signin_before_booking(request):
 def get_parking_requests(request):
     if request.is_ajax():
         if request.user.is_authenticated:
-            parking_id = Client.objects.get(user=request.user.id).parking_id
+            try:
+                parking_id = Client.objects.get(user=request.user.id).parking_id
+            except Client.DoesNotExist:
+                send_data()
+                return HttpResponse("client does not exist", content_type="text/html; charset=utf-8")
             spots = BookedSpots.objects.filter(parking_id=parking_id)
             data = serializers.serialize("json", spots)
             return HttpResponse(data, content_type="application/json; charset=utf-8")
@@ -200,7 +207,7 @@ def confirm_booking(request):
 
 def send_data():
     pass
-  
+
 def cancel_booking(request):
     if request.is_ajax():
         if request.user.is_authenticated():
@@ -210,7 +217,7 @@ def cancel_booking(request):
                     BookedSpots.objects.get(id=booking_id).delete()
                 except BookedSpots.DoesNotExist:
                     send_data()
-                    return HttpResponse("does not exist", content_type="text/html; charset=utf-8")
+                    return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
