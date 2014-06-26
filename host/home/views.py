@@ -7,11 +7,9 @@ from home.models import Viewer, Statistics
 from django.db import IntegrityError
 import math
 import threading
-from parkingclient.decorators import json_view
 
 customers = int(Statistics.objects.get(name__exact='customers').stat)
 
-@json_view
 def home(request):  
     """
     function that take a request from the website
