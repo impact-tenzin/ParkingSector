@@ -1079,28 +1079,28 @@ function checkRadioButton(id, self) {
 	if (id == "security") {
 		if (document.getElementById('security').checked == true) {
 			document.getElementById('security').checked = false;
-			self.className = 'unchecked';
+			self.className = 'bordered1 unchecked';
 		} else {
 			document.getElementById('security').checked = true;
-			self.className = 'checked';
+			self.className = 'bordered1 checked';
 		}
 	}
 	if (id == "carwash") {
 		if (document.getElementById('carwash').checked == true) {
 			document.getElementById('carwash').checked = false;
-			self.className = 'unchecked';
+			self.className = 'bordered1 unchecked';
 		} else {
 			document.getElementById('carwash').checked = true;
-			self.className = 'checked';
+			self.className = 'bordered1 checked';
 		}
 	}
 	if (id == "indoor") {
 		if (document.getElementById('indoor').checked == true) {
 			document.getElementById('indoor').checked = false;
-			self.className = 'unchecked';
+			self.className = 'bordered1 unchecked';
 		} else {
 			document.getElementById('indoor').checked = true;
-			self.className = 'checked';
+			self.className = 'bordered1 checked';
 		}
 	}
 }
