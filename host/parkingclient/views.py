@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext
-from parkingclient.forms import LoginForm
+from parkingclient.forms import LoginForm, RegistrationForm
 from parkingclient.models import Client, RegularUser, ParkingHistory, BookedSpots, LicencePlates
 from FindParking.models import ParkingMarker
 from django.contrib.auth import authenticate, login, logout
@@ -31,7 +31,7 @@ def handle_login_user_request(request, form):
             reguser = authenticate(username=username, password=password)
             if reguser is not None:
                 try:
-                    RegularUser.objects.get(user = reguser.id)
+                    RegularUser.objects.get(user=reguser.id)
                     login(request, reguser)
                     return HttpResponseRedirect('/findparking/')
                 except RegularUser.DoesNotExist:
@@ -54,7 +54,7 @@ def handle_login_client_request(request, form):
             client = authenticate(username=username, password=password)
             if client is not None:
                 try:
-                    Client.objects.get(user = client.id)
+                    Client.objects.get(user=client.id)
                     login(request, client)
                     return HttpResponseRedirect('/profile/')
                 except Client.DoesNotExist:
@@ -84,16 +84,16 @@ def render_login_page(request, type):
 def profile(request):
         if not request.user.is_authenticated():
             return HttpResponseRedirect('/login/')
-        #client = request.user.get_profile
+        # client = request.user.get_profile
         try:
-            client = Client.objects.get(user = request.user.id)
+            client = Client.objects.get(user=request.user.id)
             context = {'client': client}
             return render_to_response('clientprofile.html', context, context_instance=RequestContext(request))
         except Client.DoesNotExist:
             pass
         
         try:           
-            reguser = RegularUser.objects.get(user = request.user.id)
+            reguser = RegularUser.objects.get(user=request.user.id)
             context = {'user': reguser}
             return render_to_response('userprofile.html', context, context_instance=RequestContext(request))
         except RegularUser.DoesNotExist:
@@ -156,7 +156,7 @@ def signin_before_booking(request):
             reguser = authenticate(username=username, password=password)
             if reguser is not None:
                 try:
-                    RegularUser.objects.get(user = reguser.id)
+                    RegularUser.objects.get(user=reguser.id)
                     login(request, reguser)
                     return HttpResponse("Login Successful", content_type="text/html; charset=utf-8")
                 except RegularUser.DoesNotExist:
@@ -201,7 +201,7 @@ def confirm_booking(request):
     if request.is_ajax():
         if request.user.is_authenticated():
             try:           
-                RegularUser.objects.get(user = request.user.id)
+                RegularUser.objects.get(user=request.user.id)
             except RegularUser.DoesNotExist:
                 return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
             if request.method == 'POST':
@@ -210,7 +210,7 @@ def confirm_booking(request):
                     return HttpResponse("already booked parkingspot here", content_type="text/html; charset=utf-8")
                 else:
                     parking_id = request.POST['parking_id']
-                    #price_list = request.POST['price_list']
+                    # price_list = request.POST['price_list']
                     price_list = ParkingMarker.objects.get(id=parking_id).pricePerHour
                     arrival_time = request.POST['arrival_time']
                     duration = request.POST['duration']
@@ -248,3 +248,29 @@ def cancel_booking(request):
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+def register_user(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/profile/')
+    if request.method == 'POST':
+        reg_form = RegistrationForm(request.POST)
+        if reg_form.is_valid():
+            user = User.objects.create_user(username=reg_form.cleaned_data['username'],
+                                            email=reg_form.cleaned_data['email'],
+                                            password=reg_form.cleaned_data['password'])
+            user.save()
+            
+            licence_plate_key = LicencePlates.objects.create(user_id=user.id)
+            licence_plate_key.save()
+            
+            regular_user = RegularUser(user=user, licence_plate=licence_plate_key)
+            regular_user.save()
+            
+            return HttpResponseRedirect('/login/user')
+        else:
+            return render_to_response('registration.html', {'form': reg_form}, context_instance=RequestContext(request))
+    else:
+        reg_form = RegistrationForm()
+        context = {'form': reg_form}
+        return render_to_response('registration.html', context, context_instance=RequestContext(request))
+    

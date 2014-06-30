@@ -321,7 +321,7 @@ function centerHighlightedEl(id) {
 function showMarkerWindow(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat, parking.lng));
 	highlightParking(parking);
-	var html = "<div class='infoWindow'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>"/* +  "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>"*/ + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><table class='prices'><tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr><tr><td>1</td><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td><td>1</td></tr></table>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>";
+	var html = "<div class='infoWindow'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>"/* +   "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>"*/ + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><table class='prices'><tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr><tr><td>1</td><td>1</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>1</td><td>1</td><td>1</td><td>1</td></tr></table>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
@@ -634,7 +634,6 @@ function distance(latAddress, lngAddress, lat, lng) {
  }*/
 
 function renderBookingMsg(data) {
-	alert(data);
 	$('.msg').html("");
 	if (data == "User does not exist" || data == "Cant authenticate") {
 		var msg = "Грешно потребителско име или парола!";
@@ -1065,15 +1064,45 @@ function displayFoundParkings(parkings) {
 // return the right feature object by given id and features list
 function getFeature(featureId, features) {
 	for (var i = 0; i < features.length; i++) {
-		if (features[i].id == featureId)
-		{
-			alert(features[i]);
-			var exact_feature = features.filter(function(feature){return feature.id == featureId;});
-			alert(exact_feature.length);
-			alert(exact_feature);
+		if (features[i].id == featureId) {
+			//alert(features[i]);
+			//var exact_feature = features.filter(function(feature){return feature.id == featureId;});
+			//alert(exact_feature.length);
+			//alert(exact_feature);
 			return features[i];
+			break;
 		}
 	};
+}
+
+function checkRadioButton(id, self) {
+	if (id == "security") {
+		if (document.getElementById('security').checked == true) {
+			document.getElementById('security').checked = false;
+			self.className = 'bordered1 unchecked';
+		} else {
+			document.getElementById('security').checked = true;
+			self.className = 'bordered1 checked';
+		}
+	}
+	if (id == "carwash") {
+		if (document.getElementById('carwash').checked == true) {
+			document.getElementById('carwash').checked = false;
+			self.className = 'bordered1 unchecked';
+		} else {
+			document.getElementById('carwash').checked = true;
+			self.className = 'bordered1 checked';
+		}
+	}
+	if (id == "indoor") {
+		if (document.getElementById('indoor').checked == true) {
+			document.getElementById('indoor').checked = false;
+			self.className = 'bordered1 unchecked';
+		} else {
+			document.getElementById('indoor').checked = true;
+			self.className = 'bordered1 checked';
+		}
+	}
 }
 
 // filters the parkings
@@ -1083,10 +1112,10 @@ function filterParkingsAndDisplay(allParkings) {
 	 return (getFeature(parking.features, features).elCars == "True");
 	 });*/
 	if (document.getElementById('security').checked == true)
-	 allParkings = allParkings.filter(function(parking) {
-	 return (getFeature(parking.features, features).security == true);
-	 });
-	 /*if (document.getElementById('personnel').checked == true)
+		allParkings = allParkings.filter(function(parking) {
+			return (getFeature(parking.features, features).security == true);
+		});
+	/*if (document.getElementById('personnel').checked == true)
 	 allParkings = allParkings.filter(function(parking) {
 	 return (getFeature(parking.features, features).personnel == "True");
 	 });
@@ -1095,18 +1124,18 @@ function filterParkingsAndDisplay(allParkings) {
 	 return (getFeature(parking.features, features).SUV == "True");
 	 });*/
 	if (document.getElementById('indoor').checked == true)
-	 allParkings = allParkings.filter(function(parking) {
-	 return (getFeature(parking.features, features).indoor == true);
-	 });
-	 /*if (document.getElementById('valet').checked == true)
+		allParkings = allParkings.filter(function(parking) {
+			return (getFeature(parking.features, features).indoor == true);
+		});
+	/*if (document.getElementById('valet').checked == true)
 	 allParkings = allParkings.filter(function(parking) {
 	 return (getFeature(parking.features, features).valet == "True");
 	 });*/
 	if (document.getElementById('carwash').checked == true)
-	 allParkings = allParkings.filter(function(parking) {
-	 return (getFeature(parking.features, features).carwash == true);
-	 });
-	 /*if (document.getElementById('handicap').checked == true)
+		allParkings = allParkings.filter(function(parking) {
+			return (getFeature(parking.features, features).carwash == true);
+		});
+	/*if (document.getElementById('handicap').checked == true)
 	 allParkings = allParkings.filter(function(parking) {
 	 return (getFeature(parking.features, features).handicap == "True");
 	 });
@@ -1130,4 +1159,4 @@ $(function() {
 		dayOfWeekStart : 1,
 		step : 15,
 	});
-}); 
+});

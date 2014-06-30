@@ -39,7 +39,7 @@ class BookedSpots(models.Model):
     
 class LicencePlates(models.Model):
     user_id = models.IntegerField()
-    licence_plate = models.CharField(max_length = 45)
+    licence_plate = models.CharField(max_length = 45, null = True, blank=True)
     
     def __unicode__(self):
         return str(self.licence_plate)

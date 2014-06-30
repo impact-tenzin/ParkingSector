@@ -44,7 +44,7 @@ def handle_subscibe_request(request):
         if subscribe_form.is_valid():
             email = subscribe_form.cleaned_data['email']
             name = subscribe_form.cleaned_data['name']
-            to_add = Viewer.objects.create(email = email, name = name)
+            to_add = Viewer.objects.create(email=email, name=name)
             to_add.save()
             context = {
                        'msg':'thanks',
@@ -89,7 +89,7 @@ def redirect_to_map_from_searchbar(request):
                     }
         return render_to_response('findparking.html', context , context_instance=RequestContext(request))
     else:
-        parkings = ParkingMarker.objects.all()#has to take parkings for homepage
+        parkings = ParkingMarker.objects.all()  # has to take parkings for homepage
         cnotext = {
                    'addressForm':address_form,
                    'subscribeForm':subscribe_form,
@@ -125,7 +125,7 @@ def increase_customer(request):
         customers = int(Statistics.objects.get(name__exact='customers').stat)
         customers = customers + 1
         Statistics.objects.filter(name__exact='customers').update(stat=customers)
-        return HttpResponse(str(customers)+"- +1 ", content_type="text/html; charset=utf-8")
+        return HttpResponse(str(customers) + "- +1 ", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
