@@ -1067,11 +1067,12 @@ function getFeature(featureId, features) {
 	for (var i = 0; i < features.length; i++) {
 		if (features[i].id == featureId)
 		{
-			alert(features[i]);
-			var exact_feature = features.filter(function(feature){return feature.id == featureId;});
-			alert(exact_feature.length);
-			alert(exact_feature);
+			//alert(features[i]);
+			//var exact_feature = features.filter(function(feature){return feature.id == featureId;});
+			//alert(exact_feature.length);
+			//alert(exact_feature);
 			return features[i];
+			break;
 		}
 	};
 }
