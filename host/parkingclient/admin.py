@@ -1,4 +1,4 @@
-from django.contrib import admin
+# -*- coding: utf-8 -*- from django.contrib import admin
 from parkingclient.models import Client, RegularUser, ParkingHistory, BookedSpots, LicencePlates
 
 class ClientAdmin(admin.ModelAdmin):

@@ -253,23 +253,24 @@ def register_user(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/profile/')
     if request.method == 'POST':
-        reg_form = RegistartionForm(request.POST)
+        reg_form = RegistrationForm(request.POST)
         if reg_form.is_valid():
             user = User.objects.create_user(username=reg_form.cleaned_data['username'],
                                             email=reg_form.cleaned_data['email'],
                                             password=reg_form.cleaned_data['password'])
             user.save()
             
-            licence_plate_key = LicencePlates.create(user_id=user.id)
+            licence_plate_key = LicencePlates.objects.create(user_id=user.id)
             licence_plate_key.save()
             
-            regular_user = RegularUser(user=user, licence_plate=licence_plate_key.id)
+            regular_user = RegularUser(user=user, licence_plate=licence_plate_key)
             regular_user.save()
-            return HttpResponseRedirect('/profile/')
+            
+            return HttpResponseRedirect('/login/user')
         else:
-            return render_to_response('register.html', {'form': reg_form}, context_instance=RequestContext(request))
+            return render_to_response('registration.html', {'form': reg_form}, context_instance=RequestContext(request))
     else:
         reg_form = RegistrationForm()
         context = {'form': reg_form}
-        return render_to_response('register.html', context, context_instance=RequestContext(request))
+        return render_to_response('registration.html', context, context_instance=RequestContext(request))
     
