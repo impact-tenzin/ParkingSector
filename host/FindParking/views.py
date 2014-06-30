@@ -20,12 +20,8 @@ def find_parking(request):
     finally returns html with selected parkings 
     """
     if request.method == 'GET':
-        address_form = LocationForm()
-        address_lat = 42.697838
-        address_lng = 23.321669
-        context = {'addressForm':address_form, 'loadDefaultParkings':"defaultSofia",'lat':address_lat, 'lng':address_lng}
-        return render_to_response('findparking.html', context, context_instance=RequestContext(request))
-    else:
+        return render_map_with_default_parkings(request)
+    else:        return render_to_response('findparking.html', context, context_instance=RequestContext(request))        """
         try:
             subscribe_form = SubscribeForm(request.POST);
             address_form = LocationForm()
@@ -40,7 +36,7 @@ def find_parking(request):
             return render_to_response('findparking.html', context, context_instance=RequestContext(request))
         except IntegrityError:
             context = {'msg':'existing','form':'subscribeForm','addressForm':address_form,'subscribeForm':subscribe_form,}
-            return render_to_response('findparking.html', context, context_instance=RequestContext(request))
+            return render_to_response('findparking.html', context, context_instance=RequestContext(request))        """
         """
         address_form = LocationForm(request.POST)
         if address_form.is_valid():
@@ -55,19 +51,19 @@ def find_parking(request):
         else:
             return render_to_response('findparking.html', {'addressForm':address_form,} , context_instance=RequestContext(request))
         """
-
-@csrf_exempt     
+def render_map_with_default_parkings(request):        address_form = LocationForm()        address_lat = 42.697838        address_lng = 23.321669        context = {                   'addressForm':address_form,                    'loadDefaultParkings':"defaultSofia",                    'lat':address_lat,                    'lng':address_lng                    }        return render_to_response('findparking.html', context, context_instance=RequestContext(request))
+@csrf_exempt     
 def ajax_call(request, latlng):
     if request.is_ajax():
         lat = float(latlng.split('/')[0])
         lng = float(latlng.split('/')[1])
-        parkings = [parking for parking in ParkingMarker.objects.all()
-                                if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5]
-        methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id) for parking in ParkingMarker.objects.all() 
-                                                    if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5]
-        features = [ParkingFeatures.objects.get(id=parking.features_id) for parking in ParkingMarker.objects.all() 
-                                                    if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5]
-        combined = list(chain(parkings, methods, features))
+        parkings = [parking                    for parking in ParkingMarker.objects.all()
+                    if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5        ]
+        methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id)                   for parking in ParkingMarker.objects.all() 
+                   if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5        ]
+        features = [ParkingFeatures.objects.get(id=parking.features_id)                    for parking in ParkingMarker.objects.all() 
+                    if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5        ]
+        combined = list(chain(parkings, methods, features))
         data = serializers.serialize("json", combined)
         return HttpResponse(data, content_type="application/json; charset=utf-8")
     else:
@@ -76,8 +72,8 @@ def ajax_call(request, latlng):
 def sofia_parkings(request):
     if request.is_ajax():
         parkings = ParkingMarker.objects.filter(city__exact='София')
-        features = [ParkingFeatures.objects.get(id=parking.features_id) for parking in parkings]
-        payment_methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id) for parking in parkings]
+        features = [ParkingFeatures.objects.get(id=parking.features_id)                    for parking in parkings        ]
+        payment_methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id)                           for parking in parkings        ]
         combined = list(chain(parkings, payment_methods, features))
         data = serializers.serialize("json", combined)
         return HttpResponse(data, content_type="application/json; charset=utf-8")

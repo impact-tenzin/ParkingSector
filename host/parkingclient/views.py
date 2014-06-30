@@ -13,55 +13,72 @@ from django.views.decorators.csrf import csrf_exempt
 
 def login_request(request, type):
         if request.user.is_authenticated():
-                return HttpResponseRedirect('/profile/')
+            return HttpResponseRedirect('/profile/')
         if request.method == 'POST':
-                form = LoginForm(request.POST)
-                if type == "user":
-                    if form.is_valid():
-                            username = form.cleaned_data['username']
-                            password = form.cleaned_data['password']
-                            reguser = authenticate(username=username, password=password)
-                            if reguser is not None:
-                                try:
-                                    RegularUser.objects.get(user = reguser.id)
-                                    login(request, reguser)
-                                    return HttpResponseRedirect('/findparking/')
-                                except RegularUser.DoesNotExist:
-                                    return render_to_response('loginuser.html', {'form': form, 'msg':'Грешно потребителско име или парола'},
-                                                               context_instance=RequestContext(request))
-                            else:
-                                    return render_to_response('loginuser.html', {'form': form, 'msg':'Грешно потребителско име или парола'},
-                                                               context_instance=RequestContext(request))
-                    else:
-                            return render_to_response('loginuser.html', {'form': form}, context_instance=RequestContext(request))
-                else:
-                    if form.is_valid():
-                            username = form.cleaned_data['username']
-                            password = form.cleaned_data['password']
-                            client = authenticate(username=username, password=password)
-                            if client is not None:
-                                try:
-                                    Client.objects.get(user = client.id)
-                                    login(request, client)
-                                    return HttpResponseRedirect('/profile/')
-                                except Client.DoesNotExist:
-                                    return render_to_response('loginclient.html', {'form': form, 'msg':'Грешно потребителско име или парола'},
-                                                               context_instance=RequestContext(request))
-                            else:
-                                    return render_to_response('loginclient.html', {'form': form, 'msg':'Грешно потребителско име или парола'},
-                                                               context_instance=RequestContext(request))
-                    else:
-                            return render_to_response('loginclient.html', {'form': form}, context_instance=RequestContext(request))
+            form = LoginForm(request.POST)
+            if type == "user":
+                return handle_login_user_request(request, form)
+            else:
+                return handle_login_client_request(request, form)
         else:
                 ''' user is not submitting the form, show the login form '''
-                if type == "user":
-                    form = LoginForm()
-                    context = {'form': form}
-                    return render_to_response('loginuser.html', context, context_instance=RequestContext(request))
-                else:
-                    form = LoginForm()
-                    context = {'form': form}
-                    return render_to_response('loginclient.html', context, context_instance=RequestContext(request))
+            return render_login_page(request)
+
+def handle_login_user_request(request, form):
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            reguser = authenticate(username=username, password=password)
+            if reguser is not None:
+                try:
+                    RegularUser.objects.get(user = reguser.id)
+                    login(request, reguser)
+                    return HttpResponseRedirect('/findparking/')
+                except RegularUser.DoesNotExist:
+                    return render_to_response('loginuser.html',
+                                              {'form': form, 'msg':'Грешно потребителско име или парола'},
+                                              context_instance=RequestContext(request))
+            else:
+                return render_to_response('loginuser.html',
+                                          {'form': form, 'msg':'Грешно потребителско име или парола'},
+                                          context_instance=RequestContext(request))
+        else:
+            return render_to_response('loginuser.html',
+                                      {'form': form},
+                                      context_instance=RequestContext(request))
+
+def handle_login_client_request(request, form):
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            client = authenticate(username=username, password=password)
+            if client is not None:
+                try:
+                    Client.objects.get(user = client.id)
+                    login(request, client)
+                    return HttpResponseRedirect('/profile/')
+                except Client.DoesNotExist:
+                    return render_to_response('loginclient.html',
+                                              {'form': form, 'msg':'Грешно потребителско име или парола'},
+                                              context_instance=RequestContext(request))
+            else:
+                return render_to_response('loginclient.html',
+                                          {'form': form, 'msg':'Грешно потребителско име или парола'},
+                                          context_instance=RequestContext(request))
+        else:
+            return render_to_response('loginclient.html',
+                                      {'form': form},
+                                      context_instance=RequestContext(request))
+
+def render_login_page(request):
+    if type == "user":
+        form = LoginForm()
+        context = {'form': form}
+        return render_to_response('loginuser.html', context, context_instance=RequestContext(request))
+    else:
+        form = LoginForm()
+        context = {'form': form}
+        return render_to_response('loginclient.html', context, context_instance=RequestContext(request))
 
 @login_required
 def profile(request):

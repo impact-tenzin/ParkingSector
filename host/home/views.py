@@ -23,49 +23,77 @@ def home(request):
         return home_view(request)
     else:
         if 'subsribeForm' in request.POST:
-            try:
-                subscribe_form = SubscribeForm(request.POST);
-                address_form = LocationForm()
-                if subscribe_form.is_valid():
-                    email = subscribe_form.cleaned_data['email']
-                    name = subscribe_form.cleaned_data['name']
-                    to_add = Viewer.objects.create(email = email, name = name)
-                    to_add.save()
-                    context = {'msg':'thanks','form':'subscribeForm', 'addressForm':address_form,'subscribeForm':subscribe_form,"counter":customers}
-                    return render_to_response('index.html', context, context_instance=RequestContext(request))
-                context = {'msg':'notValid','form':'subscribeForm', 'addressForm':address_form,'subscribeForm':subscribe_form,"counter":customers}
-                return render_to_response('index.html', context, context_instance=RequestContext(request))
-            except IntegrityError:
-                context = {'msg':'existing','form':'subscribeForm','addressForm':address_form,'subscribeForm':subscribe_form,"counter":customers}
-                return render_to_response('index.html', context, context_instance=RequestContext(request))
+            return handle_subscribe_request(request)
         elif 'addressForm' in request.POST:     
-            subscribe_form = SubscribeForm();   
-            address_form = LocationForm(request.POST)
-            if address_form.is_valid():
-                latAddress = address_form.cleaned_data['lat']
-                lngAddress = address_form.cleaned_data['lng']
-                address = address_form.cleaned_data['address']
-                if address == '':
-                    increase_aroundme_stat()
-                #parkings = [parking for parking in ParkingMarker.objects.all() if distance([parking.lat, parking.lng], [latAddress, lngAddress]) < 1]
-                #features = [ParkingFeatures.objects.get(id=parking.features_id) for parking in parkings]
-                #payment_methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id) for parking in parkings];
-                context = {'address':address,'geolocate':'true','lat':latAddress, 'lng':lngAddress,}
-                return render_to_response('findparking.html', context , context_instance=RequestContext(request))
-            else:
-                parkings = ParkingMarker.objects.all();#has to take parkings for homepage
-                return render_to_response('index.html', {'addressForm':address_form,'subscribeForm':subscribe_form,} , context_instance=RequestContext(request))
+            return redirect_to_map_from_searchbar(request)
 
 def home_view(request):
     subscribe_form = SubscribeForm()
     address_form = LocationForm()
-    context = {'addressForm':address_form,'subscribeForm':subscribe_form,"counter":customers,}
+    context = {
+               'addressForm':address_form,
+               'subscribeForm':subscribe_form,
+               "counter":customers,
+               }
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
+def handle_subscibe_request(request):
+    subscribe_form = SubscribeForm(request.POST)
+    address_form = LocationForm()
+    try:
+        if subscribe_form.is_valid():
+            email = subscribe_form.cleaned_data['email']
+            name = subscribe_form.cleaned_data['name']
+            to_add = Viewer.objects.create(email = email, name = name)
+            to_add.save()
+            context = {
+                       'msg':'thanks',
+                       'form':'subscribeForm',
+                       'addressForm':address_form,
+                       'subscribeForm':subscribe_form,
+                       "counter":customers
+                       }
+            return render_to_response('index.html', context, context_instance=RequestContext(request))
+        context = {'msg':'notValid','form':'subscribeForm', 'addressForm':address_form,'subscribeForm':subscribe_form,"counter":customers}
+        return render_to_response('index.html', context, context_instance=RequestContext(request))
+    except IntegrityError:
+        context = {
+                   'msg':'existing',
+                   'form':'subscribeForm',
+                   'addressForm':address_form,
+                   'subscribeForm':subscribe_form,
+                   "counter":customers
+                   }
+        return render_to_response('index.html', context, context_instance=RequestContext(request))
+
+def redirect_to_map_from_searchbar(request):
+    subscribe_form = SubscribeForm()
+    address_form = LocationForm(request.POST)
+    if address_form.is_valid():
+        lat_address = address_form.cleaned_data['lat']
+        lng_address = address_form.cleaned_data['lng']
+        address = address_form.cleaned_data['address']
+        if address == '':
+            increase_aroundme_stat()
+        context = {
+                   'address':address,
+                    'geolocate':'true',
+                    'lat':lat_address,
+                    'lng':lng_address,
+                    }
+        return render_to_response('findparking.html', context , context_instance=RequestContext(request))
+    else:
+        parkings = ParkingMarker.objects.all()#has to take parkings for homepage
+        cnotext = {
+                   'addressForm':address_form,
+                   'subscribeForm':subscribe_form,
+                    }
+        return render_to_response('index.html', context, context_instance=RequestContext(request))
+
 def increase_aroundme_stat():
-    aroundMeStat = int(Statistics.objects.get(name__exact='findAroundMe').stat)
-    aroundMeStat = aroundMeStat + 1
-    Statistics.objects.filter(name__exact='findAroundMe').update(stat=aroundMeStat)
+    around_me_stat = int(Statistics.objects.get(name__exact='findAroundMe').stat)
+    around_me_stat = around_me_stat + 1
+    Statistics.objects.filter(name__exact='findAroundMe').update(stat=around_me_stat)
         
 def distance(origin, destination):
     """
