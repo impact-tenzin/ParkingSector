@@ -14,11 +14,26 @@
 .changer{
 	text-align: center;
 	/*padding: 3px 30px 3px 30px;*/
-	border-radius: 1000px;
-	padding: 12px 17px 12px 17px;
-	border: 3px solid #333;
+	/*border-radius: 1000px;*/
+	padding: 10px 15px 10px 15px;
+	border: 3px solid #FFF;
 	background: #6bbde8;/*#868688 grey*/
-	color: #333;
+	color: #FFF;
 	font-size: 16px;
 	margin-top: 10px;
+}
+.morning{
+	background: #eeb935 !important;
+}
+.noon{
+	background: #e6a235 !important;
+}
+.afternoon{
+	background: #dd7633 !important;
+}
+.night{
+	background: #6f64c0 !important;
+}
+.midnight{
+	background: #413d92 !important;
 }

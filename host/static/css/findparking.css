@@ -690,7 +690,13 @@ body{
 .xdsoft_datetimepicker{
 	z-index: 999999999 !important;
 }
-
+/*Checked*/
+.checked{
+	background: #eec500 !important;
+}
+.unchecked{
+	background: #FFF !important;
+}
 
 
 
