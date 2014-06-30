@@ -54,7 +54,13 @@ def handle_subscibe_request(request):
                        "counter":customers
                        }
             return render_to_response('index.html', context, context_instance=RequestContext(request))
-        context = {'msg':'notValid','form':'subscribeForm', 'addressForm':address_form,'subscribeForm':subscribe_form,"counter":customers}
+        context = {
+                   'msg':'notValid',
+                   'form':'subscribeForm',
+                   'addressForm':address_form,
+                   'subscribeForm':subscribe_form,
+                   "counter":customers,
+                   }
         return render_to_response('index.html', context, context_instance=RequestContext(request))
     except IntegrityError:
         context = {
