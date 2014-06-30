@@ -634,7 +634,6 @@ function distance(latAddress, lngAddress, lat, lng) {
  }*/
 
 function renderBookingMsg(data) {
-	alert(data);
 	$('.msg').html("");
 	if (data == "User does not exist" || data == "Cant authenticate") {
 		var msg = "Грешно потребителско име или парола!";
@@ -1076,6 +1075,31 @@ function getFeature(featureId, features) {
 		}
 	};
 }
+
+function checkRadioButton(id)
+	{
+		if (id == "security")
+		{
+			if (document.getElementById('security').checked == true)
+				document.getElementById('security').checked = false;
+			else
+				document.getElementById('security').checked = true;
+		}
+		if (id == "carwash")
+		{
+			if (document.getElementById('carwash').checked == true)
+				document.getElementById('carwash').checked = false;
+			else
+				document.getElementById('carwash').checked = true;
+		}
+		if (id == "indoor")
+		{
+			if (document.getElementById('indoor').checked == true)
+				document.getElementById('indoor').checked = false;
+			else
+				document.getElementById('indoor').checked = true;
+		}
+	}
 
 // filters the parkings
 function filterParkingsAndDisplay(allParkings) {
