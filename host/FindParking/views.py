@@ -95,7 +95,7 @@ def save_viewer(request):
         try:
             email = request.POST['email']
             name = request.POST['name']
-            to_add = Viewer.objects.create(email = email, name = name)
+            to_add = Viewer.objects.create(email=email, name=name)
             to_add.save()
             return HttpResponse("thanks", content_type="text/html; charset=utf-8")
         except IntegrityError:

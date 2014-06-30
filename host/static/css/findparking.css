@@ -692,10 +692,10 @@ body{
 }
 /*Checked*/
 .checked{
-	background: #eec500 !important;
+	background-color: #eec500 !important;
 }
 .unchecked{
-	background: #FFF !important;
+	background-color: #FFF !important;
 }
 
 
