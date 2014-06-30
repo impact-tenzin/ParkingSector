@@ -21,8 +21,8 @@ def login_request(request, type):
             else:
                 return handle_login_client_request(request, form)
         else:
-                ''' user is not submitting the form, show the login form '''
-            return render_login_page(request)
+            ''' user is not submitting the form, show the login form '''
+            return render_login_page(request, type)
 
 def handle_login_user_request(request, form):
         if form.is_valid():
@@ -70,7 +70,7 @@ def handle_login_client_request(request, form):
                                       {'form': form},
                                       context_instance=RequestContext(request))
 
-def render_login_page(request):
+def render_login_page(request, type):
     if type == "user":
         form = LoginForm()
         context = {'form': form}
