@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext
-from parkingclient.forms import LoginForm
+from parkingclient.forms import LoginForm, RegistrationForm
 from parkingclient.models import Client, RegularUser, ParkingHistory, BookedSpots, LicencePlates
 from FindParking.models import ParkingMarker
 from django.contrib.auth import authenticate, login, logout
@@ -248,3 +248,28 @@ def cancel_booking(request):
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+def register_user(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/profile/')
+    if request.method == 'POST':
+        reg_form = RegistartionForm(request.POST)
+        if reg_form.is_valid():
+            user = User.objects.create_user(username=reg_form.cleaned_data['username'],
+                                            email=reg_form.cleaned_data['email'],
+                                            password=reg_form.cleaned_data['password'])
+            user.save()
+            
+            licence_plate_key = LicencePlates.create(user_id=user.id)
+            licence_plate_key.save()
+            
+            regular_user = RegularUser(user=user, licence_plate=licence_plate_key.id)
+            regular_user.save()
+            return HttpResponseRedirect('/profile/')
+        else:
+            return render_to_response('register.html', {'form': reg_form}, context_instance=RequestContext(request))
+    else:
+        reg_form = RegistrationForm()
+        context = {'form': reg_form}
+        return render_to_response('register.html', context, context_instance=RequestContext(request))
+    

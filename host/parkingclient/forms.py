@@ -1,15 +1,15 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from parkingclient.models import Client
+from parkingclient.models import RegularUser
 
 class RegistrationForm(ModelForm):
-        username = forms.CharField(label=(u'User Name'))
+        username = forms.CharField(label=(u'User Name'))        email = forms.EmailField(label = (u'Email Address'))
         password = forms.CharField(label=(u'Password'), widget=forms.PasswordInput(render_value=False))
         password1 = forms.CharField(label=(u'Verify Password'), widget=forms.PasswordInput(render_value=False))
 
         class Meta:
-                model = Client
+                model = RegularUser
                 exclude = ('user',)
 
         def clean_username(self):
