@@ -34,8 +34,8 @@ h1{
 
 .intro-message {
 	position: relative;
-	padding-top: 20%;
-	/*padding-bottom: 20%;*/
+	padding-top: 15%;
+	padding-bottom: 5%;
 }
 
 .intro-message > h1 {
@@ -270,3 +270,11 @@ background: #3498DB !important;
 .sunflower2{
 background: #eec500 !important;
 }/*Subscribe Box*/.subscribeBox {	position: relative;	margin: 0 auto;	margin-top: 15%;	max-width: 500px;	background-color: rgba(255,255,255,0.8);	border-radius: none;	border: 1px solid #000000;	padding: 10px 25px 20px 25px;	z-index: 5;		margin-bottom: 216px;}.top-label {	color: #666666;	font-size: 22px;	text-align: center;}.under-label-line {	border-bottom: 1px solid  #43413e;}.msg {	margin-top: 10px;	color: #777 !important;}.sub-wrapper {	margin-top: 30px;}.sub-name, .sub-email {	max-width: 100%;	max-height: 65px;	margin-top: 5px;		height: 50px;		border-radius: 0px !important;}.subscribeButton {	position: relative;	margin: 10px auto;	top: 10px;	max-width: 498px;	max-height: 35px;	line-height: 35px;	text-align: center;	font-size: 21px;	color: #F0F0F0;	background-color: #eec500;	border-radius: none;}.subscribeButton:hover, .subscribeButton:focus{	background-color: #43413e;	cursor: pointer;}/*Header*/ul.intro-social-buttons li a{	color: #D9D9D9 !important;	border: 1px solid #DDD !important;}
+/*Parkingsections*/
+.parking-item{
+	margin-bottom: 20px;
+}
+/*Counter*/
+.customers{
+	color: #333;
+}
