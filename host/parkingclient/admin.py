@@ -22,7 +22,7 @@ class BookedSpotsAdmin(admin.ModelAdmin):
 class LicencePlatesAdmin(admin.ModelAdmin):
     search_fields = ['licence_plate']
     list_display = ['user_id', 'licence_plate']
-class ParkingHistoryAdmin(admin.ModelAdmin):    search_fields = ['parking_id']    list_display = ['parking_id', 'user_id', 'licence_plate', 'arrival_time', 'duration', 'price_list']admin.site.register(ParkingHistory, ParkingHistoryAdmin)
+
 admin.site.register(LicencePlates, LicencePlatesAdmin)
 admin.site.register(BookedSpots, BookedSpotsAdmin)
 admin.site.register(Client, ClientAdmin)
