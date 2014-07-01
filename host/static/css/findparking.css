@@ -546,7 +546,7 @@ body{
 /*END SAVEBOX*/
 /*TABLE*/
 .prices th,td{
-	padding: 3px;
+	padding: 2px;
 	border: 2px solid #FFF;
 }
 .prices{
