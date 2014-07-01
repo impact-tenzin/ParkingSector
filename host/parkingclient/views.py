@@ -258,7 +258,8 @@ def register_user(request):
             try:
                 User.objects.get(username=reg_form.cleaned_data['username'])
             except User.DoesNotExist:
-                return validate_password(request, reg_form)           
+                if validate_password(reg_form):
+                    return render_unvalid_password(request, reg_form)           
                 return create_regular_user(request, reg_form)
             return user_already_exists(request, reg_form)
         else:
@@ -272,13 +273,15 @@ def register_user(request):
         context = {'form': reg_form}
         return render_to_response('registration.html', context, context_instance=RequestContext(request))
 
-def validate_password(request, reg_form):
-    if reg_form.cleaned_data['password'] != reg_form.cleaned_data['password1']:
-        context = {
-                   'form': reg_form,
-                   'msg':'Грешна парола!'
-                    }
-        return render_to_response('registration.html', context, context_instance=RequestContext(request))
+def validate_password(reg_form):
+    return reg_form.cleaned_data['password'] != reg_form.cleaned_data['password1']
+
+def render_unvalid_password(request, reg_form):
+    context = {
+               'form': reg_form,
+               'msg':'Грешна парола!'
+            }
+    return render_to_response('registration.html', context, context_instance=RequestContext(request))
 
 def create_regular_user(request, reg_form):
     user = User.objects.create_user(username=reg_form.cleaned_data['username'],
