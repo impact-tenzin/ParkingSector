@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width; initial-scale=1.0">
+</head>
+
+<body>
+  <div>
+    <header>
+      <h1>registration</h1>
+    </header>
+
+    <div>
+    	<form method="POST" action="">
+    		<div>{{msg}}</div>
+    		{% csrf_token %}
+    		
+      		<p>Ime{{form.username}}</p>
+      		<p>Mail{{form.email}}</p>
+      		<p>Pass{{form.password}}</p>
+      		<p>Confirm Pass{{form.password1}}</p>
+      	<input type="submit" />
+      </form>
+    </div>
+
+    <footer>
+     <p>&copy; Copyright  by mi6aka</p>
+    </footer>
+  </div>
+</body>
+</html>
