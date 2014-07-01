@@ -72,6 +72,8 @@
 
 								<form method="POST" action="/login/user">
 
+									{% load widget_tweaks %}
+									
 									{% csrf_token %}
 
 									{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text" |attr:"size:40" }}
@@ -80,7 +82,7 @@
 
 									{{ form.password |attr:"type:password" |attr:"placeholder:Парола" |attr:"class:cform-text" |attr:"size:40" }}
 									
-									{{ form.password1 |attr:"type:password" |attr:"placeholder:Парола" |attr:"class:cform-text" |attr:"size:40" }}
+									{{ form.password1 |attr:"type:password" |attr:"placeholder:Повторете паролата" |attr:"class:cform-text" |attr:"size:40" }}
 
 									<!--<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
 
