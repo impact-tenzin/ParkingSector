@@ -255,22 +255,48 @@ def register_user(request):
     if request.method == 'POST':
         reg_form = RegistrationForm(request.POST)
         if reg_form.is_valid():
-            user = User.objects.create_user(username=reg_form.cleaned_data['username'],
-                                            email=reg_form.cleaned_data['email'],
-                                            password=reg_form.cleaned_data['password'])
-            user.save()
-            
-            licence_plate_key = LicencePlates.objects.create(user_id=user.id)
-            licence_plate_key.save()
-            
-            regular_user = RegularUser(user=user, licence_plate=licence_plate_key)
-            regular_user.save()
-            
-            return HttpResponseRedirect('/login/user')
+            try:
+                User.objects.get(username=reg_form.cleaned_data['username'])
+            except User.DoesNotExist:
+                return validate_password(request, reg_form)           
+                return create_regular_user(request, reg_form)
+            return user_already_exists(request, reg_form)
         else:
-            return render_to_response('registration.html', {'form': reg_form}, context_instance=RequestContext(request))
+            context = {
+                       'form': reg_form,
+                       'msg': 'Невалидна форма! Моля, попълнете всички полета!'
+                       }
+            return render_to_response('registration.html', context, context_instance=RequestContext(request))
     else:
         reg_form = RegistrationForm()
         context = {'form': reg_form}
         return render_to_response('registration.html', context, context_instance=RequestContext(request))
-    
+
+def validate_password(request, reg_form):
+    if reg_form.cleaned_data['password'] != reg_form.cleaned_data['password1']:
+        context = {
+                   'form': reg_form,
+                   'msg':'Грешна парола!'
+                    }
+        return render_to_response('registration.html', context, context_instance=RequestContext(request))
+
+def create_regular_user(request, reg_form):
+    user = User.objects.create_user(username=reg_form.cleaned_data['username'],
+                                    email=reg_form.cleaned_data['email'],
+                                    password=reg_form.cleaned_data['password'])
+    user.save()
+                
+    licence_plate_key = LicencePlates.objects.create(user_id=user.id)
+    licence_plate_key.save()
+                
+    regular_user = RegularUser(user=user, licence_plate=licence_plate_key)
+    regular_user.save()
+                
+    return HttpResponseRedirect('/login/user')
+
+def user_already_exists(request, reg_form):
+    context = {
+               'form': reg_form,
+               'msg':'Това потребителско име вече съществува. Моля, изберете друго!'
+            }
+    return render_to_response('registration.html', context, context_instance=RequestContext(request))
