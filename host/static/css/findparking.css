@@ -430,7 +430,7 @@ body{
 .infoWindow {
 	position: absolute;
 	bottom: 48px;
-	left: 42px;
+	left: 17px;
 	background-color: #FFFFFF;
 	width: 240px;
 	padding: 5px 5px 0px 5px;
@@ -442,7 +442,7 @@ body{
 }
 .win-price span {
 	background-color: #f7685c;
-	color: #DDDDDD;
+	color: #FFF;
 	padding: 0px 5px;
 }
 .win-price {
@@ -584,7 +584,7 @@ body{
 	display: inline-block;
 	text-align: center;
 	padding: 2px;
-	background: #8bcdff;
+	background: #46aee3;
 	margin-left: 2px;
 	color: #FFF;
 	margin-bottom: 2px;
