@@ -46,6 +46,7 @@ urlpatterns = patterns('',
 	url(r'^adminpanel/(?P<type>.*)$', 'parkingclient.views.login_request'),
     url(r'^logout/', 'parkingclient.views.logout_request'),
     url(r'^profile/', 'parkingclient.views.profile'),
+    url(r'^getBookingRequests/', 'parkingclient.views.get_booking_requests'),
     #url(r'^leavingDriver/', 'parkingclient.views.LeavingDriver'),
     #url(r'^arrivingDriver/', 'parkingclient.views.ArrivingDriver'),
     #override the default urls

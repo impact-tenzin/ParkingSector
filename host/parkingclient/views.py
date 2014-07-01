@@ -303,3 +303,14 @@ def user_already_exists(request, reg_form):
                'msg':'Това потребителско име вече съществува. Моля, изберете друго!'
             }
     return render_to_response('registration.html', context, context_instance=RequestContext(request))
+
+def get_booking_requests(request):
+    if request.is_ajax():
+        if request.user.is_authenticated():
+            booking_requests = BookedSpots.objects.filter(user_id=reques.user.id)
+            data = serializers.serialize("json", booking_requests)
+            return HttpResponse(data, content_type="application/json; charset=utf-8") 
+        else:
+            return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
