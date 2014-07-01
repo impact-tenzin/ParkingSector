@@ -305,7 +305,7 @@ def create_regular_user(request, reg_form):
     regular_user = RegularUser(user=user, licence_plate=licence_plate_key)
     regular_user.save()
                 
-    return HttpResponseRedirect('/login/user', kwargs={'msg': 'Регистрирахте се успешно.'})
+    return HttpResponseRedirect('/login/user')
 
 def user_already_exists(request, reg_form):
     context = {
