@@ -47,6 +47,8 @@ urlpatterns = patterns('',
     url(r'^logout/', 'parkingclient.views.logout_request'),
     url(r'^profile/', 'parkingclient.views.profile'),
     url(r'^getBookingRequests/', 'parkingclient.views.get_booking_requests'),
+    url(r'^actualisePriceList/', 'parkingclient.views.actualise_price_list'),
+    url(r'^saveParkingInHistory/', 'parkingclient.views.save_parking_info'),
     #url(r'^leavingDriver/', 'parkingclient.views.LeavingDriver'),
     #url(r'^arrivingDriver/', 'parkingclient.views.ArrivingDriver'),
     #override the default urls

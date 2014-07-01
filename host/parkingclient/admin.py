@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- from django.contrib import admin
-from parkingclient.models import Client, RegularUser, ParkingHistory, BookedSpots, LicencePlates
-
+from parkingclient.models import Client, RegularUser, ParkingHistory, BookedSpots, LicencePlates, ParkingHistory, ErrorHistory
+class ErrorHistoryAdmin(admin.ModelAdmin):    search_fields = ['description']    list_display = ['description']
 class ClientAdmin(admin.ModelAdmin):
     search_fields = ['user']
     list_display = ['id','user','parking_id']
