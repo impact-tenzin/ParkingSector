@@ -21,6 +21,7 @@ class ParkingMarker(models.Model):
     features = models.ForeignKey('ParkingFeatures',null = True, blank=True,default = 1)
     paymentMethod = models.ForeignKey('PaymentMethod',null = True, blank=True,default = 1)
     contacts = models.ForeignKey('Contacts',null = True, blank=True,default = 1)
+    priceList = models.ForeignKey('PriceList',null = True, blank=True,default = 1)
     
     def __unicode__(self):
         return self.address
@@ -30,7 +31,24 @@ class ParkingMarker(models.Model):
     
     def get_lng(self):
         return self.lng;
-  
+
+class PriceList(models.Model):
+    oneHour = models.FloatField()
+    twoHours = models.FloatField()
+    threeHours = models.FloatField()
+    fourHours = models.FloatField()
+    fiveHours = models.FloatField()
+    sixHours = models.FloatField()
+    sevenHours = models.FloatField()
+    eightHours = models.FloatField()
+    nineHours = models.FloatField()
+    tenHours = models.FloatField()
+    elevenHours = models.FloatField()
+    twelveHours = models.FloatField()
+    
+    def __unicode__(self):
+        return unicode(str(self.id))
+ 
 class ParkingFeatures(models.Model):
     """
     model for table that will store the parkigns' features

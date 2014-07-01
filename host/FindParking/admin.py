@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*- 
 from django.contrib import admin
-from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, Contacts
+from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, Contacts, PriceList
 
 class ParkingAdmin(admin.ModelAdmin):
     ordering = ['id']
     search_fields = ['address']
     list_display = ['id', 'features', 'paymentMethod', 'contacts','city', 'name',
-                     'address', 'capacity', 'pricePerHour', 'workFrom', 'workTo', 'lat', 'lng', 'description', 'bookingCounter']
-
+                     'address', 'capacity', 'pricePerHour', 'workFrom', 'workTo', 'lat', 'lng', 'description', 'bookingCounter']
+class PriceListAdmin(admin.ModelAdmin):    ordering = ['id']    search_fields = ['id']    list_display = ['oneHour', 'twoHours', 'threeHours', 'fourHours','fiveHours', 'sixHours',                     'sevenHours', 'eightHours', 'nineHours', 'tenHours', 'elevenHours', 'twelveHours']
 class ParkingFeaturesAdmin(admin.ModelAdmin):
     ordering = ['id']
     search_fields = ['id']
@@ -22,7 +22,7 @@ class ContactsAdmin(admin.ModelAdmin):
     ordering = ['id']
     search_fields = ['id']
     list_display = ['id', 'contactNames', 'contactPosition', 'contactMail', 'contactPhone','website']
-    
+    admin.site.register(PriceList, PriceListAdmin)
 admin.site.register(ParkingFeatures, ParkingFeaturesAdmin)
 admin.site.register(ParkingMarker, ParkingAdmin)
 admin.site.register(PaymentMethod, PaymentAdmin)

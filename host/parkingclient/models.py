@@ -18,6 +18,7 @@ class RegularUser(models.Model):
 
 class ParkingHistory(models.Model):
     parking_id = models.IntegerField()
+    user_id = models.IntegerField()
     licence_plate = models.CharField(max_length=45)
     arrival_time = models.CharField(max_length=45)
     duration = models.CharField(max_length=45)
@@ -43,4 +44,6 @@ class LicencePlates(models.Model):
     
     def __unicode__(self):
         return str(self.licence_plate)
-    
+
+class ErrorHistory(models.Model):
+    description = models.TextField()  

@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext
 from parkingclient.forms import LoginForm, RegistrationForm
 from parkingclient.models import Client, RegularUser, ParkingHistory, BookedSpots, LicencePlates
-from FindParking.models import ParkingMarker
+from FindParking.models import ParkingMarker, PriceList
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
@@ -111,18 +111,28 @@ def save_parking_info(request):
         who has booked his place from ParkingSector platform
         """
         if request.is_ajax():
-            if request.method == 'POST':
-                parking_id = request.POST['parkingId']
-                licence_plate = request.POST['drivingLicence']
-                arrival_time = request.POST['arrivalTime']
-                duration = request.POST['duration']
-                price_list = request.POST['priceList']
-                
-                to_add = ParkingHistory.objects.create(parking_id=parking_id, licence_plate=licence_plate, arrival_time=arrival_time, duration=duration, price_list=price_list)
-                to_add.save()
-                return HttpResponse("Completed", content_type="text/html; charset=utf-8")
+            if request.user.is_authenticated():
+                if request.method == 'POST':
+                    parking_id = request.POST['parkingId']
+                    user_id = request.POST['userId']
+                    licence_plate = request.POST['drivingLicence']
+                    arrival_time = request.POST['arrivalTime']
+                    duration = request.POST['duration']
+                    price_list = request.POST['priceList']
+                    
+                    to_add = ParkingHistory.objects.create(parking_id=parking_id,
+                                                           user_id=user_id,
+                                                           licence_plate=licence_plate,
+                                                           arrival_time=arrival_time,
+                                                           duration=duration,
+                                                           price_list=price_list
+                                                           )
+                    to_add.save()
+                    return HttpResponse("Completed", content_type="text/html; charset=utf-8")
+                else:
+                    return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
             else:
-                return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+                return HttpResponse("user is not authenticated", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("Error", content_type="text/html; charset=utf-8") 
 """
@@ -310,6 +320,59 @@ def get_booking_requests(request):
             booking_requests = BookedSpots.objects.filter(user_id=reques.user.id)
             data = serializers.serialize("json", booking_requests)
             return HttpResponse(data, content_type="application/json; charset=utf-8") 
+        else:
+            return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def actualise_price_list(request):
+    if request.is_ajax():
+        if request.user.is_authenticated():
+            if request.method == 'POST':
+                
+                one_hour = request.POST['one_hour']
+                two_hour = request.POST['two_hour']
+                three_hour = request.POST['three_hour']
+                four_hour = request.POST['four_hour']
+                five_hour = request.POST['five_hour']
+                six_hour = request.POST['six_hour']
+                seven_hour = request.POST['seven_hour']
+                eight_hour = request.POST['eight_hour']
+                nine_hour = request.POST['nine_hour']
+                ten_hour = request.POST['ten_hour']
+                elven_hour = request.POST['elven_hour']
+                twelve_hour = request.POST['twelve_hour']
+                
+                try:
+                    parking_id = Client.objects.get(id=request.user.id).parking_id
+                except Client.DoesNotExist:
+                    send_data()
+                
+                try:
+                    price_list_id = ParkingMarker.objects.get(id=parking_id).priceList
+                except ParkingMarker.DoesNotExist:
+                    send_data()
+                
+                try:    
+                    PriceList.objects.get(id=price_list_id).update(
+                                                                oneHour = one_hour,
+                                                                twoHours = two_hour,
+                                                                threeHours = three_hour,
+                                                                fourHours = four_hour,
+                                                                fiveHours = five_hour,
+                                                                sixHours = six_hour,
+                                                                sevenHours = seven_hour,
+                                                                eightHours = eight_hour,
+                                                                nineHours = nine_hour,
+                                                                tenHours = ten_hour,
+                                                                elevenHours = elven_hour,
+                                                                twelveHours = twelve_hour
+                                                           )
+                except PriceList.DoesNotExist:
+                    send_data()
+                return HttpResponse("actualisation complete", content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
