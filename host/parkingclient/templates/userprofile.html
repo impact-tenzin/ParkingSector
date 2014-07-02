@@ -60,7 +60,7 @@
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <h2>Запазвания</h2>
                     <hr>
-                    <p class="msg"></p>
+                    <p class="msg">Не сте запазили паркоместа</p>
                 </div>
             </div>
             <div class="row requests-containter">
@@ -185,7 +185,7 @@
 							csrfmiddlewaretoken : '{{ csrf_token }}'
 						},
 					success : function(data) {
-						renderMessage(data, self);
+						renderMessage(data);
 					},
 					error : function(error) {
 						// Log any error.
@@ -195,23 +195,25 @@
 				});
 			}
 
-			function renderMessage(data, self) {
+			function renderMessage(data) {
 				if (data == "deletion complete") {
-					$('.msg').val("").val("Отменихте заявката си успешно.");
+					$('.msg').html("").html("Отменихте заявката си успешно.");
 					removeWindow(self);
 				}
 				if (data == "BookedSpot does not exist")
-					$('.msg').val("").val("Отменихте заявката си успешно.");
+					$('.msg').html("").html("Установихме грешка. Моля, обновете сесията чрез рефреш!");
 				if (data == "request method is not POST")
-					$('.msg').val("").val("Установихме грешка. Моля, пробвайте отново.");
+					$('.msg').html("").html("Установихме грешка. Моля, пробвайте отново.");
 				if (data == "user not authenticated")
-					$('.msg').val("").val("Не сте влезли в профила си.");
+					$('.msg').html("").html("Не сте влезли в профила си.");
 			}
 			
 			function removeWindow(self)
 			{
-				var list = $('.requests-containter');
+				var list = document.getElementsByClassName('requests-containter')[0];
 				var toBeRemoved = self.parentNode.parentNode;
+				console.log(toBeRemoved);
+				console.log(list);
 				list.removeChild(toBeRemoved);
 			}
 			

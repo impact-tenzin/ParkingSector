@@ -301,10 +301,11 @@ def create_regular_user(request, reg_form):
                                     password=reg_form.cleaned_data['password'])
     user.save()
                 
-    licence_plate_key = LicencePlates.objects.create(user_id=user.id)
-    licence_plate_key.save()
+    #licence_plate_key = LicencePlates.objects.create(user_id=user.id)
+    #licence_plate_key.save()
                 
-    regular_user = RegularUser(user=user, licence_plate=licence_plate_key)
+    regular_user = RegularUser(user=user)
+                               #, licence_plate=licence_plate_key)
     regular_user.save()
                 
     return HttpResponseRedirect('/login/user')

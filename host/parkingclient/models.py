@@ -11,7 +11,7 @@ class Client(models.Model):
 
 class RegularUser(models.Model):
         user = models.OneToOneField(User)
-        licence_plate = models.ForeignKey('LicencePlates')
+        licence_plate = models.ForeignKey('LicencePlates', null=True, blank=True)
         
         def __unicode__(self):
                 return str(self.user)
@@ -41,7 +41,7 @@ class BookedSpots(models.Model):
     
 class LicencePlates(models.Model):
     user_id = models.IntegerField()
-    licence_plate = models.CharField(max_length = 45, null = True, blank=True)
+    licence_plate = models.CharField(max_length = 45)
     
     def __unicode__(self):
         return str(self.licence_plate)
