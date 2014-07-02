@@ -4,7 +4,7 @@
 	background: #6bbde8;
 	color: #FFF;
 }
-.header{
+.header2{
 	font-family: Verdana;
 	font-size: 20px;
 }
@@ -22,6 +22,11 @@
 	font-size: 16px;
 	margin-top: 10px;
 }
+.special{
+	padding: 10px 45px 10px 45px !important;
+	font-size: 24px !important;
+	background: #868688 !important;
+}
 .morning{
 	background: #eeb935 !important;
 }
@@ -36,4 +41,7 @@
 }
 .midnight{
 	background: #413d92 !important;
+}
+.pinkyrinky{
+	background: #e2677e !important;
 }
