@@ -75,16 +75,17 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 col-md-offset-4 text-center">
-						<h2>Регистрационни номера на автомобили</h2>
+						<h3 class="colorBlack">Регистрационни номера на автомобили</h3>
 						<hr>
-						<p class="msg">
+						<p class="msg alert">
 							<i class="fa fa-exclamation-triangle"></i> Не сте запазили паркоместа
 						</p>
 						<br>
 					</div>
 				</div>
-				<div class="col-md-3 text-center margin">
-					<div class="row">
+				<div class="col-lg-6 text-center">
+					
+						<p class="label">Добавяне на номер:</p>
 						<form method="POST" action="">
 
 							{% load widget_tweaks %}
@@ -92,17 +93,31 @@
 							{% csrf_token %}
 
 							<!--{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text" |attr:"size:40" }}-->
+							
+							<input type="text" name="your-email" placeholder="Рег. номер" class="cform-text regplateinput" size="40" title="your email">
 
-							<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
-
-							<br>
-
-							<button class="cform-submit submit">
-								Вход <i class="fa fa-paper-plane-o"></i>
+							<button class="cform-submit submitBtn">
+								Запомни
 							</button>
 
 						</form>
-					</div>
+					
+				</div>
+				<div class="col-lg-4 text-center">
+					
+						<p class="label" id="dropdownMenu1 label" data-toggle="dropdown">Моите номера:</p>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation">
+									<a href="#" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>
+								</li>
+																<li role="presentation">
+									<a href="#" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>
+								</li>
+																<li role="presentation">
+									<a href="#" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>
+								</li>
+							</ul>
+					
 				</div>
 			</div>
 			<div class="container">
@@ -110,7 +125,7 @@
 					<div class="col-md-4 col-md-offset-4 text-center">
 						<h2>Запазвания</h2>
 						<hr>
-						<p class="msg">
+						<p class="msg alert">
 							<i class="fa fa-exclamation-triangle"></i> Не сте запазили паркоместа
 						</p>
 					</div>
