@@ -78,7 +78,23 @@
 			</div>
 		   <div class="col-md-3 text-center margin">
 				<div class="row">
-					<input type="text" class="cform-control" />
+					<form method="POST" action="">
+
+						{% load widget_tweaks %}
+
+						{% csrf_token %}
+
+						<!--{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text" |attr:"size:40" }}-->
+
+						<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
+
+						<br>
+
+						<button class="cform-submit submit">
+							Вход <i class="fa fa-paper-plane-o"></i>
+						</button>
+
+					</form>
 				</div>
 			</div>
 		</div>
