@@ -61,3 +61,16 @@
 .subplate{
 	text-align: right;
 }
+.deleteBtn{
+	display: inline-block !important;
+	height: 40px;
+	border: 4px solid #28b9e7;
+	background: #FFF;
+	font-size: 12px;
+	font-family: Verdana;
+	color: #28b9e7;
+	margin-left: 15px;
+}
+.first{
+	margin-bottom: 10px;
+}
