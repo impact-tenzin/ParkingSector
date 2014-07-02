@@ -83,7 +83,7 @@ def render_login_page(request, type):
 @login_required
 def profile(request):
         if not request.user.is_authenticated():
-            return HttpResponseRedirect('/login/')
+            return HttpResponseRedirect('/login/user')
         # client = request.user.get_profile
         try:
             client = Client.objects.get(user=request.user.id)
@@ -222,13 +222,15 @@ def confirm_booking(request):
                     parking_id = request.POST['parking_id']
                     # price_list = request.POST['price_list']
                     price_list = ParkingMarker.objects.get(id=parking_id).pricePerHour
+                    parking_address = ParkingMarker.objects.get(id=parking_id).address
                     arrival_time = request.POST['arrival_time']
                     duration = request.POST['duration']
                     licence_plate = request.POST['licence_plate']
                     user_id = request.user.id
                     BookedSpots.objects.create(parking_id=parking_id, user_id=user_id,
-                                                price_list=price_list, arrival_time=arrival_time,
-                                                 duration=duration, licence_plate=licence_plate)
+                                               parking_address=parking_address,
+                                               price_list=price_list, arrival_time=arrival_time,
+                                               duration=duration, licence_plate=licence_plate)
                     return HttpResponse("Booking completed", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
@@ -317,7 +319,7 @@ def user_already_exists(request, reg_form):
 def get_booking_requests(request):
     if request.is_ajax():
         if request.user.is_authenticated():
-            booking_requests = BookedSpots.objects.filter(user_id=reques.user.id)
+            booking_requests = BookedSpots.objects.filter(user_id=request.user.id)
             data = serializers.serialize("json", booking_requests)
             return HttpResponse(data, content_type="application/json; charset=utf-8") 
         else:
