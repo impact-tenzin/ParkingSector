@@ -383,8 +383,12 @@ def add_licence_plate(request):
         if request.user.is_authenticated():
             if request.method == "POST":
                 licence_plate = request.POST['licence_plate']
-                LicencePlates.objects.create(user_id=request.user.id, licence_plate=licence_plate).save()
-                return HttpResponse("addition complete", content_type="text/html; charset=utf-8")        
+                try:
+                    LicencePlates.objects.get(user_id=request.user.id, licence_plate=licence_plate)
+                except LicencePlates.DoesNotExist:
+                    LicencePlates.objects.create(user_id=request.user.id, licence_plate=licence_plate).save()
+                    return HttpResponse("addition complete", content_type="text/html; charset=utf-8")
+                return HttpResponse("already exists", content_type="text/html; charset=utf-8")      
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
@@ -401,7 +405,7 @@ def remove_licence_plate(request):
                     LicencePlates.objects.get(id=plate_id).delete()
                 except LicencePlates.DoesNotExist:
                     send_data()
-                return HttpResponse("addition complete", content_type="text/html; charset=utf-8")        
+                return HttpResponse("deletion complete", content_type="text/html; charset=utf-8")        
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
