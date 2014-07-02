@@ -319,7 +319,7 @@ def user_already_exists(request, reg_form):
 def get_booking_requests(request):
     if request.is_ajax():
         if request.user.is_authenticated():
-            booking_requests = BookedSpots.objects.filter(user_id=reques.user.id)
+            booking_requests = BookedSpots.objects.filter(user_id=request.user.id)
             data = serializers.serialize("json", booking_requests)
             return HttpResponse(data, content_type="application/json; charset=utf-8") 
         else:

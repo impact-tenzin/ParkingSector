@@ -150,7 +150,7 @@
 	<script>
 		function getBookingRequests() {
 				$.ajax({
-					url : "/cancelBooking/",
+					url : "/getBookingRequests/",
 					type : 'GET', //this is the default though, you don't actually need to always mention it
 					xhrFields : {
 						withCredentials : true
@@ -218,7 +218,7 @@
 			function renderRequests(requests)
 			{	
 				$('.requests-container').html("");
-				for (var i=0,len = requests.length < len; i++) {
+				for (var i=0,len = requests.length; i < len; i++) {
 					addRequestOnUI(requests[i]);
 				};
 			}
@@ -240,6 +240,10 @@
 				;
 				$('.requests-containter').append(uiRequest);
 			}
+			
+			window.onload = function(){
+				getBookingRequests();
+			};
 	</script>
 </body>
 
