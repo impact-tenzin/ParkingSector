@@ -83,7 +83,7 @@ def render_login_page(request, type):
 @login_required
 def profile(request):
         if not request.user.is_authenticated():
-            return HttpResponseRedirect('/login/')
+            return HttpResponseRedirect('/login/user')
         # client = request.user.get_profile
         try:
             client = Client.objects.get(user=request.user.id)
