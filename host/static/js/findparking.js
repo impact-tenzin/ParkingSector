@@ -319,7 +319,7 @@ function centerHighlightedEl(id) {
 // information window for active parkings that is shown on clicking a marker
 //<span id='displayedPercentage'>" + "--" + "</span> needs api + formula to calculate percentage
 function showMarkerWindow(parking, marker) {
-	map.panTo(new google.maps.LatLng(parking.lat, parking.lng));
+	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	highlightParking(parking);
 	var html = "<div class='infoWindow'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" +   "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>" + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><div class='pricelistHolder'><div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div><br><div class='priceBox'>5ч - 8лв</div><div class='priceBox'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div><br><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div></div>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>";
 	var myOptions = {
@@ -376,7 +376,7 @@ function distToMeters(distance) {
 
 // remove after filling info
 function showMarkerWindowNoInfo(parking, marker) {
-	map.panTo(new google.maps.LatLng(parking.lat, parking.lng));
+	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	var html = "<div class='infoWindow'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>Предстои да добавим информация за паркинга.</div>";
 	var myOptions = {
 		content : html,
