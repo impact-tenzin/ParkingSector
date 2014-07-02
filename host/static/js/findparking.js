@@ -462,8 +462,7 @@ function preConfirmBooking(data) {
 	$('.confirmBox').show();
 	$("#license").html("");
 	if (data.length > 0) {
-		for (var i = 0; i < data.length; i++) {
-			console.log(i);
+		for (var i = 0; i < data.length; i++) {
 			$("#license").append("<option value=" + (i + 1) + ">" + data[i].fields['licence_plate'] + "</option>");
 		};
 	}
@@ -493,6 +492,7 @@ function closeSignIn() {
 function closeConfirm() {
 	$('.confirmBox').hide();
 	$('.msg-confirm').html("");
+	resetConfirmForm();
 }
 
 $(function() {
@@ -656,6 +656,7 @@ function renderConfirmMsg(data) {
 		setTimeout(function() {
 			$('.confirmBox').hide();
 			$('.msg-confirm').html("");
+			resetConfirmForm();
 		}, 2000);
 	} else if (data == "already booked parkingspot here") {
 		var msg = "Вече сте запазили паркомясто на този паркинг! За да запазите ново паркомясто първо трябва да отмените предната си заявка ";
@@ -665,6 +666,18 @@ function renderConfirmMsg(data) {
 		var msg = "Преди да запазите място трябва да влезете профила си!";
 		$('.msg-confirm').html(msg);
 	}
+}
+
+function resetConfirmForm()
+{
+	$( ".license-box" ).val("");
+	$('.arrival-time').datetimepicker({
+		format : 'd.m.Y H:i',
+		value : getCurrentDate(false),
+		dayOfWeekStart : 1,
+		step : 15,
+	});
+	$(".duration-time").val("1");
 }
 
 function sortAscendingByPrice(allParkings) {
