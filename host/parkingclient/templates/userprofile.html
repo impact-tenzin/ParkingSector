@@ -1,151 +1,171 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-    <title>ParkingSector.bg | Времето ни е ценно!</title>
+		<title>ParkingSector.bg | Времето ни е ценно!</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Bootstrap core CSS -->
+		<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-    <!-- Custom Google Web Font -->
-    <link href="/static/bootstrap/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+		<!-- Custom Google Web Font -->
+		<link href="/static/bootstrap/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 
-    <!-- Add custom CSS here -->
-    <link href="/static/css/style.css" rel="stylesheet">
-	<link href="/static/css/client_tasks.css" rel="stylesheet">
-</head>
+		<!-- Add custom CSS here -->
+		<link href="/static/css/style.css" rel="stylesheet">
+		<link href="/static/css/client_tasks.css" rel="stylesheet">
+	</head>
 
-<body>
+	<body>
 
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">ParkingSector.bg</a>
-            </div>
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">ParkingSector.bg</a>
+				</div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="http://www.test.parkingsector.bg/#home" class="btn-one">Начало</a>
-                    </li>
-                    <li><a href="http://www.test.parkingsector.bg/#services" class="btn-two">Услуги</a>
-                    </li>
-                    <li><a href="http://www.test.parkingsector.bg/#contact" class="btn-three">Контакти</a>
-                    </li>
-					<li>
-						  {% if user.is_authenticated %}
-									<a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown"> {{ user.username }}</a>
-								{% else %}
-									 <a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown">Logout</a>
-								{% endif %}
-						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a href="/logout" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a></li>
-						</ul>
-					</li>
-					<!--<li><a href="http://www.test.parkingsector.bg/logout" class="btn-three">Излез</a>
-                    </li>-->
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="http://www.test.parkingsector.bg/#home" class="btn-one">Начало</a>
+						</li>
+						<li>
+							<a href="http://www.test.parkingsector.bg/#services" class="btn-two">Услуги</a>
+						</li>
+						<li>
+							<a href="http://www.test.parkingsector.bg/#contact" class="btn-three">Контакти</a>
+						</li>
+						<li>
+							{% if user.is_authenticated %}
+							<a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown">{{ user.username }}</a>
+							{% else %}
+							<a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown">Logout</a>
+							{% endif %}
 
-	<!--Three columns-->
-	    <div id="services" class="services">
-			<!--Number plates-->
-		<div class="container">
-			<div class="row">
-                <div class="col-md-4 col-md-offset-4 text-center">
-                    <h2>Регистрационни номера на автомобили</h2>
-                    <hr>
-                    <p class="msg"><i class="fa fa-exclamation-triangle"></i> Не сте запазили паркоместа</p><br>
-                </div>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation">
+									<a href="/logout" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>
+								</li>
+							</ul>
+						</li>
+						<!--<li><a href="http://www.test.parkingsector.bg/logout" class="btn-three">Излез</a>
+						</li>-->
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
 			</div>
-		   <div class="col-md-3 text-center margin">
+			<!-- /.container -->
+		</nav>
+
+		<!--Three columns-->
+		<div id="services" class="services">
+			<!--Number plates-->
+			<div class="container">
 				<div class="row">
-					<form method="POST" action="">
-
-						{% load widget_tweaks %}
-
-						{% csrf_token %}
-
-						<!--{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text" |attr:"size:40" }}-->
-
-						<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
-
+					<div class="col-md-4 col-md-offset-4 text-center">
+						<h2>Регистрационни номера на автомобили</h2>
+						<hr>
+						<p class="msg">
+							<i class="fa fa-exclamation-triangle"></i> Не сте запазили паркоместа
+						</p>
 						<br>
+					</div>
+				</div>
+				<div class="col-md-3 text-center margin">
+					<div class="row">
+						<form method="POST" action="">
 
-						<button class="cform-submit submit">
-							Вход <i class="fa fa-paper-plane-o"></i>
-						</button>
+							{% load widget_tweaks %}
 
-					</form>
+							{% csrf_token %}
+
+							<!--{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text" |attr:"size:40" }}-->
+
+							<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
+
+							<br>
+
+							<button class="cform-submit submit">
+								Вход <i class="fa fa-paper-plane-o"></i>
+							</button>
+
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4 text-center">
+						<h2>Запазвания</h2>
+						<hr>
+						<p class="msg">
+							<i class="fa fa-exclamation-triangle"></i> Не сте запазили паркоместа
+						</p>
+					</div>
+				</div>
+				<div class="row requests-containter">
+					<!--<div class="col-md-3 text-center margin">
+					<div class="service-item clientHolder">
+					<h3>Заявка 1</h3>
+					<p><i class="fa fa-map-marker client"></i> ул. Димитър Благоев 123, Студентски град, София</p>
+					<p><i class="fa fa-calendar client"></i> дата на запазване:<br> 14.05.2014</p>
+					<p><i class="fa fa-clock-o client"></i>  запазено от 12:30 до 14:30 часа</p>
+					<p><i class="fa fa-car client"></i> регистрационен номер: CA1658MH</p>
+					<p><i class="fa fa-usd client"></i> запазено на цена:<br> 1.00 лв/час</p>
+					<button class="delete">Откажи <i class="fa fa-times"></i></button>
+					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4 text-center">
-                    <h2>Запазвания</h2>
-                    <hr>
-                    <p class="msg"><i class="fa fa-exclamation-triangle"></i> Не сте запазили паркоместа</p>
-                </div>
-            </div>
-            <div class="row requests-containter">
-                <!--<div class="col-md-3 text-center margin">
-                    <div class="service-item clientHolder">
-						<h3>Заявка 1</h3>
-                        <p><i class="fa fa-map-marker client"></i> ул. Димитър Благоев 123, Студентски град, София</p>
-						<p><i class="fa fa-calendar client"></i> дата на запазване:<br> 14.05.2014</p>
-						<p><i class="fa fa-clock-o client"></i>  запазено от 12:30 до 14:30 часа</p>
-						<p><i class="fa fa-car client"></i> регистрационен номер: CA1658MH</p>
-						<p><i class="fa fa-usd client"></i> запазено на цена:<br> 1.00 лв/час</p>
-						<button class="delete">Откажи <i class="fa fa-times"></i></button>
-                    </div>
-                </div>-->
-            </div>
-        </div>
-    </div>
-	<!--/Three columns-->
-    <!-- /.intro-header -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="list-inline">
-                        <li><a href="http://www.test.parkingsector.bg/#home">Начало</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li><a href="http://www.test.parkingsector.bg/#services">Услуги</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li><a href="http://www.test.parkingsector.bg/#contact">Контакти</a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted small">Copyright &copy; ParkingSector.bg 2014. All Rights Reserved</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+		<!--/Three columns-->
+		<!-- /.intro-header -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<ul class="list-inline">
+							<li>
+								<a href="http://www.test.parkingsector.bg/#home">Начало</a>
+							</li>
+							<li class="footer-menu-divider">
+								&sdot;
+							</li>
+							<li>
+								<a href="http://www.test.parkingsector.bg/#services">Услуги</a>
+							</li>
+							<li class="footer-menu-divider">
+								&sdot;
+							</li>
+							<li>
+								<a href="http://www.test.parkingsector.bg/#contact">Контакти</a>
+							</li>
+						</ul>
+						<p class="copyright text-muted small">
+							Copyright &copy; ParkingSector.bg 2014. All Rights Reserved
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
 
-    <!-- JavaScript -->
-    <script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
-    <script src="/static/bootstrap/js/bootstrap.js"></script>
-	<script>
-		function getBookingRequests() {
+		<!-- JavaScript -->
+		<script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
+		<script src="/static/bootstrap/js/bootstrap.js"></script>
+		<script>
+			function getBookingRequests() {
 				$.ajax({
 					url : "/getBookingRequests/",
 					type : 'GET', //this is the default though, you don't actually need to always mention it
@@ -165,7 +185,7 @@
 					},
 				});
 			}
-		
+
 			function cancelBooking(self) {
 				booking_id = self.id;
 				$.ajax({
@@ -178,9 +198,9 @@
 						'X-Requested-With' : 'XMLHttpRequest'
 					},
 					data : {
-							booking_id : booking_id,
-							csrfmiddlewaretoken : '{{ csrf_token }}'
-						},
+						booking_id : booking_id,
+						csrfmiddlewaretoken : '{{ csrf_token }}'
+					},
 					success : function(data) {
 						renderMessage(data, self);
 					},
@@ -204,46 +224,32 @@
 				if (data == "user not authenticated")
 					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
 			}
-			
-			function removeWindow(self)
-			{
+
+			function removeWindow(self) {
 				var list = document.getElementsByClassName('requests-containter')[0];
 				var toBeRemoved = self.parentNode.parentNode;
 				//console.log(toBeRemoved);
 				//console.log(list);
 				list.removeChild(toBeRemoved);
 			}
-			
-			function renderRequests(requests)
-			{	
+
+			function renderRequests(requests) {
 				$('.requests-container').html("");
-				for (var i=0,len = requests.length; i < len; i++) {
+				for (var i = 0, len = requests.length; i < len; i++) {
 					addRequestOnUI(requests[i]);
 				};
 			}
-			
-			function addRequestOnUI(request)
-			{
-				var uiRequest =
-					"<div class='col-md-3 text-center margin'>"+
-                    "<div class='service-item clientHolder'>"+
-						"<h3>Запазване</h3>"+
-                        "<p><i class='fa fa-map-marker client'></i>"+request.fields['parking_address']+"</p>"+
-						"<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>"+request.fields['arrival_time']+"</p>"+
-						"<p><i class='fa fa-clock-o client'></i> продължителност на престоя: "+request.fields['duration']+" часа</p>"+
-						"<p><i class='fa fa-car client'></i> регистрационен номер: "+request.fields['licence_plate']+"</p>"+
-						"<p><i class='fa fa-usd client'></i> запазено на цена:<br>"+request.fields['price_list']+"</p>"+
-						"<button id='"+request.pk+"' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>"+
-                    "</div>"+
-                "</div>"
-				;
+
+			function addRequestOnUI(request) {
+				var uiRequest = "<div class='col-md-3 text-center margin'>" + "<div class='service-item clientHolder'>" + "<h3>Запазване</h3>" + "<p><i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "</p>" + "<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>" + request.fields['arrival_time'] + "</p>" + "<p><i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа</p>" + "<p><i class='fa fa-car client'></i> регистрационен номер: " + request.fields['licence_plate'] + "</p>" + "<p><i class='fa fa-usd client'></i> запазено на цена:<br>" + request.fields['price_list'] + "</p>" + "<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>" + "</div>" + "</div>";
 				$('.requests-containter').append(uiRequest);
 			}
-			
-			window.onload = function(){
+
+
+			window.onload = function() {
 				getBookingRequests();
 			};
-	</script>
-</body>
+		</script>
+	</body>
 
 </html>

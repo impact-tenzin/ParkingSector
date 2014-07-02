@@ -86,16 +86,14 @@ def profile(request):
             return HttpResponseRedirect('/login/user')
         # client = request.user.get_profile
         try:
-            client = Client.objects.get(user=request.user.id)
-            context = {'client': client}
-            return render_to_response('clientprofile.html', context, context_instance=RequestContext(request))
+            Client.objects.get(user=request.user.id)
+            return render_to_response('clientprofile.html', {}, context_instance=RequestContext(request))
         except Client.DoesNotExist:
             pass
         
         try:           
-            reguser = RegularUser.objects.get(user=request.user.id)
-            context = {'user': reguser}
-            return render_to_response('userprofile.html', context, context_instance=RequestContext(request))
+            RegularUser.objects.get(user=request.user.id)
+            return render_to_response('userprofile.html', {}, context_instance=RequestContext(request))
         except RegularUser.DoesNotExist:
             pass
         
