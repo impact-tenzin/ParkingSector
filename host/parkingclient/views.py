@@ -298,12 +298,8 @@ def create_regular_user(request, reg_form):
                                     email=reg_form.cleaned_data['email'],
                                     password=reg_form.cleaned_data['password'])
     user.save()
-                
-    #licence_plate_key = LicencePlates.objects.create(user_id=user.id)
-    #licence_plate_key.save()
-                
+              
     regular_user = RegularUser(user=user)
-                               #, licence_plate=licence_plate_key)
     regular_user.save()
                 
     return HttpResponseRedirect('/login/user')
@@ -372,6 +368,20 @@ def actualise_price_list(request):
                 except PriceList.DoesNotExist:
                     send_data()
                 return HttpResponse("actualisation complete", content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def add_licence_plate(request):
+    if request.is_ajax():
+        if request.user.is_authenticated():
+            if request.method == "POST":
+                licence_plate = request.POST['licence_plate']
+                LicencePlates.objects.create(user_id=request.user.id, licence_plate=licence_plate).save()
+                return HttpResponse("addition complete", content_type="text/html; charset=utf-8")        
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:

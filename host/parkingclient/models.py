@@ -11,7 +11,7 @@ class Client(models.Model):
 
 class RegularUser(models.Model):
         user = models.OneToOneField(User)
-        licence_plate = models.ForeignKey('LicencePlates', null=True, blank=True)
+        #licence_plate = models.ForeignKey('LicencePlates', null=True, blank=True)
         
         def __unicode__(self):
                 return str(self.user)
