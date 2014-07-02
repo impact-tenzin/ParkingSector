@@ -44,8 +44,20 @@
                     </li>
                     <li><a href="http://www.test.parkingsector.bg/#contact" class="btn-three">Контакти</a>
                     </li>
-					<li><a href="http://www.test.parkingsector.bg/logout" class="btn-three">Излез</a>
-                    </li>
+					<li>
+						<a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown">
+						  {% if user.is_authenticated %}
+									 <i class="fa fa-user"></i> {{ user.username }}<b class="caret"></b>
+								{% else %}
+									 <i class="fa fa-user"></i> {{ user.username }}<b class="caret"></b>
+								{% endif %}	
+						</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation"><a href="/logout" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a></li>
+						</ul>
+					</li>
+					<!--<li><a href="http://www.test.parkingsector.bg/logout" class="btn-three">Излез</a>
+                    </li>-->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -55,12 +67,27 @@
 
 	<!--Three columns-->
 	    <div id="services" class="services">
+			<!--Number plates-->
+		<div class="container">
+			<div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    <h2>Регистрационни номера на автомобили</h2>
+                    <hr>
+                    <p class="msg"><i class="fa fa-exclamation-triangle"></i> Не сте запазили паркоместа</p><br>
+                </div>
+			</div>
+		   <div class="col-md-3 text-center margin">
+				<div class="row">
+					<input type="text" class="cform-control" />
+				</div>
+			</div>
+		</div>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <h2>Запазвания</h2>
                     <hr>
-                    <p class="msg">Не сте запазили паркоместа</p>
+                    <p class="msg"><i class="fa fa-exclamation-triangle"></i> Не сте запазили паркоместа</p>
                 </div>
             </div>
             <div class="row requests-containter">
@@ -197,15 +224,15 @@
 
 			function renderMessage(data) {
 				if (data == "deletion complete") {
-					$('.msg').html("").html("Отменихте заявката си успешно.");
+					$('.msg').html("").html("<i class='fa fa-check'></i> Отменихте заявката си успешно.");
 					removeWindow(self);
 				}
 				if (data == "BookedSpot does not exist")
-					$('.msg').html("").html("Установихме грешка. Моля, обновете сесията чрез рефреш!");
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, обновете сесията чрез рефреш!");
 				if (data == "request method is not POST")
-					$('.msg').html("").html("Установихме грешка. Моля, пробвайте отново.");
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, пробвайте отново.");
 				if (data == "user not authenticated")
-					$('.msg').html("").html("Не сте влезли в профила си.");
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
 			}
 			
 			function removeWindow(self)
