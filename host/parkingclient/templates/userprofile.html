@@ -60,10 +60,11 @@
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <h2>Запазвания</h2>
                     <hr>
+                    <p class="msg"></p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3 text-center margin">
+            <div class="row requests-containter">
+                <!--<div class="col-md-3 text-center margin">
                     <div class="service-item clientHolder">
 						<h3>Заявка 1</h3>
                         <p><i class="fa fa-map-marker client"></i> ул. Димитър Благоев 123, Студентски град, София</p>
@@ -117,7 +118,7 @@
 						<p><i class="fa fa-usd client"></i> запазено на цена:<br> 1.00 лв/час</p>
 						<button class="delete">Откажи <i class="fa fa-times"></i></button>
                     </div>
-                </div>
+             </div>-->
             </div>
         </div>
     </div>
@@ -146,7 +147,100 @@
     <!-- JavaScript -->
     <script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
     <script src="/static/bootstrap/js/bootstrap.js"></script>
+	<script>
+		function getBookingRequests() {
+				$.ajax({
+					url : "/cancelBooking/",
+					type : 'GET', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					success : function(data) {
+						renderRequests(data);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
 
+					},
+				});
+			}
+		
+			function cancelBooking(self) {
+				booking_id = self.id;
+				$.ajax({
+					url : "/cancelBooking/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+							booking_id : booking_id,
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+					success : function(data) {
+						renderMessage(data, self);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
+			}
+
+			function renderMessage(data, self) {
+				if (data == "deletion complete") {
+					$('.msg').val("").val("Отменихте заявката си успешно.");
+					removeWindow(self);
+				}
+				if (data == "BookedSpot does not exist")
+					$('.msg').val("").val("Отменихте заявката си успешно.");
+				if (data == "request method is not POST")
+					$('.msg').val("").val("Установихме грешка. Моля, пробвайте отново.");
+				if (data == "user not authenticated")
+					$('.msg').val("").val("Не сте влезли в профила си.");
+			}
+			
+			function removeWindow(self)
+			{
+				var list = $('.requests-containter');
+				var toBeRemoved = self.parentNode.parentNode;
+				list.removeChild(toBeRemoved);
+			}
+			
+			function renderRequests(requests)
+			{	
+				$('.requests-container').html("");
+				for (var i=0,len = requests.length < len; i++) {
+					addRequestOnUI(requests[i]);
+				};
+			}
+			
+			function addRequestOnUI(request)
+			{
+				var uiRequest =
+					"<div class='col-md-3 text-center margin'>"+
+                    "<div class='service-item clientHolder'>"+
+						"<h3>Заявка 2</h3>"+
+                        "<p><i class='fa fa-map-marker client'></i>"+request.fields['parking_address']+"</p>"+
+						"<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>"+request.fields['arrival_time']+"</p>"+
+						"<p><i class='fa fa-clock-o client'></i> продължителност на пресотоя: "+request.fields['duration']+" часа</p>"+
+						"<p><i class='fa fa-car client'></i> регистрационен номер: "+request.fields['licence_plate']+"</p>"+
+						"<p><i class='fa fa-usd client'></i> запазено на цена:<br>"+request.fields['price_list']+"</p>"+
+						"<button id='"+request.pk+"' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>"+
+                    "</div>"+
+                "</div>"
+				;
+				$('.requests-containter').append(uiRequest);
+			}
+	</script>
 </body>
 
 </html>

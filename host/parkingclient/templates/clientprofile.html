@@ -226,7 +226,7 @@
 		{
 			var list = document.getElementById('table-body');
 			var toBeRemoved = self.parentNode.parentNode;
-			var pk = parseInt(toBeRemoved.id)
+			var pk = parseInt(toBeRemoved.id);
 			list.removeChild(toBeRemoved);
 			for (var i=0, len = currentRequests.length; i < len; i++) {
 			  	if (currentRequests[i].pk==pk)
