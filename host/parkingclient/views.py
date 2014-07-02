@@ -10,6 +10,7 @@ from FindParking.models import ParkingMarker, PriceList
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from itertools import chain
 
 def login_request(request, type):
         if request.user.is_authenticated():
@@ -315,7 +316,9 @@ def get_booking_requests(request):
     if request.is_ajax():
         if request.user.is_authenticated():
             booking_requests = BookedSpots.objects.filter(user_id=request.user.id)
-            data = serializers.serialize("json", booking_requests)
+            licence_plates = LicencePlates.objects.filter(user_id=request.user.id)
+            combined = list(chain(booking_requests, licence_plates))
+            data = serializers.serialize("json", combined)
             return HttpResponse(data, content_type="application/json; charset=utf-8") 
         else:
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
@@ -381,6 +384,23 @@ def add_licence_plate(request):
             if request.method == "POST":
                 licence_plate = request.POST['licence_plate']
                 LicencePlates.objects.create(user_id=request.user.id, licence_plate=licence_plate).save()
+                return HttpResponse("addition complete", content_type="text/html; charset=utf-8")        
+            else:
+                return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def remove_licence_plate(request):
+    if request.is_ajax():
+        if request.user.is_authenticated():
+            if request.method == "POST":
+                plate_id = request.POST['plate_id']
+                try:
+                    LicencePlates.objects.get(id=plate_id).delete()
+                except LicencePlates.DoesNotExist:
+                    send_data()
                 return HttpResponse("addition complete", content_type="text/html; charset=utf-8")        
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")

@@ -84,40 +84,44 @@
 					</div>
 				</div>
 				<div class="col-lg-6 text-center first">
-					
-						<p class="label">Добавяне на номер:</p>
-						<form method="POST" action="">
 
-							{% load widget_tweaks %}
+					<p class="label">
+						Добавяне на номер:
+					</p>
+						<input type="text" name="your-email" placeholder="Рег. номер" class="cform-text regplateinput" size="40" title="your email">
 
-							{% csrf_token %}
+						<button class="cform-submit submitBtn" onclick='addNewPlate();'>
+							Запомни
+						</button>
 
-							<!--{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text" |attr:"size:40" }}-->
-							
-							<input type="text" name="your-email" placeholder="Рег. номер" class="cform-text regplateinput" size="40" title="your email">
-
-							<button class="cform-submit submitBtn">
-								Запомни
-							</button>
-
-						</form>
-					
 				</div>
 				<div class="col-lg-4 text-center">
-					
-						<p class="label" id="dropdownMenu1 label" data-toggle="dropdown">Моите номера <span class="caret"></span></p>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								<li role="presentation">
-									<a href="#" role="menuitem" tabindex="-1" href="#">KT 8585 PC <button class="cform-submit deleteBtn">Премахни</button></a>
-								</li>
-								<li role="presentation">
-									<a href="#" role="menuitem" tabindex="-1" href="#">PC 6162 PK <button class="cform-submit deleteBtn">Премахни</button></a>
-								</li>
-								<li role="presentation">
-									<a href="#" role="menuitem" tabindex="-1" href="#">BK 6859 KT <button class="cform-submit deleteBtn">Премахни</button></a>
-								</li>
-							</ul>
-					
+
+					<p class="label" id="dropdownMenu1 label" data-toggle="dropdown">
+						Моите номера <span class="caret"></span>
+					</p>
+					<ul class="dropdown-menu plates-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<!--<li role="presentation">
+						<a href="#" role="menuitem" tabindex="-1" href="#">KT 8585 PC
+						<button class="cform-submit deleteBtn">
+						Премахни
+						</button></a>
+						</li>
+						<li role="presentation">
+						<a href="#" role="menuitem" tabindex="-1" href="#">PC 6162 PK
+							<button class="cform-submit deleteBtn">
+							Премахни
+							</button>
+							</a>
+						</li>
+						<li role="presentation">
+						<a href="#" role="menuitem" tabindex="-1" href="#">BK 6859 KT
+						<button class="cform-submit deleteBtn">
+						Премахни
+						</button></a>
+						</li>-->
+					</ul>
+
 				</div>
 			</div>
 			<div class="container">
@@ -191,7 +195,14 @@
 						'X-Requested-With' : 'XMLHttpRequest'
 					},
 					success : function(data) {
-						renderRequests(data);
+						var requests = data.filter(function(item) {
+							return item.model == "parkingclient.bookedspots";
+						});
+						var licence_plates = data.filter(function(item) {
+							return item.model == "parkingclient.licenceplates";
+						});
+						renderPlates(licence_plates);
+						renderRequests(requests);
 					},
 					error : function(error) {
 						// Log any error.
@@ -201,8 +212,34 @@
 				});
 			}
 
+			function addNewPlate() {
+				var newPlate = $('.regplateinput').val();
+				$.ajax({
+					url : "/addNewPlate/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						licence_plate : newPlate,
+						csrfmiddlewaretoken : '{{ csrf_token }}'
+					},
+					success : function(data) {
+						renderMessage(data, self);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
+			}
+	
 			function cancelBooking(self) {
-				booking_id = self.id;
+				var booking_id = self.id;
 				$.ajax({
 					url : "/cancelBooking/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
@@ -226,7 +263,46 @@
 					},
 				});
 			}
+			
+			function removePlate(self) {
+				var plate_id = self.id;
+				$.ajax({
+					url : "/removeLicencePlate/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						plate_id : plate_id,
+						csrfmiddlewaretoken : '{{ csrf_token }}'
+					},
+					success : function(data) {
+						renderMessageForPlate(data, self);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
 
+					},
+				});
+			}
+			
+			function renderMessageForPlate(data, self) {
+				if (data == "deletion complete") {
+					$('.msg').html("").html("<i class='fa fa-check'></i> Отменихте заявката си успешно.");
+					removePlateUI(self);
+				}
+				if (data == "BookedSpot does not exist")
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, обновете сесията чрез рефреш!");
+				if (data == "request method is not POST")
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, пробвайте отново.");
+				if (data == "user not authenticated")
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
+			}
+			
 			function renderMessage(data, self) {
 				if (data == "deletion complete") {
 					$('.msg').html("").html("<i class='fa fa-check'></i> Отменихте заявката си успешно.");
@@ -239,7 +315,15 @@
 				if (data == "user not authenticated")
 					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
 			}
-
+			
+			function removePlateUI(self) {
+				var list = document.getElementsByClassName('plates-menu')[0];
+				var toBeRemoved = self.parentNode.parentNode;
+				//console.log(toBeRemoved);
+				//console.log(list);
+				list.removeChild(toBeRemoved);
+			}
+			
 			function removeWindow(self) {
 				var list = document.getElementsByClassName('requests-containter')[0];
 				var toBeRemoved = self.parentNode.parentNode;
@@ -258,6 +342,19 @@
 			function addRequestOnUI(request) {
 				var uiRequest = "<div class='col-md-3 text-center margin'>" + "<div class='service-item clientHolder'>" + "<h3>Запазване</h3>" + "<p><i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "</p>" + "<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>" + request.fields['arrival_time'] + "</p>" + "<p><i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа</p>" + "<p><i class='fa fa-car client'></i> регистрационен номер: " + request.fields['licence_plate'] + "</p>" + "<p><i class='fa fa-usd client'></i> запазено на цена:<br>" + request.fields['price_list'] + "</p>" + "<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>" + "</div>" + "</div>";
 				$('.requests-containter').append(uiRequest);
+			}
+
+			function renderPlates(plates) {
+				$('.plates-menu').html("");
+				for (var i = 0, len = plates.length; i < len; i++) {
+					addPlateOnUI(plates[i]);
+				};
+			}
+
+			function addPlateOnUI(plate) {
+				var uiPlate=
+				"<li role='presentation'><a href='#' role='menuitem' tabindex='-1' href='#'>"+plate.fields['licence_plate']+"<button id='"+plate.id+"' class='cform-submit deleteBtn' onclick='removePlate(this)'>Премахни</button></a></li>";
+				$('.plates-menu').append(uiRequest);
 			}
 
 

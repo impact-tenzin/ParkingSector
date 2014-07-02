@@ -49,6 +49,8 @@ urlpatterns = patterns('',
     url(r'^getBookingRequests/', 'parkingclient.views.get_booking_requests'),
     url(r'^actualisePriceList/', 'parkingclient.views.actualise_price_list'),
     url(r'^saveParkingInHistory/', 'parkingclient.views.save_parking_info'),
+    url(r'^addNewPlate/', 'parkingclient.views.add_licence_plate'),
+    url(r'^removeLicencePlate/', 'parkingclient.views.remove_licence_plate'),
     #url(r'^leavingDriver/', 'parkingclient.views.LeavingDriver'),
     #url(r'^arrivingDriver/', 'parkingclient.views.ArrivingDriver'),
     #override the default urls
