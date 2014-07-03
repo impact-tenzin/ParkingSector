@@ -97,8 +97,8 @@
 				</div>
 				<div class="col-lg-4 text-center">
 
-					<p class="label" id="dropdownMenu1 label" data-toggle="dropdown">
-						Моите номера <span class="caret"></span>
+					<p class="label" id="dropdownMenu1" data-toggle="dropdown">
+						<button class="cform-submit submitBtn colorBlack">Моите номера <span class="caret"></span></button>
 					</p>
 					<ul class="dropdown-menu plates-menu" role="menu" aria-labelledby="dropdownMenu1">
 						<li role="presentation">
@@ -351,10 +351,15 @@
 			}
 
 			function addRequestOnUI(request) {
-				var uiRequest = "<div class='col-md-3 text-center margin'>" + "<div class='service-item clientHolder'>" + "<h3>Запазване</h3>" + "<p><i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "</p>" + "<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>" + request.fields['arrival_time'] + "</p>" + "<p><i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа</p>" + "<p><i class='fa fa-car client'></i> регистрационен номер: " + request.fields['licence_plate'] + "</p>" + "<p><i class='fa fa-usd client'></i> запазено на цена:<br>" + request.fields['price_list'] + "</p>" + "<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>" + "</div>" + "</div>";
+				var uiRequest = "<div class='col-md-3 text-center margin'>" + "<div class='service-item clientHolder'>" + "<h3>Запазване</h3>" + "<p><i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "</p>" + "<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>" + request.fields['arrival_time'] + "</p>" + "<p><i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа</p>" + "<p><i class='fa fa-car client'></i> регистрационен номер:<br>" + request.fields['licence_plate'] + "</p>" + "<div class='dropdown'><p class='label' id='dropdownMenu1' data-toggle='dropdown'><i class='fa fa-usd client'></i> <button class='cform-submit deleteBtn'>Цена <span class='caret'></span></button><ul class='dropdown-menu plates-menu pricelistHolder' role='menu' aria-labelledby='dropdownMenu1'><li role='presentation'><div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div></li><li role='presentation'><div class='priceBox'>5ч - 8лв</div><div class='priceBox priceBoxCurrent'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div></li><li role='presentation'><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div></li></ul><br>"/* + request.fields['price_list'] + */ + "<br></p></div>" + "<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>" + "</div>" + "</div>";
 				$('.requests-containter').append(uiRequest);
 			}
 
+            /*
+            
+            <div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div><br><div class='priceBox'>5ч - 8лв</div><div class='priceBox'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div><br><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div>
+            
+            */
 			function renderPlates(plates) {
 				$('.plates-menu').html("");
 				for (var i = 0, len = plates.length; i < len; i++) {

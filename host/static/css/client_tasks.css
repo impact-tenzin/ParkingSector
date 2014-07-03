@@ -74,3 +74,20 @@
 .first{
 	margin-bottom: 20px;
 }
+/*Prices*/
+.pricelistHolder{
+	margin-top: 10px;
+	text-align: center;
+}
+.priceBox{
+	display: inline-block;
+	text-align: center;
+	padding: 2px;
+	background: #46aee3;
+	margin-left: 2px;
+	color: #FFF;
+	margin-bottom: 2px;
+}
+.priceBoxCurrent{
+	background: #d94850 !important;
+}
