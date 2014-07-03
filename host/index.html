@@ -140,7 +140,7 @@
         </div>
         <!-- /.container -->
 	</div>
-    </div>	 <div class="intro-header2 item">     </div>     <div class="intro-header3 item">     </div></div></div>
+    <!--</div>	 </div></div>-->
 	<div class="entries">
 			<h4>Вече над <span class="customers">{{ counter }}</span> човека ни се довериха и решиха проблема си с паркирането!</h4>
 	</div>
@@ -484,12 +484,34 @@
 					},
 				});
 			}
-			
+			/*function myCarousel()
+			{
+				function wait(){
+					var a = 0;
+				}
+				var holder = ["intro-header", "intro-header1", "intro-header2"]; 
+				var id = document.getElementById("home");
+				var i = 0;
+				while (true)
+				{
+					id.className = holder[i];
+					i++;
+					if(i == 2)
+					{ 
+						i = 0;
+					}
+					setTimeout(wait(), 2000);
+				}
+			}*/
+
 			window.onload = function() {
 				//loadDatePickers();
 				load();
 				//setFocus();
 				getCurrentInfo();
+				//Carousel
+				myCarousel();
+			
 			};
 	</script>		<!-- subscribe-popup js -->	
 	<script>
