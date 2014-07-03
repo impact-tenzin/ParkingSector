@@ -228,7 +228,15 @@
 					},
 					success : function(data) {
 						renderMessageForAddingPlate(data);
-						getBookingRequests();
+						/*getBookingRequests();*/
+						var requests = data.filter(function(item) {
+							return item.model == "parkingclient.bookedspots";
+						});
+						var licence_plates = data.filter(function(item) {
+							return item.model == "parkingclient.licenceplates";
+						});
+						renderPlates(licence_plates);
+						renderRequests(requests);
 						$('.regplateinput').val("");
 					},
 					error : function(error) {
