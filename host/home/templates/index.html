@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" style="padding-top:2px !important;" href="#"><img src='/static/imgs/logo_web.png'/></a>
+                <a class="navbar-brand" style="padding-top:2px !important;" href="/"><img src='/static/imgs/logo_web.png'/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -69,6 +69,12 @@
 									<a class="login" class="btn-four" href="/login/user">Login</a>
 								{% endif %}
                     </li>
+					{% if user.is_authenticated %}
+					{% else %}
+					<li>
+						<a class="login" class="btn-four" href="/register">Sign Up</a>
+					</li>
+					{% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

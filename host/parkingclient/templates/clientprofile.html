@@ -29,6 +29,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
 
           <ul class="nav navbar-nav navbar-right navbar-user" id="user">
+			<li class="dropdown messages-dropdown">
+              <a href="/profile" class="dropdown-toggle"><i class="fa fa-tasks"></i> Списък с автомобили</a>
+            </li>
+			<li class="dropdown messages-dropdown">
+              <a href="/profile/pricelist" class="dropdown-toggle"><i class="fa fa-money"></i> Ценоразпис</a>
+            </li>
             <li class="dropdown user-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			  {% if user.is_authenticated %}
@@ -53,146 +59,7 @@
             <h1><small>Добре дошли в Административния панел. <br></small></h1>
           </div>
         </div><!-- /.row -->
-		<!--PRICELIST-->
-		<div class="row">
-          <div class="col-lg-12">
-            <h2>Ценоразпис</h2>
-          </div>
-        </div><!-- /.row -->
-		
-		
-         <div class="row">
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">1 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">2 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">3 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time"> 4 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-        </div><!-- /.row -->
-         <div class="row">
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">5 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">6 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">7 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">8 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-        </div><!-- /.row -->
-         <div class="row">
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">9 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">10 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">11 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-          <div class="col-lg-3 text-center">
-            <div class="panel panel-default size">
-              <div class="panel-body header2">
-                <i class="fa fa-circle-o-notch"></i> <span class="time">12 часа</span><br>
-				2 лв/час<br>
-				<button class="changer"><i class="fa fa-plus"></i></button>
-				<button class="changer"><i class="fa fa-minus"></i></button>
-              </div>
-            </div>            
-          </div>
-        </div><!-- /.row -->
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<button class="changer special"><i class="fa fa-check"></i></button>
-			</div>
-		</div>
-		<!--END PRICELIST-->
+
         <div class="row">
           <div class="col-lg-12">
             <h2>Паркирали коли</h2><br><br><span class="freeSpaces">Свободни места: <span class="spaces">0</span> <button onclick="increaseNumber();"><i class="fa fa-plus"></i></button><button onclick="decreaseNumber();"><i class="fa fa-minus"></i></button></span>
