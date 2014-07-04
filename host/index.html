@@ -503,25 +503,28 @@
 		 }
 		 }*/
 		function start_carousel() {
-			setTimeout(f1, 10000);
+			setTimeout(f1, 3000);
 		}
 
 		function f1() {
 			//smqna na klasa
 			document.getElementById("home").className = "intro-header";
-			setTimeout(f2, 10000);
+			setTimeout(f2, 3000);
 		}
 
-		function f2() {
-			//smqna na klasa
-			document.getElementById("home").className = "intro-header1";
-			setTimeout(f3, 10000);
+		function f2() {
+					//document.getElementById("home").fadeIn( "slow" );
+			//smqna na klasa			
+			document.getElementById("home").className = "intro-header1";
+			
+			//document.getElementById("home").fadeIn( "slow" );
+			setTimeout(f3, 3000);
 		}
 
 		function f3() {
 			//smqna na klasa
 			document.getElementById("home").className = "intro-header2";
-			setTimeout(f1, 10000);
+			setTimeout(f1, 3000);
 		}
 
 
