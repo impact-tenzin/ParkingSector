@@ -503,15 +503,39 @@
 					setTimeout(wait(), 2000);
 				}
 			}*/
+				function start_carousel()
+				{
+					setInterval(f1,10000);
+				}
+				
+				function f1() {
+					//smqna na klasa
+					document.getElementById("home").className = "intro-header";
+					setInterval(f2,10000);
+				}
+					
+					
+				function f2(){   
+					//smqna na klasa
+					document.getElementById("home").className = "intro-header1";
+					setInterval(f3,10000);
+				}
+				
+				function f3(){
+					//smqna na klasa
+					document.getElementById("home").className = "intro-header2";
+					setInterval(f1,10000);
+				}
 			window.onload = function() {
 				//loadDatePickers();
 				load();
 				//setFocus();
 				getCurrentInfo();
 				//Carousel
-				myCarousel();
+				/*myCarousel();*/
 				//trial
-				$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );
+				/*$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );*/
+				start_carousel();
 			};
 	</script>		<!-- subscribe-popup js -->	
 	<script>
