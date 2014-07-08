@@ -80,10 +80,10 @@
 							<br>
 							<span id="twoHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 2" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 2" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -96,10 +96,10 @@
 							<br>
 							<span id="threeHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 3" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 3" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -112,10 +112,10 @@
 							<br>
 							<span id="fourHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 4" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 4" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -130,10 +130,10 @@
 							<br>
 							<span id="fiveHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 5" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 5" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -146,10 +146,10 @@
 							<br>
 							<span id="sixHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 6" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 6" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -162,10 +162,10 @@
 							<br>
 							<span id="sevenHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 7" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 7" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -178,10 +178,10 @@
 							<br>
 							<span id="eightHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 8" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 8" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -196,10 +196,10 @@
 							<br>
 							<span id="nineHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 9" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 9" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -212,10 +212,10 @@
 							<br>
 							<span id="tenHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 10" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 10" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -228,10 +228,10 @@
 							<br>
 							<span id="elevenHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 11" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 11" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -244,10 +244,10 @@
 							<br>
 							<span id="twelveHours">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 12" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 12" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -256,7 +256,7 @@
 			</div><!-- /.row -->
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<button class="changer special">
+					<button class="changer special" onclick="actualisePriceList();">
 						<i class="fa fa-check"></i>
 					</button>
 				</div>
@@ -300,6 +300,95 @@
 				});
 			}
 
+			function actualisePriceList() {
+				var priceList = [];
+				priceList = formPriceList();
+				$.ajax({
+					url : "/actualisePriceList/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						one_hour : priceList[0],
+						two_hour : priceList[1],
+						three_hour : priceList[2],
+						four_hour : priceList[3],
+						five_hour : priceList[4],
+						six_hour : priceList[5],
+						seven_hour : priceList[6],
+						eight_hour : priceList[7],
+						nine_hour : priceList[8],
+						ten_hour : priceList[9],
+						eleven_hour : priceList[10],
+						twelve_hour : priceList[11]
+					},
+					success : function(data) {
+						//render Messege
+					},
+					error : function(error) {
+						console.log("ERROR:", error);
+					},
+				});
+			}
+
+			function formPriceList() {
+				var priceList = [];
+				if ($("#oneHour").html() == "--")
+					priceList[0] = -1
+				else
+					priceList[0] = parseFloat($("#oneHour").html())
+				if ($("#twoHours").html() == "--")
+					priceList[1] = -1
+				else
+					priceList[1] = parseFloat($("#twoHours").html())
+				if ($("#threeHours").html() == "--")
+					priceList[2] = -1
+				else
+					priceList[2] = parseFloat($("#threeHours").html())
+				if ($("#fourHours").html() == "--")
+					priceList[3] = -1
+				else
+					priceList[3] = parseFloat($("#fourHours").html())
+				if ($("#fiveHours").html() == "--")
+					priceList[4] = -1
+				else
+					priceList[4] = parseFloat($("#fiveHours").html())
+				if ($("#sixHours").html() == "--")
+					priceList[5] = -1
+				else
+					priceList[5] = parseFloat($("#sixHours").html())
+				if ($("#sevenHours").html() == "--")
+					priceList[6] = -1
+				else
+					priceList[6] = parseFloat($("#sevenHours").html())
+				if ($("#eightHours").html() == "--")
+					priceList[7] = -1
+				else
+					priceList[7] = parseFloat($("#eightHours").html())
+				if ($("#nineHours").html() == "--")
+					priceList[8] = -1
+				else
+					priceList[8] = parseFloat($("#nineHours").html())
+				if ($("#tenHours").html() == "--")
+					priceList[9] = -1
+				else
+					priceList[9] = parseFloat($("#tenHours").html())
+				if ($("#elevenHours").html() == "--")
+					priceList[10] = -1
+				else
+					priceList[10] = parseFloat($("#elevenHours").html())
+				if ($("#twelveHours").html() == "--")
+					priceList[11] = -1
+				else
+					priceList[11] = parseFloat($("#twelveHours").html())
+					
+				return priceList;
+			}
+
 			function renderMessage(data) {
 				if (data == "Error on getting pricelist") {
 					alert("Ввъзникна грешка, в момента работим по отстраняването и!");
@@ -309,30 +398,95 @@
 			}
 
 			function fillPriceTable(data) {
-				$('#oneHour').html(data[0].fields['oneHour'] + " лв");
-				$('#twoHours').html(data[0].fields['twoHours'] + " лв");
-				$('#threeHours').html(data[0].fields['threeHours'] + " лв");
-				$('#fourHours').html(data[0].fields['fourHours'] + " лв");
-				$('#fiveHours').html(data[0].fields['fiveHours'] + " лв");
-				$('#sixHours').html(data[0].fields['sixHours'] + " лв");
-				$('#sevenHours').html(data[0].fields['sevenHours'] + " лв");
-				$('#eightHours').html(data[0].fields['eightHours'] + " лв");
-				$('#nineHours').html(data[0].fields['nineHours'] + " лв");
-				$('#tenHours').html(data[0].fields['tenHours'] + " лв");
-				$('#elevenHours').html(data[0].fields['elevenHours'] + " лв");
-				$('#tenHours').html(data[0].fields['tenHours'] + " лв");
+				fillCertainHour('#oneHour', data[0].fields['oneHour'])
+				fillCertainHour('#twoHours', data[0].fields['twoHours'])
+				fillCertainHour('#threeHours', data[0].fields['threeHours'])
+				fillCertainHour('#fourHours', data[0].fields['fourHours'])
+				fillCertainHour('#fiveHours', data[0].fields['fiveHours'])
+				fillCertainHour('#sixHours', data[0].fields['sixHours'])
+				fillCertainHour('#sevenHours', data[0].fields['sevenHours'])
+				fillCertainHour('#eightHours', data[0].fields['eightHours'])
+				fillCertainHour('#nineHours', data[0].fields['nineHours'])
+				fillCertainHour('#tenHours', data[0].fields['tenHours'])
+				fillCertainHour('#elevenHours', data[0].fields['elevenHours'])
+				fillCertainHour('#twelveHours', data[0].fields['twelveHours'])
+			}
+
+			function fillCertainHour(id, price) {
+				if (price == -1)
+					$(id).html("--");
+				else
+					$(id).html(price + " лв");
 			}
 
 			function increaseNumber(self) {
-				if(self.className == "changer 1")
-					$("#oneHour").html((parseFloat($('#oneHour').html()) + 0.5).toFixed(2) + " лв");
+				if (self.className == "changer 1")
+					increase("#oneHour")
+				if (self.className == "changer 2")
+					increase("#twoHours")
+				if (self.className == "changer 3")
+					increase("#threeHours")
+				if (self.className == "changer 4")
+					increase("#fourHours")
+				if (self.className == "changer 5")
+					increase("#fiveHours")
+				if (self.className == "changer 6")
+					increase("#sixHours")
+				if (self.className == "changer 7")
+					increase("#sevenHours")
+				if (self.className == "changer 8")
+					increase("#eightHours")
+				if (self.className == "changer 9")
+					increase("#nineHours")
+				if (self.className == "changer 10")
+					increase("#tenHours")
+				if (self.className == "changer 11")
+					increase("#elevenHours")
+				if (self.className == "changer 12")
+					increase("#twelveHours")
+			}
+
+			function increase(id) {
+				if ($(id).html() == "--")
+					$(id).html("0.50 лв");
+				else
+					$(id).html((parseFloat($(id).html()) + 0.5).toFixed(2) + " лв");
 			}
 
 			function decreaseNumber(self) {
-				if(self.className == "changer 1")
-					if (parseFloat($('#oneHour').html()) > 0)
-						$('#oneHour').html((parseFloat($('#oneHour').html()) - 0.5).toFixed(2) + " лв");
+				if (self.className == "changer 1")
+					decrease("#oneHour")
+				if (self.className == "changer 2")
+					decrease("#twoHours")
+				if (self.className == "changer 3")
+					decrease("#threeHours")
+				if (self.className == "changer 4")
+					decrease("#fourHours")
+				if (self.className == "changer 5")
+					decrease("#fiveHours")
+				if (self.className == "changer 6")
+					decrease("#sixHours")
+				if (self.className == "changer 7")
+					decrease("#sevenHours")
+				if (self.className == "changer 8")
+					decrease("#eightHours")
+				if (self.className == "changer 9")
+					decrease("#nineHours")
+				if (self.className == "changer 10")
+					decrease("#tenHours")
+				if (self.className == "changer 11")
+					decrease("#elevenHours")
+				if (self.className == "changer 12")
+					decrease("#twelveHours")
 			}
+
+			function decrease(id) {
+				if (parseFloat($(id).html()) > 0)
+					$(id).html((parseFloat($(id).html()) - 0.5).toFixed(2) + " лв");
+				if (parseFloat($(id).html()) == 0)
+					$(id).html("--");
+			}
+
 
 			window.onload = function() {
 				loadTableSorter();

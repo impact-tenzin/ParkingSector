@@ -326,37 +326,38 @@ def get_booking_requests(request):
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
-    
+
+@csrf_exempt 
 def actualise_price_list(request):
     if request.is_ajax():
         if request.user.is_authenticated():
             if request.method == 'POST':
                 
-                one_hour = request.POST['one_hour']
-                two_hour = request.POST['two_hour']
-                three_hour = request.POST['three_hour']
-                four_hour = request.POST['four_hour']
-                five_hour = request.POST['five_hour']
-                six_hour = request.POST['six_hour']
-                seven_hour = request.POST['seven_hour']
-                eight_hour = request.POST['eight_hour']
-                nine_hour = request.POST['nine_hour']
-                ten_hour = request.POST['ten_hour']
-                elven_hour = request.POST['elven_hour']
-                twelve_hour = request.POST['twelve_hour']
+                one_hour = request.POST.get('one_hour', False)
+                two_hour = request.POST.get('two_hour', False)
+                three_hour = request.POST.get('three_hour', False)
+                four_hour = request.POST.get('four_hour', False)
+                five_hour = request.POST.get('five_hour', False)
+                six_hour = request.POST.get('six_hour', False)
+                seven_hour = request.POST.get('seven_hour', False)
+                eight_hour = request.POST.get('eight_hour', False)
+                nine_hour = request.POST.get('nine_hour', False)
+                ten_hour = request.POST.get('ten_hour', False)
+                elven_hour = request.POST.get('eleven_hour', False)
+                twelve_hour = request.POST.get('twelve_hour', False)
                 
                 try:
-                    parking_id = Client.objects.get(id=request.user.id).parking_id
+                    parking_id = Client.objects.get(user=request.user.id).parking_id
                 except Client.DoesNotExist:
                     send_data()
                 
                 try:
-                    price_list_id = ParkingMarker.objects.get(id=parking_id).priceList
+                    price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
                 except ParkingMarker.DoesNotExist:
                     send_data()
                 
-                try:    
-                    PriceList.objects.get(id=price_list_id).update(
+                 
+                PriceList.objects.filter(id=price_list_id).update(
                                                                 oneHour = one_hour,
                                                                 twoHours = two_hour,
                                                                 threeHours = three_hour,
@@ -370,8 +371,6 @@ def actualise_price_list(request):
                                                                 elevenHours = elven_hour,
                                                                 twelveHours = twelve_hour
                                                            )
-                except PriceList.DoesNotExist:
-                    send_data()
                 return HttpResponse("actualisation complete", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
