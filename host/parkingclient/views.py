@@ -414,3 +414,38 @@ def remove_licence_plate(request):
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def get_price_list(request):
+    if request.is_ajax():
+        if reqeust.method == "GET":
+            if user.is_authenticated():
+                try:
+                    Client.objects.get(id=request.user.id)
+                except Client.DoesNotExist:
+                    send_data()
+                    return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
+                try:
+                    parking_id = Client.objects.get(id=request.user.id).parking_id
+                    price_list_id = ParkingMarker.objects.get(id=parking_id)
+                    price_list = PriceList.objects.get(id=price_list_id)
+                    data = serializers.serialize("json", price_list)
+                    return HttpResponse(data, content_type="application/json; charset=utf-8")
+                except Client.DoesNotExist:
+                    send_data()
+                    return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
+                except ParkingMarker.DoesNotExist:
+                    send_data()
+                    return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
+                except PriceList.DoesNotExist:
+                    send_data()
+                    return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def render_price_list_page(request):
+        return render_to_response('cena-chas.html', {}, context_instance=RequestContext(request))
+    
