@@ -60,14 +60,14 @@
 				<div class="col-lg-3 text-center">
 					<div class="panel panel-default size">
 						<div class="panel-body header2">
-							<i class="fa fa-circle-o-notch"></i><span class="time">1 часа</span>
+							<i class="fa fa-circle-o-notch"></i><span class="time">1 час</span>
 							<br>
-							2 лв/час
+							<span id="oneHour">--</span>
 							<br>
-							<button class="changer">
+							<button class="changer 1" onclick="increaseNumber(this);">
 								<i class="fa fa-plus"></i>
 							</button>
-							<button class="changer">
+							<button class="changer 1" onclick="decreaseNumber(this);">
 								<i class="fa fa-minus"></i>
 							</button>
 						</div>
@@ -78,7 +78,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">2 часа</span>
 							<br>
-							2 лв/час
+							<span id="twoHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -94,7 +94,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">3 часа</span>
 							<br>
-							2 лв/час
+							<span id="threeHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -110,7 +110,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time"> 4 часа</span>
 							<br>
-							2 лв/час
+							<span id="fourHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -128,7 +128,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">5 часа</span>
 							<br>
-							2 лв/час
+							<span id="fiveHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -144,7 +144,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">6 часа</span>
 							<br>
-							2 лв/час
+							<span id="sixHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -160,7 +160,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">7 часа</span>
 							<br>
-							2 лв/час
+							<span id="sevenHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -176,7 +176,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">8 часа</span>
 							<br>
-							2 лв/час
+							<span id="eightHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -194,7 +194,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">9 часа</span>
 							<br>
-							2 лв/час
+							<span id="nineHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -210,7 +210,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">10 часа</span>
 							<br>
-							2 лв/час
+							<span id="tenHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -226,7 +226,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">11 часа</span>
 							<br>
-							2 лв/час
+							<span id="elevenHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -242,7 +242,7 @@
 						<div class="panel-body header2">
 							<i class="fa fa-circle-o-notch"></i><span class="time">12 часа</span>
 							<br>
-							2 лв/час
+							<span id="twelveHours">--</span>
 							<br>
 							<button class="changer">
 								<i class="fa fa-plus"></i>
@@ -273,15 +273,14 @@
 		<script src="/static/js/tablesorter/jquery.tablesorter.js"></script>
 		<script src="/static/js/tablesorter/tables.js"></script>
 		<script>
-			$(document).ready(function() {
+			function loadTableSorter() {
 				$('table').on('click', '#button', function(e) {
 					/*$(this).closest('tr').remove()*/
 					var a = document.getElementById("tableRow")
 					document.getElementById("table").deleteRow(a);
 				})
-			});
-		</script>
-		<script>
+			}
+
 			function getPriceList() {
 				$.ajax({
 					url : "/getPriceList/",
@@ -293,12 +292,7 @@
 						'X-Requested-With' : 'XMLHttpRequest'
 					},
 					success : function(data) {
-						try {
-							jdata = $.parseJSON(data);
-							fillPriceTable();
-						} catch(e) {
-							renderMessage(data);
-						}
+						renderMessage(data);
 					},
 					error : function(error) {
 						console.log("ERROR:", error);
@@ -306,14 +300,42 @@
 				});
 			}
 
+			function renderMessage(data) {
+				if (data == "Error on getting pricelist") {
+					alert("Ввъзникна грешка, в момента работим по отстраняването и!");
+					return
+				}
+				fillPriceTable(data);
 			}
-			
-			function renderMessage()
-			{
-				
+
+			function fillPriceTable(data) {
+				$('#oneHour').html(data[0].fields['oneHour'] + " лв");
+				$('#twoHours').html(data[0].fields['twoHours'] + " лв");
+				$('#threeHours').html(data[0].fields['threeHours'] + " лв");
+				$('#fourHours').html(data[0].fields['fourHours'] + " лв");
+				$('#fiveHours').html(data[0].fields['fiveHours'] + " лв");
+				$('#sixHours').html(data[0].fields['sixHours'] + " лв");
+				$('#sevenHours').html(data[0].fields['sevenHours'] + " лв");
+				$('#eightHours').html(data[0].fields['eightHours'] + " лв");
+				$('#nineHours').html(data[0].fields['nineHours'] + " лв");
+				$('#tenHours').html(data[0].fields['tenHours'] + " лв");
+				$('#elevenHours').html(data[0].fields['elevenHours'] + " лв");
+				$('#tenHours').html(data[0].fields['tenHours'] + " лв");
 			}
-			
+
+			function increaseNumber(self) {
+				if(self.className == "changer 1")
+					$("#oneHour").html((parseFloat($('#oneHour').html()) + 0.5).toFixed(2) + " лв");
+			}
+
+			function decreaseNumber(self) {
+				if(self.className == "changer 1")
+					if (parseFloat($('#oneHour').html()) > 0)
+						$('#oneHour').html((parseFloat($('#oneHour').html()) - 0.5).toFixed(2) + " лв");
+			}
+
 			window.onload = function() {
+				loadTableSorter();
 				getPriceList();
 			};
 		</script>

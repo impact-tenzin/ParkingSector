@@ -417,26 +417,18 @@ def remove_licence_plate(request):
     
 def get_price_list(request):
     if request.is_ajax():
-        if reqeust.method == "GET":
-            if user.is_authenticated():
+        if request.method == "GET":
+            if request.user.is_authenticated():
                 try:
-                    Client.objects.get(id=request.user.id)
-                except Client.DoesNotExist:
-                    send_data()
-                    return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
-                try:
-                    parking_id = Client.objects.get(id=request.user.id).parking_id
-                    price_list_id = ParkingMarker.objects.get(id=parking_id)
-                    price_list = PriceList.objects.get(id=price_list_id)
+                    parking_id = Client.objects.get(user=request.user.id).parking_id
+                    price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
+                    price_list = PriceList.objects.filter(id=price_list_id)
                     data = serializers.serialize("json", price_list)
                     return HttpResponse(data, content_type="application/json; charset=utf-8")
                 except Client.DoesNotExist:
                     send_data()
                     return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
                 except ParkingMarker.DoesNotExist:
-                    send_data()
-                    return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
-                except PriceList.DoesNotExist:
                     send_data()
                     return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
             else:
