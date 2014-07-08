@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
+from datetime import datetime
 
 def login_request(request, type):
         if request.user.is_authenticated():
@@ -377,7 +378,7 @@ def actualise_price_list(request):
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
-    
+
 def add_licence_plate(request):
     if request.is_ajax():
         if request.user.is_authenticated():

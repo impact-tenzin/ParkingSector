@@ -343,201 +343,198 @@
 		var autocomplete;
 		function load() {
 			if ("{{form}}" == "subscribeForm") {
-				    $('.on-landing').hide();
-					$('.subscribeBox').show();
-					$('.subscribeButton').show();
-					renderSubscribeMsg();
-				} 
-				
-				var options = {
-					componentRestrictions : {
-						country : "bg"
-					}
-				};
-
-				var input = (document.getElementById('addressInput'));
-				autocomplete = new google.maps.places.Autocomplete(input, options);
-
-				google.maps.event.addListener(autocomplete, 'place_changed', function() {
-					getCoordinations(autocomplete);
-				});
+				$('.on-landing').hide();
+				$('.subscribeBox').show();
+				$('.subscribeButton').show();
+				renderSubscribeMsg();
 			}
-			
-			function getCoordinationsByGeocoding()
-			{
-				var address = document.getElementById('addressInput').value;
-				var geocoder = new google.maps.Geocoder();
-					geocoder.geocode({
-						address : address
-					}, function(results, status) {
-						if (status == google.maps.GeocoderStatus.OK) {
-							$('.lat').val(results[0].geometry.location.lat());
-							$('.lng').val(results[0].geometry.location.lng());
-							document.getElementsByClassName('submitButton')[0].click();
-						}
-					});
-			}
-			
-			function getCoordinations(autocomplete) {
-				//var address = document.getElementById("addressInput").value;
-				//var geocoder = new google.maps.Geocoder();
-				/*
-				 if (!checkForProperTimeDuration()) {
-				 alert("Р§Р°СЃСЉС‚ РЅР° РёР·Р»РёР·Р°РЅРµ РЅРµ РјРѕР¶Рµ РґР° РїСЂРµРґС…РѕР¶РґР° С‡Р°СЃР° РЅР° РІР»РёР·Р°РЅРµ, Р° РїСЂРµСЃС‚РѕСЏС‚ Рµ РјРёРЅРёРјСѓРј Р·Р° 1 С‡Р°СЃ!");
-				 } else {*/
-				var place = autocomplete.getPlace();
-				if (!place.geometry) {
-					return;
-				}
-				$('.lat').val(place.geometry.location.lat());
-				$('.lng').val(place.geometry.location.lng());
-				//alert($('.lng').val());
-				document.getElementsByClassName('submitButton')[0].click();
-				/*
-				geocoder.geocode({
-				address : address
-				}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-				$('.lat').val(results[0].geometry.location.lat());
-				$('.lng').val(results[0].geometry.location.lng());
-				//alert($('.lng').val());
-				document.getElementsByClassName('submitButton')[0].click();
-				}
-				});*/
 
-				//}
-			}
-			
-			function getCurrentInfo() {
-
-				$.ajax({
-					url : "/actualiseNumber/",
-					type : 'GET', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					dataType : 'html',
-					success : function(data) {
-						if (data != undefined && data != null && parseInt(data.split('-')[0]) != parseInt($('.customers').html()))
-							setTimeout(function() {
-								renderNumberOfHelped(data);
-							}, 2000);
-					},
-					error : function(error) {
-
-						// Log any error.
-						console.log("ERROR:", error);
-
-					},
-				});
-			}
-			
-			function markHomeBooking() {
-				$.ajax({
-					url : "/homeBooking/",
-					type : 'POST', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					data : {
-						csrfmiddlewaretoken : '{{ csrf_token }}'
-					},
-					dataType : 'html',
-					error : function(error) {
-
-						// Log any error.
-						console.log("ERROR:", error);
-
-					},
-				});
-			}
-			
-			function checkForLogin()
-			{
-				$.ajax({
-					url : "/checkForLogin/",
-					type : 'GET', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					dataType : 'html',
-					success : function(data) {
-						if (data == "Authenticated")
-							window.location.href="/findparking/";
-						else
-							window.location.href="/login/user";
-					},
-					error : function(error) {
-
-						// Log any error.
-						console.log("ERROR:", error);
-
-					},
-				});
-			}
-			/*function myCarousel()
-			{
-				function wait(){
-					var a = 0;
+			var options = {
+				componentRestrictions : {
+					country : "bg"
 				}
-				var holder = ["intro-header", "intro-header1", "intro-header2"]; 
-				var id = document.getElementById("home");
-				var i = 0;
-				while (true)
-				{
-					id.className = holder[i];
-					i++;
-					if(i == 2)
-					{ 
-						i = 0;
-					}
-					setTimeout(wait(), 2000);
-				}
-			}*/
-				function start_carousel()
-				{
-					setInterval(f1,10000);
-				}
-				
-				function f1() {
-					//smqna na klasa
-					document.getElementById("home").className = "intro-header";
-					setInterval(f2,10000);
-				}
-					
-					
-				function f2(){   
-					//smqna na klasa
-					document.getElementById("home").className = "intro-header1";
-					setInterval(f3,10000);
-				}
-				
-				function f3(){
-					//smqna na klasa
-					document.getElementById("home").className = "intro-header2";
-					setInterval(f1,10000);
-				}
-			window.onload = function() {
-				//loadDatePickers();
-				load();
-				//setFocus();
-				getCurrentInfo();
-				//Carousel
-				/*myCarousel();*/
-				//trial
-				/*$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );*/
-				start_carousel();
 			};
-	</script>		<!-- subscribe-popup js -->	
-	<script>
 
-</html>
+			var input = (document.getElementById('addressInput'));
+			autocomplete = new google.maps.places.Autocomplete(input, options);
+
+			google.maps.event.addListener(autocomplete, 'place_changed', function() {
+				getCoordinations(autocomplete);
+			});
+		}
+
+		function getCoordinationsByGeocoding() {
+			var address = document.getElementById('addressInput').value;
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({
+				address : address
+			}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					$('.lat').val(results[0].geometry.location.lat());
+					$('.lng').val(results[0].geometry.location.lng());
+					document.getElementsByClassName('submitButton')[0].click();
+				}
+			});
+		}
+
+		function getCoordinations(autocomplete) {
+			//var address = document.getElementById("addressInput").value;
+			//var geocoder = new google.maps.Geocoder();
+			/*
+			 if (!checkForProperTimeDuration()) {
+			 alert("Р§Р°СЃСЉС‚ РЅР° РёР·Р»РёР·Р°РЅРµ РЅРµ РјРѕР¶Рµ РґР° РїСЂРµРґС…РѕР¶РґР° С‡Р°СЃР° РЅР° РІР»РёР·Р°РЅРµ, Р° РїСЂРµСЃС‚РѕСЏС‚ Рµ РјРёРЅРёРјСѓРј Р·Р° 1 С‡Р°СЃ!");
+			 } else {*/
+			var place = autocomplete.getPlace();
+			if (!place.geometry) {
+				return;
+			}
+			$('.lat').val(place.geometry.location.lat());
+			$('.lng').val(place.geometry.location.lng());
+			//alert($('.lng').val());
+			document.getElementsByClassName('submitButton')[0].click();
+			/*
+			geocoder.geocode({
+			address : address
+			}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+			$('.lat').val(results[0].geometry.location.lat());
+			$('.lng').val(results[0].geometry.location.lng());
+			//alert($('.lng').val());
+			document.getElementsByClassName('submitButton')[0].click();
+			}
+			});*/
+
+			//}
+		}
+
+		function getCurrentInfo() {
+
+			$.ajax({
+				url : "/actualiseNumber/",
+				type : 'GET', //this is the default though, you don't actually need to always mention it
+				xhrFields : {
+					withCredentials : true
+				},
+				headers : {
+					'X-Requested-With' : 'XMLHttpRequest'
+				},
+				dataType : 'html',
+				success : function(data) {
+					if (data != undefined && data != null && parseInt(data.split('-')[0]) != parseInt($('.customers').html()))
+						setTimeout(function() {
+							renderNumberOfHelped(data);
+						}, 2000);
+				},
+				error : function(error) {
+
+					// Log any error.
+					console.log("ERROR:", error);
+
+				},
+			});
+		}
+
+		function markHomeBooking() {
+			$.ajax({
+				url : "/homeBooking/",
+				type : 'POST', //this is the default though, you don't actually need to always mention it
+				xhrFields : {
+					withCredentials : true
+				},
+				headers : {
+					'X-Requested-With' : 'XMLHttpRequest'
+				},
+				data : {
+					csrfmiddlewaretoken : '{{ csrf_token }}'
+				},
+				dataType : 'html',
+				error : function(error) {
+
+					// Log any error.
+					console.log("ERROR:", error);
+
+				},
+			});
+		}
+
+		function checkForLogin() {
+			$.ajax({
+				url : "/checkForLogin/",
+				type : 'GET', //this is the default though, you don't actually need to always mention it
+				xhrFields : {
+					withCredentials : true
+				},
+				headers : {
+					'X-Requested-With' : 'XMLHttpRequest'
+				},
+				dataType : 'html',
+				success : function(data) {
+					if (data == "Authenticated")
+						window.location.href = "/findparking/";
+					else
+						window.location.href = "/login/user";
+				},
+				error : function(error) {
+
+					// Log any error.
+					console.log("ERROR:", error);
+
+				},
+			});
+		}
+
+		/*function myCarousel()
+		 {
+		 function wait(){
+		 var a = 0;
+		 }
+		 var holder = ["intro-header", "intro-header1", "intro-header2"];
+		 var id = document.getElementById("home");
+		 var i = 0;
+		 while (true)
+		 {
+		 id.className = holder[i];
+		 i++;
+		 if(i == 2)
+		 {
+		 i = 0;
+		 }
+		 setTimeout(wait(), 2000);
+		 }
+		 }*/
+		function start_carousel() {
+			setTimeout(f1, 10000);
+		}
+
+		function f1() {
+			//smqna na klasa
+			document.getElementById("home").className = "intro-header";
+			setTimeout(f2, 10000);
+		}
+
+		function f2() {
+			//smqna na klasa
+			document.getElementById("home").className = "intro-header1";
+			setTimeout(f3, 10000);
+		}
+
+		function f3() {
+			//smqna na klasa
+			document.getElementById("home").className = "intro-header2";
+			setTimeout(f1, 10000);
+		}
+
+
+		window.onload = function() {
+			//loadDatePickers();
+			load();
+			//setFocus();
+			getCurrentInfo();
+			//Carousel
+			/*myCarousel();*/
+			//trial
+			/*$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );*/
+			start_carousel();
+		};
+	</script>		<!-- subscribe-popup js -->	
+	<script></html>

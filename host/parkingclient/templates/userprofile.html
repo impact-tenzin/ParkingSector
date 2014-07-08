@@ -215,6 +215,7 @@
 				var newPlate = $('.regplateinput').val();
 				if(newPlate.trim()=="") {
 					$('.msg-plate').html("").html("<i class='fa fa-check'></i> Полето е празно");
+					$('.regplateinput').val("");
 					return
 				}
 				else{
