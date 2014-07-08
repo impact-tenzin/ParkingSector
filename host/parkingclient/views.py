@@ -220,8 +220,9 @@ def confirm_booking(request):
                     return HttpResponse("already booked parkingspot here", content_type="text/html; charset=utf-8")
                 else:
                     parking_id = request.POST['parking_id']
-                    # price_list = request.POST['price_list']
-                    price_list = ParkingMarker.objects.get(id=parking_id).pricePerHour
+                    #price_list = request.POST['price_list']
+                    price_list_id = ParkingMarker.objects.get(id=parking_id).priceList
+                    price_list = PriceList.objects.get(id=price_list_id)
                     parking_address = ParkingMarker.objects.get(id=parking_id).address
                     arrival_time = request.POST['arrival_time']
                     duration = request.POST['duration']
