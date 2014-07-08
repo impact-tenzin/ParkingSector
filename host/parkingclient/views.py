@@ -445,7 +445,8 @@ def get_price_list(request):
             return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
-    
+
+@login_required   
 def render_price_list_page(request):
         return render_to_response('cena-chas.html', {}, context_instance=RequestContext(request))
     
