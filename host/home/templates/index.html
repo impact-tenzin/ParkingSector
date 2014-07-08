@@ -134,13 +134,13 @@
 						</div>
 					</div>
 				<!--subscirbe-popup-->
-                </div>
+                </div>				  <!-- Controls -->  <a class="left carousel-control" href="#" role="button" data-action="prev">    <span class="glyphicon glyphicon-chevron-left"></span>  </a>  <a class="right carousel-control" href="#" role="button" data-action="next">    <span class="glyphicon glyphicon-chevron-right"></span>  </a>
             </div>
 
         </div>
         <!-- /.container -->
 	</div>
-    </div>	 <div class="intro-header2 item">     </div>     <div class="intro-header3 item">     </div></div></div>
+    <!--</div>	 </div></div>-->
 	<div class="entries">
 			<h4>Вече над <span class="customers">{{ counter }}</span> човека ни се довериха и решиха проблема си с паркирането!</h4>
 	</div>
@@ -318,7 +318,7 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12">				<img style="float: right; display:inline-block;" src="/static/imgs/hyundai.png" width="400" />
                     <ul class="list-inline">
                         <li><a href="#home">Начало</a>
                         </li>
@@ -338,160 +338,206 @@
     <!-- JavaScript -->
     <script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
     <script src="/static/bootstrap/js/bootstrap.js"></script>
-	<script src="/static/js/index.js" type="text/javascript"></script>
+	<script src="/static/js/index.js" type="text/javascript"></script>		<script src="/static/js/jquery.bgswitcher.js" type="text/javascript"></script>
 	<script>
 		var autocomplete;
 		function load() {
 			if ("{{form}}" == "subscribeForm") {
-				    $('.on-landing').hide();
-					$('.subscribeBox').show();
-					$('.subscribeButton').show();
-					renderSubscribeMsg();
-				} 
-				
-				var options = {
-					componentRestrictions : {
-						country : "bg"
-					}
-				};
-
-				var input = (document.getElementById('addressInput'));
-				autocomplete = new google.maps.places.Autocomplete(input, options);
-
-				google.maps.event.addListener(autocomplete, 'place_changed', function() {
-					getCoordinations(autocomplete);
-				});
+				$('.on-landing').hide();
+				$('.subscribeBox').show();
+				$('.subscribeButton').show();
+				renderSubscribeMsg();
 			}
-			
-			function getCoordinationsByGeocoding()
-			{
-				var address = document.getElementById('addressInput').value;
-				var geocoder = new google.maps.Geocoder();
-					geocoder.geocode({
-						address : address
-					}, function(results, status) {
-						if (status == google.maps.GeocoderStatus.OK) {
-							$('.lat').val(results[0].geometry.location.lat());
-							$('.lng').val(results[0].geometry.location.lng());
-							document.getElementsByClassName('submitButton')[0].click();
-						}
-					});
-			}
-			
-			function getCoordinations(autocomplete) {
-				//var address = document.getElementById("addressInput").value;
-				//var geocoder = new google.maps.Geocoder();
-				/*
-				 if (!checkForProperTimeDuration()) {
-				 alert("Р§Р°СЃСЉС‚ РЅР° РёР·Р»РёР·Р°РЅРµ РЅРµ РјРѕР¶Рµ РґР° РїСЂРµРґС…РѕР¶РґР° С‡Р°СЃР° РЅР° РІР»РёР·Р°РЅРµ, Р° РїСЂРµСЃС‚РѕСЏС‚ Рµ РјРёРЅРёРјСѓРј Р·Р° 1 С‡Р°СЃ!");
-				 } else {*/
-				var place = autocomplete.getPlace();
-				if (!place.geometry) {
-					return;
+
+			var options = {
+				componentRestrictions : {
+					country : "bg"
 				}
-				$('.lat').val(place.geometry.location.lat());
-				$('.lng').val(place.geometry.location.lng());
-				//alert($('.lng').val());
-				document.getElementsByClassName('submitButton')[0].click();
-				/*
-				geocoder.geocode({
-				address : address
-				}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-				$('.lat').val(results[0].geometry.location.lat());
-				$('.lng').val(results[0].geometry.location.lng());
-				//alert($('.lng').val());
-				document.getElementsByClassName('submitButton')[0].click();
-				}
-				});*/
-
-				//}
-			}
-			
-			function getCurrentInfo() {
-
-				$.ajax({
-					url : "/actualiseNumber/",
-					type : 'GET', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					dataType : 'html',
-					success : function(data) {
-						if (data != undefined && data != null && parseInt(data.split('-')[0]) != parseInt($('.customers').html()))
-							setTimeout(function() {
-								renderNumberOfHelped(data);
-							}, 2000);
-					},
-					error : function(error) {
-
-						// Log any error.
-						console.log("ERROR:", error);
-
-					},
-				});
-			}
-			
-			function markHomeBooking() {
-				$.ajax({
-					url : "/homeBooking/",
-					type : 'POST', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					data : {
-						csrfmiddlewaretoken : '{{ csrf_token }}'
-					},
-					dataType : 'html',
-					error : function(error) {
-
-						// Log any error.
-						console.log("ERROR:", error);
-
-					},
-				});
-			}
-			
-			function checkForLogin()
-			{
-				$.ajax({
-					url : "/checkForLogin/",
-					type : 'GET', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					dataType : 'html',
-					success : function(data) {
-						if (data == "Authenticated")
-							window.location.href="/findparking/";
-						else
-							window.location.href="/login/user";
-					},
-					error : function(error) {
-
-						// Log any error.
-						console.log("ERROR:", error);
-
-					},
-				});
-			}
-			
-			window.onload = function() {
-				//loadDatePickers();
-				load();
-				//setFocus();
-				getCurrentInfo();
 			};
-	</script>		<!-- subscribe-popup js -->	
-	<script>
 
-</html>
+			var input = (document.getElementById('addressInput'));
+			autocomplete = new google.maps.places.Autocomplete(input, options);
+
+			google.maps.event.addListener(autocomplete, 'place_changed', function() {
+				getCoordinations(autocomplete);
+			});
+		}
+
+		function getCoordinationsByGeocoding() {
+			var address = document.getElementById('addressInput').value;
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({
+				address : address
+			}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					$('.lat').val(results[0].geometry.location.lat());
+					$('.lng').val(results[0].geometry.location.lng());
+					document.getElementsByClassName('submitButton')[0].click();
+				}
+			});
+		}
+
+		function getCoordinations(autocomplete) {
+			//var address = document.getElementById("addressInput").value;
+			//var geocoder = new google.maps.Geocoder();
+			/*
+			 if (!checkForProperTimeDuration()) {
+			 alert("Р§Р°СЃСЉС‚ РЅР° РёР·Р»РёР·Р°РЅРµ РЅРµ РјРѕР¶Рµ РґР° РїСЂРµРґС…РѕР¶РґР° С‡Р°СЃР° РЅР° РІР»РёР·Р°РЅРµ, Р° РїСЂРµСЃС‚РѕСЏС‚ Рµ РјРёРЅРёРјСѓРј Р·Р° 1 С‡Р°СЃ!");
+			 } else {*/
+			var place = autocomplete.getPlace();
+			if (!place.geometry) {
+				return;
+			}
+			$('.lat').val(place.geometry.location.lat());
+			$('.lng').val(place.geometry.location.lng());
+			//alert($('.lng').val());
+			document.getElementsByClassName('submitButton')[0].click();
+			/*
+			geocoder.geocode({
+			address : address
+			}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+			$('.lat').val(results[0].geometry.location.lat());
+			$('.lng').val(results[0].geometry.location.lng());
+			//alert($('.lng').val());
+			document.getElementsByClassName('submitButton')[0].click();
+			}
+			});*/
+
+			//}
+		}
+
+		function getCurrentInfo() {
+
+			$.ajax({
+				url : "/actualiseNumber/",
+				type : 'GET', //this is the default though, you don't actually need to always mention it
+				xhrFields : {
+					withCredentials : true
+				},
+				headers : {
+					'X-Requested-With' : 'XMLHttpRequest'
+				},
+				dataType : 'html',
+				success : function(data) {
+					if (data != undefined && data != null && parseInt(data.split('-')[0]) != parseInt($('.customers').html()))
+						setTimeout(function() {
+							renderNumberOfHelped(data);
+						}, 2000);
+				},
+				error : function(error) {
+
+					// Log any error.
+					console.log("ERROR:", error);
+
+				},
+			});
+		}
+
+		function markHomeBooking() {
+			$.ajax({
+				url : "/homeBooking/",
+				type : 'POST', //this is the default though, you don't actually need to always mention it
+				xhrFields : {
+					withCredentials : true
+				},
+				headers : {
+					'X-Requested-With' : 'XMLHttpRequest'
+				},
+				data : {
+					csrfmiddlewaretoken : '{{ csrf_token }}'
+				},
+				dataType : 'html',
+				error : function(error) {
+
+					// Log any error.
+					console.log("ERROR:", error);
+
+				},
+			});
+		}
+
+		function checkForLogin() {
+			$.ajax({
+				url : "/checkForLogin/",
+				type : 'GET', //this is the default though, you don't actually need to always mention it
+				xhrFields : {
+					withCredentials : true
+				},
+				headers : {
+					'X-Requested-With' : 'XMLHttpRequest'
+				},
+				dataType : 'html',
+				success : function(data) {
+					if (data == "Authenticated")
+						window.location.href = "/findparking/";
+					else
+						window.location.href = "/login/user";
+				},
+				error : function(error) {
+
+					// Log any error.
+					console.log("ERROR:", error);
+
+				},
+			});
+		}
+
+		/*function myCarousel()
+		 {
+		 function wait(){
+		 var a = 0;
+		 }
+		 var holder = ["intro-header", "intro-header1", "intro-header2"];
+		 var id = document.getElementById("home");
+		 var i = 0;
+		 while (true)
+		 {
+		 id.className = holder[i];
+		 i++;
+		 if(i == 2)
+		 {
+		 i = 0;
+		 }
+		 setTimeout(wait(), 2000);
+		 }
+		 }*/
+		/*function start_carousel() {
+			setTimeout(f1, 3000);
+		}
+
+		function f1() {
+			//smqna na klasa
+			document.getElementById("home").className = "intro-header";
+			setTimeout(f2, 3000);
+		}
+
+		function f2() {
+					//document.getElementById("home").fadeIn( "slow" );
+			//smqna na klasa			
+			document.getElementById("home").className = "intro-header1";
+			
+			//document.getElementById("home").fadeIn( "slow" );
+			setTimeout(f3, 3000);
+		}
+
+		function f3() {
+			//smqna na klasa
+			document.getElementById("home").className = "intro-header2";
+			setTimeout(f1, 3000);
+		}		*/
+
+
+		window.onload = function() {
+			//loadDatePickers();
+			load();
+			//setFocus();
+			getCurrentInfo();
+			//Carousel
+			/*myCarousel();*/
+			//trial
+			/*$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );*/
+			/*start_carousel();*/			$(".intro-header").bgswitcher({				images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"],				effect: "drop",				interval: 7000,				loop: true			});			/*var $el = $(".intro-header").bgswitcher({			images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"]			});			$(".right").on("click", function() {			$(".intro-header").bgswitcher("next"); // bar.jpg			});			$(".left").on("click", function() {			$(".intro-header").bgswitcher("prev"); // bar.jpg			});*/
+		};
+	</script>		<!-- subscribe-popup js -->	
+	<script></html>
