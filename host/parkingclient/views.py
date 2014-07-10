@@ -221,7 +221,7 @@ def confirm_booking(request):
                 else:
                     parking_id = request.POST['parking_id']
                     #price_list = request.POST['price_list']
-                    price_list_id = ParkingMarker.objects.get(id=parking_id).priceList
+                    price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
                     price_list = PriceList.objects.get(id=price_list_id)
                     parking_address = ParkingMarker.objects.get(id=parking_id).address
                     arrival_time = request.POST['arrival_time']
@@ -322,7 +322,10 @@ def get_booking_requests(request):
         if request.user.is_authenticated():
             booking_requests = BookedSpots.objects.filter(user_id=request.user.id)
             licence_plates = LicencePlates.objects.filter(user_id=request.user.id)
-            combined = list(chain(booking_requests, licence_plates))
+            price_lists = [PriceList.objects.get(id=spot.price_list_id)
+                           for spot in booking_requests 
+            ]           
+            combined = list(chain(booking_requests, licence_plates, price_lists))
             data = serializers.serialize("json", combined)
             return HttpResponse(data, content_type="application/json; charset=utf-8") 
         else:
