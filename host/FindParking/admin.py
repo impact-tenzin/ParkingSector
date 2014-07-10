@@ -7,7 +7,7 @@ class ParkingAdmin(admin.ModelAdmin):
     search_fields = ['address']
     list_display = ['id', 'features', 'paymentMethod', 'priceList', 'contacts','city', 'name',
                      'address', 'capacity', 'pricePerHour', 'workFrom', 'workTo', 'lat', 'lng', 'description', 'bookingCounter']
-class PriceListAdmin(admin.ModelAdmin):    ordering = ['id']    search_fields = ['id']    list_display = ['oneHour', 'twoHours', 'threeHours', 'fourHours','fiveHours', 'sixHours',                     'sevenHours', 'eightHours', 'nineHours', 'tenHours', 'elevenHours', 'twelveHours']
+class PriceListAdmin(admin.ModelAdmin):    ordering = ['id']    search_fields = ['id']    list_display = ['id', 'oneHour', 'twoHours', 'threeHours', 'fourHours','fiveHours', 'sixHours',                     'sevenHours', 'eightHours', 'nineHours', 'tenHours', 'elevenHours', 'twelveHours']
 class ParkingFeaturesAdmin(admin.ModelAdmin):
     ordering = ['id']
     search_fields = ['id']

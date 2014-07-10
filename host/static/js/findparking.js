@@ -126,7 +126,7 @@ return false;
 // create marker on map and there are two types, one for active parkings and one for those that do not work
 // during the selected hours
 function createMarker(parking, i) {
-	if (parking.pricePerHour != 0) {
+	if (parking.pricePerHour > 0) {
 		//if (checkIfParkingWorks(parking)) {
 		//calcPrice(parking);
 		var marker = new MarkerWithLabel({
@@ -762,11 +762,11 @@ function ajaxCall(lat, lng) {
 			var price_lists = data.filter(function(item) {
 				return item.model == "FindParking.pricelist";
 			});
-
+			
+			parseAjaxPriceLists(price_lists);
 			parseAjaxParkings(parkingsData);
 			parseAjaxFeatures(featuresData);
 			parseAjaxMethods(paymentMethodData);
-			parseAjaxPriceLists(price_lists);
 
 			for (var i = 0, len = parkings.length; i < len; i++) {
 				createMarker(parkings[i], i);
@@ -826,7 +826,10 @@ function parseAjaxParkings(ajaxParkings) {
 		currentParking.capacity = parseFloat(ajaxParkings[i].fields['capacity']);
 		currentParking.workFrom = (parseFloat(ajaxParkings[i].fields['workFrom'])).toFixed(2);
 		currentParking.workTo = (parseFloat(ajaxParkings[i].fields['workTo'])).toFixed(2);
-		currentParking.pricePerHour = parseFloat(ajaxParkings[i].fields['pricePerHour']);
+		//currentParking.pricePerHour = parseFloat(ajaxParkings[i].fields['pricePerHour']);
+		var price_per_hour = (parseFloat(priceLists.filter(function(item){return item.id==ajaxParkings[i].fields['priceList'];})[0].oneHour)).toFixed(2);
+		console.log(ajaxParkings[i].fields['priceList']);
+		currentParking.pricePerHour = price_per_hour;
 		currentParking.paymentMethod = parseInt(ajaxParkings[i].fields['paymentMethod']);
 		currentParking.features = parseInt(ajaxParkings[i].fields['features']);
 		currentParking.priceList = parseInt(ajaxParkings[i].fields['priceList']);
@@ -913,10 +916,10 @@ function getSofiaParkings() {
 				return item.model == "FindParking.pricelist";
 			});
 			
+			parseAjaxPriceLists(price_lists);
 			parseAjaxParkings(parkingsData);
 			parseAjaxFeatures(featuresData);
 			parseAjaxMethods(paymentMethodData);
-			parseAjaxPriceLists(price_lists);
 
 			for (var i = 0, len = parkings.length; i < len; i++) {
 				createMarker(parkings[i], i);
@@ -1113,7 +1116,7 @@ function displayFoundParkings(parkings) {
 	var hotCounter = 0;
 	for (var i = 0, len = parkings.length; i < len; i++) {
 		//if (checkIfParkingWorks(parkings[i]) && parkings[i].pricePerHour != 0) {
-		if (parkings[i].pricePerHour != 0) {
+		if (parkings[i].pricePerHour > 0) {
 			//calcPrice(parkings[i]);
 			var parkingLi = document.createElement('li');
 			if (parkings[i].distance > 0.5)
