@@ -220,9 +220,8 @@ def confirm_booking(request):
                     return HttpResponse("already booked parkingspot here", content_type="text/html; charset=utf-8")
                 else:
                     parking_id = request.POST['parking_id']
-                    #price_list = request.POST['price_list']
                     price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
-                    price_list = PriceList.objects.get(id=price_list_id)
+                    price_list = get_price_list_as_string(PriceList.objects.get(id=price_list_id))
                     parking_address = ParkingMarker.objects.get(id=parking_id).address
                     arrival_time = request.POST['arrival_time']
                     duration = request.POST['duration']
@@ -239,6 +238,10 @@ def confirm_booking(request):
             return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+def get_price_list_as_string(price_list):
+    pices_as_string = str(price_list.oneHour) + ";" + str(price_list.oneHour) + ";" + str(price_list.twoHours) + ";" + str(price_list.threeHours) + ";" + str(price_list.fourHours) + ";" + str(price_list.fiveHours) + ";" + str(price_list.sixHours) + ";" + str(price_list.sevenHours) + ";" + str(price_list.eightHours) + ";" + str(price_list.nineHours) + ";" + str(price_list.tenHours) + ";" + str(price_list.elevenHours) + ";" + str(price_list.twelveHours)
+    return pices_as_string
 
 def send_data():
     pass
@@ -321,11 +324,8 @@ def get_booking_requests(request):
     if request.is_ajax():
         if request.user.is_authenticated():
             booking_requests = BookedSpots.objects.filter(user_id=request.user.id)
-            licence_plates = LicencePlates.objects.filter(user_id=request.user.id)
-            price_lists = [PriceList.objects.get(id=spot.price_list_id)
-                           for spot in booking_requests 
-            ]           
-            combined = list(chain(booking_requests, licence_plates, price_lists))
+            licence_plates = LicencePlates.objects.filter(user_id=request.user.id)          
+            combined = list(chain(booking_requests, licence_plates))
             data = serializers.serialize("json", combined)
             return HttpResponse(data, content_type="application/json; charset=utf-8") 
         else:

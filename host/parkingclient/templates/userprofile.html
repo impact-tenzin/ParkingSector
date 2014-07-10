@@ -78,7 +78,7 @@
 						<h3 class="colorBlack">Регистрационни номера на автомобили</h3>
 						<hr>
 						<p class="msg-plate alert">
-							
+
 						</p>
 						<br>
 					</div>
@@ -98,27 +98,12 @@
 				<div class="col-lg-4 text-center">
 
 					<p class="label" id="dropdownMenu1" data-toggle="dropdown">
-						<button class="cform-submit submitBtn colorBlack">Моите номера <span class="caret"></span></button>
+						<button class="cform-submit submitBtn colorBlack">
+							Моите номера <span class="caret"></span>
+						</button>
 					</p>
 					<ul class="dropdown-menu plates-menu" role="menu" aria-labelledby="dropdownMenu1">
-						<li role="presentation">
-							<a href="#" role="menuitem" tabindex="-1" href="#">KT 8585 PC
-							<button class="cform-submit deleteBtn">
-								Премахни
-							</button></a>
-						</li>
-						<li role="presentation">
-							<a href="#" role="menuitem" tabindex="-1" href="#">PC 6162 PK
-							<button class="cform-submit deleteBtn">
-								Премахни
-							</button> </a>
-						</li>
-						<li role="presentation">
-							<a href="#" role="menuitem" tabindex="-1" href="#">BK 6859 KT
-							<button class="cform-submit deleteBtn">
-								Премахни
-							</button></a>
-						</li>
+					
 					</ul>
 
 				</div>
@@ -129,7 +114,7 @@
 						<h2>Запазвания</h2>
 						<hr>
 						<p class="msg alert">
-							
+
 						</p>
 					</div>
 				</div>
@@ -144,7 +129,94 @@
 					<p><i class="fa fa-usd client"></i> запазено на цена:<br> 1.00 лв/час</p>
 					<button class="delete">Откажи <i class="fa fa-times"></i></button>
 					</div>
-					</div>-->
+					</div>
+					<div class='col-md-3 text-center margin'>
+						" + "
+						<div class='service-item clientHolder'>
+							" + "<h3>Запазване</h3>" + "
+							<p>
+								<i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "
+							</p>
+							" + "
+							<p>
+								<i class='fa fa-calendar client'></i>дата и час на запазване:
+								<br>
+								" + request.fields['arrival_time'] + "
+							</p>
+							" + "
+							<p>
+								<i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа
+							</p>
+							" + "
+							<p>
+								<i class='fa fa-car client'></i> регистрационен номер:
+								<br>
+								" + request.fields['licence_plate'] + "
+							</p>
+							" + "
+							<div class='dropdown'>
+								<p class='label' id='dropdownMenu1' data-toggle='dropdown'>
+									<i class='fa fa-usd client'></i>
+									<button class='cform-submit deleteBtn'>
+										Цена <span class='caret'></span>
+									</button>
+									<ul class='dropdown-menu plates-menu pricelistHolder' role='menu' aria-labelledby='dropdownMenu1'>
+										<li role='presentation'>
+											<div class='priceBox'>
+												1ч - 2лв
+											</div>
+											<div class='priceBox'>
+												2ч - 3лв
+											</div>
+											<div class='priceBox'>
+												3ч - 5лв
+											</div>
+											<div class='priceBox'>
+												4ч - 7лв
+											</div>
+										</li>
+										<li role='presentation'>
+											<div class='priceBox'>
+												5ч - 8лв
+											</div>
+											<div class='priceBox priceBoxCurrent'>
+												6ч - 9лв
+											</div>
+											<div class='priceBox'>
+												7ч - 10лв
+											</div>
+											<div class='priceBox'>
+												8ч - 11лв
+											</div>
+										</li>
+										<li role='presentation'>
+											<div class='priceBox'>
+												9ч - 12лв
+											</div>
+											<div class='priceBox'>
+												10ч - 13лв
+											</div>
+											<div class='priceBox'>
+												11ч - 14лв
+											</div>
+											<div class='priceBox'>
+												12ч - 15лв
+											</div>
+										</li>
+									</ul>
+									<br>
+									"/* + request.fields['price_list'] + */ + "
+									<br>
+								</p>
+							</div>
+							" + "
+							<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>
+								Откажи <i class='fa fa-times'></i>
+							</button>
+							" + "
+						</div>
+						" + "
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -200,6 +272,7 @@
 						var licence_plates = data.filter(function(item) {
 							return item.model == "parkingclient.licenceplates";
 						});
+										
 						renderPlates(licence_plates);
 						renderRequests(requests);
 					},
@@ -213,36 +286,35 @@
 
 			function addNewPlate() {
 				var newPlate = $('.regplateinput').val();
-				if(newPlate.trim()=="") {
+				if (newPlate.trim() == "") {
 					$('.msg-plate').html("").html("<i class='fa fa-check'></i> Полето е празно");
 					$('.regplateinput').val("");
 					return
-				}
-				else{
-				$.ajax({
-					url : "/addNewPlate/",
-					type : 'POST', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					data : {
-						licence_plate : newPlate,
-						csrfmiddlewaretoken : '{{ csrf_token }}'
-					},
-					success : function(data) {
-						renderMessageForAddingPlate(data);
-						getBookingRequests();
-						$('.regplateinput').val("");
-					},
-					error : function(error) {
-						// Log any error.
-						console.log("ERROR:", error);
+				} else {
+					$.ajax({
+						url : "/addNewPlate/",
+						type : 'POST', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						data : {
+							licence_plate : newPlate,
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+						success : function(data) {
+							renderMessageForAddingPlate(data);
+							getBookingRequests();
+							$('.regplateinput').val("");
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
 
-					},
-				});
+						},
+					});
 				}
 			}
 
@@ -297,7 +369,7 @@
 					},
 				});
 			}
-			
+
 			function renderMessageForAddingPlate(data) {
 				if (data == "addition complete") {
 					$('.msg-plate').html("").html("<i class='fa fa-check'></i> Добавихте регистрационния номер успешно.");
@@ -309,7 +381,7 @@
 				if (data == "user not authenticated")
 					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
 			}
-			
+
 			function renderMessageForPlates(data, self) {
 				if (data == "deletion complete") {
 					$('.msg-plate').html("").html("<i class='fa fa-check'></i> Изтрихте регистрационния номер успешно.");
@@ -353,20 +425,33 @@
 			function renderRequests(requests) {
 				$('.requests-container').html("");
 				for (var i = 0, len = requests.length; i < len; i++) {
+					
 					addRequestOnUI(requests[i]);
 				};
 			}
 
 			function addRequestOnUI(request) {
-				var uiRequest = "<div class='col-md-3 text-center margin'>" + "<div class='service-item clientHolder'>" + "<h3>Запазване</h3>" + "<p><i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "</p>" + "<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>" + request.fields['arrival_time'] + "</p>" + "<p><i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа</p>" + "<p><i class='fa fa-car client'></i> регистрационен номер:<br>" + request.fields['licence_plate'] + "</p>" + "<div class='dropdown'><p class='label' id='dropdownMenu1' data-toggle='dropdown'><i class='fa fa-usd client'></i> <button class='cform-submit deleteBtn'>Цена <span class='caret'></span></button><ul class='dropdown-menu plates-menu pricelistHolder' role='menu' aria-labelledby='dropdownMenu1'><li role='presentation'><div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div></li><li role='presentation'><div class='priceBox'>5ч - 8лв</div><div class='priceBox priceBoxCurrent'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div></li><li role='presentation'><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div></li></ul><br>"/* + request.fields['price_list'] + */ + "<br></p></div>" + "<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>" + "</div>" + "</div>";
+				var priceList = formPriceList(request.fields['price_list'])
+				var uiRequest = "<div class='col-md-3 text-center margin'>" + "<div class='service-item clientHolder'>" + "<h3>Запазване</h3>" + "<p><i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "</p>" + "<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>" + request.fields['arrival_time'] + "</p>" + "<p><i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа</p>" + "<p><i class='fa fa-car client'></i> регистрационен номер:<br>" + request.fields['licence_plate'] + "</p>" + "<div class='dropdown'><p class='label' id='dropdownMenu1' data-toggle='dropdown'><i class='fa fa-usd client'></i> <button class='cform-submit deleteBtn'>Цена <span class='caret'></span></button><ul class='dropdown-menu plates-menu pricelistHolder' role='menu' aria-labelledby='dropdownMenu1'><li role='presentation'><div class='priceBox'>1ч -"+priceList[0]+"лв</div><div class='priceBox'>2ч - "+priceList[1]+"лв</div><div class='priceBox'>3ч - "+priceList[2]+"лв</div><div class='priceBox'>4ч - "+priceList[3]+"лв</div></li><li role='presentation'><div class='priceBox'>5ч - "+priceList[4]+"лв</div><div class='priceBox priceBoxCurrent'>6ч - "+priceList[5]+"лв</div><div class='priceBox'>7ч - "+priceList[6]+"лв</div><div class='priceBox'>8ч - "+priceList[7]+"лв</div></li><li role='presentation'><div class='priceBox'>9ч - "+priceList[8]+"лв</div><div class='priceBox'>10ч - "+priceList[9]+"лв</div><div class='priceBox'>11ч - "+priceList[10]+"лв</div><div class='priceBox'>12ч - "+priceList[11]+"лв</div></li></ul><br>"/* +  request.fields['price_list'] + */ + "<br></p></div>" + "<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>" + "</div>" + "</div>";
 				$('.requests-container').append(uiRequest);
 			}
+			
+			function formPriceList(priceList)
+			{
+				var price_list = priceList.split(";");
+				for (var i=0, len=price_list.length; i < len; i++) {
+				  	if(parseFloat(price_list[i]) == -1)
+				  		price_list[i]="--";
+				  	else
+				  		price_list[i]=(parseFloat(price_list[i])).toFixed(2);
+				};
+				return price_list;
+			}
+			/*
 
-            /*
-            
-            <div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div><br><div class='priceBox'>5ч - 8лв</div><div class='priceBox'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div><br><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div>
-            
-            */
+			 <div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div><br><div class='priceBox'>5ч - 8лв</div><div class='priceBox'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div><br><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div>
+
+			 */
 			function renderPlates(plates) {
 				$('.plates-menu').html("");
 				for (var i = 0, len = plates.length; i < len; i++) {

@@ -17,7 +17,7 @@ class ParkingHistoryAdmin(admin.ModelAdmin):
 class BookedSpotsAdmin(admin.ModelAdmin):
     ordering = ['parking_id']
     search_fields = ['licence_plate']
-    list_display = ['parking_id', 'user_id', 'licence_plate', 'arrival_time', 'duration', 'price_list_id']
+    list_display = ['parking_id', 'user_id', 'licence_plate', 'arrival_time', 'duration', 'price_list']
 
 class LicencePlatesAdmin(admin.ModelAdmin):
     search_fields = ['licence_plate']
