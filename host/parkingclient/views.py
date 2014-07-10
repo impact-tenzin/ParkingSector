@@ -35,7 +35,7 @@ def handle_login_user_request(request, form):
                 try:
                     RegularUser.objects.get(user=reguser.id)
                     login(request, reguser)
-                    return HttpResponseRedirect('/findparking/')
+                    return HttpResponseRedirect('/profile/')
                 except RegularUser.DoesNotExist:
                     return render_to_response('loginuser.html',
                                               {'form': form, 'msg':'Грешно потребителско име или парола'},
