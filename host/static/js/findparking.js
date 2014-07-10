@@ -320,8 +320,9 @@ function centerHighlightedEl(id) {
 //<span id='displayedPercentage'>" + "--" + "</span> needs api + formula to calculate percentage
 function showMarkerWindow(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
-	highlightParking(parking);
-	var html = "<div class='infoWindow'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" +   "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>" + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><div class='pricelistHolder'><div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div><br><div class='priceBox'>5ч - 8лв</div><div class='priceBox'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div><br><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div></div>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>";
+	//highlightParking(parking);
+	var priceList = getPriceListForParking(parking);
+	var html = "<div class='infoWindow'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" +   "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>" + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><div class='pricelistHolder'><div class='priceBox'>1ч - "+priceList.oneHour+"</div><div class='priceBox'>2ч - "+priceList.twoHours+"</div><div class='priceBox'>3ч - "+priceList.threeHours+"</div><div class='priceBox'>4ч - "+priceList.fourHours+"</div><br><div class='priceBox'>5ч - "+priceList.fiveHours+"</div><div class='priceBox'>6ч - "+priceList.sixHours+"</div><div class='priceBox'>7ч - "+priceList.sevenHours+"</div><div class='priceBox'>8ч - "+priceList.eightHours+"</div><br><div class='priceBox'>9ч - "+priceList.nineHours+"</div><div class='priceBox'>10ч - "+priceList.tenHours+"</div><div class='priceBox'>11ч - "+priceList.elevenHours+"</div><div class='priceBox'>12ч - "+priceList.twelveHours+"</div></div>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
@@ -365,6 +366,32 @@ function showMarkerWindowNA(parking, marker) {
 	};
 	ib.setOptions(myOptions);
 	ib.open(map, marker);
+}
+
+function getPriceListForParking(parking)
+{
+	var priceList = priceLists.filter(function(item){return item.id==parking.priceList;})[0];
+	priceList.oneHour = formHour(priceList.oneHour);
+	priceList.twoHours = formHour(priceList.twoHours);
+	priceList.threeHours = formHour(priceList.threeHours);
+	priceList.fourHours = formHour(priceList.fourHours);
+	priceList.fiveHours = formHour(priceList.fiveHours);
+	priceList.sixHours = formHour(priceList.sixHours);
+	priceList.sevenHours = formHour(priceList.sevenHours);
+	priceList.eightHours = formHour(priceList.eightHours);
+	priceList.nineHours = formHour(priceList.nineHours);
+	priceList.tenHours = formHour(priceList.tenHours);
+	priceList.elevenHours = formHour(priceList.elevenHours);
+	priceList.twelveHours = formHour(priceList.twelveHours);
+	return priceList;
+}
+
+function formHour(hour)
+{
+	if (hour == -1)
+		return  "--";
+	else
+		return (parseFloat(hour)).toFixed(2) + "лв";
 }
 
 function distToMeters(distance) {
@@ -731,10 +758,14 @@ function ajaxCall(lat, lng) {
 			var paymentMethodData = data.filter(function(item) {
 				return item.model == "FindParking.paymentmethod";
 			});
+			var price_lists = data.filter(function(item) {
+				return item.model == "FindParking.pricelist";
+			});
 
 			parseAjaxParkings(parkingsData);
 			parseAjaxFeatures(featuresData);
 			parseAjaxMethods(paymentMethodData);
+			parseAjaxPriceLists(price_lists);
 
 			for (var i = 0, len = parkings.length; i < len; i++) {
 				createMarker(parkings[i], i);
@@ -750,6 +781,30 @@ function ajaxCall(lat, lng) {
 
 		},
 	});
+}
+
+//parse data returned from ajaxRequest as string (splited)
+function parseAjaxPriceLists(ajaxPriceLists) {
+	//var ajaxParkings = ajaxData.split('@');
+	// i < len -1 becausewhen split by '@' there is a left string at the end
+	for (var i = 0, len = ajaxPriceLists.length; i < len; i++) {
+		//var parking = ajaxParkings[i].split('&');
+		var currentPriceList = new Object();
+		currentPriceList.id = parseInt(ajaxPriceLists[i].pk);
+		currentPriceList.oneHour = ajaxPriceLists[i].fields['oneHour'];
+		currentPriceList.twoHours = ajaxPriceLists[i].fields['twoHours'];
+		currentPriceList.threeHours = ajaxPriceLists[i].fields['threeHours'];
+		currentPriceList.fourHours = ajaxPriceLists[i].fields['fourHours'];
+		currentPriceList.fiveHours = ajaxPriceLists[i].fields['fiveHours'];
+		currentPriceList.sixHours = ajaxPriceLists[i].fields['sixHours'];
+		currentPriceList.sevenHours = ajaxPriceLists[i].fields['sevenHours'];
+		currentPriceList.eightHours = ajaxPriceLists[i].fields['eightHours'];
+		currentPriceList.nineHours = ajaxPriceLists[i].fields['nineHours'];
+		currentPriceList.tenHours = ajaxPriceLists[i].fields['tenHours'];
+		currentPriceList.elevenHours = ajaxPriceLists[i].fields['elevenHours'];
+		currentPriceList.twelveHours = ajaxPriceLists[i].fields['twelveHours'];
+		priceLists.push(currentPriceList);
+	};
 }
 
 //parse data returned from ajaxRequest as string (splited)
@@ -771,8 +826,9 @@ function parseAjaxParkings(ajaxParkings) {
 		currentParking.workFrom = (parseFloat(ajaxParkings[i].fields['workFrom'])).toFixed(2);
 		currentParking.workTo = (parseFloat(ajaxParkings[i].fields['workTo'])).toFixed(2);
 		currentParking.pricePerHour = parseFloat(ajaxParkings[i].fields['pricePerHour']);
-		currentParking.paymentMethod = parseFloat(ajaxParkings[i].fields['paymentMethod']);
-		currentParking.features = parseFloat(ajaxParkings[i].fields['features']);
+		currentParking.paymentMethod = parseInt(ajaxParkings[i].fields['paymentMethod']);
+		currentParking.features = parseInt(ajaxParkings[i].fields['features']);
+		currentParking.priceList = parseInt(ajaxParkings[i].fields['priceList']);
 		parkings.push(currentParking);
 	};
 }
@@ -852,10 +908,14 @@ function getSofiaParkings() {
 			var paymentMethodData = data.filter(function(item) {
 				return item.model == "FindParking.paymentmethod";
 			});
-
+			var price_lists = data.filter(function(item) {
+				return item.model == "FindParking.pricelist";
+			});
+			
 			parseAjaxParkings(parkingsData);
 			parseAjaxFeatures(featuresData);
 			parseAjaxMethods(paymentMethodData);
+			parseAjaxPriceLists(price_lists);
 
 			for (var i = 0, len = parkings.length; i < len; i++) {
 				createMarker(parkings[i], i);
