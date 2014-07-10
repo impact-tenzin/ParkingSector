@@ -371,25 +371,26 @@ function showMarkerWindowNA(parking, marker) {
 function getPriceListForParking(parking)
 {
 	var priceList = priceLists.filter(function(item){return item.id==parking.priceList;})[0];
-	priceList.oneHour = formHour(priceList.oneHour);
-	priceList.twoHours = formHour(priceList.twoHours);
-	priceList.threeHours = formHour(priceList.threeHours);
-	priceList.fourHours = formHour(priceList.fourHours);
-	priceList.fiveHours = formHour(priceList.fiveHours);
-	priceList.sixHours = formHour(priceList.sixHours);
-	priceList.sevenHours = formHour(priceList.sevenHours);
-	priceList.eightHours = formHour(priceList.eightHours);
-	priceList.nineHours = formHour(priceList.nineHours);
-	priceList.tenHours = formHour(priceList.tenHours);
-	priceList.elevenHours = formHour(priceList.elevenHours);
-	priceList.twelveHours = formHour(priceList.twelveHours);
-	return priceList;
+	var currentPriceList = new Object();
+	currentPriceList.oneHour = formHour(priceList.oneHour);
+	currentPriceList.twoHours = formHour(priceList.twoHours);
+	currentPriceList.threeHours = formHour(priceList.threeHours);
+	currentPriceList.fourHours = formHour(priceList.fourHours);
+	currentPriceList.fiveHours = formHour(priceList.fiveHours);
+	currentPriceList.sixHours = formHour(priceList.sixHours);
+	currentPriceList.sevenHours = formHour(priceList.sevenHours);
+	currentPriceList.eightHours = formHour(priceList.eightHours);
+	currentPriceList.nineHours = formHour(priceList.nineHours);
+	currentPriceList.tenHours = formHour(priceList.tenHours);
+	currentPriceList.elevenHours = formHour(priceList.elevenHours);
+	currentPriceList.twelveHours = formHour(priceList.twelveHours);
+	return currentPriceList;
 }
 
 function formHour(hour)
 {
-	if (hour == -1)
-		return  "--";
+	if (parseFloat(hour) == -1)
+		return "--";
 	else
 		return (parseFloat(hour)).toFixed(2) + "лв";
 }
