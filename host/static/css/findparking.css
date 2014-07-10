@@ -722,8 +722,22 @@ body{
 .unchecked{
 	background-color: none !important;
 }
-
-
-
+.last{
+	border-left: 1px solid #c6d0da;
+}
+.logo-li{
+	float: right !important;
+	border-left: 1px solid #c6d0da;
+}
+.logo{
+	background: #FFF !important;
+}
+.logo img{
+	margin-top: 3px;
+}
+.user-icon{
+	background: #FFF;
+	font-size: 24px;
+}
 
 
