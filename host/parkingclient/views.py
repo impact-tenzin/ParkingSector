@@ -304,8 +304,11 @@ def create_regular_user(request, reg_form):
               
     regular_user = RegularUser(user=user)
     regular_user.save()
+    
+    reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
+    login(request, reguser)
                 
-    return HttpResponseRedirect('/login/user')
+    return HttpResponseRedirect('/profile/')
 
 def user_already_exists(request, reg_form):
     context = {
