@@ -643,9 +643,33 @@ body{
 	border-radius: 4px;
 	transition: background-color ease-in 0.5s;
 }
+.green
+{
+	background-color:#2ecc71 !important;
+	color:#FFFFFF;
+}
 .subscribeButton:hover {
 	background-color: #001DC4;
 	cursor: pointer;
+}
+.directionsButton{
+	display: inline-block;
+	width: 49%;
+	margin: 0px;
+	border: 1px solid #FFF;
+	text-align: center;
+	font-size: 16px;
+	/*height: 30px;*/
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.left{
+	background: #ffcc01;
+	color: #433600;
+}
+.right{
+	background: #5bade5;
+	color: #f7ffff;
 }
 .sub-email{
 	margin-top:5px;
