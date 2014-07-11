@@ -292,3 +292,10 @@ background: #f09e00 !important;
 	background: #F8F8F8;
 	margin-left: 1px;
 }
+.parkingSpacesHolder{
+	border: 3px solid #5aade3;
+	padding-left: 20px;
+	padding-top: 10px;
+	color: #333;
+	font-size: 18px;
+}
