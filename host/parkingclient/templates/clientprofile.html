@@ -277,10 +277,22 @@
 					},
 				});
 		}
-		
+		/*pricelist split*/
+			function formPriceList(priceList)
+			{
+				var price_list = priceList.split(";");
+				for (var i=0, len=price_list.length; i < len; i++) {
+				  	if(parseFloat(price_list[i]) == -1)
+				  		price_list[i]="--";
+				  	else
+				  		price_list[i]=(parseFloat(price_list[i])).toFixed(2);
+				};
+				return price_list;
+			}
 		//$(".tablesorter").tablesorter();
 		function addRequest(request)
 		{	
+			var myPriceList = formPriceList(request.fields['price_list'])
 			tr=document.createElement('tr');
 			tr.className=request.fields['user_id'];
 			tr.id=request.pk;
@@ -288,13 +300,17 @@
 				 " <td>"+request.fields['licence_plate']+"</td>"+
                   "  <td><i class='fa fa-clock-o'>"+request.fields['arrival_time']+"</td>"+
                   "  <td>"+request.fields['duration']+" часа</td>"+
-                  "  <td>"+request.fields['price_list']+" лева</td>"+
+                  "  <td>"+"<div class='priceBox'>1ч - "+myPriceList[0]+"лв</div>"+"<div class='priceBox'>2ч - "+myPriceList[1]+"лв</div>"+"<div class='priceBox'>3ч - "+myPriceList[2]+"лв</div>"+"<div class='priceBox'>4ч - "+myPriceList[3]+"лв</div>"+"<div class='priceBox'>5ч - "+myPriceList[4]+"лв</div>"+"<div class='priceBox'>6ч - "+myPriceList[5]+"лв</div>"+"<br>"+"<div class='priceBox'>7ч - "+myPriceList[6]+"лв</div>"+"<div class='priceBox'>8ч - "+myPriceList[7]+"лв</div>"+"<div class='priceBox'>9ч - "+myPriceList[8]+"лв</div>"+"<div class='priceBox'>10ч - "+myPriceList[9]+"лв</div>"+"<div class='priceBox'>11ч - "+myPriceList[10]+"лв</div>"+"<div class='priceBox'>12ч - "+myPriceList[11]+"лв</div>"+"</td>"+
 					"<td><button onclick='alreadyParked(this);' class='emerald' value='Паркирал'>Паркирал <i class='fa fa-check'></i></button><button onclick='removeParking(this);' class='alyzarin' id='button' value='Напуснал'>Напуснал <i class='fa fa-times'></i></button></td>"
 					;
 			//alert("in");
 			document.getElementById('table-body').appendChild(tr);
 		}
-		
+			/*
+
+			 <div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div><br><div class='priceBox'>5ч - 8лв</div><div class='priceBox'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div><br><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div>
+
+			 */
 		function updateTableSorter()
 		{
 			$(".tablesorter").trigger("update");

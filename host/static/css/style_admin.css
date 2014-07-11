@@ -299,3 +299,19 @@ background: #f09e00 !important;
 	color: #333;
 	font-size: 18px;
 }
+.pricelistHolder{
+	margin-top: 10px;
+	text-align: center;
+}
+.priceBox{
+	display: inline-block;
+	text-align: center;
+	padding: 1px;
+	background: #46aee3;
+	margin-left: 1px;
+	color: #FFF;
+	margin-bottom: 1px;
+}
+.priceBoxCurrent{
+	background: #d94850 !important;
+}
