@@ -70,21 +70,13 @@
 						<input type="text" class="form-control licence-plate subscribePanel license-box" placeholder="Друг Номер"/>
 					</div>
 				</div>
-				<div>
-				<button class='directionsButton left' style="display: none;">
-					<i class="fa fa-map-marker"></i> Упътване по адрес
-				</button>
-				<button class='directionsButton right' style="display: none;">
-					<i class="fa fa-compass"></i> Упътване от тук
-				</button>
-				</div>
 				<button class='confirmButton subscribeButton green' onclick='confirmBooking();'>
 					Потвърди запазване!
 				</button>
 			</div>
 			<!--Direction Box-->
-			<div class='confirmBox subscribeBox'>
-				<span class='glyphicon glyphicon-remove close' onclick='closeConfirm();'></span>
+			<div class='directionsBox subscribeBox' style="display:none;">
+				<span class='glyphicon glyphicon-remove close' onclick='closeDirections();'></span>
 				<p class="msg-confirm"></p>
 				<div class='sub-wrapper'>
 				<p class="question">Желаете ли навигация?</p>
