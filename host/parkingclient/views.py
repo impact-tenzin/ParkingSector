@@ -12,6 +12,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
 from datetime import datetime
+from parkingclient.errors_and_messages import register_error
 
 def login_request(request, type):
         if request.user.is_authenticated():
@@ -185,7 +186,7 @@ def get_parking_requests(request):
             try:
                 parking_id = Client.objects.get(user=request.user.id).parking_id
             except Client.DoesNotExist:
-                send_data()
+                register_error()
                 return HttpResponse("client does not exist", content_type="text/html; charset=utf-8")
             spots = BookedSpots.objects.filter(parking_id=parking_id)
             data = serializers.serialize("json", spots)
@@ -247,7 +248,7 @@ def get_price_list_as_string(price_list):
     pices_as_string = str(price_list.oneHour) + ";" + str(price_list.oneHour) + ";" + str(price_list.twoHours) + ";" + str(price_list.threeHours) + ";" + str(price_list.fourHours) + ";" + str(price_list.fiveHours) + ";" + str(price_list.sixHours) + ";" + str(price_list.sevenHours) + ";" + str(price_list.eightHours) + ";" + str(price_list.nineHours) + ";" + str(price_list.tenHours) + ";" + str(price_list.elevenHours) + ";" + str(price_list.twelveHours)
     return pices_as_string
 
-def send_data():
+def register_error():
     pass
 
 @csrf_exempt 
@@ -260,7 +261,7 @@ def cancel_booking(request):
                     BookedSpots.objects.get(id=booking_id).delete()
                     return HttpResponse("deletion complete", content_type="text/html; charset=utf-8")
                 except BookedSpots.DoesNotExist:
-                    send_data()
+                    register_error()
                     return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
@@ -359,12 +360,12 @@ def actualise_price_list(request):
                 try:
                     parking_id = Client.objects.get(user=request.user.id).parking_id
                 except Client.DoesNotExist:
-                    send_data()
+                    register_error()
                 
                 try:
                     price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
                 except ParkingMarker.DoesNotExist:
-                    send_data()
+                    register_error()
                 
                  
                 PriceList.objects.filter(id=price_list_id).update(
@@ -415,7 +416,7 @@ def remove_licence_plate(request):
                 try:
                     LicencePlates.objects.get(id=plate_id).delete()
                 except LicencePlates.DoesNotExist:
-                    send_data()
+                    register_error()
                 return HttpResponse("deletion complete", content_type="text/html; charset=utf-8")        
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
@@ -435,10 +436,10 @@ def get_price_list(request):
                     data = serializers.serialize("json", price_list)
                     return HttpResponse(data, content_type="application/json; charset=utf-8")
                 except Client.DoesNotExist:
-                    send_data()
+                    register_error()
                     return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
                 except ParkingMarker.DoesNotExist:
-                    send_data()
+                    register_error()
                     return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
@@ -461,7 +462,7 @@ def actualise_available_spaces(request):
                     parking_id = Client.objects.get(user=request.user.id).parking_id
                     ParkingMarker.objects.filter(id=parking_id).update(availableSpaces=available_spaces)
                 except Client.DoesNotExist:
-                    send_data()
+                    register_error()
                 return HttpResponse("actualising available spaces complete", content_type="text/html; charset=utf-8")        
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")

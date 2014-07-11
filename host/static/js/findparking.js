@@ -488,9 +488,6 @@ function bookingReqeust() {
 
 function preConfirmBooking(data) {
 	$('.confirmBox').show();
-	$('.confirmButton').show();
-	$('.directionsButton.left').hide();
-	$('.directionsButton.right').hide();
 	$("#license").html("");
 	if (data.length > 0) {
 		for (var i = 0; i < data.length; i++) {
@@ -524,6 +521,10 @@ function closeConfirm() {
 	$('.confirmBox').hide();
 	$('.msg-confirm').html("");
 	resetConfirmForm();
+}
+
+function closeDirections() {
+	$('.directionsBox').hide();
 }
 
 $(function() {
@@ -670,12 +671,12 @@ function renderBookingMsg(data) {
 		var msg = "Грешно потребителско име или парола!";
 		$('.msg').html(msg);
 	} else if (data == "Login Successful") {
-		var msg = "Влязохте успещно!";
+		var msg = "Влязохте успешно!";
 		$('.msg').html(msg);
 		setTimeout(function() {
 			$('.signInBox').hide();
+			bookingReqeust();
 		}, 1500);
-		bookingReqeust();
 	}
 }
 //directionsButton left
@@ -684,14 +685,12 @@ function renderConfirmMsg(data) {
 	if (data == "Booking completed") {
 		var msg = "Запазихте успешно. Очакваме Ви!";
 		$('.msg-confirm').html(msg);
-		$('.confirmButton').hide();
-		$('.directionsButton.left').show();
-		$('.directionsButton.right').show();
-		/*setTimeout(function() {
+		setTimeout(function() {
 			$('.confirmBox').hide();
 			$('.msg-confirm').html("");
 			resetConfirmForm();
-		}, 7000);*/
+			$('.directionsBox').show();
+		}, 2000);
 	} else if (data == "already booked parkingspot here") {
 		var msg = "Вече сте запазили паркомясто на този паркинг! За да запазите ново паркомясто първо трябва да отмените предната си заявка ";
 		$('.msg-confirm').html(msg);
