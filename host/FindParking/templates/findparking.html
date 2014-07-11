@@ -71,10 +71,10 @@
 					</div>
 				</div>
 				<div>
-				<button class='confirmButton directionsButton left' onclick='confirmBooking();'>
+				<button class='directionsButton left' style="display: none;">
 					<i class="fa fa-map-marker"></i> Упътване по адрес
 				</button>
-				<button class='confirmButton directionsButton right' onclick='confirmBooking();'>
+				<button class='directionsButton right' style="display: none;">
 					<i class="fa fa-compass"></i> Упътване от тук
 				</button>
 				</div>
@@ -364,11 +364,10 @@
 				var duration = $('.duration-time').val();
 				var arrival_time = $('.arrival-time').val();
 				var licence_plate = $('#license').html();
-				var new_plate = $('.licence-plate').val();
+				var new_plate = ($('.licence-plate').val()).trim();
 
 				if (!checkForUnFilledInputs(parking_id, duration, arrival_time, licence_plate, new_plate))
 					return;
-
 				if (new_plate != "")
 					var vehicle_plate = new_plate;
 				else
@@ -422,7 +421,7 @@
 
 				if (licence_plate == "") {
 					if (new_plate == "") {
-						alert("Трябва да отбележите регистрационен номер на колата!");
+						alert("Трябва да отбележите регистрационен номер на автомобила!");
 						return false;
 					}
 				}

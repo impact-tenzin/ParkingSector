@@ -488,6 +488,9 @@ function bookingReqeust() {
 
 function preConfirmBooking(data) {
 	$('.confirmBox').show();
+	$('.confirmButton').show();
+	$('.directionsButton.left').hide();
+	$('.directionsButton.right').hide();
 	$("#license").html("");
 	if (data.length > 0) {
 		for (var i = 0; i < data.length; i++) {
@@ -675,17 +678,20 @@ function renderBookingMsg(data) {
 		bookingReqeust();
 	}
 }
-
+//directionsButton left
 function renderConfirmMsg(data) {
 	$('.msg-confirm').html("");
 	if (data == "Booking completed") {
 		var msg = "Запазихте успешно. Очакваме Ви!";
 		$('.msg-confirm').html(msg);
-		setTimeout(function() {
+		$('.confirmButton').hide();
+		$('.directionsButton.left').show();
+		$('.directionsButton.right').show();
+		/*setTimeout(function() {
 			$('.confirmBox').hide();
 			$('.msg-confirm').html("");
 			resetConfirmForm();
-		}, 2000);
+		}, 7000);*/
 	} else if (data == "already booked parkingspot here") {
 		var msg = "Вече сте запазили паркомясто на този паркинг! За да запазите ново паркомясто първо трябва да отмените предната си заявка ";
 		$('.msg-confirm').html(msg);
@@ -828,7 +834,6 @@ function parseAjaxParkings(ajaxParkings) {
 		currentParking.workTo = (parseFloat(ajaxParkings[i].fields['workTo'])).toFixed(2);
 		//currentParking.pricePerHour = parseFloat(ajaxParkings[i].fields['pricePerHour']);
 		var price_per_hour = (parseFloat(priceLists.filter(function(item){return item.id==ajaxParkings[i].fields['priceList'];})[0].oneHour)).toFixed(2);
-		console.log(ajaxParkings[i].fields['priceList']);
 		currentParking.pricePerHour = price_per_hour;
 		currentParking.paymentMethod = parseInt(ajaxParkings[i].fields['paymentMethod']);
 		currentParking.features = parseInt(ajaxParkings[i].fields['features']);

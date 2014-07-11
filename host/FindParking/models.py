@@ -11,6 +11,7 @@ class ParkingMarker(models.Model):
     capacity = models.IntegerField(null = True, blank=True,default = 0)
     pricePerHour = models.FloatField(null = True, blank=True)
     #image = models.ImageField(upload_to='images/',default = 'images/noPhoto_camera3.png')
+    availableSpaces = models.IntegerField(null = True, blank=True,default = 0)
     workFrom = models.FloatField(null = True, blank=True)
     workTo = models.FloatField(null = True, blank=True)
     lat = models.FloatField()

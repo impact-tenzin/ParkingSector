@@ -218,6 +218,10 @@ def confirm_booking(request):
                 user_bookedspots = BookedSpots.objects.filter(user_id=request.user.id, parking_id=request.POST['parking_id']).count()
                 if user_bookedspots > 0:
                     return HttpResponse("already booked parkingspot here", content_type="text/html; charset=utf-8")
+                parking_bookedspots = BookedSpots.objects.filter(parking_id=request.POST['parking_id']).count()
+                available_spaces = ParkingMarker.objects.get(id=request.POST['parking_id']).availableSpaces
+                if parking_bookedspots >= available_spaces:
+                    return HttpResponse("all spaces are taken", content_type="text/html; charset=utf-8")
                 else:
                     parking_id = request.POST['parking_id']
                     price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
@@ -443,7 +447,25 @@ def get_price_list(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
-@login_required   
+@login_required
 def render_price_list_page(request):
         return render_to_response('cena-chas.html', {}, context_instance=RequestContext(request))
-    
+
+@csrf_exempt
+def actualise_available_spaces(request):
+    if request.is_ajax():
+        if request.user.is_authenticated():
+            if request.method == "POST":
+                available_spaces = request.POST['available_spaces']
+                try:
+                    parking_id = Client.objects.get(user=request.user.id).parking_id
+                    ParkingMarker.objects.filter(id=parking_id).update(availableSpaces=available_spaces)
+                except Client.DoesNotExist:
+                    send_data()
+                return HttpResponse("actualising available spaces complete", content_type="text/html; charset=utf-8")        
+            else:
+                return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")   
