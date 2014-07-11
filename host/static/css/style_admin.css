@@ -282,12 +282,7 @@ background: #f09e00 !important;
 	font-size: 18px;
 	margin-right: 65px;
 }
-.freeSpaces button{
-	height: 40px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 5px;
-	padding-bottom: 10px;
+.adjust{
 	border: 1px solid #999;
 	background: #F8F8F8;
 	margin-left: 1px;
@@ -298,6 +293,9 @@ background: #f09e00 !important;
 	padding-top: 10px;
 	color: #333;
 	font-size: 18px;
+}
+.parkingSpacesHolder p{
+	display: inline-block;
 }
 .pricelistHolder{
 	margin-top: 10px;
@@ -314,4 +312,16 @@ background: #f09e00 !important;
 }
 .priceBoxCurrent{
 	background: #d94850 !important;
+}
+/*.left{
+	float: left;
+}*/
+.right{
+	float: right;
+	margin-right: 20px;
+}
+.check{
+	border: 1px solid #FFF !important;
+	background: #6bbde8;
+	color: #FFF;
 }
