@@ -140,6 +140,7 @@ function createMarker(parking, i) {
 			labelClass : "labels", // the CSS class for the label
 		});
 		marker.lat = parking.lat;
+		marker.lng = parking.lng;
 		addClickListener(marker, i, parking);
 		markers.push(marker);
 		/*
@@ -1301,7 +1302,7 @@ function showPosition(position) {
 	directionsService.route(request, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
-			clearLocations();
+			clearLocationsButLeaveParkingDestination(pointA_pointB[2], pointA_pointB[3]);
 			markerCenter.setMap(null);
 			$('.directionsBox').hide();
 			$('.infoWindow').hide();
@@ -1317,4 +1318,14 @@ function showPosition(position) {
 			$("#results").hide();
 		}
 	});
+}
+
+function clearLocationsButLeaveParkingDestination(parkingLat, parkingLng) {
+	ib.close();
+	for (var i = 0; i < markers.length; i++) {
+		if(markers[i].lat==parkingLat  && markers[i].lng==parkingLng)
+			continue;
+		markers[i].setMap(null);
+	}
+	markers.length = 0;
 }
