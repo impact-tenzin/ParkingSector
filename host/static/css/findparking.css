@@ -654,7 +654,7 @@ body{
 }
 .directionsButton{
 	display: inline-block;
-	width: 49%;
+	/*width: 49%;*/
 	margin: 0px;
 	border: 1px solid #FFF;
 	text-align: center;
@@ -763,5 +763,9 @@ body{
 	background: #FFF;
 	font-size: 24px;
 }
-
+.question{
+	font-family: Verdana;
+	font-size: 18px;
+	color: #333;
+}
 
