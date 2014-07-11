@@ -149,6 +149,7 @@
 			var handlers = [];
 			var address;
 			var markerCenter;
+			var directionDisplay, directionsService = new google.maps.DirectionsService();
 
 			// defines if there is a place that matches the address
 			function searchLocations() {
@@ -197,19 +198,7 @@
 
 			// executes on page onload
 			function load() {
-				/*var options = {
-				componentRestrictions : {
-				country : "bg"
-				}
-				};
-				var input = (document.getElementById('adressBar'));
-				var autocomplete = new google.maps.places.Autocomplete(input, options);
-				closeFilters();
-				google.maps.event.addListener(autocomplete, 'place_changed', function() {
-				getCoords(autocomplete);
-				closeFilters();
-				});*/
-				//loadDateTimePickers();
+				directionsDisplay = new google.maps.DirectionsRenderer();
 				map = new google.maps.Map(document.getElementById("map"), {
 					center : new google.maps.LatLng(42.7000, 23.3333),
 					zoom : 14,
@@ -228,7 +217,10 @@
 					},
 					overviewMapControl : true
 				});
-
+				
+				directionsDisplay.setMap(map);
+				directionsDisplay.setPanel(document.getElementById("directions"));
+				
 				var trafficLayer = new google.maps.TrafficLayer();
 				trafficLayer.setMap(map);
 
@@ -439,7 +431,7 @@
 
 
 			window.onload = function() {
-				//loadDatePickers();
+				loadTimePicker();
 				load();
 			};
 		</script>

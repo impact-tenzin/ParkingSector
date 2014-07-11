@@ -180,10 +180,12 @@ function createMarker(parking, i) {
 function addClickListener(marker, i, parking) {
 	if (marker.icon == "/static/imgs/parkingPointer.png" || marker.icon == "/static/imgs/parkingPointerBlurred.png")
 		handlers[i] = google.maps.event.addListener(marker, 'click', function() {
+			$('.directionsBox').hide();
 			showMarkerWindow(parking, marker);
 		});
 	else if (marker.icon == "/static/imgs/parkingPointerBlurredNA.png")
 		handlers[i] = google.maps.event.addListener(marker, 'click', function() {
+			$('.directionsBox').hide();
 			showMarkerWindowNA(parking, marker);
 		});
 	else
@@ -322,7 +324,7 @@ function showMarkerWindow(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	//highlightParking(parking);
 	var priceList = getPriceListForParking(parking);
-	var html = "<div class='infoWindow'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" +   "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>" + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><div class='pricelistHolder'><div class='priceBox'>1ч - "+priceList.oneHour+"</div><div class='priceBox'>2ч - "+priceList.twoHours+"</div><div class='priceBox'>3ч - "+priceList.threeHours+"</div><div class='priceBox'>4ч - "+priceList.fourHours+"</div><br><div class='priceBox'>5ч - "+priceList.fiveHours+"</div><div class='priceBox'>6ч - "+priceList.sixHours+"</div><div class='priceBox'>7ч - "+priceList.sevenHours+"</div><div class='priceBox'>8ч - "+priceList.eightHours+"</div><br><div class='priceBox'>9ч - "+priceList.nineHours+"</div><div class='priceBox'>10ч - "+priceList.tenHours+"</div><div class='priceBox'>11ч - "+priceList.elevenHours+"</div><div class='priceBox'>12ч - "+priceList.twelveHours+"</div></div>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>";
+	var html = "<div class='infoWindow' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>" + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><div class='pricelistHolder'><div class='priceBox'>1ч - " + priceList.oneHour + "</div><div class='priceBox'>2ч - " + priceList.twoHours + "</div><div class='priceBox'>3ч - " + priceList.threeHours + "</div><div class='priceBox'>4ч - " + priceList.fourHours + "</div><br><div class='priceBox'>5ч - " + priceList.fiveHours + "</div><div class='priceBox'>6ч - " + priceList.sixHours + "</div><div class='priceBox'>7ч - " + priceList.sevenHours + "</div><div class='priceBox'>8ч - " + priceList.eightHours + "</div><br><div class='priceBox'>9ч - " + priceList.nineHours + "</div><div class='priceBox'>10ч - " + priceList.tenHours + "</div><div class='priceBox'>11ч - " + priceList.elevenHours + "</div><div class='priceBox'>12ч - " + priceList.twelveHours + "</div></div>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
@@ -368,8 +370,7 @@ function showMarkerWindowNA(parking, marker) {
 	ib.open(map, marker);
 }
 
-function getPriceListForParking(parking)
-{
+function getPriceListForParking(parking) {
 	var priceList = priceLists.filter(function(item){return item.id==parking.priceList;})[0];
 	var currentPriceList = new Object();
 	currentPriceList.oneHour = formHour(priceList.oneHour);
@@ -387,8 +388,7 @@ function getPriceListForParking(parking)
 	return currentPriceList;
 }
 
-function formHour(hour)
-{
+function formHour(hour) {
 	if (parseFloat(hour) == -1)
 		return "--";
 	else
@@ -641,29 +641,33 @@ function distance(latAddress, lngAddress, lat, lng) {
 }
 
 // if departure time is at least 1 hour after arrival time
-/*
- function checkForProperTimeDuration() {
- var dateFrom = $('#fromDate').val().split(' ');
- var dayFrom = parseInt(dateFrom[0].split('.')[0]);
- var monthFrom = parseInt(dateFrom[0].split('.')[1]) - 1;
- var yearFrom = parseInt(dateFrom[0].split('.')[2]);
- var hourFrom = parseInt(dateFrom[1].split(':')[0]);
- var periodFrom = parseInt(dateFrom[1].split(':')[1]);
 
- var dateTo = $('#toDate').val().split(' ');
- var dayTo = parseInt(dateTo[0].split('.')[0]);
- var monthTo = parseInt(dateTo[0].split('.')[1]) - 1;
- var yearTo = parseInt(dateTo[0].split('.')[2]);
- var hourTo = parseInt(dateTo[1].split(':')[0]);
- var periodTo = parseInt(dateTo[1].split(':')[1]);
+function checkForProperTimeDuration() {
+	var dateTo = $('.arrival-time').val().split(' ');
+	var dayTo = parseInt(dateTo[0].split('.')[0]);
+	var monthTo = parseInt(dateTo[0].split('.')[1]) - 1;
+	var yearTo = parseInt(dateTo[0].split('.')[2]);
+	var hourTo = parseInt(dateTo[1].split(':')[0]);
+	var periodTo = parseInt(dateTo[1].split(':')[1]);
 
- var starttime = (new Date(yearFrom, monthFrom, dayFrom, hourFrom, periodFrom, 0)).getTime();
- var endtime = (new Date(yearTo, monthTo, dayTo, hourTo, periodTo, 0)).getTime();
+	var date = new Date();
+	if (roundMinutes(date.getMinutes()) == '00')
+		date.setHours(date.getHours() + 1);
+	var dateString = date.getDate() + "." + appendZero(date.getMonth()) + (date.getMonth() + 1) + "." + date.getFullYear() + " " + date.getHours() + ":" + roundMinutes(date.getMinutes());
+	var dateFrom = dateString.split(' ');
+	var dayFrom = parseInt(dateFrom[0].split('.')[0]);
+	var monthFrom = parseInt(dateFrom[0].split('.')[1]) - 1;
+	var yearFrom = parseInt(dateFrom[0].split('.')[2]);
+	var hourFrom = parseInt(dateFrom[1].split(':')[0]);
+	var periodFrom = parseInt(dateFrom[1].split(':')[1]);
 
- if (endtime >= starttime && ((endtime / 3600000) - (starttime / 3600000)) >= 1)
- return true;
- return false;
- }*/
+	var starttime = (new Date(yearFrom, monthFrom, dayFrom, hourFrom, periodFrom, 0)).getTime();
+	var endtime = (new Date(yearTo, monthTo, dayTo, hourTo, periodTo, 0)).getTime();
+
+	if (endtime >= starttime && ((endtime / 3600000) - (starttime / 3600000)) >= 0)
+		return true;
+	return false;
+}
 
 function renderBookingMsg(data) {
 	$('.msg').html("");
@@ -679,6 +683,7 @@ function renderBookingMsg(data) {
 		}, 1500);
 	}
 }
+
 //directionsButton left
 function renderConfirmMsg(data) {
 	$('.msg-confirm').html("");
@@ -690,7 +695,7 @@ function renderConfirmMsg(data) {
 			$('.msg-confirm').html("");
 			resetConfirmForm();
 			$('.directionsBox').show();
-		}, 2000);
+		}, 1000);
 	} else if (data == "already booked parkingspot here") {
 		var msg = "Вече сте запазили паркомясто на този паркинг! За да запазите ново паркомясто първо трябва да отмените предната си заявка ";
 		$('.msg-confirm').html(msg);
@@ -704,15 +709,9 @@ function renderConfirmMsg(data) {
 	}
 }
 
-function resetConfirmForm()
-{
-	$( ".license-box" ).val("");
-	$('.arrival-time').datetimepicker({
-		format : 'd.m.Y H:i',
-		value : getCurrentDate(false),
-		dayOfWeekStart : 1,
-		step : 15,
-	});
+function resetConfirmForm() {
+	$(".license-box").val("");
+	loadTimePicker();
 	$(".duration-time").val("1");
 }
 
@@ -770,7 +769,7 @@ function ajaxCall(lat, lng) {
 			var price_lists = data.filter(function(item) {
 				return item.model == "FindParking.pricelist";
 			});
-			
+
 			parseAjaxPriceLists(price_lists);
 			parseAjaxParkings(parkingsData);
 			parseAjaxFeatures(featuresData);
@@ -922,7 +921,7 @@ function getSofiaParkings() {
 			var price_lists = data.filter(function(item) {
 				return item.model == "FindParking.pricelist";
 			});
-			
+
 			parseAjaxPriceLists(price_lists);
 			parseAjaxParkings(parkingsData);
 			parseAjaxFeatures(featuresData);
@@ -1096,6 +1095,7 @@ function showOrHide() {
 function addOnclick(parking, i, parkings) {
 	parking.addEventListener('click', function() {
 		showMarkerWindow(parkings[i], getMarkerOfParking(parkings[i]));
+		$(".directionsBox").hide();
 		leftMenu._closeMenu();
 	}, false);
 
@@ -1236,11 +1236,85 @@ function filterParkingsAndDisplay(allParkings) {
 	//displayNumberOfFoundParkings(allParkings);
 }
 
-$(function() {
-	$('.arrival-time').datetimepicker({
-		format : 'd.m.Y H:i',
-		value : getCurrentDate(false),
-		dayOfWeekStart : 1,
-		step : 15,
+function loadTimePicker() {
+	$(function() {
+		$('.arrival-time').datetimepicker({
+			format : 'd.m.Y H:i',
+			value : getCurrentDate(false),
+			dayOfWeekStart : 1,
+			step : 15,
+			onClose : function() {
+				if (!checkForProperTimeDuration())
+					alert("Избранта дата е невалидна!");
+			},
+		});
 	});
+}
+
+var pointA_pointB = [];
+
+$(document).on('click', '.directionsButton.right', function(e) {
+	e.preventDefault();
+	calculateRoute("currentLocation");
 });
+
+$(document).on('click', '.directionsButton.right', function(e) {
+	e.preventDefault();
+	calculateRoute("address");
+});
+
+function calculateRoute(type) {
+	if (type == "currentLocation") {
+		getLocation();
+	}
+}
+
+function getLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition, errorCall, {
+			enableHighAccuracy : true,
+		});
+	} else {
+		alert("The browser cannot geocode your position!");
+	}
+}
+
+function errorCall() {
+	alert("The browser cannot geocode your position!");
+}
+
+function showPosition(position) {
+	pointA_pointB[0] = position.coords.latitude;
+	pointA_pointB[1] = position.coords.longitude;
+
+	pointA_pointB[2] = $('.infoWindow').attr('id').split(";")[0]
+	pointA_pointB[3] = $('.infoWindow').attr('id').split(";")[1]
+
+	point_A = new google.maps.LatLng(pointA_pointB[0], pointA_pointB[1]);
+	point_B = new google.maps.LatLng(pointA_pointB[2], pointA_pointB[3]);
+
+	var request = {
+		origin : point_A,
+		destination : point_B,
+		travelMode : google.maps.DirectionsTravelMode["DRIVING"]
+	};
+	directionsService.route(request, function(response, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
+			clearLocations();
+			markerCenter.setMap(null);
+			$('.directionsBox').hide();
+			$('.infoWindow').hide();
+			
+			$("#results").show();
+			/*
+			 var myRoute = response.routes[0].legs[0];
+			 for (var i = 0; i < myRoute.steps.length; i++) {
+			 alert(myRoute.steps[i].instructions);
+			 }
+			 */
+		} else {
+			$("#results").hide();
+		}
+	});
+}
