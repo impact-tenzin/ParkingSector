@@ -698,6 +698,9 @@ function renderConfirmMsg(data) {
 	} else if (data == "Not authenticated") {
 		var msg = "Преди да запазите място трябва да влезете профила си!";
 		$('.msg-confirm').html(msg);
+	} else if (data == "all spaces are taken") {
+		var msg = "В момента няма свободни места на този паркинг. Моля, опитайте по - късно!";
+		$('.msg-confirm').html(msg);
 	}
 }
 

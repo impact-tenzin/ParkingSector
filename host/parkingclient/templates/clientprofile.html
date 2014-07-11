@@ -65,10 +65,10 @@
             <h2>Паркирали коли</h2><br><br>
 				<div class="parkingSpacesHolder">
 				<p class="left">Заявки за паркоместа: <span class="requests">0</span></p>
-				<p class="right">Отделени паркоместа: <span class="spaces">0</span>
+				<p class="right">Отделени паркоместа: <span class="spaces">{{available_spaces}}</span>
 					<button class="adjust" onClick="increaseNumber()"><i class="fa fa-plus"></i></button>
 					<button class="adjust" onClick="decreaseNumber()"><i class="fa fa-minus"></i></button>
-					<button class="adjust check"><i class="fa fa-check"></i></button>
+					<button class="adjust check" onclick="actualiseAvailableSpaces();"><i class="fa fa-check"></i></button>
 				</p>
 				</div>
             <div class="table-responsive">
@@ -171,6 +171,30 @@
     <script src="/static/js/tablesorter/tables.js"></script>
 	<script>
 		var currentRequests = [];
+		
+		function actualiseAvailableSpaces() {
+					availableSpaces = parseInt($('.spaces').html());
+					$.ajax({
+						url : "/actualiseAvailableSpaces/",
+						type : 'POST', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						data : {
+							available_spaces: availableSpaces
+						},
+						success : function(data){
+							//render completion message
+						},
+						error : function(error) {
+							console.log("ERROR:", error);
+						},
+					});
+				}
+		
 		function getParkingRequests() {
 				$.ajax({
 					url : "/getParkingRequests/",
@@ -297,6 +321,7 @@
 		//$(".tablesorter").tablesorter();
 		function addRequest(request)
 		{	
+			increaseRequests();
 			var myPriceList = formPriceList(request.fields['price_list'])
 			tr=document.createElement('tr');
 			tr.className=request.fields['user_id'];
@@ -306,7 +331,7 @@
                   "  <td><i class='fa fa-clock-o'>"+request.fields['arrival_time']+"</td>"+
                   "  <td>"+request.fields['duration']+" часа</td>"+
                   "  <td>"+"<div class='priceBox'>1ч - "+myPriceList[0]+"лв</div>"+"<div class='priceBox'>2ч - "+myPriceList[1]+"лв</div>"+"<div class='priceBox'>3ч - "+myPriceList[2]+"лв</div>"+"<div class='priceBox'>4ч - "+myPriceList[3]+"лв</div>"+"<div class='priceBox'>5ч - "+myPriceList[4]+"лв</div>"+"<div class='priceBox'>6ч - "+myPriceList[5]+"лв</div>"+"<br>"+"<div class='priceBox'>7ч - "+myPriceList[6]+"лв</div>"+"<div class='priceBox'>8ч - "+myPriceList[7]+"лв</div>"+"<div class='priceBox'>9ч - "+myPriceList[8]+"лв</div>"+"<div class='priceBox'>10ч - "+myPriceList[9]+"лв</div>"+"<div class='priceBox'>11ч - "+myPriceList[10]+"лв</div>"+"<div class='priceBox'>12ч - "+myPriceList[11]+"лв</div>"+"</td>"+
-					"<td><button onclick='alreadyParked(this);' class='emerald' value='Паркирал'>Паркирал <i class='fa fa-check'></i></button><button onclick='removeParking(this);' class='alyzarin' id='button' value='Напуснал'>Напуснал <i class='fa fa-times'></i></button></td>"
+					"<td><button onclick='alreadyParked(this);' class='emerald' value='Паркирал'>Паркирал <i class='fa fa-check'></i></button><button onclick='decreaseRequests();removeParking(this);' class='alyzarin' id='button' value='Напуснал'>Напуснал <i class='fa fa-times'></i></button></td>"
 					;
 			//alert("in");
 			document.getElementById('table-body').appendChild(tr);
@@ -349,6 +374,17 @@
 		{
 			if(parseInt($('.spaces').html())>0)
 				$('.spaces').html(parseInt($('.spaces').html())-1);
+		}
+		
+		function increaseRequests()
+		{
+			$('.requests').html(parseInt($('.requests').html())+1);
+		}
+		
+		function decreaseRequests()
+		{
+			if(parseInt($('.requests').html())>0)
+				$('.requests').html(parseInt($('.requests').html())-1);
 		}
 		
 		function alreadyParked(self)

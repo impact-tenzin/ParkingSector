@@ -89,10 +89,13 @@ def profile(request):
             return HttpResponseRedirect('/login/user')
         # client = request.user.get_profile
         try:
-            Client.objects.get(user=request.user.id)
-            return render_to_response('clientprofile.html', {}, context_instance=RequestContext(request))
+            parking_id = Client.objects.get(user=request.user.id).parking_id
+            current_available_spaces = ParkingMarker.objects.get(id=parking_id).availableSpaces
+            return render_to_response('clientprofile.html', {'available_spaces':current_available_spaces}, context_instance=RequestContext(request))
         except Client.DoesNotExist:
             pass
+        except ParkingMarker.DoesNotExist:
+            register_error()
         
         try:           
             RegularUser.objects.get(user=request.user.id)
@@ -463,6 +466,7 @@ def actualise_available_spaces(request):
                     ParkingMarker.objects.filter(id=parking_id).update(availableSpaces=available_spaces)
                 except Client.DoesNotExist:
                     register_error()
+                    return HttpResponse("Client does not exist", content_type="text/html; charset=utf-8")
                 return HttpResponse("actualising available spaces complete", content_type="text/html; charset=utf-8")        
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")

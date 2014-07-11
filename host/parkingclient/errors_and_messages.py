@@ -1,4 +1,4 @@
 import datetime
 
-def register_error():
+def register_error(number):
     pass
