@@ -768,3 +768,6 @@ body{
 	font-size: 18px;
 	color: #333;
 }
+.adp-directions,.adp-placemark,.adp-summary{
+	width: 330px !important;
+}
