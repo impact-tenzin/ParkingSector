@@ -22,7 +22,7 @@ class ParkingHistory(models.Model):
     licence_plate = models.CharField(max_length=45)
     arrival_time = models.CharField(max_length=45)
     duration = models.CharField(max_length=45)
-    price_list = models.CharField(max_length=45)
+    price_list = models.CharField(max_length=70)
     
     def __unicode__(self):
         return str(self.parking_id)

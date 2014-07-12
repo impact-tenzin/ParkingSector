@@ -11,7 +11,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
-from datetime import datetime
 from parkingclient.errors_and_messages import register_error
 
 def login_request(request, type):
@@ -109,6 +108,7 @@ def logout_request(request):
         logout(request)
         return HttpResponseRedirect('/')
 
+@csrf_exempt 
 def save_parking_info(request):
         """
         save the date duration and the pricelist of the person leaving the parking
@@ -117,22 +117,38 @@ def save_parking_info(request):
         if request.is_ajax():
             if request.user.is_authenticated():
                 if request.method == 'POST':
-                    parking_id = request.POST['parkingId']
-                    user_id = request.POST['userId']
-                    licence_plate = request.POST['drivingLicence']
-                    arrival_time = request.POST['arrivalTime']
-                    duration = request.POST['duration']
-                    price_list = request.POST['priceList']
+                    try:
+                        spot = BookedSpots.objects.get(id=request.POST['booking_id'])
+                    except BookedSpots.DoesNotExist:
+                        register_error()
+                        return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
+                    user_id = spot.user_id
+                    licence_plate = spot.licence_plate
+                    arrival_time = spot.arrival_time
+                    duration = spot.duration
+                    price_list = spot.price_list
+                    parking_id = spot.parking_id
                     
-                    to_add = ParkingHistory.objects.create(parking_id=parking_id,
+                    try:
+                        ParkingHistory.objects.get(parking_id=parking_id,
                                                            user_id=user_id,
                                                            licence_plate=licence_plate,
                                                            arrival_time=arrival_time,
                                                            duration=duration,
                                                            price_list=price_list
                                                            )
-                    to_add.save()
-                    return HttpResponse("Completed", content_type="text/html; charset=utf-8")
+                    except:
+                        to_add = ParkingHistory.objects.create(parking_id=parking_id,
+                                                               user_id=user_id,
+                                                               licence_plate=licence_plate,
+                                                               arrival_time=arrival_time,
+                                                               duration=duration,
+                                                               price_list=price_list
+                                                               )
+                        to_add.save()
+                        return HttpResponse("Completed", content_type="text/html; charset=utf-8")
+                    register_error(1)
+                    return HttpResponse("this booking already exists in parking history", content_type="text/html; charset=utf-8")
                 else:
                     return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
             else:
@@ -250,9 +266,6 @@ def confirm_booking(request):
 def get_price_list_as_string(price_list):
     pices_as_string = str(price_list.oneHour) + ";" + str(price_list.oneHour) + ";" + str(price_list.twoHours) + ";" + str(price_list.threeHours) + ";" + str(price_list.fourHours) + ";" + str(price_list.fiveHours) + ";" + str(price_list.sixHours) + ";" + str(price_list.sevenHours) + ";" + str(price_list.eightHours) + ";" + str(price_list.nineHours) + ";" + str(price_list.tenHours) + ";" + str(price_list.elevenHours) + ";" + str(price_list.twelveHours)
     return pices_as_string
-
-def register_error():
-    pass
 
 @csrf_exempt 
 def cancel_booking(request):
