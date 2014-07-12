@@ -79,15 +79,18 @@
 				<span class='glyphicon glyphicon-remove close' onclick='closeDirections();'></span>
 				<p class="msg-confirm"></p>
 				<div class='sub-wrapper'>
-				<p class="question">Желаете ли навигация?</p>
+					<p class="question">
+						Желаете ли навигация?
+					</p>
 				</div>
 				<div>
-				<button class='directionsButton left'>
+					<!--<button class='directionsButton left'>
 					<i class="fa fa-map-marker"></i> Упътване по адрес
-				</button>
-				<button class='directionsButton right'>
-					<i class="fa fa-compass"></i> Упътване от тук
-				</button>
+					</button>-->
+					<button class='directionsButton right'>
+						<i class="fa fa-compass"></i> Упътване от тук
+					</button>
+					<input type="text" id="address-navigation-bar" />
 				</div>
 			</div>
 			<!--Confrim booking form-->
@@ -97,7 +100,7 @@
 					<li class="gn-trigger">
 						<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
 						<nav class="gn-menu-wrapper">
-							<div class="gn-scroller">
+							<div class="gn-scroller parkingsBar">
 								<ul class="gn-menu">
 									<li>
 										<span class="leftPad">Паркоместа по: <span class="bordered nonsorted" id="price" onclick="sortParkingsByPrice();"><i class="fa fa-usd"></i> Цена</span> <span class="bordered nonsorted" id="distance" onclick="sortParkingsByDistance();"><i class="fa fa-road"></i> Км</span></span>
@@ -106,13 +109,14 @@
 										<input type="checkbox" id="security" hidden/>
 										<input type="checkbox" id="carwash" hidden/>
 										<input type="checkbox" id="indoor" hidden/>
-										<span class="leftPad"><span onclick="checkRadioButton('security', this);filterParkings();" class="bordered1"><img src="/static/test/img/camera.png" width="27" /></span>
-										<span onclick="checkRadioButton('carwash', this);filterParkings();" class="bordered1"><img src="/static/test/img/carwash.png" width="27" /></span>
-										<span onclick="checkRadioButton('indoor', this);filterParkings();" class="bordered1"><img src="/static/test/img/car_home.png" width="27" /></span></span>
+										<span class="leftPad"><span onclick="checkRadioButton('security', this);filterParkings();" class="bordered1"><img src="/static/test/img/camera.png" width="27" /></span> <span onclick="checkRadioButton('carwash', this);filterParkings();" class="bordered1"><img src="/static/test/img/carwash.png" width="27" /></span> <span onclick="checkRadioButton('indoor', this);filterParkings();" class="bordered1"><img src="/static/test/img/car_home.png" width="27" /></span></span>
 									</li>
 									<div class="currentParkings"></div>
 								</ul>
 							</div><!-- /gn-scroller -->
+							<div id="results" style="display:none;">
+								<div id="directions"></div>
+							</div>
 						</nav>
 					</li>
 					<li class="logo-li">
@@ -121,7 +125,6 @@
 					<li class="last">
 						<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>
 					</li>
-
 
 				</ul>
 
@@ -150,6 +153,7 @@
 			var address;
 			var markerCenter;
 			var directionDisplay, directionsService = new google.maps.DirectionsService();
+			var autocomplete;
 
 			// defines if there is a place that matches the address
 			function searchLocations() {
@@ -185,6 +189,7 @@
 					position : new google.maps.LatLng(lat, lng)
 				});
 				google.maps.event.addListener(markerCenter, 'dragend', function() {
+					showParkingsBarAndHideDirections();
 					ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
 					map.setCenter(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
 				});
@@ -217,10 +222,10 @@
 					},
 					overviewMapControl : true
 				});
-				
+
 				directionsDisplay.setMap(map);
 				directionsDisplay.setPanel(document.getElementById("directions"));
-				
+
 				var trafficLayer = new google.maps.TrafficLayer();
 				trafficLayer.setMap(map);
 
@@ -245,12 +250,42 @@
 						draggable : true,
 						position : new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
 					});
-
+					showParkingsBarAndHideDirections();
 					google.maps.event.addListener(markerCenter, 'dragend', function() {
+						showParkingsBarAndHideDirections();
 						ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
 						map.panTo(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
 					});
 				});
+
+				var options = {
+					componentRestrictions : {
+						country : "bg"
+					}
+				};
+
+				var input = (document.getElementById('address-navigation-bar'));
+				autocomplete = new google.maps.places.Autocomplete(input, options);
+
+				google.maps.event.addListener(autocomplete, 'place_changed', function() {
+					getCoordinations(autocomplete);
+				});
+			}
+
+			function getCoordinations(autocomplete) {
+				var place = autocomplete.getPlace();
+				if (!place.geometry) {
+					return;
+				}
+				pointA_pointB[0] = place.geometry.location.lat();
+				pointA_pointB[1] = place.geometry.location.lng();
+
+				getAddress();
+			}
+
+			function showParkingsBarAndHideDirections() {
+				$("#results").hide();
+				$(".parkingsBar").show();
 			}
 
 			/*
