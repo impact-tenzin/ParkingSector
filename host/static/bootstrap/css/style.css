@@ -295,3 +295,6 @@ background: #eec500 !important;
 .customers{
 	color: #333;
 }
+.pointer{
+	cursor: pointer;
+}
