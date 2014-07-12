@@ -497,4 +497,4 @@ def actualise_available_spaces(request):
         else:
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
-        return HttpResponse("Error", content_type="text/html; charset=utf-8")   
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")

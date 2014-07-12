@@ -134,7 +134,13 @@
 						</div>
 					</div>
 				<!--subscirbe-popup-->
-                </div>				  <!-- Controls -->  <a class="left carousel-control" href="#" role="button" data-action="prev">    <span class="glyphicon glyphicon-chevron-left"></span>  </a>  <a class="right carousel-control" href="#" role="button" data-action="next">    <span class="glyphicon glyphicon-chevron-right"></span>  </a>
+                </div>				  <!-- Controls -->  
+	                <a class="left carousel-control" role="button" onclick="$('.intro-header').bgswitcher('prev');">
+	                	    <span class="glyphicon glyphicon-chevron-left"></span>  
+	               	</a>
+	               <a class="right carousel-control" role="button" onclick="$('.intro-header').bgswitcher('next');">
+	               		    <span class="glyphicon glyphicon-chevron-right"></span>
+	               </a>
             </div>
 
         </div>
@@ -503,31 +509,29 @@
 		 }
 		 }*/
 		/*function start_carousel() {
-			setTimeout(f1, 3000);
-		}
+		 setTimeout(f1, 3000);
+		 }
 
-		function f1() {
-			//smqna na klasa
-			document.getElementById("home").className = "intro-header";
-			setTimeout(f2, 3000);
-		}
+		 function f1() {
+		 //smqna na klasa
+		 document.getElementById("home").className = "intro-header";
+		 setTimeout(f2, 3000);
+		 }
 
-		function f2() {
-					//document.getElementById("home").fadeIn( "slow" );
-			//smqna na klasa			
-			document.getElementById("home").className = "intro-header1";
-			
-			//document.getElementById("home").fadeIn( "slow" );
-			setTimeout(f3, 3000);
-		}
+		 function f2() {
+		 //document.getElementById("home").fadeIn( "slow" );
+		 //smqna na klasa
+		 document.getElementById("home").className = "intro-header1";
 
-		function f3() {
-			//smqna na klasa
-			document.getElementById("home").className = "intro-header2";
-			setTimeout(f1, 3000);
-		}		*/
+		 //document.getElementById("home").fadeIn( "slow" );
+		 setTimeout(f3, 3000);
+		 }
 
-
+		 function f3() {
+		 //smqna na klasa
+		 document.getElementById("home").className = "intro-header2";
+		 setTimeout(f1, 3000);
+		 }		*/
 		window.onload = function() {
 			//loadDatePickers();
 			load();
@@ -537,7 +541,14 @@
 			/*myCarousel();*/
 			//trial
 			/*$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );*/
-			/*start_carousel();*/			$(".intro-header").bgswitcher({				images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"],				effect: "drop",				interval: 7000,				loop: true			});			/*var $el = $(".intro-header").bgswitcher({			images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"]			});			$(".right").on("click", function() {			$(".intro-header").bgswitcher("next"); // bar.jpg			});			$(".left").on("click", function() {			$(".intro-header").bgswitcher("prev"); // bar.jpg			});*/
+			/*start_carousel();*/
+			switcher = $(".intro-header").bgswitcher({
+				images : ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"],
+				effect : "drop",
+				interval : 7000,
+				loop : true
+			});
+			/*var $el = $(".intro-header").bgswitcher({			images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"]			});			$(".right").on("click", function() {			$(".intro-header").bgswitcher("next"); // bar.jpg			});			$(".left").on("click", function() {			$(".intro-header").bgswitcher("prev"); // bar.jpg			});*/
 		};
 	</script>		<!-- subscribe-popup js -->	
 	<script></html>
