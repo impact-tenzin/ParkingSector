@@ -120,7 +120,7 @@ def save_parking_info(request):
                     try:
                         spot = BookedSpots.objects.get(id=request.POST['booking_id'])
                     except BookedSpots.DoesNotExist:
-                        register_error()
+                        register_error(1)
                         return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
                     user_id = spot.user_id
                     licence_plate = spot.licence_plate
@@ -147,7 +147,6 @@ def save_parking_info(request):
                                                                )
                         to_add.save()
                         return HttpResponse("Completed", content_type="text/html; charset=utf-8")
-                    register_error(1)
                     return HttpResponse("this booking already exists in parking history", content_type="text/html; charset=utf-8")
                 else:
                     return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
@@ -205,7 +204,7 @@ def get_parking_requests(request):
             try:
                 parking_id = Client.objects.get(user=request.user.id).parking_id
             except Client.DoesNotExist:
-                register_error()
+                register_error(2)
                 return HttpResponse("client does not exist", content_type="text/html; charset=utf-8")
             spots = BookedSpots.objects.filter(parking_id=parking_id)
             data = serializers.serialize("json", spots)
@@ -233,20 +232,32 @@ def confirm_booking(request):
             try:           
                 RegularUser.objects.get(user=request.user.id)
             except RegularUser.DoesNotExist:
+                register_error(3)
                 return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
             if request.method == 'POST':
                 user_bookedspots = BookedSpots.objects.filter(user_id=request.user.id, parking_id=request.POST['parking_id']).count()
                 if user_bookedspots > 0:
                     return HttpResponse("already booked parkingspot here", content_type="text/html; charset=utf-8")
                 parking_bookedspots = BookedSpots.objects.filter(parking_id=request.POST['parking_id']).count()
-                available_spaces = ParkingMarker.objects.get(id=request.POST['parking_id']).availableSpaces
+                try:
+                    available_spaces = ParkingMarker.objects.get(id=request.POST['parking_id']).availableSpaces
+                except ParkingMarker.DoesNotExist:
+                    register_error(4)
+                    return HttpResponse("ParkingMarker does not exist", content_type="text/html; charset=utf-8")
                 if parking_bookedspots >= available_spaces:
                     return HttpResponse("all spaces are taken", content_type="text/html; charset=utf-8")
                 else:
                     parking_id = request.POST['parking_id']
-                    price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
-                    price_list = get_price_list_as_string(PriceList.objects.get(id=price_list_id))
-                    parking_address = ParkingMarker.objects.get(id=parking_id).address
+                    try:
+                        price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
+                        price_list = get_price_list_as_string(PriceList.objects.get(id=price_list_id))
+                        parking_address = ParkingMarker.objects.get(id=parking_id).address
+                    except ParkingMarker.DoesNotExist:
+                        register_error(5)
+                        return HttpResponse("ParkingMarker does not exist", content_type="text/html; charset=utf-8")
+                    except PriceList.DoesNotExist:
+                        register_error(6)
+                        return HttpResponse("PriceList does not exist", content_type="text/html; charset=utf-8")
                     arrival_time = request.POST['arrival_time']
                     duration = request.POST['duration']
                     licence_plate = request.POST['licence_plate']
@@ -277,7 +288,7 @@ def cancel_booking(request):
                     BookedSpots.objects.get(id=booking_id).delete()
                     return HttpResponse("deletion complete", content_type="text/html; charset=utf-8")
                 except BookedSpots.DoesNotExist:
-                    register_error()
+                    register_error(7)
                     return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
@@ -376,12 +387,12 @@ def actualise_price_list(request):
                 try:
                     parking_id = Client.objects.get(user=request.user.id).parking_id
                 except Client.DoesNotExist:
-                    register_error()
+                    register_error(8)
                 
                 try:
                     price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
                 except ParkingMarker.DoesNotExist:
-                    register_error()
+                    register_error(9)
                 
                  
                 PriceList.objects.filter(id=price_list_id).update(
@@ -432,7 +443,7 @@ def remove_licence_plate(request):
                 try:
                     LicencePlates.objects.get(id=plate_id).delete()
                 except LicencePlates.DoesNotExist:
-                    register_error()
+                    register_error(10)
                 return HttpResponse("deletion complete", content_type="text/html; charset=utf-8")        
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
@@ -452,10 +463,10 @@ def get_price_list(request):
                     data = serializers.serialize("json", price_list)
                     return HttpResponse(data, content_type="application/json; charset=utf-8")
                 except Client.DoesNotExist:
-                    register_error()
+                    register_error(11)
                     return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
                 except ParkingMarker.DoesNotExist:
-                    register_error()
+                    register_error(12)
                     return HttpResponse("Error on getting pricelist", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
@@ -478,7 +489,7 @@ def actualise_available_spaces(request):
                     parking_id = Client.objects.get(user=request.user.id).parking_id
                     ParkingMarker.objects.filter(id=parking_id).update(availableSpaces=available_spaces)
                 except Client.DoesNotExist:
-                    register_error()
+                    register_error(13)
                     return HttpResponse("Client does not exist", content_type="text/html; charset=utf-8")
                 return HttpResponse("actualising available spaces complete", content_type="text/html; charset=utf-8")        
             else:
