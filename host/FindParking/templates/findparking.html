@@ -395,7 +395,13 @@
 			}
 
 			function confirmBooking() {
-				var parking_id = $('#window-selected-id').attr('class');
+				var parking_id = parseInt($('#window-selected-id').attr('class'));
+
+				if (!parkings.filter(function(parking){return parking.id == parking_id;})[0].isClient) {
+					parkingNotClientMessage();
+					return;
+				}
+				
 				var duration = $('.duration-time').val();
 				var arrival_time = $('.arrival-time').val();
 				var licence_plate = $('#license').html();

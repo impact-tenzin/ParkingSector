@@ -19,6 +19,7 @@ class ParkingMarker(models.Model):
     description = models.TextField(null = True, blank=True)
     city = models.CharField(max_length=50,null = True, blank=True)
     bookingCounter = models.IntegerField(null = True, blank=True, default = 0)
+    isClient = models.BooleanField(default=False)
     features = models.ForeignKey('ParkingFeatures',null = True, blank=True,default = 1)
     paymentMethod = models.ForeignKey('PaymentMethod',null = True, blank=True,default = 1)
     contacts = models.ForeignKey('Contacts',null = True, blank=True,default = 1)

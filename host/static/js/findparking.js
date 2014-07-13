@@ -1,6 +1,8 @@
+/*
 function setFocus() {
 	$(".searchBar").focus();
-}
+}*/
+
 
 // get address latitude and longitude or precalculates the parking prices
 function getCoords(autocomplete) {
@@ -76,6 +78,7 @@ function triggerWindowForChosenParking(lat, lng) {
 }
 
 // get the length of parkings that are active
+/*
 function getParkingsLength() {
 	var number = 0;
 	for (var i = 0, len = markers.length; i < len; i++) {
@@ -83,26 +86,31 @@ function getParkingsLength() {
 			number++;
 	}
 	return number;
-}
+}*/
+
 
 // renders parking length
+/*
 function displayNumberOfFoundParkings(parkings) {
 	document.getElementById('numberOfParkings').innerHTML = '';
 	var length = getParkingsLength();
 	if (length == 1)
-		var number = "<div>" + "<span style='color:rgb(27,162,217);font-size:18px'>" + length + "</span>" + " паркинг" + "</div>";
+		var number = "<div>" + "<span style='color:rgb(27,162,217);font-size:18px'>" + length + "</span>" + " РїР°СЂРєРёРЅРі" + "</div>";
 	else
-		var number = "<div>" + "<span style='color:rgb(27,162,217);font-size:18px'>" + length + "</span>" + " паркинга" + "</div>";
+		var number = "<div>" + "<span style='color:rgb(27,162,217);font-size:18px'>" + length + "</span>" + " РїР°СЂРєРёРЅРіР°" + "</div>";
 	document.getElementById('numberOfParkings').innerHTML = number;
-}
+}*/
+
 
 // returns payment method on given id and methods list
+/*
 function getPaymentMethod(methodId, methods) {
 	for (var i = 0, len = methods.length; i < len; i++) {
 		if (methods[i].id == methodId)
 			return methods[i];
 	};
 }
+*/
 
 // checks if parking works during the selected time frame
 /*
@@ -273,13 +281,14 @@ function getDistance(zoom) {
 	}
 }
 
-function hasCapacity(capacity) {
+/*function hasCapacity(capacity) {
 	if (capacity > 0)
 		return capacity;
 	else
 		return "--";
 }
 
+/*
 var coloredParkingId;
 function closeBox() {
 	ib.close();
@@ -307,7 +316,7 @@ function highlightParking(parking) {
 			//centerHighlightedEl(id);
 			//alert(id);
 			//alert($(".currentParkings").scrollLeft());
-			break;
+			/*break;
 		}
 	};
 }
@@ -318,7 +327,8 @@ function centerHighlightedEl(id) {
 	$('.currentParkings')
 	//.scrollTop(elOffset.top + (elHeight/2) - (viewportHeight/2))
 	.scrollLeft(elOffset.left + (elWidth / 2) - (viewportWidth / 2));
-}
+}*/
+
 
 // information window for active parkings that is shown on clicking a marker
 //<span id='displayedPercentage'>" + "--" + "</span> needs api + formula to calculate percentage
@@ -445,6 +455,7 @@ return false;
  }
  });*/
 
+/*
 $(".close-parkingsBar").click(function() {
 	$(".displayedParkingsBar").animate({
 		'height' : 0
@@ -460,7 +471,8 @@ $(".open-parkingsBar").click(function() {
 	setTimeout(function() {
 		$(".close-parkingsBar").show();
 	}, 450);
-});
+});*/
+
 
 function bookingReqeust() {
 	$.ajax({
@@ -529,6 +541,7 @@ function closeDirections() {
 	$('.directionsBox').hide();
 }
 
+/*
 $(function() {
 	$(".close-filters").click(function() {
 		closeFilters();
@@ -546,7 +559,9 @@ function closeFilters() {
 		$('.filters-label').show();
 	}
 }
+*/
 
+/*
 $(function() {
 	$(".open-filters").click(function() {
 		var el = $('.searchBarAndFilters').height();
@@ -575,7 +590,8 @@ $(function() {
 			$('.filters-label').hide();
 		}
 	});
-});
+});*/
+
 
 function roundMinutes(minutes) {
 	for (var i = 1; i <= 16; i++) {
@@ -684,6 +700,18 @@ function renderBookingMsg(data) {
 			bookingReqeust();
 		}, 1500);
 	}
+}
+
+function parkingNotClientMessage()
+{
+	$('.msg-confirm').html("");
+	$('.msg-confirm').html("Паркингът не работи със ParkingSector!");
+	setTimeout(function() {
+			$('.confirmBox').hide();
+			$('.msg-confirm').html("");
+			resetConfirmForm();
+			$('.directionsBox').show();
+		}, 2000);
 }
 
 //directionsButton left
@@ -826,6 +854,7 @@ function parseAjaxParkings(ajaxParkings) {
 		var currentParking = new Object();
 		currentParking.id = parseInt(ajaxParkings[i].pk);
 		currentParking.availableSpaces = parseFloat(ajaxParkings[i].fields['availableSpaces']);
+		currentParking.isClient = ajaxParkings[i].fields['isClient'];
 		currentParking.name = ajaxParkings[i].fields['name'];
 		currentParking.address = ajaxParkings[i].fields['address'];
 		currentParking.lat = parseFloat(ajaxParkings[i].fields['lat']);
@@ -988,10 +1017,12 @@ function sortParkingsByDistance() {
 }
 
 // event when filter image is clicked on, changes the image
+/*
 function filterParkings() {
 	allParkings = parkings;
 	filterParkingsAndDisplay(allParkings);
-}
+}*/
+
 
 // when being filtered parkings change their markers' image and content
 // remove second part of (markers[i].labelContent != "<p>N/A</p>" && markers[i].labelContent != "") when filling all info
@@ -1074,6 +1105,7 @@ showOrHide();
 }*/
 
 //pops or hides parkingsBar depending on its content; if empty: hides, otherwise shows up;
+/*
 function showOrHide() {
 	var el = $('.currentParkings').html();
 	if (el == "") {
@@ -1091,7 +1123,8 @@ function showOrHide() {
 			$(".close-parkingsBar").show();
 		}, 450);
 	}
-}
+}*/
+
 
 // add onclick event on parking
 function addOnclick(parking, i, parkings) {
@@ -1142,7 +1175,7 @@ function displayFoundParkings(parkings) {
 			hotCounter++;
 		}
 	}
-	showOrHide();
+	//showOrHide();
 }
 
 //<li><a><span class="leftPad"><i class="fa fa-car"></i> паркомясто - 3 лв/час - 1.2 км <i class="fa fa-check"></i></span></li>
