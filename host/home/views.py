@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, HttpResponse
 from home.forms import LocationForm, SubscribeForm
 from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod
-from home.models import Viewer, Statistics
+from home.models import Viewer, Statistics, Locations
 from django.db import IntegrityError
 import math
 import threading
@@ -30,10 +30,12 @@ def home(request):
 def home_view(request):
     subscribe_form = SubscribeForm()
     address_form = LocationForm()
+    fast_choice_locations = Locations.objects.all()
     context = {
                'addressForm':address_form,
                'subscribeForm':subscribe_form,
                "counter":customers,
+               "locations":fast_choice_locations,
                }
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
@@ -160,3 +162,12 @@ def increase():
     customers = customers + 1
     Statistics.objects.filter(name__exact='customers').update(stat=customers)
   
+def redirect_to_map(request, latlng):
+    lat = float(latlng.split('/')[0])
+    lng = float(latlng.split('/')[1])
+    context = {
+                    'geolocate':'true',
+                    'lat':lat,
+                    'lng':lng,
+                    }
+    return render_to_response('findparking.html', context , context_instance=RequestContext(request))

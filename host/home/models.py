@@ -16,3 +16,9 @@ class ParkingOwner(models.Model):
 class Statistics(models.Model):
     name = models.CharField(max_length = 50)
     stat = models.IntegerField()
+    
+class Locations(models.Model):
+    lat = models.FloatField()
+    lng = models.FloatField()
+    name = models.CharField(max_length = 100)
+    image = models.CharField(max_length = 50)

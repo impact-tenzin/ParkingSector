@@ -287,14 +287,14 @@ function getDistance(zoom) {
 	else
 		return "--";
 }
+*/
 
-/*
 var coloredParkingId;
 function closeBox() {
 	ib.close();
-	$("#" + coloredParkingId).parent().attr('class', 'displayedParking non-highlighted');
+	//$("#" + coloredParkingId).parent().attr('class', 'displayedParking non-highlighted');
 }
-
+/*
 function highlightParking(parking) {
 	var id = parking.id;
 	if (coloredParkingId != undefined)
