@@ -771,3 +771,8 @@ body{
 .adp-directions,.adp-placemark,.adp-summary{
 	width: 330px !important;
 }
+.adress{
+	height: 34px;
+	border-radius: 0px;
+	border: 1px solid #333;
+}
