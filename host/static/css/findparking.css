@@ -6,15 +6,15 @@
 .cf:after {
 	clear: both;
 }
-body{
-	height:100%;
-	width:100%;
+body {
+	height: 100%;
+	width: 100%;
 }
-.wrapper{
-	position:relative;
-	margin:0 auto;
-	height:100%;
-	width:100%;
+.wrapper {
+	position: relative;
+	margin: 0 auto;
+	height: 100%;
+	width: 100%;
 }
 .searchBarAndFilters {
 	background-color: white;
@@ -22,15 +22,21 @@ body{
 	position: absolute;
 	top: 2px;
 	left: 2px;
-	padding:20px 10px 10px;
+	padding: 20px 10px 10px;
 	border-radius: 4px;
+}
+.loadGif {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 9999999;
 }
 .services {
 	padding: 5px 0;
 }
 .filters-title {
-	font-size: 18px;	background-color: rgba(255,255,255,0.7);
-
+	font-size: 18px;
+	background-color: rgba(255,255,255,0.7);
 	margin-bottom: 5px;
 	color: #5a5a5a;
 }
@@ -65,13 +71,13 @@ body{
 #map {
 	height: 100%;
 	width: 100%;
-	position:fixed !important;
+	position: fixed !important;
 }
 /* ottuk nadolu e css-sa za parkingsekciqta */
 .displayedParkingsBar {
 	width: 100%;
 	position: fixed;
-	bottom:0;
+	bottom: 0;
 	background: rgba(255, 255, 255, 0.5 );
 	white-space: nowrap;
 }
@@ -80,7 +86,7 @@ body{
 	bottom: 0;
 	overflow-x: auto;
 	overflow-y: hidden;
-	padding:5px 5px 5px 5px;
+	padding: 5px 5px 5px 5px;
 }
 
 .displayedParking {
@@ -88,16 +94,16 @@ body{
 	display: inline-block;
 	width: 163px;
 	height: 110px;
-	margin:0px 5px 0px 0px;
+	margin: 0px 5px 0px 0px;
 	background: #ededed;
 	opacity: 0.7;
-	border:1px solid #aaadad;
-	cursor:pointer;
-	color:black;
+	border: 1px solid #aaadad;
+	cursor: pointer;
+	color: black;
 }
 .parkingAddress {
-	position:absolute;
-	top:5px;
+	position: absolute;
+	top: 5px;
 	left: 25px;
 	width: 145px;
 	height: 20px;
@@ -105,45 +111,45 @@ body{
 	font-size: 12px;
 }
 .parkingPrice {
-	position:absolute;
-	top:30px;
-	left:25px;
+	position: absolute;
+	top: 30px;
+	left: 25px;
 	height: 19px;
 }
 .parkingDistance {
-	position:absolute;
-	top:55px;
-	left:25px;
+	position: absolute;
+	top: 55px;
+	left: 25px;
 	height: 19px;
 	/*background-color: #1465a1;*/
 	padding: 0 5px 0 5px;
 }
 .parkingSpaces {
-	position:absolute;
-	top:80px;
-	left:25px;
+	position: absolute;
+	top: 80px;
+	left: 25px;
 	height: 19px;
-	font-size:13px;
+	font-size: 13px;
 }
-.park-image{
-	position:absolute;
-	top:7px;
-	left:5px;
+.park-image {
+	position: absolute;
+	top: 7px;
+	left: 5px;
 }
-.price-image{
-	position:absolute;
-	top:32px;
-	left:5px;
+.price-image {
+	position: absolute;
+	top: 32px;
+	left: 5px;
 }
-.dist-image{
-	position:absolute;
-	top:57px;
-	left:5px;
+.dist-image {
+	position: absolute;
+	top: 57px;
+	left: 5px;
 }
-.space-image{
-	position:absolute;
-	top:82px;
-	left:5px;
+.space-image {
+	position: absolute;
+	top: 82px;
+	left: 5px;
 }
 /*-----------------------------------------------------------------------------------------*/
 
@@ -434,7 +440,7 @@ body{
 	background-color: #FFFFFF;
 	width: 255px;
 	padding: 5px 5px 0px 5px;
-	border-radius:0px;
+	border-radius: 0px;
 }
 .win-address {
 	font-size: 15px;
@@ -446,60 +452,60 @@ body{
 	padding: 0px 5px;
 }
 .win-price {
-	margin-bottom:5px;
-	font-size:14px;
+	margin-bottom: 5px;
+	font-size: 14px;
 }
 .win-distance {
 	width: 100%;
 }
 .parameters {
 	width: 100%;
-	font-size:14px;
+	font-size: 14px;
 	text-align: center;
 	color: rgb(27,162,217);
 }
 
 .win-info {
 	float: left;
-	font-size:14px;
-	color:#000000;
-	opacity:0.8;
+	font-size: 14px;
+	color: #000000;
+	opacity: 0.8;
 }
-.win-book{
-	width:100%;
-	height:30px;
-	background-color:#2ecc71;
-	color:#FFFFFF;
-	line-height:30px;
-	text-align:center;
+.win-book {
+	width: 100%;
+	height: 30px;
+	background-color: #2ecc71;
+	color: #FFFFFF;
+	line-height: 30px;
+	text-align: center;
 	border-radius: 0px;
-	margin-bottom:5px;
-	font-size:16px;
-	cursor:pointer;
+	margin-bottom: 5px;
+	font-size: 16px;
+	cursor: pointer;
 }
-.closeX{
-	position:absolute !important;
-	top:2px !important;
-	left:230px;
-	padding-left:5px;
-	font-size:17px;
-	opacity:0.6;
-	cursor:pointer;
+.closeX {
+	position: absolute !important;
+	top: 2px !important;
+	left: 230px;
+	padding-left: 5px;
+	font-size: 17px;
+	opacity: 0.6;
+	cursor: pointer;
 }
-.close-filters{
-	float:right;
-	font-size:20px;
-	padding:10px;
-	margin-top:-5px;
+.close-filters {
+	float: right;
+	font-size: 20px;
+	padding: 10px;
+	margin-top: -5px;
 	opacity: 0.7;
 }
-.open-filters{
-	float:right;
-	margin-top:-25px;
-	font-size:20px;
-	padding:10px;
-	color:#000000;
-	opacity:1;
+.open-filters {
+	float: right;
+	margin-top: -25px;
+	font-size: 20px;
+	padding: 10px;
+	color: #000000;
+	opacity: 1;
 }
 /*NEW FORM*/
 .subscribeBox {
@@ -513,16 +519,16 @@ body{
 	border-radius: 0px !important;
 	border: 1px solid #000 !important;
 	padding: 10px 25px 20px;
-	z-index: 99999;
+	z-index: 9999;
 	text-align: center !important;
 	font-family: Verdana;
 }
-.subscribePanel{
-	margin-bottom: 10px ;
+.subscribePanel {
+	margin-bottom: 10px;
 	height: 50px !important;
 	border-radius: 0px !important;
 }
-.subscribeButton{
+.subscribeButton {
 	border-radius: 0px !important;
 	border: 1px solid #DDD !important;
 	background: #e2bc0b !important;
@@ -533,30 +539,29 @@ body{
 	padding-right: 30px !important;
 	font-family: Verdana !important;
 }
-.license-box-dropdown{
+.license-box-dropdown {
 	width: 60% !important;
-	display: inline-block !important; 
+	display: inline-block !important;
 }
-.license-box{
-	display: inline-block !important; 
+.license-box {
+	display: inline-block !important;
 	width: 38% !important;
 }
 /*//END NEW FORM*/
 /*SAVEBOX*/
 /*END SAVEBOX*/
 /*TABLE*/
-.th,.td{
+.th, .td {
 	padding: 1px;
 	border: 1px solid #FFF;
 }
-.prices{
+.prices {
 	border: 1px solid #FFF;
 	/*text-align: left;*/
 	margin-top: 2px;
 	margin-bottom: 5px;
-	
 }
-.prices td{
+.prices td {
 	background-color: #EEE;
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -565,22 +570,21 @@ body{
 	background-color: #3d619f;
 	color: #FFF;
 }
-.pricelistHolder{
+.pricelistHolder {
 	margin-top: 10px;
 	text-align: center;
 }
-.th{
+.th {
 	background-color: #3d619f;
 	color: #FFF;
-	
 }
-.td{
+.td {
 	background-color: #EEE;
 	padding-top: 2px;
 	padding-bottom: 2px;
 	padding: 2px;
 }
-.priceBox{
+.priceBox {
 	display: inline-block;
 	text-align: center;
 	padding: 2px;
@@ -596,37 +600,37 @@ body{
 	font-size: 22px;
 	text-align: center;
 }
-.msg{
-	margin-top:10px;
+.msg {
+	margin-top: 10px;
 	max-width: 500px;
-	color:#000000;
+	color: #000000;
 	font-family: Verdana;
-	opacity:1;
+	opacity: 1;
 }
-.msg-confirm{
-	margin-top:10px;
+.msg-confirm {
+	margin-top: 10px;
 	max-width: 500px;
-	color:#000000;
+	color: #000000;
 	font-family: Verdana;
-	opacity:1;
+	opacity: 1;
 }
-.sub-name,.sub-email{
-	max-width:100%;
-	max-height:35px;
-	margin-top:5px;
+.sub-name, .sub-email {
+	max-width: 100%;
+	max-height: 35px;
+	margin-top: 5px;
 }
 
 .under-label-line {
 	border-bottom: 1px solid #0078f3;
 }
-.sub-wrapper{
-	margin-top:30px;
+.sub-wrapper {
+	margin-top: 30px;
 }
-.close{
-	position:relative;
-	top:0px;
-	left:15px;
-	cursor:pointer;
+.close {
+	position: relative;
+	top: 0px;
+	left: 15px;
+	cursor: pointer;
 }
 .subscribeButton {
 	position: relative;
@@ -643,16 +647,15 @@ body{
 	border-radius: 4px;
 	transition: background-color ease-in 0.5s;
 }
-.green
-{
-	background-color:#2ecc71 !important;
-	color:#FFFFFF;
+.green {
+	background-color: #2ecc71 !important;
+	color: #FFFFFF;
 }
 .subscribeButton:hover {
 	background-color: #001DC4;
 	cursor: pointer;
 }
-.directionsButton{
+.directionsButton {
 	display: inline-block;
 	/*width: 49%;*/
 	margin: 0px;
@@ -663,115 +666,114 @@ body{
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
-.left{
+.left {
 	background: #ffcc01;
 	color: #433600;
 }
-.right{
+.right {
 	background: #5bade5;
 	color: #f7ffff;
 }
-.sub-email{
-	margin-top:5px;
+.sub-email {
+	margin-top: 5px;
 }
 
-.filters-label{
-	position:absolute;
-	top:0;
-	left:10px;
-	padding:3px 50px 3px 10px;
-	font-size:17px;
-	cursor:pointer;
-	color:#000000;
-	opacity:1;
+.filters-label {
+	position: absolute;
+	top: 0;
+	left: 10px;
+	padding: 3px 50px 3px 10px;
+	font-size: 17px;
+	cursor: pointer;
+	color: #000000;
+	opacity: 1;
 }
 
-.close-parkingsBar{
-	position:absolute;
-	right:0px;
-	bottom:137px;
-	font-size:17px;
+.close-parkingsBar {
+	position: absolute;
+	right: 0px;
+	bottom: 137px;
+	font-size: 17px;
 	padding: 10px;
-	background-color:rgba(255,255,255,0.8);
-	border-top-left-radius:6px;
-	cursor:pointer;
+	background-color: rgba(255,255,255,0.8);
+	border-top-left-radius: 6px;
+	cursor: pointer;
 }
-.open-parkingsBar{
-	position:absolute;
-	right:0px;
-	bottom:0px;
-	width:250px;
-	height:40px;
-	line-height:40px;
-	background-color:rgba(255,255,255,0.6);
-	font-size:17px;
+.open-parkingsBar {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	width: 250px;
+	height: 40px;
+	line-height: 40px;
+	background-color: rgba(255,255,255,0.6);
+	font-size: 17px;
 	line-height: 30px;
-	padding:0px 5px 0px 5px;
-	cursor:pointer;
+	padding: 0px 5px 0px 5px;
+	cursor: pointer;
 }
 
-.close-list
-{
-	line-height:40px;
-	font-size:20px;
-	float:right;
+.close-list {
+	line-height: 40px;
+	font-size: 20px;
+	float: right;
 }
-.parkings-list{
-	font-size:18px;
-	line-height:40px;
-	color:black;
-	opacity:1;
-	float:left;
+.parkings-list {
+	font-size: 18px;
+	line-height: 40px;
+	color: black;
+	opacity: 1;
+	float: left;
 }
 
-.highlighted{
-	border:3px solid #0078f3;
+.highlighted {
+	border: 3px solid #0078f3;
 }
-.non-highlighted{
-	border:1px solid #aaadad;
+.non-highlighted {
+	border: 1px solid #aaadad;
 }
-.z-control{
+.z-control {
 	z-index: 999999999;
 }
-.padding{
+.padding {
 	padding-top: 5px !important;
 }
-.xdsoft_datetimepicker{
+.xdsoft_datetimepicker {
 	z-index: 999999999 !important;
 }
 /*Checked*/
-.checked{
+.checked {
 	background-color: #eec500 !important;
 }
-.unchecked{
+.unchecked {
 	background-color: none !important;
 }
-.last{
+.last {
 	border-left: 1px solid #c6d0da;
 }
-.logo-li{
+.logo-li {
 	float: right !important;
 	border-left: 1px solid #c6d0da;
 }
-.logo{
+.logo {
 	background: #FFF !important;
 }
-.logo img{
+.logo img {
 	margin-top: 3px;
 }
-.user-icon{
+.user-icon {
 	background: #FFF;
 	font-size: 24px;
 }
-.question{
+.question {
 	font-family: Verdana;
 	font-size: 18px;
 	color: #333;
 }
-.adp-directions,.adp-placemark,.adp-summary{
+.adp-directions, .adp-placemark, .adp-summary {
 	width: 330px !important;
 }
-.adress{
+.adress {
 	height: 34px;
 	border-radius: 0px;
 	border: 1px solid #333;

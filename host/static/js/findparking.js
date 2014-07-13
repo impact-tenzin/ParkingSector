@@ -717,14 +717,15 @@ function parkingNotClientMessage()
 //directionsButton left
 function renderConfirmMsg(data) {
 	$('.msg-confirm').html("");
+	$('.msg-directions').html("");
 	if (data == "Booking completed") {
 		var msg = "Запазихте успешно. Очакваме Ви!";
-		$('.msg-confirm').html(msg);
+		$('.msg-directions').html(msg);
 		setTimeout(function() {
 			$('.confirmBox').hide();
-			$('.msg-confirm').html("");
 			resetConfirmForm();
 			$('.directionsBox').show();
+			$('.loadGif').remove();
 		}, 1000);
 	} else if (data == "already booked parkingspot here") {
 		var msg = "Вече сте запазили паркомясто на този паркинг! За да запазите ново паркомясто първо трябва да отмените предната си заявка ";
@@ -771,11 +772,10 @@ function ajaxCall(lat, lng) {
 		//data : {id : 1, name : "ivan"},
 		dataType : 'json',
 		beforeSend : function() {
-			$('#map').append("<img class='loadGif' style='position:fixed;top:50%;left:50%;z-index:9000;' src='/static/imgs/ajax-loader.gif' />");
+			$('#map').append("<img class='loadGif' src='/static/imgs/ajax-loader.gif' />");
 		},
 		success : function(data) {
 			//console.log(data);
-			$('.loadGif').remove();
 			//parkingslen=data.filter(function(item){return item.model == "FindParking.parkingmarker";}).length;
 			//methodslen=data.filter(function(item){return item.model == "FindParking.paymentmethod";}).length;
 			//featureslen=data.filter(function(item){return item.model == "FindParking.parkingfeatures";}).length;
@@ -811,6 +811,7 @@ function ajaxCall(lat, lng) {
 			allParkings = parkings;
 			sortAscendingByPrice(allParkings);
 			filterParkingsAndDisplay(allParkings);
+			$('.loadGif').remove();
 		},
 		error : function(error) {
 
@@ -924,11 +925,10 @@ function getSofiaParkings() {
 		//data : {id : 1, name : "ivan"},
 		dataType : 'json',
 		beforeSend : function() {
-			$('#map').append("<img class='loadGif' style='position:fixed;top:50%;left:50%;z-index:9000;' src='/static/imgs/ajax-loader.gif' />");
+			$('#map').append("<img class='loadGif' src='/static/imgs/ajax-loader.gif' />");
 		},
 		success : function(data) {
 			//console.log(data);
-			$('.loadGif').remove();
 			//parkingslen=data.filter(function(item){return item.model == "FindParking.parkingmarker";}).length;
 			//methodslen=data.filter(function(item){return item.model == "FindParking.paymentmethod";}).length;
 			//featureslen=data.filter(function(item){return item.model == "FindParking.parkingfeatures";}).length;
@@ -964,6 +964,7 @@ function getSofiaParkings() {
 			allParkings = parkings;
 			sortAscendingByPrice(allParkings);
 			filterParkingsAndDisplay(allParkings);
+			$('.loadGif').remove();
 		},
 		error : function(error) {
 

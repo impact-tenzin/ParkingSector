@@ -77,7 +77,7 @@
 			<!--Direction Box-->
 			<div class='directionsBox subscribeBox' style="display:none;">
 				<span class='glyphicon glyphicon-remove close' onclick='closeDirections();'></span>
-				<p class="msg-confirm"></p>
+				<p class="msg-directions"></p>
 				<div class='sub-wrapper'>
 					<p class="question">
 						Желаете ли навигация?
@@ -401,6 +401,8 @@
 					parkingNotClientMessage();
 					return;
 				}
+				
+				$('.confirmBox').append("<img class='loadGif' src='/static/imgs/ajax-loader.gif' />");
 				
 				var duration = $('.duration-time').val();
 				var arrival_time = $('.arrival-time').val();
