@@ -151,6 +151,22 @@
                 </div>
             </div>
             <div class="row">
+				<form id="redirectToMap" action="" method="GET">
+	            	{% for location in locations %}
+		            	<div class="col-sm-4 parking-item">
+		                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+		                        <div class="caption">
+		                            <div class="caption-content">
+		                            </div>
+		                        </div>
+		                        <p>{{location.name}}</p>
+		                        <img id="{{location.lat}}/{{location.lng}}" src="/static/imgs/parkings/{{location.image}}" onclick="redirectToMap(this);" class="img-responsive" alt="" />
+		                    </a>
+		                </div>
+	            	{% endfor %}
+	            	<input type="submit" id="submitRedirectToMap" hidden/>
+            	</form>
+                <!--<div class="col-sm-4 parking-item">
                 <div class="col-sm-4 parking-item">
                     <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
@@ -340,6 +356,14 @@
     <script src="/static/bootstrap/js/bootstrap.js"></script>
 	<script src="/static/js/index.js" type="text/javascript"></script>		<script src="/static/js/jquery.bgswitcher.js" type="text/javascript"></script>
 	<script>
+			function redirectToMap(self)
+		{
+			var lat = parseFloat(self.id.split('/')[0]);
+			var lng = parseFloat(self.id.split('/')[1]);
+			$("#redirectToMap").attr("action", "/showParkingsAroundPlace/" + lat + "/" + lng);
+			document.getElementById("submitRedirectToMap").click();
+		}
+	
 		var autocomplete;
 		function load() {
 			if ("{{form}}" == "subscribeForm") {
