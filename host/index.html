@@ -56,23 +56,19 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#home" class="btn-one">Начало</a>
-                    </li>
-                    <li><a href="#services" class="btn-two">Услуги</a>
-                    </li>
-                    <li><a href="#contact" class="btn-three">Контакти</a>
+                    <li><a href="#services" class="btn-three">Как работи</a>
                     </li>
 					<li>
 						{% if user.is_authenticated %}
-									<a class="login" class="btn-four" href="/login/user">{{ user.username }}</a>
+									<a class="login btn-three" href="/login/user">{{ user.username }}</a>
 								{% else %}
-									<a class="login" class="btn-four" href="/login/user">Login</a>
+									<a class="login btn-three" class="btn-four" href="/login/user">Login</a>
 								{% endif %}
                     </li>
 					{% if user.is_authenticated %}
 					{% else %}
 					<li>
-						<a class="login" class="btn-four" href="/register">Sign Up</a>
+						<a class="login btn-special" href="/register">Sign Up</a>
 					</li>
 					{% endif %}
                 </ul>
@@ -89,12 +85,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message on-landing">
-                        <h1>Намери идеалното място за паркиране.</h1>
+                        <h3 class="special-heading">Намери твоето място за паркиране.</h3>
+						<h3 class="special-subheading">Изберете от над 100 паркинга в няколко града!</h3>
 						<div class="searchbox">
 							<form method="post" class="formAddress" id="location">
 							{% load widget_tweaks %}
 							{% csrf_token %}
-								{{ addressForm.address |attr:"id:addressInput"|attr:"class:cform-text" | attr:"size:40"| attr:"placeholder:Ще паркирам в близост до..." }}
+								{{ addressForm.address |attr:"id:addressInput"|attr:"class:cform-text" | attr:"size:40"| attr:"placeholder:Къде искаш да паркираш?" }}
 								<!--<input type="text" name="your-email" placeholder="Потърси място..." class="cform-text" size="40" title="your email">-->
 								{{ addressForm.lat |attr:'hidden' |attr:"class:lat" }}
 								{{ addressForm.lng |attr:"hidden" |attr:"class:lng" }}								<div class="cform-submit"><i class="fa fa-search" onclick="getCoordinationsByGeocoding();"></i> </div>
@@ -104,8 +101,8 @@
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li onclick="checkForLogin();markHomeBooking();"><a class="btn btn-default btn-lg emerald"><i class="fa fa-check-square-o"></i> <span class="network-name">Запази място</span></a>
-                            </li>
-                            <li onclick="getLocation();"><a class="btn btn-default btn-lg alyzarin"><i class="fa fa-map-marker"></i> <span class="network-name"> Намери място</span></a>
+                            </li> или
+                            <li onclick="getLocation();"><a class="btn btn-default btn-lg alyzarin"><i class="fa fa-map-marker"></i> <span class="network-name"> Места до мен </span></a>
                             </li>
                         </ul>
                     </div>
@@ -141,16 +138,16 @@
         <!-- /.container -->
 	</div>
     <!--</div>	 </div></div>-->
-	<div class="entries">
+	<!--<div class="entries">
 			<h4>Вече над <span class="customers">{{ counter }}</span> човека ни се довериха и решиха проблема си с паркирането!</h4>
-	</div>
+	</div>-->
 		<div class="container">
 	    <section id="portfolio">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Паркинги</h2>
-                    <hr class="star-primary">
+                <div class="col-lg-12 col-md-offset-1 text-left">
+                    <h3>Популярни дестинации</h3>
+					<p class="sub-para">Паркинги около най-търсените места в града</p>
                 </div>
             </div>
             <div class="row">
