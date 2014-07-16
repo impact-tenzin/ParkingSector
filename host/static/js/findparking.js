@@ -731,12 +731,15 @@ function renderConfirmMsg(data) {
 		var msg = "Вече сте запазили паркомясто на този паркинг! За да запазите ново паркомясто първо трябва да отмените предната си заявка ";
 		$('.msg-confirm').html(msg);
 		$('.msg-confirm').append("<a href='/profile'>оттук</a>");
+		$('.loadGif').remove();
 	} else if (data == "Not authenticated") {
 		var msg = "Преди да запазите място трябва да влезете профила си!";
 		$('.msg-confirm').html(msg);
+		$('.loadGif').remove();
 	} else if (data == "all spaces are taken") {
 		var msg = "В момента няма свободни места на този паркинг. Моля, опитайте по - късно!";
 		$('.msg-confirm').html(msg);
+		$('.loadGif').remove();
 	}
 }
 
@@ -1018,11 +1021,10 @@ function sortParkingsByDistance() {
 }
 
 // event when filter image is clicked on, changes the image
-/*
 function filterParkings() {
 	allParkings = parkings;
 	filterParkingsAndDisplay(allParkings);
-}*/
+}
 
 
 // when being filtered parkings change their markers' image and content

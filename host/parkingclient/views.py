@@ -28,8 +28,12 @@ def login_request(request, type):
 
 def handle_login_user_request(request, form):
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+            #username = form.cleaned_data['username']
+            #password = form.cleaned_data['password']
+            username = request.POST['username']
+            if has_user_by_email(username):
+              username = User.objects.get(email=username).username  
+            password = request.POST['password']
             reguser = authenticate(username=username, password=password)
             if reguser is not None:
                 try:
@@ -48,6 +52,13 @@ def handle_login_user_request(request, form):
             return render_to_response('loginuser.html',
                                       {'form': form},
                                       context_instance=RequestContext(request))
+
+def has_user_by_email(email):
+    try:
+        User.objects.get(email=email)
+        return True
+    except User.DoesNotExist:
+        return False
 
 def handle_login_client_request(request, form):
         if form.is_valid():
@@ -306,10 +317,14 @@ def register_user(request):
             try:
                 User.objects.get(username=reg_form.cleaned_data['username'])
             except User.DoesNotExist:
-                if validate_password(reg_form):
-                    return render_unvalid_password(request, reg_form)           
-                return create_regular_user(request, reg_form)
-            return user_already_exists(request, reg_form)
+                try:
+                    User.objects.get(email=reg_form.cleaned_data['email'])
+                except User.DoesNotExist:
+                    if validate_password(reg_form):
+                        return render_unvalid_password(request, reg_form)           
+                    return create_regular_user(request, reg_form)
+                return user_already_exists(request, reg_form, "email_match")
+            return user_already_exists(request, reg_form, "name_match")
         else:
             context = {
                        'form': reg_form,
@@ -345,12 +360,19 @@ def create_regular_user(request, reg_form):
                 
     return HttpResponseRedirect('/profile/')
 
-def user_already_exists(request, reg_form):
-    context = {
-               'form': reg_form,
-               'msg':'Това потребителско име вече съществува. Моля, изберете друго!'
-            }
-    return render_to_response('registration.html', context, context_instance=RequestContext(request))
+def user_already_exists(request, reg_form, match):
+    if match == "name_match":
+        context = {
+                   'form': reg_form,
+                   'msg':'Това потребителско име вече съществува. Моля, изберете друго!'
+                }
+        return render_to_response('registration.html', context, context_instance=RequestContext(request))
+    else:
+        context = {
+                   'form': reg_form,
+                   'msg':'Този имейл вече съществува. Моля, изберете друг!'
+                }
+        return render_to_response('registration.html', context, context_instance=RequestContext(request))
 
 def get_booking_requests(request):
     if request.is_ajax():
