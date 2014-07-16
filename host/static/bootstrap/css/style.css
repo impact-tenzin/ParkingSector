@@ -125,7 +125,7 @@ h1{
 }
 
 .banner {
-	padding: 100px 0;
+	padding: 70px 0;
 	color: #f8f8f8;
 	background: url(../img/map_sofia.jpg) no-repeat center center;
 	background-size: cover;
@@ -451,4 +451,24 @@ ul.intro-social-buttons li a{
 .sub-para{
 	font-size: 15px;
 	font-weight: 300;
+}
+.text-special{
+	text-align: center;
+	position: absolute;
+	z-index: 100;
+	font-size: 28px;
+	text-align: center;
+	color: #FFF;
+}
+.img-responsive{
+	position: relative;
+}
+.portfolio-link{
+	text-align: center;
+}
+.twitter:hover{
+	color: #29aae3;
+}
+.facebook:hover{
+	color: #36558e;
 }
