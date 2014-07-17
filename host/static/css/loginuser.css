@@ -28,7 +28,7 @@ body, html {
 	}
 	.loginbox input[type=text] {
 	background: #FFFFFF;
-	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 100;
 	border: 1px solid #dddddd;
 	border-radius:0 !important;
