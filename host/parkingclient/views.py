@@ -11,7 +11,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
-from parkingclient.errors_and_messages import register_error, send_confirmation_email
+from parkingclient.errors_and_messages import register_error
+from parkingclient.email_confirmation import send_confirmation_email
 
 def login_request(request, type):
         if request.user.is_authenticated():
