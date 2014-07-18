@@ -1,6 +1,12 @@
 import datetime
 from django.core.mail import EmailMessage
 from parkingclient.models import ErrorHistory
+from django.contrib.auth.models import User
+
+def send_confirmation_email(id):
+    email = User.objects.get(id=id).email
+    description = "Thank you for using our services!"
+    EmailMessage('Booking confirmation', description, to=[email]).send()
 
 def register_error(number):
     if number == 1:
