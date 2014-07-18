@@ -273,11 +273,11 @@ def confirm_booking(request):
                     duration = request.POST['duration']
                     licence_plate = request.POST['licence_plate']
                     user_id = request.user.id
-                    BookedSpots.objects.create(parking_id=parking_id, user_id=user_id,
-                                               parking_address=parking_address,
-                                               price_list=price_list, arrival_time=arrival_time,
-                                               duration=duration, licence_plate=licence_plate)
-                    send_confirmation_email(request.user.id)
+                    booked = BookedSpots.objects.create(parking_id=parking_id, user_id=user_id,
+                                                        parking_address=parking_address,
+                                                        price_list=price_list, arrival_time=arrival_time,
+                                                        duration=duration, licence_plate=licence_plate)
+                    send_confirmation_email(request.user.id, booked)
                     return HttpResponse("Booking completed", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")

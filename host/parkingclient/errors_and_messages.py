@@ -3,9 +3,9 @@ from django.core.mail import EmailMessage
 from parkingclient.models import ErrorHistory
 from django.contrib.auth.models import User
 
-def send_confirmation_email(id):
+def send_confirmation_email(id, booked):
     email = User.objects.get(id=id).email
-    description = "Thank you for using our services!"
+    description = "Thank you for using our services!" + booked.parking_address + booked.arrival_time + booked.licence_plate
     EmailMessage('Booking confirmation', description, to=[email]).send()
 
 def register_error(number):
