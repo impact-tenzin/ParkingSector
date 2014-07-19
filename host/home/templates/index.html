@@ -34,8 +34,15 @@
 
     <!-- Add custom CSS here -->
     <link href="static/bootstrap/css/style.css" rel="stylesheet">
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"
-		type="text/javascript"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places" type="text/javascript"></script>
+
+	{% load socketio_tags %}
+		{% socketio %}
+		<script>
+			var socket = new io.Socket();
+			socket.connect();
+			// etc
+		</script>
 		
 </head>
 
