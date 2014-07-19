@@ -1,26 +1,53 @@
-{% extends "index.html" %}
-{% block extrahead %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
 
-{% endblock %}
-{% block content %}
-<p id="pageId" class="useful" hidden="hidden"></p>
-<div style="margin-top:55px;">
-	<span>Разгледайте информация за град:</span>
-	<select id="cityInfo" onchange="if(this.options[this.selectedIndex].value != ''){window.top.location.href=this.options[this.selectedIndex].value}">
-		<option hidden="hidden">София</option>
-		<option>София</option>
-		<option>Пловдив</option>
-		<option>Стара Загора</option>
-		<option>Бургас</option>
-		<option>Варна</option>
-	</select>
-</div>
-<script>
-	function load() {
-		colorNavElement();
-	}
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+		<title>socketio</title>
+		<meta name="description" content="">
+		<meta name="author" content="mi6aka">
 
-	window.onload = load(); 
-</script>
-{% endblock %}
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		{% load socketio_tags %}
+		{% socketio %}
+		<script>
+			var socket = new io.Socket();
+			socket.connect();
+			// etc
+		</script>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1>socketio</h1>
+			</header>
+			<nav>
+				<p>
+					<a href="/">Home</a>
+				</p>
+				<p>
+					<a href="/contact">Contact</a>
+				</p>
+			</nav>
+
+			<div>
+
+			</div>
+
+			<footer>
+				<p>
+					&copy; Copyright  by mi6aka
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>
