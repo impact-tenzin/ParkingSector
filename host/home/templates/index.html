@@ -34,15 +34,8 @@
 
     <!-- Add custom CSS here -->
     <link href="static/bootstrap/css/style.css" rel="stylesheet">
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places" type="text/javascript"></script>
-
-	{% load socketio_tags %}
-		{% socketio %}
-		<script>
-			var socket = new io.Socket();
-			socket.connect();
-			// etc
-		</script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"
+		type="text/javascript"></script>
 		
 </head>
 
@@ -63,23 +56,19 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#home" class="btn-one">Начало</a>
-                    </li>
-                    <li><a href="#services" class="btn-two">Услуги</a>
-                    </li>
-                    <li><a href="#contact" class="btn-three">Контакти</a>
+                    <li><a href="#services" class="btn-three">Как работи</a>
                     </li>
 					<li>
 						{% if user.is_authenticated %}
-									<a class="login" class="btn-four" href="/login/user">{{ user.username }}</a>
+									<a class="login btn-three" href="/login/user">{{ user.username }}</a>
 								{% else %}
-									<a class="login" class="btn-four" href="/login/user">Login</a>
+									<a class="login btn-three" class="btn-four" href="/login/user">Login</a>
 								{% endif %}
                     </li>
 					{% if user.is_authenticated %}
 					{% else %}
 					<li>
-						<a class="login" class="btn-four" href="/register">Sign Up</a>
+						<a class="login btn-special" href="/register">Sign Up</a>
 					</li>
 					{% endif %}
                 </ul>
@@ -96,12 +85,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message on-landing">
-                        <h1>Намери идеалното място за паркиране.</h1>
+                        <h3 class="special-heading">Намери твоето място за паркиране.</h3>
+						<h3 class="special-subheading">Изберете от над 100 паркинга в няколко града!</h3>
 						<div class="searchbox">
 							<form method="post" class="formAddress" id="location">
 							{% load widget_tweaks %}
 							{% csrf_token %}
-								{{ addressForm.address |attr:"id:addressInput"|attr:"class:cform-text" | attr:"size:40"| attr:"placeholder:Ще паркирам в близост до..." }}
+								{{ addressForm.address |attr:"id:addressInput"|attr:"class:cform-text" | attr:"size:40"| attr:"placeholder:Къде искаш да паркираш?" }}
 								<!--<input type="text" name="your-email" placeholder="Потърси място..." class="cform-text" size="40" title="your email">-->
 								{{ addressForm.lat |attr:'hidden' |attr:"class:lat" }}
 								{{ addressForm.lng |attr:"hidden" |attr:"class:lng" }}								<div class="cform-submit"><i class="fa fa-search" onclick="getCoordinationsByGeocoding();"></i> </div>
@@ -111,8 +101,8 @@
                         <hr class="intro-divider">
                         <ul class="list-inline intro-social-buttons">
                             <li onclick="checkForLogin();markHomeBooking();"><a class="btn btn-default btn-lg emerald"><i class="fa fa-check-square-o"></i> <span class="network-name">Запази място</span></a>
-                            </li>
-                            <li onclick="getLocation();"><a class="btn btn-default btn-lg alyzarin"><i class="fa fa-map-marker"></i> <span class="network-name"> Намери място</span></a>
+                            </li> или
+                            <li onclick="getLocation();"><a class="btn btn-default btn-lg alyzarin"><i class="fa fa-map-marker"></i> <span class="network-name"> Места до мен </span></a>
                             </li>
                         </ul>
                     </div>
@@ -141,33 +131,27 @@
 						</div>
 					</div>
 				<!--subscirbe-popup-->
-                </div>				  <!-- Controls -->  
-	                <a class="left carousel-control" role="button" onclick="$('.intro-header').bgswitcher('prev');">
-	                	    <span class="glyphicon glyphicon-chevron-left"></span>  
-	               	</a>
-	               <a class="right carousel-control" role="button" onclick="$('.intro-header').bgswitcher('next');">
-	               		    <span class="glyphicon glyphicon-chevron-right"></span>
-	               </a>
+                </div>				  <!-- Controls -->  <a class="left carousel-control pointer" href="#" onclick="$('.intro-header').bgswitcher('next');" role="button" data-action="prev">    <span class="glyphicon glyphicon-chevron-left"></span>  </a>  <a class="right carousel-control pointer" href="#" onclick="$('.intro-header').bgswitcher('prev');" role="button" data-action="next">    <span class="glyphicon glyphicon-chevron-right"></span>  </a>
             </div>
 
         </div>
         <!-- /.container -->
 	</div>
     <!--</div>	 </div></div>-->
-	<div class="entries">
+	<!--<div class="entries">
 			<h4>Вече над <span class="customers">{{ counter }}</span> човека ни се довериха и решиха проблема си с паркирането!</h4>
-	</div>
+	</div>-->
 		<div class="container">
 	    <section id="portfolio">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Паркинги</h2>
-                    <hr class="star-primary">
+                <div class="col-lg-10 col-md-offset-1 text-left">
+                    <h3>Популярни дестинации</h3>
+					<p class="sub-para">Паркинги около най-търсените места в града</p>
                 </div>
             </div>
             <div class="row">
-            	<form id="redirectToMap" action="" method="GET">
+				<form id="redirectToMap" action="" method="GET">
 	            	{% for location in locations %}
 		            	<div class="col-sm-4 parking-item">
 		                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
@@ -175,7 +159,7 @@
 		                            <div class="caption-content">
 		                            </div>
 		                        </div>
-		                        <p>{{location.name}}</p>
+		                        <!--<h1 class="text-special">{{location.name}}</h1>-->
 		                        <img id="{{location.lat}}/{{location.lng}}" src="/static/imgs/parkings/{{location.image}}" onclick="redirectToMap(this);" class="img-responsive" alt="" />
 		                    </a>
 		                </div>
@@ -183,6 +167,7 @@
 	            	<input type="submit" id="submitRedirectToMap" hidden/>
             	</form>
                 <!--<div class="col-sm-4 parking-item">
+                <div class="col-sm-4 parking-item">
                     <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
@@ -235,8 +220,8 @@
                         </div>
                         <img src="/static/imgs/parkings/parking6.jpg" class="img-responsive" alt="" />
                     </a>
-                </div>-->
-            </div>
+                </div>
+            </div>-->
         </div>
     </section>
 	</div>
@@ -293,9 +278,9 @@
                 </div>
                 <div class="col-lg-4">
                     <ul class="list-inline banner-social-buttons">
-                        <li><a href="http://www.twitter.com/ParkingSector" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        <li><a href="http://www.twitter.com/ParkingSector" target="_blank" class="btn btn-default btn-lg twitter"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                         </li>
-                        <li><a href="http://www.facebook.com/ParkingSector" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                        <li><a href="http://www.facebook.com/ParkingSector" target="_blank" class="btn btn-default btn-lg facebook"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
                         </li>
                     </ul>
                 </div>
@@ -305,7 +290,7 @@
         <!-- /.container -->
 
     </div>
-	<div class="content-section-b">
+	<!--<div class="content-section-b">
 
         <div class="container">
 
@@ -342,11 +327,11 @@
         </div>
         <!-- /.container -->
 
-    </div>
+    <!--</div>-->
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">				<img style="float: right; display:inline-block;" src="/static/imgs/hyundai.png" width="400" />
+                <div class="col-lg-5 col-sm-6">				<!--<img style="float: right; display:inline-block;" src="/static/imgs/hyundai.png" width="400" />-->
                     <ul class="list-inline">
                         <li><a href="#home">Начало</a>
                         </li>
@@ -359,6 +344,9 @@
                     </ul>
                     <p class="copyright text-muted small">Copyright &copy; ParkingSector.bg 2014. All Rights Reserved</p>
                 </div>
+				<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="/static/imgs/hyundai.png" width="400" alt="">
+                </div>
             </div>
         </div>
     </footer>
@@ -368,7 +356,7 @@
     <script src="/static/bootstrap/js/bootstrap.js"></script>
 	<script src="/static/js/index.js" type="text/javascript"></script>		<script src="/static/js/jquery.bgswitcher.js" type="text/javascript"></script>
 	<script>
-		function redirectToMap(self)
+			function redirectToMap(self)
 		{
 			var lat = parseFloat(self.id.split('/')[0]);
 			var lng = parseFloat(self.id.split('/')[1]);
@@ -539,29 +527,31 @@
 		 }
 		 }*/
 		/*function start_carousel() {
-		 setTimeout(f1, 3000);
-		 }
+			setTimeout(f1, 3000);
+		}
 
-		 function f1() {
-		 //smqna na klasa
-		 document.getElementById("home").className = "intro-header";
-		 setTimeout(f2, 3000);
-		 }
+		function f1() {
+			//smqna na klasa
+			document.getElementById("home").className = "intro-header";
+			setTimeout(f2, 3000);
+		}
 
-		 function f2() {
-		 //document.getElementById("home").fadeIn( "slow" );
-		 //smqna na klasa
-		 document.getElementById("home").className = "intro-header1";
+		function f2() {
+					//document.getElementById("home").fadeIn( "slow" );
+			//smqna na klasa			
+			document.getElementById("home").className = "intro-header1";
+			
+			//document.getElementById("home").fadeIn( "slow" );
+			setTimeout(f3, 3000);
+		}
 
-		 //document.getElementById("home").fadeIn( "slow" );
-		 setTimeout(f3, 3000);
-		 }
+		function f3() {
+			//smqna na klasa
+			document.getElementById("home").className = "intro-header2";
+			setTimeout(f1, 3000);
+		}		*/
 
-		 function f3() {
-		 //smqna na klasa
-		 document.getElementById("home").className = "intro-header2";
-		 setTimeout(f1, 3000);
-		 }		*/
+
 		window.onload = function() {
 			//loadDatePickers();
 			load();
@@ -571,14 +561,7 @@
 			/*myCarousel();*/
 			//trial
 			/*$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );*/
-			/*start_carousel();*/
-			switcher = $(".intro-header").bgswitcher({
-				images : ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"],
-				effect : "drop",
-				interval : 7000,
-				loop : true
-			});
-			/*var $el = $(".intro-header").bgswitcher({			images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"]			});			$(".right").on("click", function() {			$(".intro-header").bgswitcher("next"); // bar.jpg			});			$(".left").on("click", function() {			$(".intro-header").bgswitcher("prev"); // bar.jpg			});*/
+			/*start_carousel();*/			$(".intro-header").bgswitcher({				images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"],				effect: "drop",				interval: 7000,				loop: true			});			/*var $el = $(".intro-header").bgswitcher({			images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"]			});			$(".right").on("click", function() {			$(".intro-header").bgswitcher("next"); // bar.jpg			});			$(".left").on("click", function() {			$(".intro-header").bgswitcher("prev"); // bar.jpg			});*/
 		};
 	</script>		<!-- subscribe-popup js -->	
 	<script></html>
