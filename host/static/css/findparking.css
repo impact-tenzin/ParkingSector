@@ -16,6 +16,9 @@ body {
 	height: 100%;
 	width: 100%;
 }
+.pac-container{
+	z-index: 999999;
+}
 .searchBarAndFilters {
 	background-color: white;
 	border: 1px thin black;

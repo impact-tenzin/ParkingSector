@@ -12,6 +12,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
 from parkingclient.errors_and_messages import register_error
+from parkingclient.email_confirmation import send_confirmation_email
 
 def login_request(request, type):
         if request.user.is_authenticated():
@@ -273,17 +274,18 @@ def confirm_booking(request):
                     duration = request.POST['duration']
                     licence_plate = request.POST['licence_plate']
                     user_id = request.user.id
-                    BookedSpots.objects.create(parking_id=parking_id, user_id=user_id,
-                                               parking_address=parking_address,
-                                               price_list=price_list, arrival_time=arrival_time,
-                                               duration=duration, licence_plate=licence_plate)
+                    booked = BookedSpots.objects.create(parking_id=parking_id, user_id=user_id,
+                                                        parking_address=parking_address,
+                                                        price_list=price_list, arrival_time=arrival_time,
+                                                        duration=duration, licence_plate=licence_plate)
+                    send_confirmation_email(request.user.id, booked)
                     return HttpResponse("Booking completed", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
     else:
-        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")    
 
 def get_price_list_as_string(price_list):
     pices_as_string = str(price_list.oneHour) + ";" + str(price_list.oneHour) + ";" + str(price_list.twoHours) + ";" + str(price_list.threeHours) + ";" + str(price_list.fourHours) + ";" + str(price_list.fiveHours) + ";" + str(price_list.sixHours) + ";" + str(price_list.sevenHours) + ";" + str(price_list.eightHours) + ";" + str(price_list.nineHours) + ";" + str(price_list.tenHours) + ";" + str(price_list.elevenHours) + ";" + str(price_list.twelveHours)

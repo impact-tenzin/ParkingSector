@@ -19,7 +19,7 @@ urlpatternstinymce = patterns('tinymce.views',
 )
 
 urlpatterns = patterns('',
-    #url("", include('django_socketio.urls')),
+    url("", include('django_socketio.urls')),
     url(r'^$', 'home.views.home'),
     url(r'^admin/', include(admin.site.urls)),
     url("^admin-media/(?P<path>.*)$",
