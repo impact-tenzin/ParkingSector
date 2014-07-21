@@ -472,3 +472,21 @@ ul.intro-social-buttons li a{
 .facebook:hover{
 	color: #36558e;
 }
+.footer-info{
+	font-weight: 400;
+	font-size: 14px;
+	list-style: none;
+}
+.footer-info li:first-child{
+	color: #428bca !important;
+	margin-bottom: 10px;
+	font-size: 18px;
+	font-weight: 700;
+}
+.footer-info li{
+	margin-bottom: 5px;
+}
+.footer-info a{
+	text-decoration: none;
+	color: #333;
+}
