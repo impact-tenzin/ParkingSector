@@ -1,25 +1,27 @@
 from django.shortcuts import render_to_response
+from django.conf import settings
+from django.http import HttpResponse
 from django.template import RequestContext
-from useful.models import UsefulInformation
-from django.contrib.sites.models import Site
+import pusher
+#from django_pusher.push import pusher
 
-def loadInfo(request):  
-    """
-    returns html with dropdown for the user to choose city he/she is interested in  
-    """
-    context = {'domain':Site.objects.get_current().domain }
-    return render_to_response('useful.html', context, context_instance=RequestContext(request))
+pusher.app_id = settings.PUSHER_APP_ID
+pusher.key = settings.PUSHER_KEY
+pusher.secret = settings.PUSHER_SECRET
 
-def loadInfoForCity(request, city):
-    """
-    depending on which city the user has selected a proper template with info for the city is returned
-    """
-    #has to be completed in such way to serve info for different cities
-    blueZone = UsefulInformation.objects.get(title="blueZone")
-    greenZone = UsefulInformation.objects.get(title="greenZone")
-    finesInfo = UsefulInformation.objects.get(title="finesInfo")
-    notificationsInfo = UsefulInformation.objects.get(title="notificationsInfo")
-    context = {'blueZone': blueZone, 'greenZone': greenZone, 'finesInfo': finesInfo,
-               'notificationsInfo': notificationsInfo, 'selectedCity':city, 'domain':Site.objects.get_current().domain }
-    return render_to_response('sofia.html', context, context_instance=RequestContext(request))
-    
+p = pusher.Pusher()
+
+def home(request):
+    if not request.session.get('user'):
+        request.session['user'] = 'user-%s' % request.session.session_key
+    return render_to_response('home.html', {
+        'PUSHER_KEY': settings.PUSHER_KEY,
+    }, RequestContext(request)) 
+
+def message(request):
+    if request.session.get('user') and request.POST.get('message'):
+        p['chat'].trigger('message', {
+            'message': request.POST.get('message'),
+            'user': request.session['user'],
+        })
+    return HttpResponse('')

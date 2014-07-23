@@ -16,12 +16,15 @@
 		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
 		{% load socketio_tags %}
 		{% socketio %}
 		<script>
-			var socket = new io.Socket();
+			var socket = new io.Socket(null, {port: 3306, rememberTransport: false});
+			console.log(socket);
+			console.log("{{ request.environ.SERVER_PORT |default:'9000'}}");
 			socket.connect();
-			// etc
+
 		</script>
 	</head>
 
@@ -30,24 +33,29 @@
 			<header>
 				<h1>socketio</h1>
 			</header>
-			<nav>
-				<p>
-					<a href="/">Home</a>
-				</p>
-				<p>
-					<a href="/contact">Contact</a>
-				</p>
-			</nav>
 
 			<div>
-
+				<input type="text" autocomplete="off" id="text">
+				<input type="button" value="Send" onclick="send();">
 			</div>
 
-			<footer>
-				<p>
-					&copy; Copyright  by mi6aka
-				</p>
-			</footer>
 		</div>
+		<script>
+			socket.on('message', function(obj) {
+				if ('message' in obj) {
+					alert(obj.message);
+				} else
+					alert("no message");
+			});
+
+			function send() {
+				var val = document.getElementById('text').value;
+				socket.send(val);
+				message({
+					message : ['you', val]
+				});
+				document.getElementById('text').value = '';
+			}
+		</script>
 	</body>
 </html>

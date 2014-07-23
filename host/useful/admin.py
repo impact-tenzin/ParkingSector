@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin"""
 from useful.models import UsefulInformation
 
 class TinyMCEAdmin(admin.ModelAdmin):
@@ -6,3 +6,4 @@ class TinyMCEAdmin(admin.ModelAdmin):
         js = ('/static/js/tiny_mce//tiny_mce.js', '/static/js/tiny_mce/textareas.js',)
    
 admin.site.register(UsefulInformation, TinyMCEAdmin)
+"""

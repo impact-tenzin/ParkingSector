@@ -19,7 +19,9 @@ urlpatternstinymce = patterns('tinymce.views',
 )
 
 urlpatterns = patterns('',
-    url("", include('django_socketio.urls')),
+    url(r'^useful/$', 'useful.views.home', name='home'),
+    url(r'^m/?$', 'useful.views.message', name='message'),
+    #url("", include('django_socketio.urls')),
     url(r'^$', 'home.views.home'),
     url(r'^admin/', include(admin.site.urls)),
     url("^admin-media/(?P<path>.*)$",
@@ -28,7 +30,7 @@ urlpatterns = patterns('',
     url(r'^findparking/$', 'FindParking.views.find_parking'),
     url(r'^sofiaParkings/$', 'FindParking.views.sofia_parkings'),
     url(r'^tinymce/', include(urlpatternstinymce)),
-    url(r'^useful/$', 'useful.views.loadInfo'),
+    #url(r'^useful/$', 'useful.views.loadInfo'),
     url(r'^findparking/ajaxCall/(?P<latlng>.*)$', 'FindParking.views.ajax_call'),
     url(r'^ajaxCall/(?P<latlng>.*)$', 'FindParking.views.ajax_call'),
     url(r'^saveViewer/', 'FindParking.views.save_viewer'),
@@ -78,8 +80,8 @@ urlpatterns = patterns('',
                     name='password_reset_confirm'),
       #and now add the registration urls
     url(r'', include('registration.urls')),
-    url(r'^useful/(?P<city>.*)$', 'useful.views.loadInfoForCity'),
-             url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-            'document_root': settings.MEDIA_ROOT,
-        }),
+    #url(r'^useful/(?P<city>.*)$', 'useful.views.loadInfoForCity'),
+            # url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+            #'document_root': settings.MEDIA_ROOT,
+        #}),
 )
