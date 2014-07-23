@@ -101,3 +101,10 @@
 .success{
 	color: #7cb33e !important;
 }
+.dropdown-menu{
+	left: 50px;
+}
+.priceMenu{
+	top: 60% !important;
+	left: 30px !important;
+}

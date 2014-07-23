@@ -438,7 +438,7 @@ body {
 }
 .infoWindow {
 	position: absolute;
-	bottom: 48px;
+	bottom: 73px;
 	left: 17px;
 	background-color: #FFFFFF;
 	width: 255px;
@@ -494,6 +494,16 @@ body {
 	font-size: 17px;
 	opacity: 0.6;
 	cursor: pointer;
+}
+.arrow-down {
+	position: absolute !important;
+	top: -73px !important;
+	left: 70px;
+	width: 0; 
+	height: 0; 
+	border-left: 70px solid transparent;
+	border-right: 70px solid transparent;
+	border-top: 25px solid #FFF;
 }
 .close-filters {
 	float: right;
