@@ -19,6 +19,7 @@ urlpatternstinymce = patterns('tinymce.views',
 )
 
 urlpatterns = patterns('',
+    #url(r'^testErrorMessages/', 'client.views.test_error_messages'),
     url(r'^useful/$', 'useful.views.home', name='home'),
     url(r'^m/?$', 'useful.views.message', name='message'),
     #url("", include('django_socketio.urls')),
