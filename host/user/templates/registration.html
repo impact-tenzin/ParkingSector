@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>ParkingSector.bg | Времето ни е ценно!</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+		<!-- Custom Google Web Font -->
+		<link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+		<!-- Add custom CSS here -->
+		<link href="/static/css/loginuser.css" rel="stylesheet">
+		<link href="/static/css/style.css" rel="stylesheet">
+		<link href="/static/test/font-awesome-4.1.0/css/font-awesome.css" rel="stylesheet">
+
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">ParkingSector.bg</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="/" class="btn-one">Начало</a>
+						</li>
+						<li>
+							<a href="/#services" class="btn-two">Услуги</a>
+						</li>
+						<li>
+							<a href="/#contact" class="btn-three">Контакти</a>
+						</li>
+
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container -->
+		</nav>
+		<div class="login_client">
+
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="login">
+							<i class="fa fa-user users"></i>
+							<h1>Регистрация</h1>
+							<p class="msg">
+								{{msg}}
+							</p>
+							<div class="loginbox">
+
+								<form method="POST" action="">
+
+									{% load widget_tweaks %}
+									
+									{% csrf_token %}
+
+									{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text" |attr:"size:40" }}
+									
+									{{ form.email |attr:"type:text" |attr:"placeholder:E-mail" |attr:"class:cform-text" |attr:"size:40" }}
+
+									{{ form.password |attr:"type:password" |attr:"placeholder:Парола" |attr:"class:cform-text" |attr:"size:40" }}
+									
+									{{ form.password1 |attr:"type:password" |attr:"placeholder:Повторете паролата" |attr:"class:cform-text" |attr:"size:40" }}
+
+									<!--<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
+
+									<input type="text" name="your-email" placeholder="Парола" class="cform-text" size="40" title="your email"><br>-->
+
+									<br>
+
+									<button class="cform-submit submit">
+										Напред <i class="fa fa-paper-plane-o"></i>
+									</button>
+
+								</form>
+							</div>
+							<hr class="intro-divider">
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- /.container -->
+
+		</div>
+		<!-- JavaScript -->
+		<script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
+		<script src="/static/bootstrap/js/bootstrap.js"></script>
+
+	</body>
+
+</html>

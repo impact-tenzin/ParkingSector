@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>ParkingSector | Admin</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+		<!-- Add custom CSS here -->
+		<link href="/static/css/style_admin.css" rel="stylesheet">
+		<link href="/static/css/cena_chas.css" rel="stylesheet">
+		<link rel="stylesheet" href="/static/test/font-awesome-4.1.0/css/font-awesome.min.css">
+	</head>
+
+	<body>
+
+		<div id="wrapper">
+			<nav class="navbar navbar-inverse navbar-fixed-top clear" role="navigation">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<a class="navbar-brand" href="admin.html">ParkingSector.bg</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+
+				<ul class="nav navbar-nav navbar-right navbar-user" id="user">
+					<li class="dropdown messages-dropdown">
+						<a href="/profile" class="dropdown-toggle"><i class="fa fa-tasks"></i> Списък с автомобили</a>
+					</li>
+					<li class="dropdown messages-dropdown">
+						<a href="/pricelist" class="dropdown-toggle"><i class="fa fa-money"></i> Ценоразпис</a>
+					</li>
+					<li class="dropdown user-dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> {% if user.is_authenticated %} <i class="fa fa-user"></i> {{ user.username }}<b class="caret"></b> {% else %} <i class="fa fa-user"></i> Logout<b class="caret"></b> {% endif %} </a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="/logout/"><i class="fa fa-power-off"></i> Излез</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div><!-- /.navbar-collapse -->
+
+		<div id="page-wrapper">
+
+			<!--PRICELIST-->
+			<div class="row">
+				<div class="col-lg-12">
+					<h2>Ценоразпис</h2>
+				</div>
+			</div><!-- /.row -->
+
+			<div class="row">
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">1 час</span>
+							<br>
+							<span id="oneHour">--</span>
+							<br>
+							<button class="changer 1" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 1" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">2 часа</span>
+							<br>
+							<span id="twoHours">--</span>
+							<br>
+							<button class="changer 2" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 2" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">3 часа</span>
+							<br>
+							<span id="threeHours">--</span>
+							<br>
+							<button class="changer 3" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 3" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time"> 4 часа</span>
+							<br>
+							<span id="fourHours">--</span>
+							<br>
+							<button class="changer 4" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 4" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.row -->
+			<div class="row">
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">5 часа</span>
+							<br>
+							<span id="fiveHours">--</span>
+							<br>
+							<button class="changer 5" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 5" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">6 часа</span>
+							<br>
+							<span id="sixHours">--</span>
+							<br>
+							<button class="changer 6" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 6" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">7 часа</span>
+							<br>
+							<span id="sevenHours">--</span>
+							<br>
+							<button class="changer 7" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 7" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">8 часа</span>
+							<br>
+							<span id="eightHours">--</span>
+							<br>
+							<button class="changer 8" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 8" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.row -->
+			<div class="row">
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">9 часа</span>
+							<br>
+							<span id="nineHours">--</span>
+							<br>
+							<button class="changer 9" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 9" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">10 часа</span>
+							<br>
+							<span id="tenHours">--</span>
+							<br>
+							<button class="changer 10" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 10" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">11 часа</span>
+							<br>
+							<span id="elevenHours">--</span>
+							<br>
+							<button class="changer 11" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 11" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 text-center">
+					<div class="panel panel-default size">
+						<div class="panel-body header2">
+							<i class="fa fa-circle-o-notch"></i><span class="time">12 часа</span>
+							<br>
+							<span id="twelveHours">--</span>
+							<br>
+							<button class="changer 12" onclick="increaseNumber(this);">
+								<i class="fa fa-plus"></i>
+							</button>
+							<button class="changer 12" onclick="decreaseNumber(this);">
+								<i class="fa fa-minus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<button class="changer special" onclick="actualisePriceList();">
+						<i class="fa fa-check"></i>
+					</button>
+				</div>
+			</div>
+			<!--END PRICELIST-->
+
+		</div><!-- /#page-wrapper -->
+
+		<!-- JavaScript -->
+		<script src="/static/js/jquery-1.10.2.js"></script>
+		<script src="/static/js/bootstrap.js"></script>
+
+		<!-- Page Specific Plugins -->
+		<script src="/static/js/tablesorter/jquery.tablesorter.js"></script>
+		<script src="/static/js/tablesorter/tables.js"></script>
+		<script>
+			function loadTableSorter() {
+				$('table').on('click', '#button', function(e) {
+					/*$(this).closest('tr').remove()*/
+					var a = document.getElementById("tableRow")
+					document.getElementById("table").deleteRow(a);
+				})
+			}
+
+			function getPriceList() {
+				$.ajax({
+					url : "/getPriceList/",
+					type : 'GET', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					success : function(data) {
+						renderMessage(data);
+					},
+					error : function(error) {
+						console.log("ERROR:", error);
+					},
+				});
+			}
+
+			function actualisePriceList() {
+				var priceList = [];
+				priceList = formPriceList();
+				$.ajax({
+					url : "/actualisePriceList/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						one_hour : priceList[0],
+						two_hour : priceList[1],
+						three_hour : priceList[2],
+						four_hour : priceList[3],
+						five_hour : priceList[4],
+						six_hour : priceList[5],
+						seven_hour : priceList[6],
+						eight_hour : priceList[7],
+						nine_hour : priceList[8],
+						ten_hour : priceList[9],
+						eleven_hour : priceList[10],
+						twelve_hour : priceList[11]
+					},
+					success : function(data) {
+						//render Messege
+					},
+					error : function(error) {
+						console.log("ERROR:", error);
+					},
+				});
+			}
+
+			function formPriceList() {
+				var priceList = [];
+				if ($("#oneHour").html() == "--")
+					priceList[0] = -1
+				else
+					priceList[0] = parseFloat($("#oneHour").html())
+				if ($("#twoHours").html() == "--")
+					priceList[1] = -1
+				else
+					priceList[1] = parseFloat($("#twoHours").html())
+				if ($("#threeHours").html() == "--")
+					priceList[2] = -1
+				else
+					priceList[2] = parseFloat($("#threeHours").html())
+				if ($("#fourHours").html() == "--")
+					priceList[3] = -1
+				else
+					priceList[3] = parseFloat($("#fourHours").html())
+				if ($("#fiveHours").html() == "--")
+					priceList[4] = -1
+				else
+					priceList[4] = parseFloat($("#fiveHours").html())
+				if ($("#sixHours").html() == "--")
+					priceList[5] = -1
+				else
+					priceList[5] = parseFloat($("#sixHours").html())
+				if ($("#sevenHours").html() == "--")
+					priceList[6] = -1
+				else
+					priceList[6] = parseFloat($("#sevenHours").html())
+				if ($("#eightHours").html() == "--")
+					priceList[7] = -1
+				else
+					priceList[7] = parseFloat($("#eightHours").html())
+				if ($("#nineHours").html() == "--")
+					priceList[8] = -1
+				else
+					priceList[8] = parseFloat($("#nineHours").html())
+				if ($("#tenHours").html() == "--")
+					priceList[9] = -1
+				else
+					priceList[9] = parseFloat($("#tenHours").html())
+				if ($("#elevenHours").html() == "--")
+					priceList[10] = -1
+				else
+					priceList[10] = parseFloat($("#elevenHours").html())
+				if ($("#twelveHours").html() == "--")
+					priceList[11] = -1
+				else
+					priceList[11] = parseFloat($("#twelveHours").html())
+					
+				return priceList;
+			}
+
+			function renderMessage(data) {
+				if (data == "Error on getting pricelist") {
+					alert("Ввъзникна грешка, в момента работим по отстраняването и!");
+					return
+				}
+				fillPriceTable(data);
+			}
+
+			function fillPriceTable(data) {
+				fillCertainHour('#oneHour', data[0].fields['oneHour'])
+				fillCertainHour('#twoHours', data[0].fields['twoHours'])
+				fillCertainHour('#threeHours', data[0].fields['threeHours'])
+				fillCertainHour('#fourHours', data[0].fields['fourHours'])
+				fillCertainHour('#fiveHours', data[0].fields['fiveHours'])
+				fillCertainHour('#sixHours', data[0].fields['sixHours'])
+				fillCertainHour('#sevenHours', data[0].fields['sevenHours'])
+				fillCertainHour('#eightHours', data[0].fields['eightHours'])
+				fillCertainHour('#nineHours', data[0].fields['nineHours'])
+				fillCertainHour('#tenHours', data[0].fields['tenHours'])
+				fillCertainHour('#elevenHours', data[0].fields['elevenHours'])
+				fillCertainHour('#twelveHours', data[0].fields['twelveHours'])
+			}
+
+			function fillCertainHour(id, price) {
+				if (price == -1)
+					$(id).html("--");
+				else
+					$(id).html(price + " лв");
+			}
+
+			function increaseNumber(self) {
+				if (self.className == "changer 1")
+					increase("#oneHour")
+				if (self.className == "changer 2")
+					increase("#twoHours")
+				if (self.className == "changer 3")
+					increase("#threeHours")
+				if (self.className == "changer 4")
+					increase("#fourHours")
+				if (self.className == "changer 5")
+					increase("#fiveHours")
+				if (self.className == "changer 6")
+					increase("#sixHours")
+				if (self.className == "changer 7")
+					increase("#sevenHours")
+				if (self.className == "changer 8")
+					increase("#eightHours")
+				if (self.className == "changer 9")
+					increase("#nineHours")
+				if (self.className == "changer 10")
+					increase("#tenHours")
+				if (self.className == "changer 11")
+					increase("#elevenHours")
+				if (self.className == "changer 12")
+					increase("#twelveHours")
+			}
+
+			function increase(id) {
+				if ($(id).html() == "--")
+					$(id).html("0.50 лв");
+				else
+					$(id).html((parseFloat($(id).html()) + 0.5).toFixed(2) + " лв");
+			}
+
+			function decreaseNumber(self) {
+				if (self.className == "changer 1")
+					decrease("#oneHour")
+				if (self.className == "changer 2")
+					decrease("#twoHours")
+				if (self.className == "changer 3")
+					decrease("#threeHours")
+				if (self.className == "changer 4")
+					decrease("#fourHours")
+				if (self.className == "changer 5")
+					decrease("#fiveHours")
+				if (self.className == "changer 6")
+					decrease("#sixHours")
+				if (self.className == "changer 7")
+					decrease("#sevenHours")
+				if (self.className == "changer 8")
+					decrease("#eightHours")
+				if (self.className == "changer 9")
+					decrease("#nineHours")
+				if (self.className == "changer 10")
+					decrease("#tenHours")
+				if (self.className == "changer 11")
+					decrease("#elevenHours")
+				if (self.className == "changer 12")
+					decrease("#twelveHours")
+			}
+
+			function decrease(id) {
+				if (parseFloat($(id).html()) > 0)
+					$(id).html((parseFloat($(id).html()) - 0.5).toFixed(2) + " лв");
+				if (parseFloat($(id).html()) == 0)
+					$(id).html("--");
+			}
+
+
+			window.onload = function() {
+				loadTableSorter();
+				getPriceList();
+			};
+		</script>
+	</body>
+</html>

@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>ParkingSector.bg | Времето ни е ценно!</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+		<!-- Custom Google Web Font -->
+		<link href="/static/bootstrap/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+		<!-- Add custom CSS here -->
+		<link href="/static/css/style.css" rel="stylesheet">
+		<link href="/static/css/client_tasks.css" rel="stylesheet">
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">ParkingSector.bg</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="/" class="btn-one">Начало</a>
+						</li>
+						<li>
+							<a href="/findparking" class="btn-two">Намери място</a>
+						</li>
+						<li>
+							{% if user.is_authenticated %}
+							<a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username }}<b class="caret"></b></a>
+							{% else %}
+							<a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown">Logout</a>
+							{% endif %}
+
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation">
+									<a href="/profile" role="menuitem" tabindex="-1" href="#"> Профил</a>
+								</li>
+								<li role="presentation">
+									<a href="/logout" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>
+								</li>
+							</ul>
+						</li>
+						<!--<li><a href="http://www.test.parkingsector.bg/logout" class="btn-three">Излез</a>
+						</li>-->
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container -->
+		</nav>
+
+		<!--Three columns-->
+		<div id="services" class="services">
+			<!--Number plates-->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<h3 class="colorBlack">Регистрационни номера на автомобили</h3>
+						
+						<p class="msg-plate alert">
+
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-6 text-center first">
+
+					<p class="label">
+						Добавяне на номер:
+					</p>
+					<input type="text" name="your-email" placeholder="Рег. номер" class="cform-text regplateinput" size="40" title="your email">
+
+					<button class="cform-submit submitBtn" onclick='addNewPlate();'>
+						Запомни
+					</button>
+
+				</div>
+				<div class="col-lg-4 text-center">
+
+					<p class="label" id="dropdownMenu1" data-toggle="dropdown">
+						<button class="cform-submit submitBtn my-numbers">
+							Моите номера <span class="caret"></span>
+						</button>
+					</p>
+					<ul class="dropdown-menu plates-menu" role="menu" aria-labelledby="dropdownMenu1">
+					
+					</ul>
+
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center">
+						<h2>Запазвания</h2>
+						
+						<p class="msg alert">
+
+						</p>
+					</div>
+				</div>
+				<div class="row requests-container">
+					<!--<div class="col-md-3 text-center margin">
+					<div class="service-item clientHolder">
+					<h3>Заявка 1 </h3>
+					<p><i class="fa fa-map-marker client"></i> ул. Димитър Благоев 123, Студентски град, София</p>
+					<p><i class="fa fa-calendar client"></i> дата на запазване:<br> 14.05.2014</p>
+					<p><i class="fa fa-clock-o client"></i>  запазено от 12:30 до 14:30 часа</p>
+					<p><i class="fa fa-car client"></i> регистрационен номер: CA1658MH</p>
+					<p><i class="fa fa-usd client"></i> запазено на цена:<br> 1.00 лв/час</p>
+					<button class="delete">Откажи <i class="fa fa-times"></i></button>
+					</div>
+					</div>
+					<div class='col-md-3 text-center margin'>
+						" + "
+						<div class='service-item clientHolder'>
+							" + "<h3>Запазване</h3>" + "
+							<p>
+								<i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "
+							</p>
+							" + "
+							<p>
+								<i class='fa fa-calendar client'></i>дата и час на запазване:
+								<br>
+								" + request.fields['arrival_time'] + "
+							</p>
+							" + "
+							<p>
+								<i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа
+							</p>
+							" + "
+							<p>
+								<i class='fa fa-car client'></i> регистрационен номер:
+								<br>
+								" + request.fields['licence_plate'] + "
+							</p>
+							" + "
+							<div class='dropdown'>
+								<p class='label' id='dropdownMenu1' data-toggle='dropdown'>
+									<i class='fa fa-usd client'></i>
+									<button class='cform-submit deleteBtn'>
+										Цена <span class='caret'></span>
+									</button>
+									<ul class='dropdown-menu plates-menu pricelistHolder' role='menu' aria-labelledby='dropdownMenu1'>
+										<li role='presentation'>
+											<div class='priceBox'>
+												1ч - 2лв
+											</div>
+											<div class='priceBox'>
+												2ч - 3лв
+											</div>
+											<div class='priceBox'>
+												3ч - 5лв
+											</div>
+											<div class='priceBox'>
+												4ч - 7лв
+											</div>
+										</li>
+										<li role='presentation'>
+											<div class='priceBox'>
+												5ч - 8лв
+											</div>
+											<div class='priceBox priceBoxCurrent'>
+												6ч - 9лв
+											</div>
+											<div class='priceBox'>
+												7ч - 10лв
+											</div>
+											<div class='priceBox'>
+												8ч - 11лв
+											</div>
+										</li>
+										<li role='presentation'>
+											<div class='priceBox'>
+												9ч - 12лв
+											</div>
+											<div class='priceBox'>
+												10ч - 13лв
+											</div>
+											<div class='priceBox'>
+												11ч - 14лв
+											</div>
+											<div class='priceBox'>
+												12ч - 15лв
+											</div>
+										</li>
+									</ul>
+									<br>
+									"/* + request.fields['price_list'] + */ + "
+									<br>
+								</p>
+							</div>
+							" + "
+							<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>
+								Откажи <i class='fa fa-times'></i>
+							</button>
+							" + "
+						</div>
+						" + "
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<!--/Three columns-->
+		<!-- /.intro-header -->
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<ul class="list-inline">
+							<li>
+								<a href="/">Начало</a>
+							</li>
+							<li class="footer-menu-divider">
+								&sdot;
+							</li>
+							<li>
+								<a href="/#services">Услуги</a>
+							</li>
+							<li class="footer-menu-divider">
+								&sdot;
+							</li>
+							<li>
+								<a href="/#contact">Контакти</a>
+							</li>
+						</ul>
+						<p class="copyright text-muted small">
+							Copyright &copy; ParkingSector.bg 2014. All Rights Reserved
+						</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- JavaScript -->
+		<script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
+		<script src="/static/bootstrap/js/bootstrap.js"></script>
+		<script>
+			function getBookingRequests() {
+				$.ajax({
+					url : "/getBookingRequests/",
+					type : 'GET', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					success : function(data) {
+						var requests = data.filter(function(item) {
+							return item.model == "client.bookedspots";
+						});
+						var licence_plates = data.filter(function(item) {
+							return item.model == "user.licenceplates";
+						});
+										
+						renderPlates(licence_plates);
+						renderRequests(requests);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
+			}
+
+			function addNewPlate() {
+				var newPlate = $('.regplateinput').val();
+				if (newPlate.trim() == "") {
+					$('.msg-plate').html("").html("<i class='fa fa-check'></i> Полето е празно");
+					$('.regplateinput').val("");
+					return
+				} else {
+					$.ajax({
+						url : "/addNewPlate/",
+						type : 'POST', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						data : {
+							licence_plate : newPlate,
+							csrfmiddlewaretoken : '{{ csrf_token }}'
+						},
+						success : function(data) {
+							renderMessageForAddingPlate(data);
+							getBookingRequests();
+							$('.regplateinput').val("");
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
+
+						},
+					});
+				}
+			}
+
+			function cancelBooking(self) {
+				var booking_id = self.id;
+				$.ajax({
+					url : "/cancelBooking/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						booking_id : booking_id,
+						csrfmiddlewaretoken : '{{ csrf_token }}'
+					},
+					success : function(data) {
+						renderMessage(data, self);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
+			}
+
+			function removePlate(self) {
+				var plate_id = self.id;
+				$.ajax({
+					url : "/removeLicencePlate/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						plate_id : plate_id,
+						csrfmiddlewaretoken : '{{ csrf_token }}'
+					},
+					success : function(data) {
+						renderMessageForPlates(data, self);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
+			}
+
+			function renderMessageForAddingPlate(data) {
+				if (data == "addition complete") {
+					$('.msg-plate').html("").html("<span class='success'><i class='fa fa-check'></i> Добавихте регистрационния номер успешно.</span>");
+				}
+				if (data == "already exists")
+					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Вече сте добавили този регистрационен номер.");
+				if (data == "request method is not POST")
+					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, пробвайте отново.");
+				if (data == "user not authenticated")
+					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
+			}
+
+			function renderMessageForPlates(data, self) {
+				if (data == "deletion complete") {
+					$('.msg-plate').html("").html("<span class='success'><i class='fa fa-check'></i> Изтрихте регистрационния номер успешно.</span>");
+					removePlateUI(self);
+				}
+				if (data == "request method is not POST")
+					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, пробвайте отново.");
+				if (data == "user not authenticated")
+					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
+			}
+
+			function renderMessage(data, self) {
+				if (data == "deletion complete") {
+					$('.msg').html("").html("<span class='success'><i class='fa fa-check'></i> Отменихте резервацията си успешно.</span>");
+					removeWindow(self);
+				}
+				if (data == "BookedSpot does not exist")
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, обновете сесията чрез рефреш!");
+				if (data == "request method is not POST")
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, пробвайте отново.");
+				if (data == "user not authenticated")
+					$('.msg').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
+			}
+
+			function removePlateUI(self) {
+				var list = document.getElementsByClassName('plates-menu')[0];
+				var toBeRemoved = self.parentNode.parentNode;
+				//console.log(toBeRemoved);
+				//console.log(list);
+				list.removeChild(toBeRemoved);
+			}
+
+			function removeWindow(self) {
+				var list = document.getElementsByClassName('requests-container')[0];
+				var toBeRemoved = self.parentNode.parentNode;
+				//console.log(toBeRemoved);
+				//console.log(list);
+				list.removeChild(toBeRemoved);
+			}
+
+			function renderRequests(requests) {
+				$('.requests-container').html("");
+				for (var i = 0, len = requests.length; i < len; i++) {
+					
+					addRequestOnUI(requests[i]);
+				};
+			}
+
+			function addRequestOnUI(request) {
+				var priceList = formPriceList(request.fields['price_list'])
+				var uiRequest = "<div class='col-md-3 text-center margin'>" + "<div class='service-item clientHolder'>" + "<h3>Запазване</h3>" + "<p><i class='fa fa-map-marker client'></i>" + request.fields['parking_address'] + "</p>" + "<p><i class='fa fa-calendar client'></i>дата и час на запазване:<br>" + request.fields['arrival_time'] + "</p>" + "<p><i class='fa fa-clock-o client'></i> продължителност на престоя: " + request.fields['duration'] + " часа</p>" + "<p><i class='fa fa-car client'></i> регистрационен номер:<br>" + request.fields['licence_plate'] + "</p>" + "<div class='dropdown'><p class='label' id='dropdownMenu1' data-toggle='dropdown'><i class='fa fa-usd client'></i> <button class='cform-submit deleteBtn'>Цена <span class='caret'></span></button><ul class='dropdown-menu plates-menu pricelistHolder priceMenu' role='menu' aria-labelledby='dropdownMenu1'><li role='presentation'><div class='priceBox'>1ч -"+priceList[0]+"лв</div><div class='priceBox'>2ч - "+priceList[1]+"лв</div><div class='priceBox'>3ч - "+priceList[2]+"лв</div><div class='priceBox'>4ч - "+priceList[3]+"лв</div></li><li role='presentation'><div class='priceBox'>5ч - "+priceList[4]+"лв</div><div class='priceBox priceBoxCurrent'>6ч - "+priceList[5]+"лв</div><div class='priceBox'>7ч - "+priceList[6]+"лв</div><div class='priceBox'>8ч - "+priceList[7]+"лв</div></li><li role='presentation'><div class='priceBox'>9ч - "+priceList[8]+"лв</div><div class='priceBox'>10ч - "+priceList[9]+"лв</div><div class='priceBox'>11ч - "+priceList[10]+"лв</div><div class='priceBox'>12ч - "+priceList[11]+"лв</div></li></ul><br>"/* +  request.fields['price_list'] + */ + "<br></p></div>" + "<button id='" + request.pk + "' class='delete' onclick='cancelBooking(this)'>Откажи <i class='fa fa-times'></i></button>" + "</div>" + "</div>";
+				$('.requests-container').append(uiRequest);
+			}
+			
+			function formPriceList(priceList)
+			{
+				var price_list = priceList.split(";");
+				for (var i=0, len=price_list.length; i < len; i++) {
+				  	if(parseFloat(price_list[i]) == -1)
+				  		price_list[i]="--";
+				  	else
+				  		price_list[i]=(parseFloat(price_list[i])).toFixed(2);
+				};
+				return price_list;
+			}
+			/*
+
+			 <div class='priceBox'>1ч - 2лв</div><div class='priceBox'>2ч - 3лв</div><div class='priceBox'>3ч - 5лв</div><div class='priceBox'>4ч - 7лв</div><br><div class='priceBox'>5ч - 8лв</div><div class='priceBox'>6ч - 9лв</div><div class='priceBox'>7ч - 10лв</div><div class='priceBox'>8ч - 11лв</div><br><div class='priceBox'>9ч - 12лв</div><div class='priceBox'>10ч - 13лв</div><div class='priceBox'>11ч - 14лв</div><div class='priceBox'>12ч - 15лв</div>
+
+			 */
+			function renderPlates(plates) {
+				$('.plates-menu').html("");
+				for (var i = 0, len = plates.length; i < len; i++) {
+					addPlateOnUI(plates[i]);
+				};
+			}
+
+			function addPlateOnUI(plate) {
+				var uiPlate = "<li role='presentation'><a role='menuitem' tabindex='-1'>" + plate.fields['licence_plate'] + "<button id='" + plate.pk + "' class='cform-submit deleteBtn' onclick='removePlate(this)'>Премахни</button></a></li>";
+				$('.plates-menu').append(uiPlate);
+			}
+
+
+			window.onload = function() {
+				getBookingRequests();
+			};
+		</script>
+	</body>
+
+</html>

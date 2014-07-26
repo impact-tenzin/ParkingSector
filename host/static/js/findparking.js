@@ -135,7 +135,7 @@ return false;
 // create marker on map and there are two types, one for active parkings and one for those that do not work
 // during the selected hours
 function createMarker(parking, i) {
-	if (parking.pricePerHour > 0) {
+	if (parking.pricePerHour > 0 || parking.isClient) {
 		//if (checkIfParkingWorks(parking)) {
 		//calcPrice(parking);
 		var marker = new MarkerWithLabel({
@@ -1356,10 +1356,12 @@ function generateDirections(request) {
 			clearLocationsButLeaveParkingDestination(pointA_pointB[2], pointA_pointB[3]);
 			markerCenter.setMap(null);
 			$('.directionsBox').hide();
-			$('.infoWindow').hide();
+			ib.close();
+			//$('.infoWindow').hide();
 
 			$(".parkingsBar").hide();
 			$("#results").show();
+			leftMenu._openMenu();
 			/*
 			 var myRoute = response.routes[0].legs[0];
 			 for (var i = 0; i < myRoute.steps.length; i++) {
