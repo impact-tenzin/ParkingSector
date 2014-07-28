@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<html lang="en">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -154,6 +153,7 @@
 			var markerCenter;
 			var directionDisplay, directionsService = new google.maps.DirectionsService();
 			var autocomplete;
+			var dragendListener;
 
 			// defines if there is a place that matches the address
 			function searchLocations() {
@@ -242,7 +242,7 @@
 				}
 				//displayNumberOfFoundParkings(parkings);
 				//setFocus();
-				google.maps.event.addListener(map, 'dragend', function() {
+				dragendListener = google.maps.event.addListener(map, 'dragend', function() {
 					ajaxCall(map.getCenter().lat(), map.getCenter().lng());
 					markerCenter.setMap(null);
 					markerCenter = new google.maps.Marker({
