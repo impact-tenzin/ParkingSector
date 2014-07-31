@@ -327,10 +327,11 @@
 						twelve_hour : priceList[11]
 					},
 					success : function(data) {
-						//render Messege
+						alert("Актуализирахте ценоразписа си успешно!");
 					},
 					error : function(error) {
 						console.log("ERROR:", error);
+						alert("Възникна грешка, моля уведомете отдел поддръжка!");
 					},
 				});
 			}
@@ -416,7 +417,7 @@
 				if (price == -1)
 					$(id).html("--");
 				else
-					$(id).html(price + " лв");
+					$(id).html((price).toFixed(2) + " лв");
 			}
 
 			function increaseNumber(self) {
