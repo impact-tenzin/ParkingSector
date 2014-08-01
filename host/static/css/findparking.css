@@ -438,12 +438,18 @@ body {
 }
 .infoWindow {
 	position: absolute;
-	bottom: 73px;
-	left: 17px;
 	background-color: #FFFFFF;
 	width: 255px;
 	padding: 5px 5px 0px 5px;
 	border-radius: 0px;
+}
+.withinfo{
+	bottom: 73px;
+	left: 17px;
+}
+.noinfo{
+	bottom:45px;
+	left:17px;
 }
 .win-address {
 	font-size: 15px;

@@ -336,7 +336,7 @@ function showMarkerWindow(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	//highlightParking(parking);
 	var priceList = getPriceListForParking(parking);
-	var html = "<div class='infoWindow' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>" + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><div class='pricelistHolder'><div class='priceBox'>1ч - " + priceList.oneHour + "</div><div class='priceBox'>2ч - " + priceList.twoHours + "</div><div class='priceBox'>3ч - " + priceList.threeHours + "</div><div class='priceBox'>4ч - " + priceList.fourHours + "</div><br><div class='priceBox'>5ч - " + priceList.fiveHours + "</div><div class='priceBox'>6ч - " + priceList.sixHours + "</div><div class='priceBox'>7ч - " + priceList.sevenHours + "</div><div class='priceBox'>8ч - " + priceList.eightHours + "</div><br><div class='priceBox'>9ч - " + priceList.nineHours + "</div><div class='priceBox'>10ч - " + priceList.tenHours + "</div><div class='priceBox'>11ч - " + priceList.elevenHours + "</div><div class='priceBox'>12ч - " + priceList.twelveHours + "</div></div>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>" + "<div class='arrow-down'></div>";
+	var html = "<div class='infoWindow withinfo' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>" + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><div class='pricelistHolder'><div class='priceBox'>1ч - " + priceList.oneHour + "</div><div class='priceBox'>2ч - " + priceList.twoHours + "</div><div class='priceBox'>3ч - " + priceList.threeHours + "</div><div class='priceBox'>4ч - " + priceList.fourHours + "</div><br><div class='priceBox'>5ч - " + priceList.fiveHours + "</div><div class='priceBox'>6ч - " + priceList.sixHours + "</div><div class='priceBox'>7ч - " + priceList.sevenHours + "</div><div class='priceBox'>8ч - " + priceList.eightHours + "</div><br><div class='priceBox'>9ч - " + priceList.nineHours + "</div><div class='priceBox'>10ч - " + priceList.tenHours + "</div><div class='priceBox'>11ч - " + priceList.elevenHours + "</div><div class='priceBox'>12ч - " + priceList.twelveHours + "</div></div>" + "<div class='win-book' onclick='bookingReqeust();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>" + "<div class='arrow-down'></div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
@@ -358,9 +358,10 @@ function showMarkerWindow(parking, marker) {
 }
 
 // information window for nonactive parkings that is shown on clicking a marker
+/*
 function showMarkerWindowNA(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat, parking.lng));
-	var html = "<div class='infoWindow'>" + "<span class='closeX' onclick='closeBox();'></span>" + "<div class='win-address'>Паркингът не работи в момента.</div>";
+	var html = "<div class='infoWindow'>" + "<span class='closeX' onclick='closeBox();'></span>" + "<div class='win-address'>РџР°СЂРєРёРЅРіСЉС‚ РЅРµ СЂР°Р±РѕС‚Рё РІ РјРѕРјРµРЅС‚Р°.</div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
@@ -380,7 +381,8 @@ function showMarkerWindowNA(parking, marker) {
 	};
 	ib.setOptions(myOptions);
 	ib.open(map, marker);
-}
+}*/
+
 
 function getPriceListForParking(parking) {
 	var priceList = priceLists.filter(function(item){return item.id==parking.priceList;})[0];
@@ -417,7 +419,7 @@ function distToMeters(distance) {
 // remove after filling info
 function showMarkerWindowNoInfo(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
-	var html = "<div class='infoWindow'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>Предстои да добавим информация за паркинга.</div>";
+	var html = "<div class='infoWindow noinfo'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>Предстои да добавим информация за паркинга.</div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
