@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from parkingclient.models import RegularUser
+from user.models import RegularUser
 
 class RegistrationForm(forms.Form):
     username = forms.CharField()    email = forms.EmailField()
