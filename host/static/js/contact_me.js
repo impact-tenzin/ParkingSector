@@ -18,11 +18,7 @@ $(function() {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
             $.ajax({
-<<<<<<< HEAD
                 url: "/static/phpCF/contact_me.php",
-=======
-                url: "./phpCF/contact_me.php",
->>>>>>> 22ddd9ed89e46405b858d30d7597cc6259122e35
                 type: "POST",
                 data: {
                     name: name,
