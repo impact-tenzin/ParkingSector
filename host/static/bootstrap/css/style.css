@@ -324,9 +324,9 @@ background: #f09e00 !important;
 }
 /*Columns*/
 .services {
-  background: #F0F0F0;
+  background: #FFF;
   padding: 50px 0;
-  color: #ffffff;
+  color: #428bca;
   margin-bottom: 80px;
 }
 .services h2{
@@ -338,15 +338,15 @@ display: block; height: 1px;
     margin: 1em 0; padding: 0;
 }
 .service-item {
-  padding-bottom: 80px;
-  padding-top: 80px;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 .service-item p{
 	font-size: 16px;
 }
 
 i.service-icon {
-  border: 3px solid #ffffff;
+  border: 3px solid #428bca;
   border-radius: 50%;
   display: inline-block;
   font-size: 56px;
