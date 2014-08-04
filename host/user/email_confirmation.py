@@ -4,6 +4,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from email.MIMEImage import MIMEImage
 import os
+import datetime
 
 def send_confirmation_email(id, booked):
     email = User.objects.get(id=id).email
@@ -16,9 +17,10 @@ def send_confirmation_email(id, booked):
     subject = "Booking confirmation"
 
     from_email = settings.DEFAULT_FROM_EMAIL           
-
-    text_content = render_to_string(template_text, {"booked": booked})
-    html_content = render_to_string(template_html, {"booked": booked})
+    date = str(datetime.datetime.now().strftime("%m %B"))
+    
+    text_content = render_to_string(template_text, {"booked": booked, "date":date})
+    html_content = render_to_string(template_html, {"booked": booked, "date":date})
 
     msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
     msg.attach_alternative(html_content, "text/html")

@@ -295,7 +295,7 @@
 						<td class="oneFromTwo" width="50%" valign="middle" style="border-bottom:1px dotted #dddddd">
 						<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; border-spacing:0;">
 							<tr>
-								<td class="date" style="padding-top:20px; padding-right:30px; padding-bottom:20px; padding-left:15px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:100%; color:#2c8fd6; text-align:right;"><span class="noLink"></span></td>
+								<td class="date" style="padding-top:20px; padding-right:30px; padding-bottom:20px; padding-left:15px; font-family:Arial, Helvetica, sans-serif; font-size:16px; line-height:100%; color:#2c8fd6; text-align:right;"><span class="noLink"><img alt='' src='http://www.parkingsector.bg/static/imgs/mail/calendar.png' border='0' vspace='0' hspace='0' style='display:inline-block;' />{{date}}</span></td>
 							</tr>
 						</table></td>
 					</tr>
@@ -398,27 +398,5 @@
 			</tr>
 			<!-- End of main container -->
 		</table>
-		<script>
-			(function() {
-				var d = new Date();
-				var month = new Array();
-				month[0] = "Януари";
-				month[1] = "Февруари";
-				month[2] = "Март";
-				month[3] = "Април";
-				month[4] = "Май";
-				month[5] = "Юни";
-				month[6] = "Юли";
-				month[7] = "Август";
-				month[8] = "Септември";
-				month[9] = "Октомври";
-				month[10] = "Ноември";
-				month[11] = "Декември";
-				var n = month[d.getMonth()];
-				var date = "<img alt='' src='http://www.parkingsector.bg/static/imgs/mail/calendar.png' border='0' vspace='0' hspace='0' style='display:inline-block;' /> "+d.getDate()+"<sup>и</sup> "+n;
-				document.getElementsByClassName('noLink')[0].innerHTML = date;
-				//console.log(date);
-			})();
-		</script>
 	</body>
 </html>
