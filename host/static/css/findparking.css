@@ -438,10 +438,12 @@ body {
 }
 .infoWindow {
 	position: absolute;
-	background-color: #FFFFFF;
+	background-color: #FFF;/*#2f2f2e;
+	opacity: 0.8;*/
 	width: 255px;
 	padding: 5px 5px 0px 5px;
-	border-radius: 0px;
+	border-radius: 4px;
+	border: 3px solid #2ecc71;
 }
 .withinfo{
 	bottom: 73px;
@@ -495,7 +497,7 @@ body {
 .closeX {
 	position: absolute !important;
 	top: 2px !important;
-	left: 230px;
+	left: 220px;
 	padding-left: 5px;
 	font-size: 17px;
 	opacity: 0.6;
@@ -504,12 +506,13 @@ body {
 .arrow-down {
 	position: absolute !important;
 	top: -73px !important;
-	left: 70px;
+	left: 110px;
 	width: 0; 
 	height: 0; 
-	border-left: 70px solid transparent;
-	border-right: 70px solid transparent;
-	border-top: 25px solid #FFF;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+	border-top: 25px solid #2ecc71;/*#2f2f2e;
+	opacity: 0.9;*/
 }
 .close-filters {
 	float: right;
