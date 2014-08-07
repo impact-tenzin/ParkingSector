@@ -1476,6 +1476,6 @@ function fb_login() {
 
 		}
 	}, {
-		scope : 'email'
+		scope : 'public_profile,email'
 	});
 }
