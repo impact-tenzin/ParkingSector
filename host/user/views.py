@@ -69,18 +69,40 @@ def facebook_login(request):
             email = request.POST['email']
             try:
                 reguser = User.objects.get(id=RegularUser.objects.get(fb_email=email).user_id)
-                if reguser is not None:
-                   reguser.backend = 'django.contrib.auth.backends.ModelBackend'
-                   login(request, reguser)
-                   return HttpResponse("fblogin complete", content_type="text/html; charset=utf-8")
+            except RegularUser.DoesNotExist:
+                try:
+                    reguser = User.objects.get(email=email)
+                except User.DoesNotExist:
+                    return HttpResponse("RegularUser does not exist", content_type="text/html; charset=utf-8")
+            if reguser is not None:
+                reguser.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, reguser)
+                return HttpResponse("fblogin complete", content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("Cant authenticate", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")  
+
+def facebook_sync(request):
+    if request.is_ajax():
+        if request.method == "POST":
+            email = request.POST['email']
+            try:
+                reguser = RegularUser.objects.get(user=request.user.id)
+                if reguser.fb_email is None:
+                    reguser.fb_email = email
+                    reguser.save() 
+                    return HttpResponse("sync complete", content_type="text/html; charset=utf-8")
                 else:
-                    return HttpResponse("Cant authenticate", content_type="text/html; charset=utf-8")
+                    return HttpResponse("already synced", content_type="text/html; charset=utf-8")        
             except RegularUser.DoesNotExist:
                 return HttpResponse("RegularUser does not exist", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
     else:
-        return HttpResponse("Error", content_type="text/html; charset=utf-8")  
+        return HttpResponse("Error", content_type="text/html; charset=utf-8") 
 
 def has_user_by_email(email):
     try:

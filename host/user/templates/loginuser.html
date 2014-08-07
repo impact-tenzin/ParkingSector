@@ -187,7 +187,6 @@
 				FB.api('/me', function(response) {
 					//alert('Successful login for: ' + response.name + " email: " + response.email);
 					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					document.getElementById('loginbutton').innerHTML = 'logged in';
 					logInWithFB(response.email);
 				});
 			}
