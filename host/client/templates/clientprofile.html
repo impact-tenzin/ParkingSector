@@ -54,11 +54,13 @@
 					<h1><small>Добре дошли в Административния панел.</small></h1>
 				</div>
 			</div><!-- /.row -->
-
 			<div class="row">
 				<div class="col-lg-12">
 					<h2>Паркирали коли</h2>
 					<br>
+					<p class="msg-alert">
+					
+					</p>
 					<div class="parkingSpacesHolder">
 						<p class="left">
 							Заявки за паркоместа: <span class="requests">0</span>
@@ -141,7 +143,7 @@
 					},
 					success : function(data) {
 						//render completion message
-						renderCompletionMessage(data, self);
+						renderCompletionMessage(data);
 					},
 					error : function(error) {
 						console.log("ERROR:", error);
@@ -151,14 +153,14 @@
 
 			function renderCompletionMessage(data) {
 				if (data == "actualising available spaces complete") {
-					$('.msg-plate').html("").html("<span class='success'><i class='fa fa-check'></i> Освободихте още места успешно.</span>");
+					$('.msg-alert').html("").html("<div class='alert alert-success' role='alert'><span class='success'><i class='fa fa-check'></i> Освободихте още места успешно.</span></div>");
 				}
 				if (data == "Client does not exist")
-					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Не съществува такъв потребител.");
+					$('.msg-alert').html("").html("<div class='alert alert-danger' role='alert'><i class='fa fa-exclamation-triangle'></i> Не съществува такъв потребител.</div>");
 				if (data == "request method is not POST")
-					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, пробвайте отново.");
+					$('.msg-alert').html("").html("<div class='alert alert-success' role='alert'><i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, пробвайте отново.</div>");
 				if (data == "user not authenticated")
-					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
+					$('.msg-alert').html("").html("<div class='alert alert-success' role='alert'><i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.</div>");
 			}
 			
 			function saveParkingInHistory(pk) {
