@@ -29,6 +29,9 @@
 				<p class='top-label'>
 					Влезте в профила си
 				</p>
+				<div id="loginbutton" style="width:100px;height:25px;background-color: blue;" onclick="fb_login();">
+					FB login
+				</div>
 				<div class='under-label-line'></div>
 				<p class="msg">
 
@@ -402,9 +405,9 @@
 					parkingNotClientMessage();
 					return;
 				}
-				
+
 				$('.confirmBox').append("<img class='loadGif' src='/static/imgs/ajax-loader.gif' />");
-				
+
 				var duration = $('.duration-time').val();
 				var arrival_time = $('.arrival-time').val();
 				var licence_plate = $('#license').html();
@@ -471,6 +474,39 @@
 				}
 
 				return true;
+			}
+
+			function logInWithFB(email) {
+				$.ajax({
+					url : "/fblogin/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						email : email,
+						csrfmiddlewaretoken : '{{ csrf_token }}'
+					},
+					success : function(data) {
+						if (data == 'fblogin complete') {
+							var msg = "Влязохте успешно!";
+							$('.msg').html(msg);
+							setTimeout(function() {
+								$('.signInBox').hide();
+								bookingReqeust();
+							}, 1500);
+						} else
+							alert(data);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
 			}
 
 

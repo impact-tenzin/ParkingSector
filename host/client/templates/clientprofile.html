@@ -154,7 +154,7 @@
 			function renderCompletionMessage(data) {
 				if (data == "actualising available spaces complete") {
 					$('.msg-alert').html("").html("<div class='alert alert-success' role='alert'><span class='success'><i class='fa fa-check'></i> Освободихте още места успешно.</span></div>");
-					setTimeout($('.msg-alert').html(""), 10 000);
+					setTimeout(function(){$('.msg-alert').html("")}, 10000);
 				}
 				if (data == "Client does not exist")
 					$('.msg-alert').html("").html("<div class='alert alert-danger' role='alert'><i class='fa fa-exclamation-triangle'></i> Не съществува такъв потребител. Моля, уведомете поддръжката!</div>");
