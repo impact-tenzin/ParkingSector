@@ -1,8 +1,7 @@
 /*
 function setFocus() {
-	$(".searchBar").focus();
+$(".searchBar").focus();
 }*/
-
 
 // get address latitude and longitude or precalculates the parking prices
 function getCoords(autocomplete) {
@@ -80,35 +79,33 @@ function triggerWindowForChosenParking(lat, lng) {
 // get the length of parkings that are active
 /*
 function getParkingsLength() {
-	var number = 0;
-	for (var i = 0, len = markers.length; i < len; i++) {
-		if (markers[i].icon == "/static/imgs/parkingPointer.png")
-			number++;
-	}
-	return number;
+var number = 0;
+for (var i = 0, len = markers.length; i < len; i++) {
+if (markers[i].icon == "/static/imgs/parkingPointer.png")
+number++;
+}
+return number;
 }*/
-
 
 // renders parking length
 /*
 function displayNumberOfFoundParkings(parkings) {
-	document.getElementById('numberOfParkings').innerHTML = '';
-	var length = getParkingsLength();
-	if (length == 1)
-		var number = "<div>" + "<span style='color:rgb(27,162,217);font-size:18px'>" + length + "</span>" + " РїР°СЂРєРёРЅРі" + "</div>";
-	else
-		var number = "<div>" + "<span style='color:rgb(27,162,217);font-size:18px'>" + length + "</span>" + " РїР°СЂРєРёРЅРіР°" + "</div>";
-	document.getElementById('numberOfParkings').innerHTML = number;
+document.getElementById('numberOfParkings').innerHTML = '';
+var length = getParkingsLength();
+if (length == 1)
+var number = "<div>" + "<span style='color:rgb(27,162,217);font-size:18px'>" + length + "</span>" + " РїР°СЂРєРёРЅРі" + "</div>";
+else
+var number = "<div>" + "<span style='color:rgb(27,162,217);font-size:18px'>" + length + "</span>" + " РїР°СЂРєРёРЅРіР°" + "</div>";
+document.getElementById('numberOfParkings').innerHTML = number;
 }*/
-
 
 // returns payment method on given id and methods list
 /*
 function getPaymentMethod(methodId, methods) {
-	for (var i = 0, len = methods.length; i < len; i++) {
-		if (methods[i].id == methodId)
-			return methods[i];
-	};
+for (var i = 0, len = methods.length; i < len; i++) {
+if (methods[i].id == methodId)
+return methods[i];
+};
 }
 */
 
@@ -282,53 +279,53 @@ function getDistance(zoom) {
 }
 
 /*function hasCapacity(capacity) {
-	if (capacity > 0)
-		return capacity;
-	else
-		return "--";
-}
-*/
+ if (capacity > 0)
+ return capacity;
+ else
+ return "--";
+ }
+ */
 
 var coloredParkingId;
 function closeBox() {
 	ib.close();
 	//$("#" + coloredParkingId).parent().attr('class', 'displayedParking non-highlighted');
 }
+
 /*
 function highlightParking(parking) {
-	var id = parking.id;
-	if (coloredParkingId != undefined)
-		$("#" + coloredParkingId).parent().attr('class', 'displayedParking non-highlighted');
-	var parkingList = document.getElementsByClassName('id-parking');
-	for (var i = 0; i < parkingList.length; i++) {
-		if (parkingList[i].id == id) {
-			$("#" + id).parent().attr('class', "displayedParking highlighted");
-			coloredParkingId = id;
-			/*
-			$('.currentParkings').animate({
-			scrollLeft : $("#" + id).parent().offset().left
-			}, 2000);*/
+var id = parking.id;
+if (coloredParkingId != undefined)
+$("#" + coloredParkingId).parent().attr('class', 'displayedParking non-highlighted');
+var parkingList = document.getElementsByClassName('id-parking');
+for (var i = 0; i < parkingList.length; i++) {
+if (parkingList[i].id == id) {
+$("#" + id).parent().attr('class', "displayedParking highlighted");
+coloredParkingId = id;
+/*
+$('.currentParkings').animate({
+scrollLeft : $("#" + id).parent().offset().left
+}, 2000);*/
 
-			/*
-			$('.currentParkings').animate({
-			scrollLeft : $("#" + id).parent().offset().left - ($(window).width() - $("#" + id).parent().outerWidth(true) ) / 2
-			}, 200);*/
-			//centerHighlightedEl(id);
-			//alert(id);
-			//alert($(".currentParkings").scrollLeft());
-			/*break;
-		}
-	};
+/*
+$('.currentParkings').animate({
+scrollLeft : $("#" + id).parent().offset().left - ($(window).width() - $("#" + id).parent().outerWidth(true) ) / 2
+}, 200);*/
+//centerHighlightedEl(id);
+//alert(id);
+//alert($(".currentParkings").scrollLeft());
+/*break;
+}
+};
 }
 
 function centerHighlightedEl(id) {
-	var viewportWidth = jQuery(window).width(), viewportHeight = jQuery(window).height(), $foo = jQuery('#' + id).parent(), elWidth = $foo.width(), elHeight = $foo.height(), elOffset = $foo.offset();
-	// jQuery(window)
-	$('.currentParkings')
-	//.scrollTop(elOffset.top + (elHeight/2) - (viewportHeight/2))
-	.scrollLeft(elOffset.left + (elWidth / 2) - (viewportWidth / 2));
+var viewportWidth = jQuery(window).width(), viewportHeight = jQuery(window).height(), $foo = jQuery('#' + id).parent(), elWidth = $foo.width(), elHeight = $foo.height(), elOffset = $foo.offset();
+// jQuery(window)
+$('.currentParkings')
+//.scrollTop(elOffset.top + (elHeight/2) - (viewportHeight/2))
+.scrollLeft(elOffset.left + (elWidth / 2) - (viewportWidth / 2));
 }*/
-
 
 // information window for active parkings that is shown on clicking a marker
 //<span id='displayedPercentage'>" + "--" + "</span> needs api + formula to calculate percentage
@@ -359,30 +356,29 @@ function showMarkerWindow(parking, marker) {
 
 // information window for nonactive parkings that is shown on clicking a marker
 /*
-function showMarkerWindowNA(parking, marker) {
-	map.panTo(new google.maps.LatLng(parking.lat, parking.lng));
-	var html = "<div class='infoWindow'>" + "<span class='closeX' onclick='closeBox();'></span>" + "<div class='win-address'>РџР°СЂРєРёРЅРіСЉС‚ РЅРµ СЂР°Р±РѕС‚Рё РІ РјРѕРјРµРЅС‚Р°.</div>";
-	var myOptions = {
-		content : html,
-		disableAutoPan : false,
-		maxWidth : 0,
-		pixelOffset : new google.maps.Size(-140, 0),
-		zIndex : null,
-		boxStyle : {
-			height : "0px",
-			width : "0px",
-		},
-		closeBoxMargin : "-295px -347px 2px 2px",
-		closeBoxURL : "/static/imgs/close.png",
-		infoBoxClearance : new google.maps.Size(1, 1),
-		isHidden : false,
-		pane : "floatPane",
-		enableEventPropagation : false
-	};
-	ib.setOptions(myOptions);
-	ib.open(map, marker);
-}*/
-
+ function showMarkerWindowNA(parking, marker) {
+ map.panTo(new google.maps.LatLng(parking.lat, parking.lng));
+ var html = "<div class='infoWindow'>" + "<span class='closeX' onclick='closeBox();'></span>" + "<div class='win-address'>РџР°СЂРєРёРЅРіСЉС‚ РЅРµ СЂР°Р±РѕС‚Рё РІ РјРѕРјРµРЅС‚Р°.</div>";
+ var myOptions = {
+ content : html,
+ disableAutoPan : false,
+ maxWidth : 0,
+ pixelOffset : new google.maps.Size(-140, 0),
+ zIndex : null,
+ boxStyle : {
+ height : "0px",
+ width : "0px",
+ },
+ closeBoxMargin : "-295px -347px 2px 2px",
+ closeBoxURL : "/static/imgs/close.png",
+ infoBoxClearance : new google.maps.Size(1, 1),
+ isHidden : false,
+ pane : "floatPane",
+ enableEventPropagation : false
+ };
+ ib.setOptions(myOptions);
+ ib.open(map, marker);
+ }*/
 
 function getPriceListForParking(parking) {
 	var priceList = priceLists.filter(function(item){return item.id==parking.priceList;})[0];
@@ -458,23 +454,22 @@ return false;
  });*/
 
 /*
-$(".close-parkingsBar").click(function() {
-	$(".displayedParkingsBar").animate({
-		'height' : 0
-	}, 450);
-	$(".close-parkingsBar").hide();
-	$(".open-parkingsBar").show();
-});
-$(".open-parkingsBar").click(function() {
-	$(".displayedParkingsBar").animate({
-		'height' : 137
-	}, 450);
-	$(".open-parkingsBar").hide();
-	setTimeout(function() {
-		$(".close-parkingsBar").show();
-	}, 450);
-});*/
-
+ $(".close-parkingsBar").click(function() {
+ $(".displayedParkingsBar").animate({
+ 'height' : 0
+ }, 450);
+ $(".close-parkingsBar").hide();
+ $(".open-parkingsBar").show();
+ });
+ $(".open-parkingsBar").click(function() {
+ $(".displayedParkingsBar").animate({
+ 'height' : 137
+ }, 450);
+ $(".open-parkingsBar").hide();
+ setTimeout(function() {
+ $(".close-parkingsBar").show();
+ }, 450);
+ });*/
 
 function bookingReqeust() {
 	$.ajax({
@@ -544,56 +539,55 @@ function closeDirections() {
 }
 
 /*
-$(function() {
-	$(".close-filters").click(function() {
-		closeFilters();
-	});
-});
+ $(function() {
+ $(".close-filters").click(function() {
+ closeFilters();
+ });
+ });
 
-function closeFilters() {
-	var el = $('.searchBarAndFilters').height();
-	if (el > 10) {
-		$(".searchBarAndFilters").animate({
-			'height' : 10
-		}, 350);
-		document.getElementsByClassName('searchBarAndFilters-wrapper')[0].style.visibility = 'hidden';
-		$('.open-filters').show();
-		$('.filters-label').show();
-	}
-}
-*/
+ function closeFilters() {
+ var el = $('.searchBarAndFilters').height();
+ if (el > 10) {
+ $(".searchBarAndFilters").animate({
+ 'height' : 10
+ }, 350);
+ document.getElementsByClassName('searchBarAndFilters-wrapper')[0].style.visibility = 'hidden';
+ $('.open-filters').show();
+ $('.filters-label').show();
+ }
+ }
+ */
 
 /*
-$(function() {
-	$(".open-filters").click(function() {
-		var el = $('.searchBarAndFilters').height();
-		if (el < 259) {
-			$(".searchBarAndFilters").animate({
-				'height' : 280
-			}, 350);
-			$('.searchBarAndFilters-wrapper').show();
-			document.getElementsByClassName('searchBarAndFilters-wrapper')[0].style.visibility = 'visible';
-			$('.open-filters').hide();
-			$('.filters-label').hide();
-		}
-	});
-});
+ $(function() {
+ $(".open-filters").click(function() {
+ var el = $('.searchBarAndFilters').height();
+ if (el < 259) {
+ $(".searchBarAndFilters").animate({
+ 'height' : 280
+ }, 350);
+ $('.searchBarAndFilters-wrapper').show();
+ document.getElementsByClassName('searchBarAndFilters-wrapper')[0].style.visibility = 'visible';
+ $('.open-filters').hide();
+ $('.filters-label').hide();
+ }
+ });
+ });
 
-$(function() {
-	$(".filters-label").click(function() {
-		var el = $('.searchBarAndFilters').height();
-		if (el < 259) {
-			$(".searchBarAndFilters").animate({
-				'height' : 280
-			}, 350);
-			$('.searchBarAndFilters-wrapper').show();
-			document.getElementsByClassName('searchBarAndFilters-wrapper')[0].style.visibility = 'visible';
-			$('.open-filters').hide();
-			$('.filters-label').hide();
-		}
-	});
-});*/
-
+ $(function() {
+ $(".filters-label").click(function() {
+ var el = $('.searchBarAndFilters').height();
+ if (el < 259) {
+ $(".searchBarAndFilters").animate({
+ 'height' : 280
+ }, 350);
+ $('.searchBarAndFilters-wrapper').show();
+ document.getElementsByClassName('searchBarAndFilters-wrapper')[0].style.visibility = 'visible';
+ $('.open-filters').hide();
+ $('.filters-label').hide();
+ }
+ });
+ });*/
 
 function roundMinutes(minutes) {
 	for (var i = 1; i <= 16; i++) {
@@ -704,16 +698,15 @@ function renderBookingMsg(data) {
 	}
 }
 
-function parkingNotClientMessage()
-{
+function parkingNotClientMessage() {
 	$('.msg-confirm').html("");
 	$('.msg-confirm').html("Паркингът не работи със ParkingSector!");
 	setTimeout(function() {
-			$('.confirmBox').hide();
-			$('.msg-confirm').html("");
-			resetConfirmForm();
-			$('.directionsBox').show();
-		}, 2000);
+		$('.confirmBox').hide();
+		$('.msg-confirm').html("");
+		resetConfirmForm();
+		$('.directionsBox').show();
+	}, 2000);
 }
 
 //directionsButton left
@@ -1028,7 +1021,6 @@ function filterParkings() {
 	filterParkingsAndDisplay(allParkings);
 }
 
-
 // when being filtered parkings change their markers' image and content
 // remove second part of (markers[i].labelContent != "<p>N/A</p>" && markers[i].labelContent != "") when filling all info
 function distinguishUnfilteredParkings(parkings) {
@@ -1112,24 +1104,23 @@ showOrHide();
 //pops or hides parkingsBar depending on its content; if empty: hides, otherwise shows up;
 /*
 function showOrHide() {
-	var el = $('.currentParkings').html();
-	if (el == "") {
-		$(".displayedParkingsBar").animate({
-			'height' : 0
-		}, 450);
-		$('.close-parkingsBar').hide();
-		$(".open-parkingsBar").show();
-	} else {
-		$(".displayedParkingsBar").animate({
-			'height' : 137
-		}, 450);
-		$('.open-parkingsBar').hide();
-		setTimeout(function() {
-			$(".close-parkingsBar").show();
-		}, 450);
-	}
+var el = $('.currentParkings').html();
+if (el == "") {
+$(".displayedParkingsBar").animate({
+'height' : 0
+}, 450);
+$('.close-parkingsBar').hide();
+$(".open-parkingsBar").show();
+} else {
+$(".displayedParkingsBar").animate({
+'height' : 137
+}, 450);
+$('.open-parkingsBar').hide();
+setTimeout(function() {
+$(".close-parkingsBar").show();
+}, 450);
+}
 }*/
-
 
 // add onclick event on parking
 function addOnclick(parking, i, parkings) {
@@ -1299,9 +1290,9 @@ $(document).on('click', '.directionsButton.right', function(e) {
 });
 
 /*$(document).on('click', '.directionsButton.right', function(e) {
-	e.preventDefault();
-	calcRoute();
-});*/
+ e.preventDefault();
+ calcRoute();
+ });*/
 
 function getLocation() {
 	if (navigator.geolocation) {
@@ -1335,8 +1326,7 @@ function showPosition(position) {
 	generateDirections(request);
 }
 
-function getAddress()
-{
+function getAddress() {
 	pointA_pointB[2] = $('.infoWindow').attr('id').split(";")[0]
 	pointA_pointB[3] = $('.infoWindow').attr('id').split(";")[1]
 
@@ -1384,4 +1374,108 @@ function clearLocationsButLeaveParkingDestination(parkingLat, parkingLng) {
 		markers[i].setMap(null);
 	}
 	markers.length = 0;
+}
+
+//fb login functionality
+// This is called with the results from from FB.getLoginStatus().
+function statusChangeCallback(response) {
+	console.log('statusChangeCallback');
+	console.log(response);
+	// The response object is returned with a status field that lets the
+	// app know the current login status of the person.
+	// Full docs on the response object can be found in the documentation
+	// for FB.getLoginStatus().
+	if (response.status === 'connected') {
+		// Logged into your app and Facebook.
+		//testAPI();
+		console.log('connected');
+	} else if (response.status === 'not_authorized') {
+		// The person is logged into Facebook, but not your app.
+		console.log('Please log ' + 'into this app.');
+	} else {
+		// The person is not logged into Facebook, so we're not sure if
+		// they are logged into this app or not.
+		console.log('Please log ' + 'into Facebook.');
+	}
+}
+
+// This function is called when someone finishes with the Login
+// Button.  See the onlogin handler attached to it in the sample
+// code below.
+/*function checkLoginState() {
+ FB.getLoginStatus(function(response) {
+ statusChangeCallback(response);
+ });
+ }*/
+
+window.fbAsyncInit = function() {
+	FB.init({
+		appId : '279009708952641',
+		cookie : true, // enable cookies to allow the server to access
+		// the session
+		xfbml : true, // parse social plugins on this page
+		version : 'v2.0' // use version 2.0
+	});
+
+	// Now that we've initialized the JavaScript SDK, we call
+	// FB.getLoginStatus().  This function gets the state of the
+	// person visiting this page and can return one of three states to
+	// the callback you provide.  They can be:
+	//
+	// 1. Logged into your app ('connected')
+	// 2. Logged into Facebook, but not your app ('not_authorized')
+	// 3. Not logged into Facebook and can't tell if they are logged into
+	//    your app or not.
+	//
+	// These three cases are handled in the callback function.
+
+	FB.getLoginStatus(function(response) {
+		statusChangeCallback(response);
+	});
+
+};
+
+// Load the SDK asynchronously
+( function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id))
+			return;
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+// Here we run a very simple test of the Graph API after login is
+// successful.  See statusChangeCallback() for when this call is made.
+function testAPI() {
+	//console.log('Welcome!  Fetching your information.... ');
+	FB.api('/me', function(response) {
+		//alert('Successful login for: ' + response.name + " email: " + response.email);
+		//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+		logInWithFB(response.email);
+	});
+}
+
+function fb_login() {
+	FB.login(function(response) {
+
+		if (response.authResponse) {
+			console.log('Welcome!  Fetching your information.... ');
+			//console.log(response); // dump complete info
+			access_token = response.authResponse.accessToken;
+			//get access token
+			user_id = response.authResponse.userID;
+			//get FB UID
+
+			testAPI();
+
+		} else {
+			//user hit cancel button
+			console.log('User cancelled login or did not fully authorize.');
+
+		}
+	}, {
+		scope : 'email'
+	});
 }
