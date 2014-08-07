@@ -63,6 +63,25 @@ def handle_login_user_request(request, form):
                                       {'form': form},
                                       context_instance=RequestContext(request))
 
+def facebook_login(request):
+    if request.is_ajax():
+        if request.method == "POST":
+            email = request.POST['email']
+            try:
+                reguser = User.objects.get(id=RegularUser.objects.get(fb_email=email).user_id)
+                if reguser is not None:
+                   reguser.backend = 'django.contrib.auth.backends.ModelBackend'
+                   login(request, reguser)
+                   return HttpResponse("fblogin complete", content_type="text/html; charset=utf-8")
+                else:
+                    return HttpResponse("Cant authenticate", content_type="text/html; charset=utf-8")
+            except RegularUser.DoesNotExist:
+                return HttpResponse("RegularUser does not exist", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")  
+
 def has_user_by_email(email):
     try:
         User.objects.get(email=email)
@@ -299,7 +318,7 @@ def register_user(request):
         else:
             context = {
                        'form': reg_form,
-                       'msg': 'Невалидна форма! Моля, попълнете всички полета!'
+                       'msg': 'Невалидна форма! Моля, попълнете всички полета!'                    
                        }
             return render_to_response('registration.html', context, context_instance=RequestContext(request))
     else:
@@ -322,9 +341,16 @@ def create_regular_user(request, reg_form):
                                     email=reg_form.cleaned_data['email'],
                                     password=reg_form.cleaned_data['password'])
     user.save()
-              
-    regular_user = RegularUser(user=user)
-    regular_user.save()
+    
+    if request.path == '/registerfb/':
+        regular_user = RegularUser(user=user,
+                                   fb_email=reg_form.cleaned_data['email'],
+                                   fb_name=reg_form.cleaned_data['username']
+                                   )
+        regular_user.save()
+    else:
+        regular_user = RegularUser(user=user)
+        regular_user.save()
     
     reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
     login(request, reguser)
