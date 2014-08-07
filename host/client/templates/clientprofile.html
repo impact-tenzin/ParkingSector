@@ -141,6 +141,7 @@
 					},
 					success : function(data) {
 						//render completion message
+						renderCompletionMessage(data, self);
 					},
 					error : function(error) {
 						console.log("ERROR:", error);
@@ -148,6 +149,18 @@
 				});
 			}
 
+			function renderMessageForAddingPlate(data) {
+				if (data == "actualising available spaces complete") {
+					$('.msg-plate').html("").html("<span class='success'><i class='fa fa-check'></i> Освободихте още места успешно.</span>");
+				}
+				if (data == "Client does not exist")
+					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Не съществува такъв потребител.");
+				if (data == "request method is not POST")
+					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Установихме грешка. Моля, пробвайте отново.");
+				if (data == "user not authenticated")
+					$('.msg-plate').html("").html("<i class='fa fa-exclamation-triangle'></i> Не сте влезли в профила си.");
+			}
+			
 			function saveParkingInHistory(pk) {
 				$.ajax({
 					url : "/saveParkingInHistory/",
