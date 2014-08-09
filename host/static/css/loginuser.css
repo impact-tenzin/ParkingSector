@@ -90,6 +90,9 @@ body, html {
 .loginbox input[type=submit]:hover {
 	background: #43413e !important;
 }
+.msg{
+	color: #bc4a51;
+}
 .users{
 	font-size: 120px;
 	color: #ffffff;
