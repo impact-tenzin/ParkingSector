@@ -33,6 +33,14 @@ def register_error(number):
        description = parkingmarker_does_not_exist5()
     elif number == 15:
        description = bookedspot_does_not_exist3()
+    elif number == 16:
+       description = confirm_acctivation_email_error1()
+    elif number == 17:
+       description = confirm_acctivation_email_error2()
+    elif number == 18:
+       description = confirm_acctivation_email_error3()
+    elif number == 19:
+       description = confirm_acctivation_email_error4()
        
     send_error_email(description)
 
@@ -231,5 +239,55 @@ def bookedspot_does_not_exist3():
                     return HttpResponse("deletion complete", content_type="text/html; charset=utf-8")
                 except BookedSpots.DoesNotExist:
                     register_error(15)
+        """
+    return description
+
+def confirm_acctivation_email_error1():
+    description = """
+        function:  email_confirmation.confirm
+        fragment:
+                try:
+                    user = User.objects.get(id=user_id)
+                except User.DoesNotExist:
+                    HttpResponseRedirect('/error_page/')
+                    register_error(16)
+        """
+    return description
+
+def confirm_acctivation_email_error2():
+    description = """
+        function:  email_confirmation.confirm
+        fragment:
+                try:
+                    profile = UserProfile.objects.get(user=user)
+                    if profile.activation_key == activation_key:# and user.date_joined > (datetime.datetime.now()-datetime.timedelta(days=1)):
+                        user.is_active = True
+                        user.save()
+                        #user.backend='django.contrib.auth.backends.ModelBackend' 
+                        #auth_login(request,user)
+                        return redirect_to_login(request)
+                    else:
+                        register_error(17)
+                        return HttpResponseRedirect('/error_page/')
+        """
+    return description
+
+def confirm_acctivation_email_error3():
+    description = """
+        function:  email_confirmation.confirm
+        fragment:
+                except UserProfile.DoesNotExist:
+                    return HttpResponseRedirect('/error_page/')
+                    register_error(18)
+        """
+    return description
+
+def confirm_acctivation_email_error4():
+    description = """
+        function:  email_confirmation.confirm
+        fragment:
+                except:
+                    HttpResponseRedirect('/error_page/')
+                    register_error(19)
         """
     return description

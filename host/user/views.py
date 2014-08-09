@@ -6,16 +6,18 @@ from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext
 from user.forms import LoginForm, RegistrationForm
 from client.models import Client, BookedSpots
-from user.models import RegularUser, LicencePlates
+from user.models import RegularUser, LicencePlates, UserProfile
 from FindParking.models import ParkingMarker, PriceList
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
 from client.errors_and_messages import register_error
-from user.email_confirmation import send_confirmation_email
+from user.email_confirmation import send_confirmation_email, send_account_activation_email
 from django.conf import settings
 import pusher
+import string
+import random
 
 pusher.app_id = settings.PUSHER_APP_ID
 pusher.key = settings.PUSHER_KEY
@@ -364,7 +366,8 @@ def render_unvalid_password(request, reg_form):
 def create_regular_user(request, reg_form):
     user = User.objects.create_user(username=reg_form.cleaned_data['username'],
                                     email=reg_form.cleaned_data['email'],
-                                    password=reg_form.cleaned_data['password'])
+                                    password=reg_form.cleaned_data['password'],
+                                    is_active=False)
     user.save()
     
     if request.path == '/registerfb/':
@@ -376,6 +379,12 @@ def create_regular_user(request, reg_form):
     else:
         regular_user = RegularUser(user=user)
         regular_user.save()
+    
+    activation_key = generate_activation_key()
+    user_profile = UserProfile.objects.create(user=user, activation_key=activation_key)
+    user_profile.save()
+    
+    send_account_activation_email(reg_form.cleaned_data['email'], activation_key, user.id)
     
     reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
     login(request, reguser)
@@ -395,6 +404,10 @@ def user_already_exists(request, reg_form, match):
                    'msg':'Този имейл вече съществува. Моля, изберете друг!'
                 }
         return render_to_response('registration.html', context, context_instance=RequestContext(request))
+
+def generate_activation_key():
+    key = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(25))
+    return key   
 
 def get_booking_requests(request):
     if request.is_ajax():
@@ -425,7 +438,7 @@ def add_licence_plate(request):
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
-    
+
 def remove_licence_plate(request):
     if request.is_ajax():
         if request.user.is_authenticated():
@@ -442,3 +455,6 @@ def remove_licence_plate(request):
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def display_error_page(request):
+    return render_to_response('error_page.html', {}, context_instance=RequestContext(request))

@@ -10,7 +10,11 @@ class RegularUser(models.Model):
         
         def __unicode__(self):
                 return str(self.user)
- 
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(user, unique=True)
+    activation_key = models.CharField(max_length=20)
+
 class LicencePlates(models.Model):
     user_id = models.IntegerField()
     licence_plate = models.CharField(max_length = 45)
