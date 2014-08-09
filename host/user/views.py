@@ -168,7 +168,17 @@ def profile(request):
         
         try:           
             RegularUser.objects.get(user=request.user.id)
-            return render_to_response('userprofile.html', {}, context_instance=RequestContext(request))
+            user = User.objects.get(id=request.user.id)
+            if user.is_active == True:
+                return render_to_response('userprofile.html', {}, context_instance=RequestContext(request))
+            else:
+                form = LoginForm(request.POST)
+                return render_to_response('loginuser.html',
+                                           {
+                                            'msg': 'Акаунтът Ви не е активиран!',
+                                            'form': form
+                                            },
+                                            context_instance=RequestContext(request))
         except RegularUser.DoesNotExist:
             pass
         
@@ -367,7 +377,8 @@ def create_regular_user(request, reg_form):
     user = User.objects.create_user(username=reg_form.cleaned_data['username'],
                                     email=reg_form.cleaned_data['email'],
                                     password=reg_form.cleaned_data['password'],
-                                    is_active=False)
+                                    )
+    user.is_active = False
     user.save()
     
     if request.path == '/registerfb/':
@@ -406,7 +417,7 @@ def user_already_exists(request, reg_form, match):
         return render_to_response('registration.html', context, context_instance=RequestContext(request))
 
 def generate_activation_key():
-    key = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(25))
+    key = str(''.join(random.choice(string.ascii_letters + string.digits) for i in range(25)))
     return key   
 
 def get_booking_requests(request):

@@ -12,7 +12,7 @@ class RegularUser(models.Model):
                 return str(self.user)
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(user, unique=True)
+    user = models.OneToOneField(User, unique=True)
     activation_key = models.CharField(max_length=20)
 
 class LicencePlates(models.Model):
