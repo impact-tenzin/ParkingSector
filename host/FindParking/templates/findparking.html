@@ -29,9 +29,6 @@
 				<p class='top-label'>
 					Влезте в профила си
 				</p>
-				<div id="loginbutton" style="width:100px;height:25px;background-color: blue;" onclick="fb_login();">
-					FB login
-				</div>
 				<div class='under-label-line'></div>
 				<p class="msg">
 
@@ -47,6 +44,10 @@
 				<button class='signInButton subscribeButton' onclick='signIn();'>
 					Готово!
 				</button>
+				<div id="loginbutton" onclick="fb_login();">
+					<p>или<p>
+					<img src="/static/imgs/facebook-login-bg.png" width="240"/>
+				</div>
 			</div>
 			<!--Sign in before booking if not logged in-->
 			<!--Confrim booking form-->

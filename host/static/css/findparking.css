@@ -10,6 +10,13 @@ body {
 	height: 100%;
 	width: 100%;
 }
+#loginbutton img{
+	cursor: pointer;
+}
+#loginbutton p{
+	margin-top: 5px;
+	font-size: 18px;
+}
 .wrapper {
 	position: relative;
 	margin: 0 auto;

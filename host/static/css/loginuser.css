@@ -2,6 +2,13 @@ body, html {
 	height: 100%;
 	width: 100%;
 }
+#loginbutton img{
+	cursor: pointer;
+}
+#loginbutton p{
+	margin-top: 5px;
+	font-size: 18px;
+}
 .login_client{
 	background-color: #e0e0e0 !important;
 	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
