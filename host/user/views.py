@@ -332,9 +332,12 @@ def register_user(request):
                 try:
                     User.objects.get(email=reg_form.cleaned_data['email'])
                 except User.DoesNotExist:
-                    if validate_password(reg_form):
-                        return render_unvalid_password(request, reg_form)           
-                    return create_regular_user(request, reg_form)
+                    try:
+                        RegularUser.objects.get(fb_email=reg_form.cleaned_data['email'])
+                    except RegularUser.DoesNotExist:
+                        if validate_password(reg_form):
+                            return render_unvalid_password(request, reg_form)           
+                        return create_regular_user(request, reg_form)
                 return user_already_exists(request, reg_form, "email_match")
             return user_already_exists(request, reg_form, "name_match")
         else:
