@@ -807,3 +807,7 @@ body {
 	border-radius: 0px;
 	border: 1px solid #333;
 }
+.gn-menu-main i {
+	margin-top: 15px;
+	font-size: 30px;
+}
