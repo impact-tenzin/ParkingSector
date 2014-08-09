@@ -61,13 +61,18 @@
 			<div class="container">
 
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="login">
+				<div class="login">
+					<div class="col-lg-12 login">
+						<div class="col-lg-4">
 							<i class="fa fa-user users"></i>
 							<h1>Регистрация</h1>
-							<p class="msg">
-								{{msg}}
-							</p>
+							<br>
+							<div id="loginbutton" onclick="fb_login();">
+								<p>или<p>
+								<img src="/static/imgs/facebook-login-bg.png" width="240"/>
+							</div>
+						</div>
+						<div class="col-lg-8">
 							<div class="loginbox">
 
 								<form id="registerForm" method="POST" action="/register/">
@@ -89,18 +94,18 @@
 									<input type="text" name="your-email" placeholder="Парола" class="cform-text" size="40" title="your email"><br>-->
 
 									<br>
-
+										<p class="msg">
+											{{msg}}
+										</p>
 									<button class="cform-submit submit">
 										Напред <i class="fa fa-paper-plane-o"></i>
 									</button>
-									<div id="loginbutton" onclick="fb_login();">
-										<p>или<p>
-										<img src="/static/imgs/facebook-login-bg.png" width="240"/>
-									</div>
+
 								</form>
 							</div>
 							<hr class="intro-divider">
 							<a href="/login/user"><i class="fa fa-external-link"></i> Имате акаунт? Влезте в профила си.</a>
+						</div>
 						</div>
 					</div>
 				</div>
@@ -190,11 +195,11 @@
 				FB.api('/me', function(response) {
 					//alert('Successful login for: ' + response.name + " email: " + response.email);
 					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					alert(response.email +" "+response.name);
+					//alert(response.email +" "+response.name);
 					$('#registerForm').attr("action", "/registerfb/");
 					$('.username').val(response.name);
 					$('.email').val(response.email);
-					$('.msg').html("За да приключите регистрацията си с FB, моля въведете парола.");
+					$('.msg').html("<div class='alert alert-warning'>За да приключите регистрацията си с FB, моля въведете парола.</div>");
 				});
 			}
 
