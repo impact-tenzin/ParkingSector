@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*- 
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.http import HttpResponseRedirect
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 from django.conf import settings
 from email.MIMEImage import MIMEImage
 import os
@@ -8,6 +12,7 @@ import datetime
 from django.contrib.sites.models import Site
 from client.errors_and_messages import register_error
 from user.forms import LoginForm
+from user.models import UserProfile
 
 def send_confirmation_email(id, booked):
     email = User.objects.get(id=id).email
@@ -49,7 +54,7 @@ def send_account_activation_email(email, activation_key, user_id):
     date = str(datetime.datetime.now().strftime("%d %B"))
     
     current_site = Site.objects.get_current().domain
-    activation_url = content = "http://" + current_site + "/confirm/" + activation_key + "/" + user_id
+    activation_url = content = "http://" + current_site + "/confirm/" + activation_key + "/" + str(user_id)
     
     text_content = render_to_string(template_text, {"activation_url": activation_url, "date":date})
     html_content = render_to_string(template_html, {"activation_url": activation_url, "date":date})
@@ -72,8 +77,8 @@ def confirm(request, activation_key, user_id):
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
-        HttpResponseRedirect('/error_page/')
         register_error(16)
+        return HttpResponseRedirect('/error_page/')
     
     try:
         profile = UserProfile.objects.get(user=user)
@@ -83,18 +88,19 @@ def confirm(request, activation_key, user_id):
             #user.backend='django.contrib.auth.backends.ModelBackend' 
             #auth_login(request,user)
             return redirect_to_login(request)
+        
         else:
             register_error(17)
             return HttpResponseRedirect('/error_page/')
     except UserProfile.DoesNotExist:
-        return HttpResponseRedirect('/error_page/')
         register_error(18)
+        return HttpResponseRedirect('/error_page/')
     except:
-        HttpResponseRedirect('/error_page/')
         register_error(19)
+        return HttpResponseRedirect('/error_page/')
 
-def redirect_to_login():
+def redirect_to_login(request):
     form = LoginForm()
     return render_to_response('loginuser.html',
-                                {'form': form, 'msg-confirm':'Успешно активирахте вашия акаунт в ParkingSector.'},
+                                {'form': form, 'msgconfirm':'Успешно активирахте вашия акаунт в ParkingSector.'},
                                   context_instance=RequestContext(request)) 
