@@ -97,11 +97,29 @@
 										<p class="msg">
 											{{msg}}
 										</p>
-									<button class="cform-submit submit">
+									<button class="cform-submit submit" data-toggle="modal" data-target="#myModal">
 										Напред <i class="fa fa-paper-plane-o"></i>
 									</button>
-
+									
 								</form>
+								<button class="btn" data-toggle="modal" data-target="#myModal">
+										Цък <i class="fa fa-paper-plane-o"></i>
+								</button>
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+									<h4 class="modal-title black" id="myModalLabel">Активация</h4>
+									</div>
+									<div class="modal-body">
+									<p class="black">
+									шшш, алоу активирай си профила<br> от тук<br><a class="blue" href="#">http://www.youre-mail.com</a>
+									</p>
+									</div>
+
+								</div>
+								</div>
+								</div>
 							</div>
 							<hr class="intro-divider">
 							<a href="/login/user"><i class="fa fa-external-link"></i> Имате акаунт? Влезте в профила си.</a>

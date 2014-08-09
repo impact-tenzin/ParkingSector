@@ -93,6 +93,12 @@ body, html {
 .msg{
 	color: #bc4a51;
 }
+.black{
+	color: #333;
+}
+.blue{
+	color: #0d65ad !important;
+}
 .users{
 	font-size: 120px;
 	color: #ffffff;
