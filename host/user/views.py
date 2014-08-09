@@ -397,10 +397,16 @@ def create_regular_user(request, reg_form):
     
     send_account_activation_email(reg_form.cleaned_data['email'], activation_key, user.id)
     
-    reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
-    login(request, reguser)
+    #reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
+    #login(request, reguser)
                 
-    return HttpResponseRedirect('/profile/')
+    regform = RegistrationForm()
+    context = {
+               'form': regform,
+               'registration': 'successful',
+               'email': reg_form.cleaned_data['email']
+               }
+    return render_to_response('registration.html', context, context_instance=RequestContext(request))
 
 def user_already_exists(request, reg_form, match):
     if match == "name_match":

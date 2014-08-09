@@ -97,23 +97,20 @@
 										<p class="msg">
 											{{msg}}
 										</p>
-									<button class="cform-submit submit" data-toggle="modal" data-target="#myModal">
+									<button class="cform-submit submit">
 										Напред <i class="fa fa-paper-plane-o"></i>
 									</button>
 									
 								</form>
-								<button class="btn" data-toggle="modal" data-target="#myModal" hidden>
-										Цък <i class="fa fa-paper-plane-o"></i>
-								</button>
 								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-									<h4 class="modal-title black" id="myModalLabel">Активация</h4>
+									<h4 class="modal-title black" id="myModalLabel">Активация на акаунт</h4>
 									</div>
 									<div class="modal-body">
 									<p class="black">
-									шшш, алоу активирай си профила<br> от тук<br><a class="blue" href="#">http://www.youre-mail.com</a>
+									Създадохте акаунта си успешно. Моля, активирайте го от вашия имейл<br> от тук<br><a class="blue"></a>
 									</p>
 									</div>
 
@@ -136,6 +133,17 @@
 		<script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
 		<script src="/static/bootstrap/js/bootstrap.js"></script>
 		<script>
+		
+			if("{{registration}}"=="successful"){
+				var str = "{{email}}";
+				var n = str.indexOf("@");
+				var emailextention = str.slice(n, str.length);
+				var email = "http://www."+emailextention;
+				$('.blue').attr('href', email);
+				$('.blue').html(email);
+				$('#myModal').modal('show'); 
+			}
+			
 			// This is called with the results from from FB.getLoginStatus().
 			function statusChangeCallback(response) {
 				console.log('statusChangeCallback');
