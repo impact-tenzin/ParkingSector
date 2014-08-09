@@ -400,10 +400,10 @@ def create_regular_user(request, reg_form):
     #reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
     #login(request, reguser)
                 
-    reg_form = RegistrationForm()
+    regform = RegistrationForm()
     context = {
-               'form': reg_form,
-               'registraion': 'successful',
+               'form': regform,
+               'registration': 'successful',
                'email': reg_form.cleaned_data['email']
                }
     return render_to_response('registration.html', context, context_instance=RequestContext(request))
