@@ -105,7 +105,7 @@
 							<form method="post" class="formAddress" id="location">
 							{% load widget_tweaks %}
 							{% csrf_token %}
-								{{ addressForm.address |attr:"id:addressInput"|attr:"class:cform-text" | attr:"size:40"| attr:"placeholder:Къде искаш да паркираш?" }}
+								{{ addressForm.address |attr:"id:addressInput"|attr:"class:cform-text" | attr:"size:40"| attr:"placeholder: Къде ще паркирате?" }}
 								<!--<input type="text" name="your-email" placeholder="Потърси място..." class="cform-text" size="40" title="your email">-->
 								{{ addressForm.lat |attr:'hidden' |attr:"class:lat" }}
 								{{ addressForm.lng |attr:"hidden" |attr:"class:lng" }}								<div class="cform-submit"><i class="fa fa-search" onclick="getCoordinationsByGeocoding();"></i> </div>
