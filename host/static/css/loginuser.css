@@ -93,6 +93,9 @@ body, html {
 .msg{
 	color: #bc4a51;
 }
+.confirm{
+	color: #0d69b0 !important;
+}
 .black{
 	color: #333;
 }
