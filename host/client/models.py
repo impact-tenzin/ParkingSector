@@ -30,6 +30,8 @@ class ParkingHistory(models.Model):
 class BookedSpots(models.Model):
     parking_id = models.IntegerField()
     user_id = models.IntegerField()
+    lat = models.FloatField()
+    lng = models.FloatField()
     price_list = models.CharField(max_length=70)
     parking_address = models.CharField(max_length=45)
     licence_plate = models.CharField(max_length = 45)

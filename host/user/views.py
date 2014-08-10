@@ -266,9 +266,12 @@ def confirm_booking(request):
                 else:
                     parking_id = request.POST['parking_id']
                     try:
-                        price_list_id = ParkingMarker.objects.get(id=parking_id).priceList_id
+                        parking = ParkingMarker.objects.get(id=parking_id)
+                        parking_address = parking.address
+                        lat = parking.lat
+                        lng = parking.lng
+                        price_list_id = parking.priceList_id
                         price_list = get_price_list_as_string(PriceList.objects.get(id=price_list_id))
-                        parking_address = ParkingMarker.objects.get(id=parking_id).address
                     except ParkingMarker.DoesNotExist:
                         register_error(5)
                         return HttpResponse("ParkingMarker does not exist", content_type="text/html; charset=utf-8")
@@ -282,7 +285,10 @@ def confirm_booking(request):
                     booked = BookedSpots.objects.create(parking_id=parking_id, user_id=user_id,
                                                         parking_address=parking_address,
                                                         price_list=price_list, arrival_time=arrival_time,
-                                                        duration=duration, licence_plate=licence_plate)
+                                                        duration=duration, licence_plate=licence_plate,
+                                                        lat=lat,
+                                                        lng=lng)
+                    booked.save()
                     send_confirmation_email(request.user.id, booked)
                     push_booking_request_to_parkingadmin(parking_id, booked, 'add_request')
                     return HttpResponse("Booking completed", content_type="text/html; charset=utf-8")

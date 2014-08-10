@@ -408,8 +408,6 @@
 					return;
 				}
 
-				$('.confirmBox').append("<img class='loadGif' src='/static/imgs/ajax-loader.gif' />");
-
 				var duration = $('.duration-time').val();
 				var arrival_time = $('.arrival-time').val();
 				var licence_plate = $('#license').html();
@@ -421,7 +419,9 @@
 					var vehicle_plate = new_plate;
 				else
 					var vehicle_plate = $("#license option:selected").text();
-
+				
+				$('.confirmBox').append("<img class='loadGif' src='/static/imgs/ajax-loader.gif' />");
+				
 				$.ajax({
 					url : "/confirmBooking/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
