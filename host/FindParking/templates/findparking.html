@@ -45,8 +45,10 @@
 					Готово!
 				</button>
 				<div id="loginbutton" onclick="fb_login();">
-					<p>или<p>
-					<img src="/static/imgs/facebook-login-bg.png" width="240"/>
+					<p>
+						или
+					<p>
+						<img src="/static/imgs/facebook-login-bg.png" width="240"/>
 				</div>
 			</div>
 			<!--Sign in before booking if not logged in-->
@@ -190,16 +192,17 @@
 				lat = "{{lat}}";
 				lng = "{{lng}}";
 				map.setCenter(new google.maps.LatLng(lat, lng));
-				markerCenter = new google.maps.Marker({
+				/*markerCenter = new google.maps.Marker({
 					map : map,
 					draggable : true,
 					position : new google.maps.LatLng(lat, lng)
 				});
 				google.maps.event.addListener(markerCenter, 'dragend', function() {
-					showParkingsBarAndHideDirections();
+					//showParkingsBarAndHideDirections();
+					alert(1);
 					ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
 					map.setCenter(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
-				});
+				});*/
 
 				//displayNumberOfFoundParkings(parkings);
 				map.setZoom(16);
@@ -249,20 +252,16 @@
 				}
 				//displayNumberOfFoundParkings(parkings);
 				//setFocus();
-				dragendListener = google.maps.event.addListener(map, 'dragend', function() {
-					ajaxCall(map.getCenter().lat(), map.getCenter().lng());
-					markerCenter.setMap(null);
-					markerCenter = new google.maps.Marker({
-						map : map,
-						draggable : true,
-						position : new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
-					});
-					showParkingsBarAndHideDirections();
-					google.maps.event.addListener(markerCenter, 'dragend', function() {
-						showParkingsBarAndHideDirections();
-						ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
-						map.panTo(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
-					});
+				markerCenter = new google.maps.Marker({
+					map : map,
+					draggable : true,
+					position : new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
+				});
+				//showParkingsBarAndHideDirections();
+				google.maps.event.addListener(markerCenter, 'dragend', function() {
+					//showParkingsBarAndHideDirections();
+					ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
+					map.panTo(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
 				});
 
 				var options = {
@@ -404,10 +403,10 @@
 			function confirmBooking() {
 				var parking_id = parseInt($('#window-selected-id').attr('class'));
 
-				if (!parkings.filter(function(parking){return parking.id == parking_id;})[0].isClient) {
-					parkingNotClientMessage();
-					return;
-				}
+				/*if (!parkings.filter(function(parking){return parking.id == parking_id;})[0].isClient) {
+				 parkingNotClientMessage();
+				 return;
+				 }*/
 
 				var duration = $('.duration-time').val();
 				var arrival_time = $('.arrival-time').val();
@@ -420,9 +419,9 @@
 					var vehicle_plate = new_plate;
 				else
 					var vehicle_plate = $("#license option:selected").text();
-				
+
 				$('.confirmBox').append("<img class='loadGif' src='/static/imgs/ajax-loader.gif' />");
-				
+
 				$.ajax({
 					url : "/confirmBooking/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
@@ -499,7 +498,7 @@
 							$('.msg').html(msg);
 							setTimeout(function() {
 								$('.signInBox').hide();
-								bookingReqeust();
+								bookingRequest();
 							}, 1500);
 						} else
 							alert(data);
