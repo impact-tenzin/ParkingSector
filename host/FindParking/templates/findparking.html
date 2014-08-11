@@ -256,6 +256,7 @@
 					map : map,
 					draggable : true,
 					position : new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng()),
+					icon : "/static/imgs/map-marker.png",
 				});
 				//showParkingsBarAndHideDirections();
 				google.maps.event.addListener(markerCenter, 'dragend', function() {
