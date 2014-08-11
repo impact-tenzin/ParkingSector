@@ -255,7 +255,7 @@
 				markerCenter = new google.maps.Marker({
 					map : map,
 					draggable : true,
-					position : new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
+					position : new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng()),
 				});
 				//showParkingsBarAndHideDirections();
 				google.maps.event.addListener(markerCenter, 'dragend', function() {
@@ -263,7 +263,9 @@
 					ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
 					map.panTo(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
 				});
-
+				
+				giveHoverEffectToMarkerCenter();
+				
 				var options = {
 					componentRestrictions : {
 						country : "bg"

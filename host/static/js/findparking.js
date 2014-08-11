@@ -1,7 +1,44 @@
 /*
-function setFocus() {
-$(".searchBar").focus();
-}*/
+ function setFocus() {
+ $(".searchBar").focus();
+ }*/
+
+function giveHoverEffectToMarkerCenter() {
+	/*var contentString = "<div>Drag me Bro</div>";
+	var infowindow = new google.maps.InfoWindow({
+		content : contentString
+	});*/
+	
+	var html = "<div class='markerCenterWindow'>Drag me Bro</div>";
+	var myOptions = {
+		content : html,
+		disableAutoPan : false,
+		maxWidth : 0,
+		pixelOffset : new google.maps.Size(-140, 0),
+		zIndex : null,
+		boxStyle : {
+			height : "0px",
+			width : "0px",
+		},
+		closeBoxURL : "",
+		infoBoxClearance : new google.maps.Size(1, 1),
+		isHidden : false,
+		pane : "floatPane",
+		enableEventPropagation : false
+	};
+	//ib.open(map, marker);
+	markerCenter.infobox = new InfoBox(myOptions);
+	google.maps.event.addListener(markerCenter, 'mouseover', function() {
+		//infowindow.open(map, markerCenter);
+		//ib.open(map, markerCenter);
+		markerCenter.infobox.open(map, this);
+	});
+	google.maps.event.addListener(markerCenter, 'mouseout', function() {
+		//infowindow.close(map, markerCenter);
+		//ib.close();
+		markerCenter.infobox.close();
+	});
+}
 
 // get address latitude and longitude or precalculates the parking prices
 function getCoords(autocomplete) {
@@ -486,11 +523,10 @@ function bookingRequest() {
 		success : function(data) {
 			if (data == "Not authenticated")
 				bookingMsg(parking_id);
-			else{
+			else {
 				if (!parkings.filter(function(parking){return parking.id == parking_id;})[0].isClient) {
 					notClientShowNavigation();
-				}
-				else
+				} else
 					preConfirmBooking(data);
 			}
 		},
@@ -705,15 +741,15 @@ function renderBookingMsg(data) {
 }
 
 /*function parkingNotClientMessage() {
-	$('.msg-confirm').html("");
-	$('.msg-confirm').html("Паркингът не работи със ParkingSector!");
-	setTimeout(function() {
-		$('.confirmBox').hide();
-		$('.msg-confirm').html("");
-		resetConfirmForm();
-		$('.directionsBox').show();
-	}, 2000);
-}*/
+ $('.msg-confirm').html("");
+ $('.msg-confirm').html("Паркингът не работи със ParkingSector!");
+ setTimeout(function() {
+ $('.confirmBox').hide();
+ $('.msg-confirm').html("");
+ resetConfirmForm();
+ $('.directionsBox').show();
+ }, 2000);
+ }*/
 
 function notClientShowNavigation() {
 	$('.msg-directions').html("");

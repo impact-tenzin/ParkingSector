@@ -460,6 +460,18 @@ body {
 	bottom:45px;
 	left:17px;
 }
+.markerCenterWindow{
+	position: absolute;
+	background-color: #FFF;/*#2f2f2e;
+	opacity: 0.8;*/
+	width: 100px;
+	padding: 5px 5px 0px 5px;
+	border-radius: 4px;
+	border: 3px solid #2ecc71;
+	bottom:45px;
+	left:87px;
+}
+
 .win-address {
 	font-size: 15px;
 	color: blue;
