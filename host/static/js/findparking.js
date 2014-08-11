@@ -4,12 +4,12 @@
  }*/
 
 function giveHoverEffectToMarkerCenter() {
-	/*var contentString = "<div>Drag me Bro</div>";
+	/*var contentString = "<div>Премести ме</div>";
 	var infowindow = new google.maps.InfoWindow({
 		content : contentString
 	});*/
 	
-	var html = "<div class='markerCenterWindow'>Drag me Bro</div>";
+	var html = "<div class='markerCenterWindow'>Премести ме</div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
