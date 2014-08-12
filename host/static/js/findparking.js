@@ -753,7 +753,7 @@ function renderBookingMsg(data) {
 
 function notClientShowNavigation() {
 	$('.msg-directions').html("");
-	$('.msg-directions').html("Паркингът не работи със ParkingSector!");
+	$('.msg-directions').html("Паркингът не работи с ParkingSector!");
 	$('.directionsBox').show();
 }
 
