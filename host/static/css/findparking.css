@@ -445,16 +445,17 @@ body {
 }
 .infoWindow {
 	position: absolute;
-	background-color: #FFF;/*#2f2f2e;
-	opacity: 0.8;*/
+	background-color: #3a5f7c;/*#2f2f2e;*/
+	opacity: 0.9;
 	width: 255px;
 	padding: 5px 5px 0px 5px;
 	border-radius: 4px;
-	border: 3px solid #2ecc71;
+	border: 3px solid #002847;
 }
 .withinfo{
 	bottom: 73px;
 	left: 17px;
+	color: #DDD !important;
 }
 .noinfo{
 	bottom:45px;
@@ -479,7 +480,7 @@ body {
 
 .win-address {
 	font-size: 15px;
-	color: blue;
+	color: #FFF;
 }
 .win-price span {
 	background-color: #f7685c;
@@ -489,27 +490,29 @@ body {
 .win-price {
 	margin-bottom: 5px;
 	font-size: 14px;
+	color: #DDD !important;
 }
 .win-distance {
 	width: 100%;
+	color: #FFF !important;
 }
 .parameters {
 	width: 100%;
 	font-size: 14px;
 	text-align: center;
-	color: rgb(27,162,217);
+	color: #DDD;/*rgb(27,162,217);*/
 }
 
 .win-info {
 	float: left;
 	font-size: 14px;
-	color: #000000;
+	color: #DDD;
 	opacity: 0.8;
 }
 .win-book {
 	width: 100%;
 	height: 30px;
-	background-color: #2ecc71;
+	background-color: #002847;/*#2ecc71;*/
 	color: #FFFFFF;
 	line-height: 30px;
 	text-align: center;
@@ -526,6 +529,7 @@ body {
 	font-size: 17px;
 	opacity: 0.6;
 	cursor: pointer;
+	color: #FFF !important;
 }
 .arrow-down {
 	position: absolute !important;
@@ -535,7 +539,7 @@ body {
 	height: 0; 
 	border-left: 30px solid transparent;
 	border-right: 30px solid transparent;
-	border-top: 25px solid #2ecc71;/*#2f2f2e;
+	border-top: 25px solid #002847;/*#2ecc71;- blue #2f2f2e;
 	opacity: 0.9;*/
 }
 .close-filters {
