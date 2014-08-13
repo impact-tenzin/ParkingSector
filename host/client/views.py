@@ -24,6 +24,8 @@ def save_parking_info(request):
                     except BookedSpots.DoesNotExist:
                         register_error(1)
                         return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
+                    spot.is_parked = True
+                    spot.save()
                     user_id = spot.user_id
                     licence_plate = spot.licence_plate
                     arrival_time = spot.arrival_time

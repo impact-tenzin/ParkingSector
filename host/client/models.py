@@ -37,6 +37,7 @@ class BookedSpots(models.Model):
     licence_plate = models.CharField(max_length = 45)
     duration = models.CharField(max_length = 45)
     arrival_time = models.CharField(max_length = 45)
+    is_parked = models.BooleanField(default=False)
     
     def __unicode__(self):
         return str(self.parking_id)
