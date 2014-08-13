@@ -437,7 +437,7 @@ function getPriceListForParking(parking) {
 
 function formHour(hour) {
 	if (parseFloat(hour) == -1)
-		return "--";
+		return "--<br>лв";
 	else
 		return (parseFloat(hour)).toFixed(2) + "лв";
 }
