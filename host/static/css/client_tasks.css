@@ -89,11 +89,12 @@
 .priceBox{
 	display: inline-block;
 	text-align: center;
-	padding: 2px;
+	padding: 1px 2px 1px 2px;
 	background: #46aee3;
 	margin-left: 2px;
 	color: #FFF;
 	margin-bottom: 2px;
+	width: 50px;
 }
 .priceBoxCurrent{
 	background: #d94850 !important;

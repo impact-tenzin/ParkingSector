@@ -453,7 +453,7 @@ body {
 	border: 3px solid #002847;
 }
 .withinfo{
-	bottom: 73px;
+	bottom: 70px;
 	left: 17px;
 	color: #DDD !important;
 }
@@ -533,7 +533,7 @@ body {
 }
 .arrow-down {
 	position: absolute !important;
-	top: -73px !important;
+	top: -70px !important;
 	left: 110px;
 	width: 0; 
 	height: 0; 
@@ -621,7 +621,7 @@ body {
 	color: #FFF;
 }
 .pricelistHolder {
-	margin-top: 10px;
+	margin-top: 5px;
 	text-align: center;
 }
 .th {
@@ -637,11 +637,12 @@ body {
 .priceBox {
 	display: inline-block;
 	text-align: center;
-	padding: 2px;
+	padding: 1px 2px 1px 2px;
 	background: #46aee3;
 	margin-left: 2px;
 	color: #FFF;
 	margin-bottom: 2px;
+	width: 50px;
 }
 
 /*END TABLE*/
