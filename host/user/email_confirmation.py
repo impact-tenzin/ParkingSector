@@ -72,7 +72,7 @@ def send_account_activation_email(email, activation_key, user_id):
         #msg.attach(msg_img)
     
     msg.send()
-    
+  
 def confirm(request, activation_key, user_id):
     try:
         user = User.objects.get(id=user_id)
