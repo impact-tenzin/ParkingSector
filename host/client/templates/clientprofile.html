@@ -260,6 +260,8 @@
 			function removeParking(self) {
 				var list = document.getElementById('table-body');
 				var toBeRemoved = self.parentNode.parentNode;
+				if (toBeRemoved.className != 'checked')
+					return;
 				var pk = parseInt(toBeRemoved.id);
 				list.removeChild(toBeRemoved);
 				/*for (var i = 0, len = currentRequests.length; i < len; i++) {
@@ -272,6 +274,7 @@
 				//alert(1);
 				//alert(currentRequests.length + " "+currentRequests[0].fileds['licence_plate']);
 				//alert(currentRequests.splice(toRemove,1));
+				
 				deleteFromDatebase(pk);
 				updateTableSorter();
 			}
