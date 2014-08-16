@@ -1,3 +1,14 @@
+$('#loginFormPassword').keydown(function(event) {
+
+	var keypressed = event.keyCode || event.which;
+
+	if (keypressed == 13) {
+
+		$(".signInButton").trigger("click");
+
+	}
+
+});
 /*
  function setFocus() {
  $(".searchBar").focus();
