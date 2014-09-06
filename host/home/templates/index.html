@@ -85,6 +85,11 @@
 						<a class="login btn-special" href="/register">Sign Up</a>
 					</li>
 					{% endif %}
+					{% if user.has_usable_password %}
+					<li>
+						<a class="login btn-special" href="/register">Sign Up</a>
+					</li>
+					{% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
