@@ -26,9 +26,10 @@ def send_confirmation_email(id, booked):
 
     from_email = settings.DEFAULT_FROM_EMAIL           
     date = str(datetime.datetime.now().strftime("%d %B"))
+    current_site = Site.objects.get_current().domain
     
-    text_content = render_to_string(template_text, {"booked": booked, "date":date})
-    html_content = render_to_string(template_html, {"booked": booked, "date":date})
+    text_content = render_to_string(template_text, {"booked": booked, "date":date, "current_site": current_site})
+    html_content = render_to_string(template_html, {"booked": booked, "date":date, "current_site": current_site})
 
     msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
     msg.attach_alternative(html_content, "text/html")
