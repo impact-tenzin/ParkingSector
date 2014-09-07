@@ -65,27 +65,13 @@
 						<div class="login">
 							<i class="fa fa-unlock-alt users"></i>
 							<h1>Променете паролата си оттук. </h1>
-							<p class="msg">
-								{{msg}}
-							</p>
-							<p class="msg confirm">
-								{{msgconfirm}}
-							</p>
 							<div class="loginbox">
 
 								<form method="POST" action="/login/user">
 
-									{% load widget_tweaks %}
+									<input type="password" name="your-email" placeholder="Нова Парола" class="cform-text" size="40" title="your email">
 
-									{% csrf_token %}
-
-									{{ form.username |attr:"type:password" |attr:"placeholder:Нова Парола" |attr:"class:cform-text" |attr:"size:40" }}
-
-									{{ form.password |attr:"type:password" |attr:"placeholder:Потвърди Паролата" |attr:"class:cform-text" |attr:"size:40" }}
-
-									<!--<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
-
-									<input type="text" name="your-email" placeholder="Парола" class="cform-text" size="40" title="your email"><br>-->
+									<input type="password" name="your-email" placeholder="Потвърди Паролата" class="cform-text" size="40" title="your email"><br>
 
 									<br>
 

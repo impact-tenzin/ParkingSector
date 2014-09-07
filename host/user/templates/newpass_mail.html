@@ -65,26 +65,13 @@
 						<div class="login">
 							<i class="fa fa-envelope users"></i>
 							<h1>Аутентикация с имейл. </h1>
-							<p class="msg">
-								{{msg}}
-							</p>
-							<p class="msg confirm">
-								{{msgconfirm}}
-							</p>
 							<div class="loginbox">
 
 								<form method="POST" action="/login/user">
 
-									{% load widget_tweaks %}
 
-									{% csrf_token %}
+									<input type="text" name="your-email" placeholder="Вашият Имейл" class="cform-text" size="40" title="your email">
 
-									{{ form.username |attr:"type:text" |attr:"placeholder:Вашият Имейл" |attr:"class:cform-text" |attr:"size:40" }}
-
-
-									<!--<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
-
-									<input type="text" name="your-email" placeholder="Парола" class="cform-text" size="40" title="your email"><br>-->
 
 									<br>
 
