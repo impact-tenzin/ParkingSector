@@ -46,9 +46,9 @@ def register_error(number):
     send_error_email(description)
 
 def send_error_email(description):
-    site = "website: " + str(Site.objects.get_current().domain)
+    site = "website: " + str(Site.objects.get_current().domain) + "\n"
     date_time = "datetime: "+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
-    description = date_time + description
+    description = site + date_time + description
     ErrorHistory.objects.create(description=description).save()
     email = EmailMessage('PS Error', description, to=['mihail_workbuz@abv.bg'])
     email.send()
