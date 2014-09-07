@@ -1186,7 +1186,7 @@ function addOnclick(parking, i, parkings) {
 	parking.addEventListener('click', function() {
 		showMarkerWindow(parkings[i], getMarkerOfParking(parkings[i]));
 		$(".directionsBox").hide();
-		leftMenu._closeMenu();
+			//leftMenu._closeMenu();
 	}, false);
 
 	//parking.addEventListener('click', function() {

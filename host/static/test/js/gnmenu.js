@@ -34,7 +34,7 @@
 
 			var self = this;
 			this.bodyClickFn = function() {
-				self._closeMenu();
+				//self._closeMenu();
 				this.removeEventListener( self.eventtype, self.bodyClickFn );
 			};
 		},
