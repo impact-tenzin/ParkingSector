@@ -154,7 +154,7 @@
 
 			function renderCompletionMessage(data) {
 				if (data == "actualising available spaces complete") {
-					$('.msg-alert').html("").html("<div class='alert alert-success' role='alert'><span class='success'><i class='fa fa-check'></i> Освободихте още места успешно.</span></div>");
+					$('.msg-alert').html("").html("<div class='alert alert-success' role='alert'><span class='success'><i class='fa fa-check'></i> Актуализирахте броя на свободните места успешно.</span></div>");
 					setTimeout(function(){$('.msg-alert').html("")}, 10000);
 				}
 				if (data == "Client does not exist")
@@ -274,7 +274,7 @@
 				//alert(1);
 				//alert(currentRequests.length + " "+currentRequests[0].fileds['licence_plate']);
 				//alert(currentRequests.splice(toRemove,1));
-				
+				decreaseRequests();
 				deleteFromDatebase(pk);
 				updateTableSorter();
 			}
@@ -327,7 +327,7 @@
 				if (request.fields['is_parked'] == true)
 					is_parked = 'checked';
 				tr.className = is_parked;
-				tr.innerHTML = " <td>" + request.fields['licence_plate'] + "</td>" + "  <td><i class='fa fa-clock-o'>" + request.fields['arrival_time'] + "</td>" + "  <td>" + request.fields['duration'] + " часа</td>" + "  <td>" + "<div class='priceBox'>1ч - " + myPriceList[0] + "лв</div>" + "<div class='priceBox'>2ч - " + myPriceList[1] + "лв</div>" + "<div class='priceBox'>3ч - " + myPriceList[2] + "лв</div>" + "<div class='priceBox'>4ч - " + myPriceList[3] + "лв</div>" + "<div class='priceBox'>5ч - " + myPriceList[4] + "лв</div>" + "<div class='priceBox'>6ч - " + myPriceList[5] + "лв</div>" + "<br>" + "<div class='priceBox'>7ч - " + myPriceList[6] + "лв</div>" + "<div class='priceBox'>8ч - " + myPriceList[7] + "лв</div>" + "<div class='priceBox'>9ч - " + myPriceList[8] + "лв</div>" + "<div class='priceBox'>10ч - " + myPriceList[9] + "лв</div>" + "<div class='priceBox'>11ч - " + myPriceList[10] + "лв</div>" + "<div class='priceBox'>12ч - " + myPriceList[11] + "лв</div>" + "</td>" + "<td><button onclick='alreadyParked(this);' class='emerald' value='Паркирал'>Паркирал <i class='fa fa-check'></i></button><button onclick='decreaseRequests();removeParking(this);' class='alyzarin' id='button' value='Напуснал'>Напуснал <i class='fa fa-times'></i></button></td>";
+				tr.innerHTML = " <td>" + request.fields['licence_plate'] + "</td>" + "  <td><i class='fa fa-clock-o'>" + request.fields['arrival_time'] + "</td>" + "  <td>" + request.fields['duration'] + " часа</td>" + "  <td>" + "<div class='priceBox'>1ч - " + myPriceList[0] + "лв</div>" + "<div class='priceBox'>2ч - " + myPriceList[1] + "лв</div>" + "<div class='priceBox'>3ч - " + myPriceList[2] + "лв</div>" + "<div class='priceBox'>4ч - " + myPriceList[3] + "лв</div>" + "<div class='priceBox'>5ч - " + myPriceList[4] + "лв</div>" + "<div class='priceBox'>6ч - " + myPriceList[5] + "лв</div>" + "<br>" + "<div class='priceBox'>7ч - " + myPriceList[6] + "лв</div>" + "<div class='priceBox'>8ч - " + myPriceList[7] + "лв</div>" + "<div class='priceBox'>9ч - " + myPriceList[8] + "лв</div>" + "<div class='priceBox'>10ч - " + myPriceList[9] + "лв</div>" + "<div class='priceBox'>11ч - " + myPriceList[10] + "лв</div>" + "<div class='priceBox'>12ч - " + myPriceList[11] + "лв</div>" + "</td>" + "<td><button onclick='alreadyParked(this);' class='emerald' value='Паркирал'>Паркирал <i class='fa fa-check'></i></button><button onclick='removeParking(this);' class='alyzarin' id='button' value='Напуснал'>Напуснал <i class='fa fa-times'></i></button></td>";
 				//alert("in");
 				document.getElementById('table-body').appendChild(tr);
 				//updateTableSorter();
