@@ -65,20 +65,18 @@
 						<div class="login">
 							<i class="fa fa-envelope users"></i>
 							<h1>Аутентикация с имейл. </h1>
+							<div class="msg"></div>
+							<div>Моля, въведете имейла, с който сте се регистрирали.</div>
 							<div class="loginbox">
-
-								<form method="POST" action="/login/user">
-
-
-									<input type="text" name="your-email" placeholder="Вашият Имейл" class="cform-text" size="40" title="your email">
+								
+									<input type="text" name="your-email" placeholder="Вашият Имейл" class="cform-text email_to_submit" size="40" title="your email">
 
 
 									<br>
 
-									<button class="cform-submit submit">
+									<button class="cform-submit submit" onclick="validateAndSendEmail();">
 										Продължи
 									</button>
-								</form>
 							</div>
 							<hr class="intro-divider">
 							<a href="/password/reset/"><i class="fa fa-external-link"></i> Забравена парола</a>
@@ -95,23 +93,11 @@
 		<!-- JavaScript -->
 		<script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
 		<script src="/static/bootstrap/js/bootstrap.js"></script>
-		<script src="/static/js/fblogin.js"></script>
-		<script>
-			// Here we run a very simple test of the Graph API after login is
-			// successful.  See statusChangeCallback() for when this call is made.
-			function testAPI() {
-				//console.log('Welcome!  Fetching your information.... ');
-				FB.api('/me', function(response) {
-					//alert('Successful login for: ' + response.name + " email: " + response.email);
-					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					logInWithFB(response.email);
-				});
-			}
-			
-			function logInWithFB(email)
+		<script>			
+			function validateAndSendEmail()
 			{
 				$.ajax({
-					url : "/fblogin/",
+					url : "/checkForValidEmail/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
 					xhrFields : {
 						withCredentials : true
@@ -120,19 +106,20 @@
 						'X-Requested-With' : 'XMLHttpRequest'
 					},
 					data : {
-						email : email,
+						email : $(".email_to_submit").val(),
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {
-						if(data == 'fblogin complete')
-							window.location.href='/profile/';
+						if(data == 'invalid email')
+							$(".msg").html("Въвели сте невалиден имейл. Моля, уверете се, че въвеждате имейла, с който сте се регистрирали.");
+						else if (data == 'verified email')
+								$(".msg").html("Изпратихме Ви линк за създаване на нова парола на електронната ви поща.");
 						else
 							alert(data);
 					},
 					error : function(error) {
 						// Log any error.
 						console.log("ERROR:", error);
-
 					},
 				});
 			}

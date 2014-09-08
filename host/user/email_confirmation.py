@@ -88,6 +88,7 @@ def confirm(request, activation_key, user_id):
             user.save()
             #user.backend='django.contrib.auth.backends.ModelBackend' 
             #auth_login(request,user)
+            profile.delete()
             return redirect_to_login(request)
         
         else:
@@ -99,6 +100,76 @@ def confirm(request, activation_key, user_id):
     except:
         register_error(19)
         return HttpResponseRedirect('/error_page/')
+
+def send_email_after_fbregister(email):
+    template_html = 'email_fb_notification.html'
+    template_text = 'email_fb_notification.txt'
+
+    subject = "ParkingSector account"
+
+    from_email = settings.DEFAULT_FROM_EMAIL           
+    date = str(datetime.datetime.now().strftime("%d %B"))
+    
+    current_site = Site.objects.get_current().domain
+    reset_link = "http://" + current_site + "/password/reset/"
+    
+    text_content = render_to_string(template_text, {"reset_link": reset_link, "date":date})
+    html_content = render_to_string(template_html, {"reset_link": reset_link, "date":date})
+
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
+    msg.attach_alternative(html_content, "text/html")
+    
+    #images = ['checkmark_big.png']
+    
+    #for image in images:
+        #fp = open('/home/park0odf/www.testparkingsector.bg/static/imgs/mail/' + image, 'rb')
+        #msg_img = MIMEImage(fp.read())
+        #fp.close()
+        #msg_img.add_header('Content-ID', '<{0}>'.format(image))
+        #msg.attach(msg_img)
+    
+    msg.send()
+
+def send_email_with_token_to_reset_password(email, activation_key, user_id):
+    template_html = 'email_fb_notification.html'
+    template_text = 'email_fb_notification.txt'
+
+    subject = "ParkingSector reset password"
+
+    from_email = settings.DEFAULT_FROM_EMAIL           
+    date = str(datetime.datetime.now().strftime("%d %B"))
+    
+    current_site = Site.objects.get_current().domain
+    activation_url = "http://" + current_site + "/resetpassword/"+ activation_key + "/" + user_id
+    
+    text_content = render_to_string(template_text, {"activation_url": activation_url, "date":date})
+    html_content = render_to_string(template_html, {"activation_url": activation_url, "date":date})
+
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
+    msg.attach_alternative(html_content, "text/html")
+    
+    #images = ['checkmark_big.png']
+    
+    #for image in images:
+        #fp = open('/home/park0odf/www.testparkingsector.bg/static/imgs/mail/' + image, 'rb')
+        #msg_img = MIMEImage(fp.read())
+        #fp.close()
+        #msg_img.add_header('Content-ID', '<{0}>'.format(image))
+        #msg.attach(msg_img)
+    
+    msg.send()
+    
+def set_new_password(request):
+    if request.is_ajax():
+        id = request.POST['id']
+        new_password = request.POST['new_password']
+        user = User.objects.get(id=id)
+        user.set_password(new_password)
+        user.save()
+        return HttpResponse("Password reset complete", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
 
 def redirect_to_login(request):
     form = LoginForm()

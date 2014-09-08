@@ -386,16 +386,9 @@ def create_regular_user(request, reg_form):
                                     )
     user.is_active = False
     user.save()
-    
-    if request.path == '/registerfb/':
-        regular_user = RegularUser(user=user,
-                                   fb_email=reg_form.cleaned_data['email'],
-                                   fb_name=reg_form.cleaned_data['username']
-                                   )
-        regular_user.save()
-    else:
-        regular_user = RegularUser(user=user)
-        regular_user.save()
+
+    regular_user = RegularUser(user=user)
+    regular_user.save()
     
     activation_key = generate_activation_key()
     user_profile = UserProfile.objects.create(user=user, activation_key=activation_key)
@@ -413,6 +406,29 @@ def create_regular_user(request, reg_form):
                'email': reg_form.cleaned_data['email']
                }
     return render_to_response('registration.html', context, context_instance=RequestContext(request))
+
+def register_user_with_fb(request):
+    if reqeust.is_ajax():
+        if request.method == "POST":
+            password = str(''.join(random.choice(string.ascii_letters + string.digits) for i in range(12)))
+            user = User.objects.create_user(username=request.POST['username'],
+                                            email=request.POST['email'],
+                                            password=password,
+                                            )
+            user.save()
+            
+            regular_user = RegularUser(user=user,
+                                       fb_email=request.POST['email'],
+                                       fb_name=request.POST['username'])
+            regular_user.save()
+            
+            send_email_after_fbregister(request.POST['email'])
+            
+            return HttpResponse("registration with fb complete", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("reqeust method not POST", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
 def user_already_exists(request, reg_form, match):
     if match == "name_match":
@@ -481,3 +497,40 @@ def remove_licence_plate(request):
     
 def display_error_page(request):
     return render_to_response('error_page.html', {}, context_instance=RequestContext(request))
+
+def render_password_reset_form(request):
+    return render_to_response(
+                              'newpass_mail.html', {}, context_instance=RequestContext(request)
+                              )
+
+def check_for_valid_email(request):
+    if request.is_ajax():
+        if request.method == "POST":
+            email = request.POST["email"]
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                try:
+                    user = RegularUser.objects.get(fb_email=email).user
+                except RegularUser.DoesNotExist:
+                    return HttpResponse("invalid email", content_type="text/html; charset=utf-8")
+                
+            activation_key = generate_activation_key()
+            user_profile = UserProfile.objects.create(user=user, activation_key=activation_key)
+            user_profile.save()
+            send_email_with_token_to_reset_password(email, activation_key, user.id)
+            return HttpResponse("verified email", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+def password_reset(request, activation_key, id):
+    try:
+       profile = UserProfile.objects.get(activation_key=activation_key)
+    except UserProfile.DoesNotExist:
+        return render_to_response('invalid_key.html', {}, context_instance=RequestContext(request))
+    profile.delete()
+    return render_to_response(
+                              'newpass.html', {"user_id":id}, context_instance=RequestContext(request)
+                              )
