@@ -97,7 +97,11 @@
 		
 			function setNewPassword()
 			{
-				
+				if($(".password").val()!=$(".password1").val())
+				{
+					alert("Паролите не съвпадат!");
+					return;
+				}
 				
 				$.ajax({
 					url : "/setNewPassword/",
