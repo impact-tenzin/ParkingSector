@@ -131,8 +131,8 @@ def send_email_after_fbregister(email):
     msg.send()
 
 def send_email_with_token_to_reset_password(email, activation_key, user_id):
-    template_html = 'email_fb_notification.html'
-    template_text = 'email_fb_notification.txt'
+    template_html = 'email_reset_password.html'
+    template_text = 'email_reset_password.txt'
 
     subject = "ParkingSector reset password"
 
