@@ -13,7 +13,7 @@ from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
 from client.errors_and_messages import register_error
-from user.email_confirmation import send_confirmation_email, send_account_activation_email
+from user.email_confirmation import send_confirmation_email, send_account_activation_email, send_email_with_token_to_reset_password, send_email_after_fbregister
 from django.conf import settings
 import pusher
 import string
@@ -525,12 +525,12 @@ def check_for_valid_email(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
-def password_reset(request, activation_key, id):
+def password_reset(request, activation_key, user_id):
     try:
        profile = UserProfile.objects.get(activation_key=activation_key)
     except UserProfile.DoesNotExist:
         return render_to_response('invalid_key.html', {}, context_instance=RequestContext(request))
     profile.delete()
     return render_to_response(
-                              'newpass.html', {"user_id":id}, context_instance=RequestContext(request)
+                              'newpass.html', {"user_id":user_id}, context_instance=RequestContext(request)
                               )

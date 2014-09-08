@@ -65,7 +65,7 @@
 						<div class="login">
 							<i class="fa fa-unlock-alt users"></i>
 							<h1>Променете паролата си оттук. </h1>
-							<div class="msg"></div>
+							<div class="msg" style="color:#1C378A;"></div>
 							<div class="loginbox">
 
 									<input type="password" name="your-email" placeholder="Нова Парола" class="cform-text password" size="40" title="your email">
@@ -114,7 +114,7 @@
 					},
 					data : {
 						id : "{{user_id}}",
-						new_password : email,
+						new_password : $(".password").val(),
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {

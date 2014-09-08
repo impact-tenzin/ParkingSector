@@ -4,7 +4,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, HttpResponse
 from django.conf import settings
 from email.MIMEImage import MIMEImage
 import os
@@ -140,7 +140,7 @@ def send_email_with_token_to_reset_password(email, activation_key, user_id):
     date = str(datetime.datetime.now().strftime("%d %B"))
     
     current_site = Site.objects.get_current().domain
-    activation_url = "http://" + current_site + "/resetpassword/"+ activation_key + "/" + user_id
+    activation_url = "http://" + current_site + "/resetpassword/"+ activation_key + "/" + str(user_id)
     
     text_content = render_to_string(template_text, {"activation_url": activation_url, "date":date})
     html_content = render_to_string(template_html, {"activation_url": activation_url, "date":date})
