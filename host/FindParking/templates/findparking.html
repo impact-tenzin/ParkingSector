@@ -193,15 +193,15 @@
 				lng = "{{lng}}";
 				map.setCenter(new google.maps.LatLng(lat, lng));
 				/*markerCenter = new google.maps.Marker({
-					map : map,
-					draggable : true,
-					position : new google.maps.LatLng(lat, lng)
+				map : map,
+				draggable : true,
+				position : new google.maps.LatLng(lat, lng)
 				});
 				google.maps.event.addListener(markerCenter, 'dragend', function() {
-					//showParkingsBarAndHideDirections();
-					alert(1);
-					ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
-					map.setCenter(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
+				//showParkingsBarAndHideDirections();
+				alert(1);
+				ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
+				map.setCenter(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
 				});*/
 
 				//displayNumberOfFoundParkings(parkings);
@@ -264,9 +264,9 @@
 					ajaxCall(markerCenter.position.lat(), markerCenter.position.lng());
 					map.panTo(new google.maps.LatLng(markerCenter.position.lat(), markerCenter.position.lng()));
 				});
-				
+
 				giveHoverEffectToMarkerCenter();
-				
+
 				var options = {
 					componentRestrictions : {
 						country : "bg"
@@ -481,9 +481,18 @@
 				return true;
 			}
 
-			function logInWithFB(email) {
+			function testAPI() {
+				//console.log('Welcome!  Fetching your information.... ');
+				FB.api('/me', function(response) {
+					//alert('Successful login for: ' + response.name + " email: " + response.email);
+					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+					login_or_register(response.email, response.name)
+				});
+			}
+
+			function login_or_register(email, username) {
 				$.ajax({
-					url : "/fblogin/",
+					url : "/loginOrRegister/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
 					xhrFields : {
 						withCredentials : true
@@ -492,11 +501,12 @@
 						'X-Requested-With' : 'XMLHttpRequest'
 					},
 					data : {
+						username : username,
 						email : email,
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {
-						if (data == 'fblogin complete') {
+						if (data == 'fblogin complete' || data == "registration with fb complete") {
 							var msg = "Влязохте успешно!";
 							$('.msg').html(msg);
 							setTimeout(function() {
@@ -509,7 +519,6 @@
 					error : function(error) {
 						// Log any error.
 						console.log("ERROR:", error);
-
 					},
 				});
 			}

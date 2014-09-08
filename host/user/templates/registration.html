@@ -61,66 +61,72 @@
 			<div class="container">
 
 				<div class="row">
-				<div class="login">
-					<div class="col-lg-12 login">
-						<div class="col-lg-4">
-							<i class="fa fa-user users"></i>
-							<h1>Регистрация</h1>
-							<br>
-							<div id="loginbutton" onclick="fb_login();">
-								<p>или<p>
-								<img src="/static/imgs/facebook-login-bg.png" width="240"/>
+					<div class="login">
+						<div class="col-lg-12 login">
+							<div class="col-lg-4">
+								<i class="fa fa-user users"></i>
+								<h1>Регистрация</h1>
+								<br>
+								<div id="loginbutton" onclick="fb_login();">
+									<p>
+										или
+									<p>
+										<img src="/static/imgs/facebook-login-bg.png" width="240"/>
+								</div>
 							</div>
-						</div>
-						<div class="col-lg-8">
-							<div class="loginbox">
+							<div class="col-lg-8">
+								<div class="loginbox">
 
-								<form id="registerForm" method="POST" action="/register/">
+									<form id="registerForm" method="POST" action="/register/">
 
-									{% load widget_tweaks %}
+										{% load widget_tweaks %}
 
-									{% csrf_token %}
+										{% csrf_token %}
 
-									{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text username" |attr:"size:40" }}
+										{{ form.username |attr:"type:text" |attr:"placeholder:Потребителско име" |attr:"class:cform-text username" |attr:"size:40" }}
 
-									{{ form.email |attr:"type:text" |attr:"placeholder:E-mail" |attr:"class:cform-text email" |attr:"size:40" }}
+										{{ form.email |attr:"type:text" |attr:"placeholder:E-mail" |attr:"class:cform-text email" |attr:"size:40" }}
 
-									{{ form.password |attr:"type:password" |attr:"placeholder:Парола" |attr:"class:cform-text pass" |attr:"size:40" }}
+										{{ form.password |attr:"type:password" |attr:"placeholder:Парола" |attr:"class:cform-text pass" |attr:"size:40" }}
 
-									{{ form.password1 |attr:"type:password" |attr:"placeholder:Повторете паролата" |attr:"class:cform-text pass2" |attr:"size:40" }}
+										{{ form.password1 |attr:"type:password" |attr:"placeholder:Повторете паролата" |attr:"class:cform-text pass2" |attr:"size:40" }}
 
-									<!--<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
+										<!--<input type="text" name="your-email" placeholder="Потребителско име" class="cform-text" size="40" title="your email">
 
-									<input type="text" name="your-email" placeholder="Парола" class="cform-text" size="40" title="your email"><br>-->
+										<input type="text" name="your-email" placeholder="Парола" class="cform-text" size="40" title="your email"><br>-->
 
-									<br>
+										<br>
 										<p class="msg">
 											{{msg}}
 										</p>
-									<button class="cform-submit submit">
-										Напред <i class="fa fa-paper-plane-o"></i>
-									</button>
-									
-								</form>
-								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-									<h4 class="modal-title black" id="myModalLabel">Активация на акаунт</h4>
-									</div>
-									<div class="modal-body">
-									<p class="black">
-									Създадохте акаунта си успешно. Моля, активирайте го от вашия имейл<br> от тук<br><a class="blue"></a>
-									</p>
-									</div>
+										<button class="cform-submit submit">
+											Напред <i class="fa fa-paper-plane-o"></i>
+										</button>
 
+									</form>
+									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title black" id="myModalLabel">Активация на акаунт</h4>
+												</div>
+												<div class="modal-body">
+													<p class="black">
+														Създадохте акаунта си успешно. Моля, активирайте го от вашия имейл
+														<br>
+														от тук
+														<br>
+														<a class="blue"></a>
+													</p>
+												</div>
+
+											</div>
+										</div>
+									</div>
 								</div>
-								</div>
-								</div>
+								<hr class="intro-divider">
+								<a href="/login/user"><i class="fa fa-external-link"></i> Имате акаунт? Влезте в профила си.</a>
 							</div>
-							<hr class="intro-divider">
-							<a href="/login/user"><i class="fa fa-external-link"></i> Имате акаунт? Влезте в профила си.</a>
-						</div>
 						</div>
 					</div>
 				</div>
@@ -134,55 +140,54 @@
 		<script src="/static/bootstrap/js/bootstrap.js"></script>
 		<script src="/static/js/fblogin.js"></script>
 		<script>
-		
-			if("{{registration}}"=="successful"){
+			if ("{{registration}}" == "successful") {
 				var str = "{{email}}";
 				var n = str.indexOf("@");
-				var emailextention = str.slice(n+1, str.length);
-				var email = "http://www."+emailextention;
+				var emailextention = str.slice(n + 1, str.length);
+				var email = "http://www." + emailextention;
 				$('.blue').attr('href', email);
 				$('.blue').html(email);
-				$('#myModal').modal('show'); 
+				$('#myModal').modal('show');
 			}
 
-			// Here we run a very simple test of the Graph API after login is
-			// successful.  See statusChangeCallback() for when this call is made.
 			function testAPI() {
 				//console.log('Welcome!  Fetching your information.... ');
 				FB.api('/me', function(response) {
 					//alert('Successful login for: ' + response.name + " email: " + response.email);
 					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					//alert(response.email +" "+response.name);
-					//$('#registerForm').attr("action", "/registerfb/");
-					//$('.username').val(response.name);
-					//$('.email').val(response.email);
+					login_or_register(response.email, response.name)
+				});
+			}
 
-					$.ajax({
-						url : "/registerfb/",
-						type : 'POST', //this is the default though, you don't actually need to always mention it
-						xhrFields : {
-							withCredentials : true
-						},
-						headers : {
-							'X-Requested-With' : 'XMLHttpRequest'
-						},
-						data : {
-							username : response.name,
-							email : response.email,
-							csrfmiddlewaretoken : '{{ csrf_token }}'
-						},
-						success : function(data) {
-							if(data == 'registration with fb complete')
-								window.location.href='/profile/';
-							else
-								alert(data);
-						},
-						error : function(error) {
-							// Log any error.
-							console.log("ERROR:", error);
-						},
-					});
-					//$('.msg').html("<br><div class='alert alert-warning'>За да приключите регистрацията си с Facebook, моля въведете парола.</div>");
+			function login_or_register(email, username) {
+				$.ajax({
+					url : "/loginOrRegister/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						username : username,
+						email : email,
+						csrfmiddlewaretoken : '{{ csrf_token }}'
+					},
+					success : function(data) {
+						if (data == 'registration with fb complete' || data == "fblogin complete")
+							window.location.href = '/profile/';
+						else if (data == "email already exists")
+							alert("Имейлът вече съществува. Моля, изберете друг.")
+						else if (data == "username already exists")
+							alert("Това потребителско име вече съществува. Моля, изберете друго.")
+						else
+							alert(data);
+					},
+					error : function(error) {
+						// Log any error.
+						console.log("ERROR:", error);
+					},
 				});
 			}
 		</script>

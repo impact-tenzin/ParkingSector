@@ -1434,12 +1434,3 @@ function clearLocationsButLeaveParkingDestination(parkingLat, parkingLng) {
 	}
 	markers.length = 0;
 }
-
-function testAPI() {
-	//console.log('Welcome!  Fetching your information.... ');
-	FB.api('/me', function(response) {
-		//alert('Successful login for: ' + response.name + " email: " + response.email);
-		//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-		logInWithFB(response.email);
-	});
-}

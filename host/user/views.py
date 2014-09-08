@@ -69,13 +69,14 @@ def facebook_login(request):
     if request.is_ajax():
         if request.method == "POST":
             email = request.POST['email']
+            username = request.POST['username']
             try:
                 reguser = User.objects.get(id=RegularUser.objects.get(fb_email=email).user_id)
             except RegularUser.DoesNotExist:
                 try:
                     reguser = User.objects.get(email=email)
                 except User.DoesNotExist:
-                    return HttpResponse("RegularUser does not exist", content_type="text/html; charset=utf-8")
+                    return register_user_with_fb(request, email, username)
             if reguser is not None:
                 reguser.backend = 'django.contrib.auth.backends.ModelBackend'
                 login(request, reguser)
@@ -407,28 +408,43 @@ def create_regular_user(request, reg_form):
                }
     return render_to_response('registration.html', context, context_instance=RequestContext(request))
 
-def register_user_with_fb(request):
-    if reqeust.is_ajax():
-        if request.method == "POST":
-            password = str(''.join(random.choice(string.ascii_letters + string.digits) for i in range(12)))
-            user = User.objects.create_user(username=request.POST['username'],
-                                            email=request.POST['email'],
-                                            password=password,
+def register_user_with_fb(request, email, username):
+    if not email_unique(email):
+        return HttpResponse("email already exists", content_type="text/html; charset=utf-8")
+    if not username_unique(username):
+        return HttpResponse("username already exists", content_type="text/html; charset=utf-8")
+    password = str(''.join(random.choice(string.ascii_letters + string.digits) for i in range(12)))
+    user = User.objects.create_user(username=username,
+                                    email=email,
+                                    password=password,
                                             )
-            user.save()
+    user.save()
             
-            regular_user = RegularUser(user=user,
-                                       fb_email=request.POST['email'],
-                                       fb_name=request.POST['username'])
-            regular_user.save()
+    regular_user = RegularUser(user=user,
+                                fb_email=email,
+                                fb_name=username)
+    regular_user.save()
             
-            send_email_after_fbregister(request.POST['email'])
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
+    login(request, user)
             
-            return HttpResponse("registration with fb complete", content_type="text/html; charset=utf-8")
-        else:
-            return HttpResponse("reqeust method not POST", content_type="text/html; charset=utf-8")
-    else:
-        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    send_email_after_fbregister(email)
+            
+    return HttpResponse("registration with fb complete", content_type="text/html; charset=utf-8")
+
+def email_unique(email):
+    try:
+        User.objects.get(email=email)
+        return False
+    except User.DoesNotExist:
+        return True
+
+def username_unique(username):
+    try:
+        User.objects.get(username=username)
+        return False
+    except User.DoesNotExist:
+        return True
 
 def user_already_exists(request, reg_form, match):
     if match == "name_match":

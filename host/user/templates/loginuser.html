@@ -93,8 +93,10 @@
 										Вход <i class="fa fa-paper-plane-o"></i>
 									</button>
 									<div id="loginbutton" onclick="fb_login();">
-										<p>или<p>
-										<img src="/static/imgs/facebook-login-bg.png" width="240"/>
+										<p>
+											или
+										<p>
+											<img src="/static/imgs/facebook-login-bg.png" width="240"/>
 									</div>
 								</form>
 							</div>
@@ -115,21 +117,18 @@
 		<script src="/static/bootstrap/js/bootstrap.js"></script>
 		<script src="/static/js/fblogin.js"></script>
 		<script>
-			// Here we run a very simple test of the Graph API after login is
-			// successful.  See statusChangeCallback() for when this call is made.
 			function testAPI() {
 				//console.log('Welcome!  Fetching your information.... ');
 				FB.api('/me', function(response) {
 					//alert('Successful login for: ' + response.name + " email: " + response.email);
 					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					logInWithFB(response.email);
+					login_or_register(response.email, response.name)
 				});
 			}
-			
-			function logInWithFB(email)
-			{
+
+			function login_or_register(email, username) {
 				$.ajax({
-					url : "/fblogin/",
+					url : "/loginOrRegister/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
 					xhrFields : {
 						withCredentials : true
@@ -138,19 +137,19 @@
 						'X-Requested-With' : 'XMLHttpRequest'
 					},
 					data : {
+						username : username,
 						email : email,
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {
-						if(data == 'fblogin complete')
-							window.location.href='/profile/';
+						if (data == 'fblogin complete' || data == "registration with fb complete")
+							window.location.href = '/profile/';
 						else
 							alert(data);
 					},
 					error : function(error) {
 						// Log any error.
 						console.log("ERROR:", error);
-
 					},
 				});
 			}
