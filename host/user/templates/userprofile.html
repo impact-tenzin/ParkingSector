@@ -475,11 +475,11 @@
 				FB.api('/me', function(response) {
 					//alert('Successful login for: ' + response.name + " email: " + response.email);
 					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					syncWithFB(response.email)
+					syncWithFB(response.email, response.name);
 				});
 			}
 
-			function syncWithFB(email)
+			function syncWithFB(email, username)
 			{
 				$.ajax({
 					url : "/syncWithFB/",
@@ -491,6 +491,7 @@
 						'X-Requested-With' : 'XMLHttpRequest'
 					},
 					data : {
+						username: username,
 						email : email,
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},

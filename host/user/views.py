@@ -92,10 +92,12 @@ def facebook_sync(request):
     if request.is_ajax():
         if request.method == "POST":
             email = request.POST['email']
+            username = request.POST['username']
             try:
                 reguser = RegularUser.objects.get(user=request.user.id)
-                if reguser.fb_email is None:
+                if reguser.fb_email == "":
                     reguser.fb_email = email
+                    reguser.fb_name = username
                     reguser.save() 
                     return HttpResponse("sync complete", content_type="text/html; charset=utf-8")
                 else:
