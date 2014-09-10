@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-
 from django.template import RequestContext
 from django.shortcuts import render_to_response, HttpResponse
 from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, PriceList
@@ -96,34 +95,34 @@ def ajax_call(request, latlng):
 @csrf_exempt
 def login_request(request):
     if 'android' in mobile(request):
-        username = reqeust.POST['username']
+        username = request.POST['username']
         password = request.POST['password']
         try:
-            user = User.objects.get(username=username, password=password)
+            user = authenticate(username=username, password=password)
             if user is not None:
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 login(request, user)
                 return HttpResponse("login successful", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("User is None", content_type="text/html; charset=utf-8")
-        except User.DoesNotExist:
+        except:
             return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
-    
+
+@csrf_exempt   
 def login_req(request):
-@csrf_exempt
-        username = reqeust.POST['username']
+        username = request.POST['username']
         password = request.POST['password']
         try:
-            user = User.objects.get(username=username, password=password)
+            user = authenticate(username=username, password=password)
             if user is not None:
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 login(request, user)
                 return HttpResponse("login successful", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("User is None", content_type="text/html; charset=utf-8")
-        except User.DoesNotExist:
+        except:
             return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
 #tova par4e kod sohte ne e prigodena kato android kontrola, no go razgledai, to e za zapzvane na mqsto na parkings
 """
