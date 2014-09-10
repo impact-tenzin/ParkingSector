@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.core import serializers
 from itertools import chain
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
 import re
 
 def mobile(request):
@@ -92,6 +93,7 @@ def ajax_call(request, latlng):
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
 # url: android_loginUser, request:POST, response: text/html
+@csrf_exempt
 def login_request(request):
     if 'android' in mobile(request):
         username = reqeust.POST['username']
@@ -108,6 +110,21 @@ def login_request(request):
             return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def login_req(request):
+@csrf_exempt
+        username = reqeust.POST['username']
+        password = request.POST['password']
+        try:
+            user = User.objects.get(username=username, password=password)
+            if user is not None:
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, user)
+                return HttpResponse("login successful", content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("User is None", content_type="text/html; charset=utf-8")
+        except User.DoesNotExist:
+            return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
 #tova par4e kod sohte ne e prigodena kato android kontrola, no go razgledai, to e za zapzvane na mqsto na parkings
 """
 @csrf_exempt
