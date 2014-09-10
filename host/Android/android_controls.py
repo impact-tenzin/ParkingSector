@@ -10,6 +10,7 @@ from home.models import Viewer
 from django.contrib.auth.models import User
 from django.core import serializers
 from itertools import chain
+from django.contrib.auth import authenticate, login, logout
 import re
 
 def mobile(request):
@@ -98,8 +99,8 @@ def login_request(request):
         try:
             user = User.objects.get(username=username, password=password)
             if user is not None:
-                reguser.backend = 'django.contrib.auth.backends.ModelBackend'
-                login(request, reguser)
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, user)
                 return HttpResponse("login successful", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("User is None", content_type="text/html; charset=utf-8")
