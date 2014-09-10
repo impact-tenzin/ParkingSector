@@ -11,7 +11,21 @@ from django.core import serializers
 from itertools import chain
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
+from client.models import Client, BookedSpots
+from user.models import RegularUser, LicencePlates, UserProfile
+from FindParking.models import ParkingMarker, PriceList
+from client.errors_and_messages import register_error
 import re
+from user.views import push_booking_request_to_parkingadmin, get_price_list_as_string
+from user.email_confirmation import send_confirmation_email, send_account_activation_email, send_email_with_token_to_reset_password, send_email_after_fbregister
+
+import pusher
+from django.conf import settings
+pusher.app_id = settings.PUSHER_APP_ID
+pusher.key = settings.PUSHER_KEY
+pusher.secret = settings.PUSHER_SECRET
+
+p = pusher.Pusher()
 
 def mobile(request):
 
@@ -110,6 +124,7 @@ def login_request(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
+#testove kontroler ne e za android
 @csrf_exempt   
 def login_req(request):
         username = request.POST['username']
@@ -124,6 +139,66 @@ def login_req(request):
                 return HttpResponse("User is None", content_type="text/html; charset=utf-8")
         except:
             return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
+
+#url: android_confirmBooking, request: POST, response: "Booking complete" if correct input
+@csrf_exempt
+def confirm_booking(request):
+    if 'android' in mobile(request):
+        if request.user.is_authenticated():
+            try:
+                RegularUser.objects.get(user=request.user.id)
+            except RegularUser.DoesNotExist:
+                register_error(3)
+                return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
+            if request.method == 'POST':
+                user_bookedspots = BookedSpots.objects.filter(user_id=request.user.id, parking_id=request.POST['parking_id']).count()
+                if user_bookedspots > 0:
+                    return HttpResponse("already booked parkingspot here", content_type="text/html; charset=utf-8")
+                parking_bookedspots = BookedSpots.objects.filter(parking_id=request.POST['parking_id']).count()
+                try:
+                    available_spaces = ParkingMarker.objects.get(id=request.POST['parking_id']).availableSpaces
+                except ParkingMarker.DoesNotExist:
+                    register_error(4)
+                    return HttpResponse("ParkingMarker does not exist", content_type="text/html; charset=utf-8")
+                if parking_bookedspots >= available_spaces:
+                    return HttpResponse("all spaces are taken", content_type="text/html; charset=utf-8")
+                else:
+                    parking_id = request.POST['parking_id']
+                    try:
+                        parking = ParkingMarker.objects.get(id=parking_id)
+                        parking_address = parking.address
+                        lat = parking.lat
+                        lng = parking.lng
+                        price_list_id = parking.priceList_id
+                        price_list = get_price_list_as_string(PriceList.objects.get(id=price_list_id))
+                    except ParkingMarker.DoesNotExist:
+                        register_error(5)
+                        return HttpResponse("ParkingMarker does not exist", content_type="text/html; charset=utf-8")
+                    except PriceList.DoesNotExist:
+                        register_error(6)
+                        return HttpResponse("PriceList does not exist", content_type="text/html; charset=utf-8")
+                    arrival_time = request.POST['arrival_time']
+                    duration = request.POST['duration']
+                    licence_plate = request.POST['licence_plate']
+                    user_id = request.user.id
+                    booked = BookedSpots.objects.create(parking_id=parking_id, user_id=user_id,
+                                                        parking_address=parking_address,
+                                                        price_list=price_list, arrival_time=arrival_time,
+                                                        duration=duration, licence_plate=licence_plate,
+                                                        lat=lat,
+                                                        lng=lng)
+                    booked.save()
+                    send_confirmation_email(request.user.id, booked)
+                    push_booking_request_to_parkingadmin(parking_id, booked, 'add_request')
+                    return HttpResponse("Booking completed", content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+
 #tova par4e kod sohte ne e prigodena kato android kontrola, no go razgledai, to e za zapzvane na mqsto na parkings
 """
 @csrf_exempt
