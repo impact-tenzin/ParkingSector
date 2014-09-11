@@ -123,9 +123,8 @@ def login_request(request):
             return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
-
-#testove kontroler ne e za android
-@csrf_exempt   
+    
+@csrf_exempt
 def login_req(request):
         username = request.POST['username']
         password = request.POST['password']
@@ -140,16 +139,30 @@ def login_req(request):
         except:
             return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
 
+# url: android_logoutUser, request:POST, response: text/html
+@csrf_exempt   
+def logout_request(request):
+    if 'android' in mobile(request):
+        logout(request)
+        return HttpResponse("logged out", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+@csrf_exempt   
+def logout_req(request):
+    logout(request)
+    return HttpResponse("logged out", content_type="text/html; charset=utf-8")
+
 #url: android_confirmBooking, request: POST, response: "Booking complete" if correct input
 @csrf_exempt
 def confirm_booking(request):
-    if 'android' in mobile(request):
+    #if 'android' in mobile(request):
         if request.user.is_authenticated():
             try:
                 RegularUser.objects.get(user=request.user.id)
             except RegularUser.DoesNotExist:
                 register_error(3)
-                return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
+                return HttpResponse("RegularUser does not exist", content_type="text/html; charset=utf-8")
             if request.method == 'POST':
                 user_bookedspots = BookedSpots.objects.filter(user_id=request.user.id, parking_id=request.POST['parking_id']).count()
                 if user_bookedspots > 0:
@@ -195,8 +208,8 @@ def confirm_booking(request):
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("Not authenticated", content_type="text/html; charset=utf-8")
-    else:
-        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    #else:
+        #return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
 
 #tova par4e kod sohte ne e prigodena kato android kontrola, no go razgledai, to e za zapzvane na mqsto na parkings
