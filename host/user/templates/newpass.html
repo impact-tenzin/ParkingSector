@@ -68,15 +68,16 @@
 							<div class="msg" style="color:#1C378A;"></div>
 							<div class="loginbox">
 
-									<input type="password" name="your-email" placeholder="Нова Парола" class="cform-text password" size="40" title="your email">
+								<input type="password" name="your-email" placeholder="Нова Парола" class="cform-text password" size="40" title="your email">
 
-									<input type="password" name="your-email" placeholder="Потвърди Паролата" class="cform-text password1" size="40" title="your email"><br>
+								<input type="password" name="your-email" placeholder="Потвърди Паролата" class="cform-text password1" size="40" title="your email">
+								<br>
 
-									<br>
+								<br>
 
-									<button class="cform-submit submit" onclick="setNewPassword();">
-										Продължи 
-									</button>
+								<button class="cform-submit submit" onclick="setNewPassword();">
+									Продължи
+								</button>
 							</div>
 							<hr class="intro-divider">
 							<a href="/password/reset/"><i class="fa fa-external-link"></i> Забравена парола</a>
@@ -94,15 +95,18 @@
 		<script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
 		<script src="/static/bootstrap/js/bootstrap.js"></script>
 		<script>
-		
-			function setNewPassword()
-			{
-				if($(".password").val()!=$(".password1").val())
-				{
+			$('.password1').keydown(function(event) {
+				var keypressed = event.keyCode || event.which;
+				if (keypressed == 13) {
+					$(".submit").trigger("click");
+				}
+			});
+			function setNewPassword() {
+				if ($(".password").val() != $(".password1").val()) {
 					alert("Паролите не съвпадат!");
 					return;
 				}
-				
+
 				$.ajax({
 					url : "/setNewPassword/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
@@ -118,12 +122,11 @@
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {
-						if(data == 'Password reset complete'){
+						if (data == 'Password reset complete') {
 							$(".password").val("");
 							$(".password1").val("");
 							$(".msg").html("Създадохте нова парола успешно.");
-						}
-						else
+						} else
 							alert(data);
 					},
 					error : function(error) {

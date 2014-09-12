@@ -67,17 +67,18 @@
 							<h1>Аутентикация с имейл. </h1>
 							<div class="msg"></div>
 							<div class="msg-confirm" style="color:#1C378A;"></div>
-							<div>Моля, въведете имейла, с който сте се регистрирали.</div>
+							<div>
+								Моля, въведете имейла, с който сте се регистрирали.
+							</div>
 							<div class="loginbox">
-								
-									<input type="text" name="your-email" placeholder="Вашият Имейл" class="cform-text email_to_submit" size="40" title="your email">
 
+								<input type="text" name="your-email" placeholder="Вашият Имейл" class="cform-text email_to_submit" size="40" title="your email">
 
-									<br>
+								<br>
 
-									<button class="cform-submit submit" onclick="validateAndSendEmail();">
-										Продължи
-									</button>
+								<button class="cform-submit submit" onclick="validateAndSendEmail();">
+									Продължи
+								</button>
 							</div>
 							<hr class="intro-divider">
 							<a href="/password/reset/"><i class="fa fa-external-link"></i> Забравена парола</a>
@@ -94,9 +95,14 @@
 		<!-- JavaScript -->
 		<script src="/static/bootstrap/js/jquery-1.10.2.js"></script>
 		<script src="/static/bootstrap/js/bootstrap.js"></script>
-		<script>			
-			function validateAndSendEmail()
-			{
+		<script>
+			$('.email_to_submit').keydown(function(event) {
+				var keypressed = event.keyCode || event.which;
+				if (keypressed == 13) {
+					$(".submit").trigger("click");
+				}
+			});
+			function validateAndSendEmail() {
 				$.ajax({
 					url : "/checkForValidEmail/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
@@ -111,13 +117,12 @@
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {
-						if(data == 'invalid email')
+						if (data == 'invalid email')
 							$(".msg").html("Въвели сте невалиден имейл. Моля, уверете се, че въвеждате имейла, с който сте се регистрирали.");
-						else if (data == 'verified email'){
-								$(".msg").html("");
-								$(".msg-confirm").html("Изпратихме Ви линк за създаване на нова парола на електронната ви поща.");
-							}
-						else
+						else if (data == 'verified email') {
+							$(".msg").html("");
+							$(".msg-confirm").html("Изпратихме Ви линк за създаване на нова парола на електронната ви поща.");
+						} else
 							alert(data);
 					},
 					error : function(error) {
