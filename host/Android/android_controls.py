@@ -114,6 +114,13 @@ def ajax_call(request, latlng):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
+def has_user_by_email(email):
+    try:
+        User.objects.get(email=email)
+        return True
+    except User.DoesNotExist:
+        return False
+
 # url: android_loginUser, request:POST, response: text/html
 @csrf_exempt
 def login_request(request):
@@ -121,6 +128,8 @@ def login_request(request):
         username = request.POST['username']
         password = request.POST['password']
         try:
+            if has_user_by_email(username):
+              username = User.objects.get(email=username).username
             user = authenticate(username=username, password=password)
             if user is not None:
                 #user.backend = 'django.contrib.auth.backends.ModelBackend'
@@ -147,9 +156,9 @@ def end_and_delete_session(session_key):
 def user_is_logged_in(session_key):
     try:
         MobileSession.objects.get(session_key=str(session_key))
-        android_error(1)
         return True
     except:
+        android_error(1)
         return False
 
 def get_user_by_sessionkey(session_key):
@@ -162,22 +171,6 @@ def get_user_by_sessionkey(session_key):
     except User.DoesNotExist:
         android_error(3)
 
-@csrf_exempt
-def login_req(request):
-        username = request.POST['username']
-        password = request.POST['password']
-        try:
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                #user.backend = 'django.contrib.auth.backends.ModelBackend'
-                #login(request, user)
-                session_key = create_and_begin_session(user)
-                return HttpResponse(session_key, content_type="text/html; charset=utf-8")
-            else:
-                return HttpResponse("User is None", content_type="text/html; charset=utf-8")
-        except:
-            return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
-
 # url: android_logoutUser, request:POST, response: text/html
 @csrf_exempt   
 def logout_request(request):
@@ -187,19 +180,10 @@ def logout_request(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
-@csrf_exempt
-def logout_req(request):
-    end_and_delete_session(request.POST['session_key'])
-    return HttpResponse("logged out", content_type="text/html; charset=utf-8")
-
-@csrf_exempt
-def same(request):
-    return HttpResponse(request.POST['session_key'], content_type="text/html; charset=utf-8")
-
 #url: android_confirmBooking, request: POST, response: "Booking complete" if correct input
 @csrf_exempt
 def confirm_booking(request):
-    #if 'android' in mobile(request):      
+    if 'android' in mobile(request):      
         if user_is_logged_in(request.POST['session_key']):
             try:
                 user = get_user_by_sessionkey(request.POST['session_key'])
@@ -252,8 +236,8 @@ def confirm_booking(request):
                 return HttpResponse("request method is not POST", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("session key does not exist", content_type="text/html; charset=utf-8")
-    #else:
-        #return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
 #url: android_getBookingRequests, request: GET, response: json
 @csrf_exempt
@@ -275,7 +259,7 @@ def get_licence_plates(request):
     if 'android' in mobile(request):
         if user_is_logged_in(request.GET['session_key']):
             user = get_user_by_sessionkey(request.GET['session_key'])
-            licence_plates = LicencePlates.objects.filter(user_id=request.user.id)       
+            licence_plates = LicencePlates.objects.filter(user_id=user.id)       
             data = serializers.serialize("json", licence_plates)
             return HttpResponse(data, content_type="application/json; charset=utf-8") 
         else:
@@ -317,3 +301,80 @@ def cancel_booking(request):
             return HttpResponse("session key does not exist", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+#url: android_resetPassword, request: POST, response: "password reset successful"
+@csrf_exempt
+def reset_password(request):
+    if 'android' in mobile(request):
+        if user_is_logged_in(request.POST['session_key']):
+            user = get_user_by_sessionkey(request.POST['session_key'])
+            new_password = request.POST['new_password']
+            user.set_password(new_password)
+            user.save()
+            return HttpResponse("password reset successful", content_type="text/html; charset=utf-8") 
+        else:
+            return HttpResponse("session key does not exist", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
+#url: android_fblogin request: POST, response: "session_key"
+@csrf_exempt
+def facebook_login(request):
+    if 'android' in mobile(request):
+            email = request.POST['email']
+            username = request.POST['username']
+            try:
+                reguser = User.objects.get(id=RegularUser.objects.get(fb_email=email).user_id)
+            except RegularUser.DoesNotExist:
+                try:
+                    reguser = User.objects.get(email=email)
+                except User.DoesNotExist:
+                    return register_user_with_fb(email, username)
+            if reguser is not None:
+                #reguser.backend = 'django.contrib.auth.backends.ModelBackend'
+                #login(request, reguser)
+                session_key = create_and_begin_session(reguser)
+                return HttpResponse(session_key, content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse("Cant authenticate", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+  
+def register_user_with_fb(email, username):
+    if not email_unique(email):
+        return HttpResponse("email already exists", content_type="text/html; charset=utf-8")
+    if not username_unique(username):
+        return HttpResponse("username already exists", content_type="text/html; charset=utf-8")
+    password = str(''.join(random.choice(string.ascii_letters + string.digits) for i in range(12)))
+    user = User.objects.create_user(username=username,
+                                    email=email,
+                                    password=password,
+                                            )
+    user.save()
+            
+    regular_user = RegularUser(user=user,
+                                fb_email=email,
+                                fb_name=username)
+    regular_user.save()
+            
+    #user.backend = 'django.contrib.auth.backends.ModelBackend'
+    #login(request, user)
+    session_key = create_and_begin_session(user)
+            
+    send_email_after_fbregister(email)
+            
+    return HttpResponse(session_key, content_type="text/html; charset=utf-8")
+
+def email_unique(email):
+    try:
+        User.objects.get(email=email)
+        return False
+    except User.DoesNotExist:
+        return True
+
+def username_unique(username):
+    try:
+        User.objects.get(username=username)
+        return False
+    except User.DoesNotExist:
+        return True
