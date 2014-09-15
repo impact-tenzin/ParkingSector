@@ -17,7 +17,7 @@ from FindParking.models import ParkingMarker, PriceList
 from Android.bug_report import android_error
 import re
 from Android.models import MobileSession
-from user.views import push_booking_request_to_parkingadmin, get_price_list_as_string
+from user.views import push_booking_request_to_parkingadmin, get_price_list_as_string, generate_activation_key
 from user.email_confirmation import send_confirmation_email, send_account_activation_email, send_email_with_token_to_reset_password, send_email_after_fbregister
 import random
 import string
@@ -351,7 +351,7 @@ def register_user_with_fb(email, username):
                                     password=password,
                                             )
     user.save()
-            
+
     regular_user = RegularUser(user=user,
                                 fb_email=email,
                                 fb_name=username)
@@ -378,3 +378,48 @@ def username_unique(username):
         return False
     except User.DoesNotExist:
         return True
+
+#url: android_register request: POST, response: "registration complete" 
+@csrf_exempt
+def create_regular_user(request):
+    user = User.objects.create_user(username=request.POST['username'],
+                                    email=request.POST['email'],
+                                    password=request.POST['password'],
+                                    )
+    user.is_active = False
+    user.save()
+
+    regular_user = RegularUser(user=user)
+    regular_user.save()
+    
+    activation_key = generate_activation_key()
+    user_profile = UserProfile.objects.create(user=user, activation_key=activation_key)
+    user_profile.save()
+    
+    send_account_activation_email(request.POST['email'], activation_key, user.id)
+    
+    #reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
+    #login(request, reguser)
+                
+    return HttpResponse("registration complete", content_type="text/html; charset=utf-8")
+
+@csrf_exempt
+#url: android_resetEmail request: POST, response: "verified email"
+def check_for_valid_email(request):
+    if 'android' in mobile(request):
+            email = request.POST["email"]
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                try:
+                    user = RegularUser.objects.get(fb_email=email).user
+                except RegularUser.DoesNotExist:
+                    return HttpResponse("invalid email", content_type="text/html; charset=utf-8")
+                
+            activation_key = generate_activation_key()
+            user_profile = UserProfile.objects.create(user=user, activation_key=activation_key)
+            user_profile.save()
+            send_email_with_token_to_reset_password(email, activation_key, user.id)
+            return HttpResponse("verified email", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
