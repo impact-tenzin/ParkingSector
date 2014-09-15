@@ -283,7 +283,7 @@ def get_licence_plates(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
-#url: android_getLicencePlates, request: POST, response: "deletion complete"
+#url: android_removeLicencePlate, request: POST, response: "deletion complete"
 @csrf_exempt
 def remove_licence_plate(request):
     if 'android' in mobile(request):
@@ -300,7 +300,7 @@ def remove_licence_plate(request):
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
 #url: android_cancelBooking, request: POST, response: "cancelation complete"    
-@csrf_exempt 
+@csrf_exempt
 def cancel_booking(request):
     if 'android' in mobile(request):
         if user_is_logged_in(request.POST['session_key']):
