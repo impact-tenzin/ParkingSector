@@ -478,6 +478,7 @@ def get_booking_requests(request):
             return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
 def add_licence_plate(request):
     if request.is_ajax():
         if request.user.is_authenticated():
