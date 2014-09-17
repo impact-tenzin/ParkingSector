@@ -180,7 +180,7 @@ return false;
 // create marker on map and there are two types, one for active parkings and one for those that do not work
 // during the selected hours
 function createMarker(parking, i) {
-	if (parking.pricePerHour > 0 || parking.isClient) {
+	if (parking.hasInfo || parking.isClient) {
 		//if (checkIfParkingWorks(parking)) {
 		//calcPrice(parking);
 		var marker = new MarkerWithLabel({
@@ -913,6 +913,7 @@ function parseAjaxParkings(ajaxParkings) {
 		currentParking.id = parseInt(ajaxParkings[i].pk);
 		currentParking.availableSpaces = parseFloat(ajaxParkings[i].fields['availableSpaces']);
 		currentParking.isClient = ajaxParkings[i].fields['isClient'];
+		currentParking.hasInfo = ajaxParkings[i].fields['hasInfo'];
 		currentParking.name = ajaxParkings[i].fields['name'];
 		currentParking.address = ajaxParkings[i].fields['address'];
 		currentParking.lat = parseFloat(ajaxParkings[i].fields['lat']);

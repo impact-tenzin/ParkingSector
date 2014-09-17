@@ -38,9 +38,9 @@ def bug1():
             def user_is_logged_in(session_key):
                 try:
                     MobileSession.objects.get(session_key=str(session_key))
-                    register_error(1)
                     return True
                 except:
+                    android_error(1)
                     return False
         """
     return description
@@ -53,9 +53,9 @@ def bug2():
                     user = User.objects.get(pk=user_id)
                     return user
                 except MobileSession.DoesNotExist:
-                    register_error(2)
+                    android_error(2)
                 except User.DoesNotExist:
-                    register_error(3)
+                    android_error(3)
         """
     return description
 
@@ -67,9 +67,9 @@ def bug3():
                         user = User.objects.get(pk=user_id)
                         return user
                     except MobileSession.DoesNotExist:
-                        register_error(2)
+                        android_error(2)
                     except User.DoesNotExist:
-                        register_error(3)
+                        android_error(3)
         """
     return description
 
@@ -160,7 +160,7 @@ def bug9():
                             booked.delete()
                             return HttpResponse("cancelation complete", content_type="text/html; charset=utf-8")
                         except BookedSpots.DoesNotExist:
-                            register_error(9)
+                            android_error(9)
                             return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
                 else:
                     return HttpResponse("session key does not exist", content_type="text/html; charset=utf-8")

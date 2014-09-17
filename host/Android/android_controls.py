@@ -283,6 +283,24 @@ def remove_licence_plate(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
+#url: android_addLicencePlate, request: POST, response: "addition complete"
+@csrf_exempt
+def add_licence_plate(request):
+    if 'android' in mobile(request):
+        if user_is_logged_in(request.POST['session_key']):
+                licence_plate = request.POST['licence_plate']
+                user = get_user_by_sessionkey(request.POST['session_key'])
+                try:
+                    LicencePlates.objects.get(user_id=user.id, licence_plate=licence_plate)
+                except LicencePlates.DoesNotExist:
+                    LicencePlates.objects.create(user_id=user.id, licence_plate=licence_plate).save()
+                    return HttpResponse("addition complete", content_type="text/html; charset=utf-8")
+                return HttpResponse("already exists", content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("user not authenticated", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+
 #url: android_cancelBooking, request: POST, response: "cancelation complete"    
 @csrf_exempt
 def cancel_booking(request):
@@ -295,7 +313,7 @@ def cancel_booking(request):
                     booked.delete()
                     return HttpResponse("cancelation complete", content_type="text/html; charset=utf-8")
                 except BookedSpots.DoesNotExist:
-                    register_error(9)
+                    android_error(9)
                     return HttpResponse("BookedSpot does not exist", content_type="text/html; charset=utf-8")
         else:
             return HttpResponse("session key does not exist", content_type="text/html; charset=utf-8")
