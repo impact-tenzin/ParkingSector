@@ -406,10 +406,11 @@
 			function confirmBooking() {
 				var parking_id = parseInt($('#window-selected-id').attr('class'));
 
-				/*if (!parkings.filter(function(parking){return parking.id == parking_id;})[0].isClient) {
-				 parkingNotClientMessage();
-				 return;
-				 }*/
+				var parking = parkings.filter(function(parking){return parking.id == parking_id;})[0];
+				if (!checkIfParkingWorks(parking)) {
+					alert("Паркингът не работи през избрания от вас период.");
+					return;
+				}
 
 				var duration = $('.duration-time').val();
 				var arrival_time = $('.arrival-time').val();
@@ -527,7 +528,8 @@
 			window.onload = function() {
 				loadTimePicker();
 				load();
-				if (!mobilecheck()) leftMenu._openMenu();
+				if (!mobilecheck())
+					leftMenu._openMenu();
 			};
 		</script>
 	</body>

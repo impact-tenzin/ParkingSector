@@ -16,10 +16,10 @@ $('#loginFormPassword').keydown(function(event) {
 
 function giveHoverEffectToMarkerCenter() {
 	/*var contentString = "<div>Премести ме</div>";
-	var infowindow = new google.maps.InfoWindow({
-		content : contentString
-	});*/
-	
+	 var infowindow = new google.maps.InfoWindow({
+	 content : contentString
+	 });*/
+
 	var html = "<div class='markerCenterWindow'>Премести ме</div>";
 	var myOptions = {
 		content : html,
@@ -158,24 +158,17 @@ return methods[i];
 */
 
 // checks if parking works during the selected time frame
-/*
+
 function checkIfParkingWorks(parking) {
-var dateFrom = $('#fromDate').val().split(' ');
-var hourFrom = parseInt(dateFrom[1].split(':')[0]);
-var periodFrom = parseInt(dateFrom[1].split(':')[1]);
+	var arrival = parseFloat((parseFloat($('.arrival-time').val().split(' ')[1].replace(":", "."))).toFixed(2));
+	var duration = parseInt($( "#duration option:selected" ).val());
+	var departure = arrival + duration;
+	alert(arrival + " + "+duration + " = "+departure);
+	if (arrival >= (parseFloat(parking.workFrom)).toFixed(2) && arrival <= (parseFloat(parking.workTo)).toFixed(2) && departure <= (parseFloat(parking.workTo)).toFixed(2) && departure >= (parseFloat(parking.workFrom)).toFixed(2))
+		return true;
+	return false;
 
-var dateTo = $('#toDate').val().split(' ');
-var hourTo = parseInt(dateTo[1].split(':')[0]);
-var periodTo = parseInt(dateTo[1].split(':')[1]);
-
-var arrival = hourFrom + (periodFrom / 100);
-var departure = hourTo + (periodTo / 100);
-
-if (arrival >= (parseFloat(parking.workFrom)).toFixed(2) && arrival <= (parseFloat(parking.workTo)).toFixed(2) && departure <= (parseFloat(parking.workTo)).toFixed(2) && departure >= (parseFloat(parking.workFrom)).toFixed(2))
-return true;
-return false;
-
-}*/
+}
 
 // create marker on map and there are two types, one for active parkings and one for those that do not work
 // during the selected hours
@@ -1187,7 +1180,7 @@ function addOnclick(parking, i, parkings) {
 	parking.addEventListener('click', function() {
 		showMarkerWindow(parkings[i], getMarkerOfParking(parkings[i]));
 		$(".directionsBox").hide();
-			//leftMenu._closeMenu();
+		//leftMenu._closeMenu();
 	}, false);
 
 	//parking.addEventListener('click', function() {
@@ -1327,19 +1320,48 @@ function filterParkingsAndDisplay(allParkings) {
 	//displayNumberOfFoundParkings(allParkings);
 }
 
+/*
+ function available(date) {
+ dmy = date.getDate() + "." + appendZero(date.getMonth()) + (date.getMonth() + 1) + "." + date.getFullYear();
+ console.log(dmy + ' : ' + ($.inArray(dmy, availableDates)));
+ if ($.inArray(dmy, availableDates) != -1) {
+ return [true, "", "Available"];
+ } else {
+ return [false, "", "unAvailable"];
+ }
+ }
+
+ var availableDates = [];
+ (function formSevenDaysAheadBookingPeriod() {
+ for (var i=0; i < 7; i++) {
+ var date = new Date();
+ var nextDate = new Date();
+ nextDate.setDate(date.getDate() + i);
+ var currentDate = nextDate.getDate() + "." + appendZero(nextDate.getMonth()) + (nextDate.getMonth() + 1) + "." + nextDate.getFullYear();
+ availableDates.push(currentDate);
+ };
+ })();*/
+
 function loadTimePicker() {
-	$(function() {
-		$('.arrival-time').datetimepicker({
-			format : 'd.m.Y H:i',
-			value : getCurrentDate(false),
-			dayOfWeekStart : 1,
-			step : 15,
-			onClose : function() {
-				if (!checkForProperTimeDuration())
-					alert("Избранта дата е невалидна!");
-			},
-		});
+	var today = new Date();
+	var todayString = today.getFullYear() + "/" + appendZero(today.getMonth()) + (today.getMonth() + 1) + "/" + today.getDate();
+	var afterSevenDays = new Date();
+	afterSevenDays.setDate(today.getDate() + 6);
+	var sevenDaysString = afterSevenDays.getFullYear() + "/" + appendZero(afterSevenDays.getMonth()) + (afterSevenDays.getMonth() + 1) + "/" + afterSevenDays.getDate();
+
+	$('.arrival-time').datetimepicker({
+		format : 'd.m.Y H:i',
+		value : getCurrentDate(false),
+		dayOfWeekStart : 1,
+		step : 15,
+		onClose : function() {
+			if (!checkForProperTimeDuration())
+				alert("Избранта дата е невалидна!");
+		},
+		minDate : todayString,
+		maxDate : sevenDaysString,
 	});
+
 }
 
 var pointA_pointB = [];
@@ -1432,6 +1454,6 @@ function clearLocationsButLeaveParkingDestination(parkingLat, parkingLng) {
 		if (markers[i].lat == parkingLat && markers[i].lng == parkingLng)
 			continue;
 		markers[i].setMap(null);
-	}
+	};
 	markers.length = 0;
 }
