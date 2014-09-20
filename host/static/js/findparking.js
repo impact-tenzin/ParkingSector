@@ -163,7 +163,7 @@ function checkIfParkingWorks(parking) {
 	var arrival = parseFloat((parseFloat($('.arrival-time').val().split(' ')[1].replace(":", "."))).toFixed(2));
 	var duration = parseInt($( "#duration option:selected" ).val());
 	var departure = arrival + duration;
-	alert(arrival + " + "+duration + " = "+departure);
+
 	if (arrival >= (parseFloat(parking.workFrom)).toFixed(2) && arrival <= (parseFloat(parking.workTo)).toFixed(2) && departure <= (parseFloat(parking.workTo)).toFixed(2) && departure >= (parseFloat(parking.workFrom)).toFixed(2))
 		return true;
 	return false;
