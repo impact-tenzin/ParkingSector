@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import HomePageNewsFeed, Viewer, ParkingOwner, Statistics, Locations
+from home.models import HomePageNewsFeed, Viewer, ParkingOwner, Statistics, Locations, Events
 
 class TinyMCEAdmin(admin.ModelAdmin):
     class Media:
@@ -15,8 +15,8 @@ class ParkingOwnerAdmin(admin.ModelAdmin):
 
 class StatisticsAdmin(admin.ModelAdmin):
     search_fields = ['name']
-    list_display = ['id', 'name', 'stat']
-admin.site.register(Locations, LocationsAdmin)
+    list_display = ['id', 'name', 'stat']class EventsAdmin(admin.ModelAdmin):    search_fields = ['name']    list_display = ['id', 'lat', 'lng', 'name', 'image']
+admin.site.register(Events, EventsAdmin)admin.site.register(Locations, LocationsAdmin)
 admin.site.register(Statistics, StatisticsAdmin)
 admin.site.register(HomePageNewsFeed, TinyMCEAdmin)
 admin.site.register(Viewer, ViewerAdmin)
