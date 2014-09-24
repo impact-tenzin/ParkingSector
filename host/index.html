@@ -154,7 +154,7 @@
 	</div>
     <!--</div>	 </div></div>-->
 	<div class="entries">
-			<h4><i class="fa fa-android"></i> Още <span>3 дни 20 часа 39 мин 28 сек</span><span class="customers">{{ counter }}</span> до пускане на мобилната версия!</h4>
+			<h4><i class="fa fa-android"></i> Още <span id="defaultCountdown"></span> до пускане на мобилната версия!</h4>
 	</div>
 		<div class="container">
 		<section id="portfolio">
@@ -428,11 +428,11 @@
 	<script type="text/javascript" src="/static/js/jquery.plugin.js"></script> 
 	<script type="text/javascript" src="/static/js/jquery.countdown.js"></script>
 	<script>
-	var newYear = new Date();
-	newYear = new Date(newYear.getFullYear()+1, 8, 25);
-	$('#entries').countdown({
-		until : newYear
-	});
+		var newYear = new Date();
+		newYear = new Date(newYear.getFullYear() + 1, 8, 25);
+		$('#defaultCountdown').countdown({
+			until : newYear
+		});
 	</script>
 	<script>
 		function redirectToMapFromDestinations(self) {
@@ -441,14 +441,14 @@
 			$("#redirectToMapDestination").attr("action", "/showParkingsAroundDestination/" + lat + "/" + lng);
 			document.getElementById("destinationsSubmit").click();
 		}
-		
+
 		function redirectToMapFromEvents(self) {
 			var lat = parseFloat(self.id.split('/')[0]);
 			var lng = parseFloat(self.id.split('/')[1]);
 			$("#redirectToMapEvent").attr("action", "/showParkingsAroundEvent/" + lat + "/" + lng);
 			document.getElementById("eventsSubmit").click();
 		}
-		
+
 		var autocomplete;
 		function load() {
 			if ("{{form}}" == "subscribeForm") {
@@ -515,33 +515,34 @@
 
 			//}
 		}
+
 		/*
-		function getCurrentInfo() {
+		 function getCurrentInfo() {
 
-			$.ajax({
-				url : "/actualiseNumber/",
-				type : 'GET', //this is the default though, you don't actually need to always mention it
-				xhrFields : {
-					withCredentials : true
-				},
-				headers : {
-					'X-Requested-With' : 'XMLHttpRequest'
-				},
-				dataType : 'html',
-				success : function(data) {
-					if (data != undefined && data != null && parseInt(data.split('-')[0]) != parseInt($('.customers').html()))
-						setTimeout(function() {
-							renderNumberOfHelped(data);
-						}, 2000);
-				},
-				error : function(error) {
+		 $.ajax({
+		 url : "/actualiseNumber/",
+		 type : 'GET', //this is the default though, you don't actually need to always mention it
+		 xhrFields : {
+		 withCredentials : true
+		 },
+		 headers : {
+		 'X-Requested-With' : 'XMLHttpRequest'
+		 },
+		 dataType : 'html',
+		 success : function(data) {
+		 if (data != undefined && data != null && parseInt(data.split('-')[0]) != parseInt($('.customers').html()))
+		 setTimeout(function() {
+		 renderNumberOfHelped(data);
+		 }, 2000);
+		 },
+		 error : function(error) {
 
-					// Log any error.
-					console.log("ERROR:", error);
+		 // Log any error.
+		 console.log("ERROR:", error);
 
-				},
-			});
-		}*/
+		 },
+		 });
+		 }*/
 
 		function markHomeBooking() {
 			$.ajax({
