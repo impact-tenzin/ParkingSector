@@ -308,7 +308,7 @@ background: #f09e00 !important;
 }
 /*End Colors*/
 .entries{
-	background: #56b6d4;
+	background: #dd3333;
 	margin-top: 25px;
 	margin-bottom: 25px;
 	padding-top: 1px;
@@ -316,8 +316,15 @@ background: #f09e00 !important;
 }
 .entries h4{
 	text-align: center;
-	color: #FFF;
-	font-size: 22px;
+	color: #333;
+	font-size: 20px;
+}
+.entries span{
+	color: #fff;
+}
+.entries i{
+	margin-right: 10px;
+	color: #fff;
 }
 .number{
 	color:  #2d3441;
