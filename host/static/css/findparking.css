@@ -834,3 +834,6 @@ body {
 	margin-top: 15px;
 	font-size: 30px;
 }
+.profile{
+	border-radius: 60% !important;
+}
