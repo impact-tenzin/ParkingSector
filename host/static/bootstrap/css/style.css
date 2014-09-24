@@ -318,6 +318,7 @@ background: #f09e00 !important;
 	text-align: center;
 	color: #333;
 	font-size: 20px;
+	vertical-align: middle;
 }
 .entries span{
 	color: #fff;
