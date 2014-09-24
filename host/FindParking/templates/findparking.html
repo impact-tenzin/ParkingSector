@@ -133,7 +133,7 @@
 						<!--<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>-->
 						{% if user.is_authenticated %}
 							{% if fb_id|length != 0  %}
-								<div ><img class="profile" src="https://graph.facebook.com/angel.velikov.370/picture?width=51&height=57"/></div>
+								<a href="/profile"><img class="profile" src="https://graph.facebook.com/angel.velikov.370/picture?width=51&height=57"/></a>
 							{% else %}
 								<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>
 							{% endif %}
