@@ -3,12 +3,12 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, HttpResponse
 from home.forms import LocationForm, SubscribeForm
 from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod
-from home.models import Viewer, Statistics, Locations
+from home.models import Viewer, Statistics, Locations, Events
 from django.db import IntegrityError
 import math
 import threading
 
-customers = int(Statistics.objects.get(name__exact='customers').stat)
+#customers = int(Statistics.objects.get(name__exact='customers').stat)
 
 def home(request):  
     """
@@ -31,11 +31,13 @@ def home_view(request):
     subscribe_form = SubscribeForm()
     address_form = LocationForm()
     fast_choice_locations = Locations.objects.all()
+    events = Events.objects.all()
     context = {
                'addressForm':address_form,
                'subscribeForm':subscribe_form,
-               "counter":customers,
+               #"counter":customers,
                "locations":fast_choice_locations,
+               'events': events,
                }
     return render_to_response('index.html', context, context_instance=RequestContext(request))
 
@@ -53,7 +55,7 @@ def handle_subscibe_request(request):
                        'form':'subscribeForm',
                        'addressForm':address_form,
                        'subscribeForm':subscribe_form,
-                       "counter":customers
+                       #"counter":customers
                        }
             return render_to_response('index.html', context, context_instance=RequestContext(request))
         context = {
@@ -61,7 +63,7 @@ def handle_subscibe_request(request):
                    'form':'subscribeForm',
                    'addressForm':address_form,
                    'subscribeForm':subscribe_form,
-                   "counter":customers,
+                   #"counter":customers,
                    }
         return render_to_response('index.html', context, context_instance=RequestContext(request))
     except IntegrityError:
@@ -70,7 +72,7 @@ def handle_subscibe_request(request):
                    'form':'subscribeForm',
                    'addressForm':address_form,
                    'subscribeForm':subscribe_form,
-                   "counter":customers
+                   #"counter":customers
                    }
         return render_to_response('index.html', context, context_instance=RequestContext(request))
 
@@ -121,6 +123,7 @@ def distance(origin, destination):
 
     return d
 
+"""
 def increase_customer(request):
     global customers
     if request.is_ajax():
@@ -130,6 +133,7 @@ def increase_customer(request):
         return HttpResponse(str(customers) + "- +1 ", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+"""
 
 def is_logged_in(request):
     if request.is_ajax():
@@ -149,6 +153,7 @@ def home_booking(request):
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
 
+"""
 def set_interval(func, sec):
     def func_wrapper():
         set_interval(func, sec)
@@ -161,8 +166,19 @@ def increase():
     customers = int(Statistics.objects.get(name__exact='customers').stat)
     customers = customers + 1
     Statistics.objects.filter(name__exact='customers').update(stat=customers)
-  
-def redirect_to_map(request, latlng):
+"""  
+
+def redirect_to_map_from_destination(request, latlng):
+    lat = float(latlng.split('/')[0])
+    lng = float(latlng.split('/')[1])
+    context = {
+                    'geolocate':'true',
+                    'lat':lat,
+                    'lng':lng,
+                    }
+    return render_to_response('findparking.html', context , context_instance=RequestContext(request))
+
+def redirect_to_map_from_event(request, latlng):
     lat = float(latlng.split('/')[0])
     lng = float(latlng.split('/')[1])
     context = {

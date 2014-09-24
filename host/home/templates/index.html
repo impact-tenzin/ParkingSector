@@ -156,6 +156,31 @@
 			<h4>Вече над <span class="customers">{{ counter }}</span> човека ни се довериха и решиха проблема си с паркирането!</h4>
 	</div>-->
 		<div class="container">
+		<section id="portfolio">
+        <div class="container">
+            <div class="row"><br>
+                <div class="col-lg-10 col-md-offset-1 text-left">
+                    <h3>Предстоящи събития</h3>
+					<p class="sub-para">Паркинги около предстоящите събития в града</p>
+                </div>
+            </div>
+            <div class="row">
+            <form id="redirectToMapEvent" action="" method="GET">
+               {% for event in events %}
+	                <div class="col-sm-4 parking-item">
+	                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+	                        <div class="caption">
+	                            <div class="caption-content">
+	                            </div>
+	                        </div>
+	                        <img id="{{event.lat}}/{{event.lng}}" src="/static/imgs/events/{{event.image}}" onclick="redirectToMapFromEvents(this);" class="img-responsive" alt="" />
+	                    </a>
+	                </div>        
+               {% endfor %}
+               		<input type="submit" id="eventsSubmit" hidden/>
+            	</form>
+        </div>
+    </section>
 	    <section id="portfolio">
         <div class="container">
             <div class="row">
@@ -165,7 +190,7 @@
                 </div>
             </div>
             <div class="row">
-				<form id="redirectToMap" action="" method="GET">
+				<form id="redirectToMapDestination" action="" method="GET">
 	            	{% for location in locations %}
 		            	<div class="col-sm-4 parking-item">
 		                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
@@ -174,11 +199,11 @@
 		                            </div>
 		                        </div>
 		                        <!--<h1 class="text-special">{{location.name}}</h1>-->
-		                        <img id="{{location.lat}}/{{location.lng}}" src="/static/imgs/parkings/{{location.image}}" onclick="redirectToMap(this);" class="img-responsive" alt="" />
+		                        <img id="{{location.lat}}/{{location.lng}}" src="/static/imgs/parkings/{{location.image}}" onclick="redirectToMapFromDestinations(this);" class="img-responsive" alt="" />
 		                    </a>
 		                </div>
 	            	{% endfor %}
-	            	<input type="submit" id="submitRedirectToMap" hidden/>
+	            	<input type="submit" id="destinationsSubmit" hidden/>
             	</form>
                 <!--<div class="col-sm-4 parking-item">
                 <div class="col-sm-4 parking-item">
@@ -279,7 +304,7 @@
                 </div>
             </div>
         </div>
-    </div>
+     </div>
 	<!--/Three columns-->
     <!-- /.intro-header -->
 	<div id="contact" class="banner">
@@ -400,14 +425,20 @@
     <script src="/static/bootstrap/js/bootstrap.js"></script>
 	<script src="/static/js/index.js" type="text/javascript"></script>		<script src="/static/js/jquery.bgswitcher.js" type="text/javascript"></script>
 	<script>
-			function redirectToMap(self)
-		{
+		function redirectToMapFromDestinations(self) {
 			var lat = parseFloat(self.id.split('/')[0]);
 			var lng = parseFloat(self.id.split('/')[1]);
-			$("#redirectToMap").attr("action", "/showParkingsAroundPlace/" + lat + "/" + lng);
-			document.getElementById("submitRedirectToMap").click();
+			$("#redirectToMapDestination").attr("action", "/showParkingsAroundDestination/" + lat + "/" + lng);
+			document.getElementById("destinationsSubmit").click();
 		}
-	
+		
+		function redirectToMapFromEvents(self) {
+			var lat = parseFloat(self.id.split('/')[0]);
+			var lng = parseFloat(self.id.split('/')[1]);
+			$("#redirectToMapEvent").attr("action", "/showParkingsAroundEvent/" + lat + "/" + lng);
+			document.getElementById("eventsSubmit").click();
+		}
+		
 		var autocomplete;
 		function load() {
 			if ("{{form}}" == "subscribeForm") {
@@ -474,7 +505,7 @@
 
 			//}
 		}
-
+		/*
 		function getCurrentInfo() {
 
 			$.ajax({
@@ -500,7 +531,7 @@
 
 				},
 			});
-		}
+		}*/
 
 		function markHomeBooking() {
 			$.ajax({
@@ -571,43 +602,49 @@
 		 }
 		 }*/
 		/*function start_carousel() {
-			setTimeout(f1, 3000);
-		}
+		 setTimeout(f1, 3000);
+		 }
 
-		function f1() {
-			//smqna na klasa
-			document.getElementById("home").className = "intro-header";
-			setTimeout(f2, 3000);
-		}
+		 function f1() {
+		 //smqna na klasa
+		 document.getElementById("home").className = "intro-header";
+		 setTimeout(f2, 3000);
+		 }
 
-		function f2() {
-					//document.getElementById("home").fadeIn( "slow" );
-			//smqna na klasa			
-			document.getElementById("home").className = "intro-header1";
-			
-			//document.getElementById("home").fadeIn( "slow" );
-			setTimeout(f3, 3000);
-		}
+		 function f2() {
+		 //document.getElementById("home").fadeIn( "slow" );
+		 //smqna na klasa
+		 document.getElementById("home").className = "intro-header1";
 
-		function f3() {
-			//smqna na klasa
-			document.getElementById("home").className = "intro-header2";
-			setTimeout(f1, 3000);
-		}		*/
+		 //document.getElementById("home").fadeIn( "slow" );
+		 setTimeout(f3, 3000);
+		 }
 
+		 function f3() {
+		 //smqna na klasa
+		 document.getElementById("home").className = "intro-header2";
+		 setTimeout(f1, 3000);
+		 }		*/
 
 		window.onload = function() {
 			//loadDatePickers();
 			load();
 			//setFocus();
-			getCurrentInfo();
+			//getCurrentInfo();
 			//Carousel
 			/*myCarousel();*/
 			//trial
 			/*$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );*/
-			/*start_carousel();*/			$(".intro-header").bgswitcher({				images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"],				effect: "drop",				interval: 7000,				loop: true			});			/*var $el = $(".intro-header").bgswitcher({			images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"]			});			$(".right").on("click", function() {			$(".intro-header").bgswitcher("next"); // bar.jpg			});			$(".left").on("click", function() {			$(".intro-header").bgswitcher("prev"); // bar.jpg			});*/
+			/*start_carousel();*/
+			$(".intro-header").bgswitcher({
+				images : ["stadium.jpg", "car-lot.jpg", "map_sofia.jpg"],
+				effect : "drop",
+				interval : 7000,
+				loop : true
+			});
+			/*var $el = $(".intro-header").bgswitcher({			images: ["336727.jpg", "car-lot.jpg", "map_sofia.jpg"]			});			$(".right").on("click", function() {			$(".intro-header").bgswitcher("next"); // bar.jpg			});			$(".left").on("click", function() {			$(".intro-header").bgswitcher("prev"); // bar.jpg			});*/
 		};
 	</script>		<!-- subscribe-popup js -->	
 	<script>
-</body>	
-</html>
+		</body>
+		</html>

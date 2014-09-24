@@ -441,3 +441,19 @@ def check_for_valid_email(request):
             return HttpResponse("verified email", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+@csrf_exempt
+#url: android_getUsername request: GET, response: user.username
+def get_username(request):
+    if 'android' in mobile(request):
+        if user_is_logged_in(request.GET['session_key']):
+            user = get_user_by_sessionkey(request.GET['session_key'])
+            username = RegularUser.objects.get(user=user).fb_name
+            if username is not None and len(username) is not 0:
+                return HttpResponse(str(username), content_type="text/html; charset=utf-8")
+            else:
+                return HttpResponse(str(user.username), content_type="text/html; charset=utf-8")
+        else:
+            return HttpResponse("session key does not exist", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
