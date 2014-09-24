@@ -562,3 +562,7 @@ def password_reset(request, activation_key, user_id):
     return render_to_response(
                               'newpass.html', {"user_id":user_id}, context_instance=RequestContext(request)
                               )
+
+def get_fb_id(request):
+    fb_id = RegularUser.objects.get(user=request.user.id).fb_id
+    return HttpResponse(fb_id, content_type="text/html; charset=utf-8")

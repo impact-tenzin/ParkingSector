@@ -1,5 +1,10 @@
 /* jQuery Countdown styles 2.0.0. */
 .is-countdown {
+<<<<<<< HEAD
+=======
+	border: 1px solid #ccc;
+	background-color: #eee;
+>>>>>>> 770ffe392e80c811e49010091eff71df9d4360eb
 }
 .countdown-rtl {
 	direction: rtl;
@@ -9,12 +14,20 @@
 }
 .countdown-row {
 	clear: both;
+<<<<<<< HEAD
 	width: 30%;
+=======
+	width: 100%;
+>>>>>>> 770ffe392e80c811e49010091eff71df9d4360eb
 	padding: 0px 2px;
 	text-align: center;
 }
 .countdown-show1 .countdown-section {
+<<<<<<< HEAD
 	width: 38%;
+=======
+	width: 98%;
+>>>>>>> 770ffe392e80c811e49010091eff71df9d4360eb
 }
 .countdown-show2 .countdown-section {
 	width: 48%;
@@ -23,7 +36,11 @@
 	width: 32.5%;
 }
 .countdown-show4 .countdown-section {
+<<<<<<< HEAD
 	width: 7%;
+=======
+	width: 24.5%;
+>>>>>>> 770ffe392e80c811e49010091eff71df9d4360eb
 }
 .countdown-show5 .countdown-section {
 	width: 19.5%;
@@ -35,17 +52,31 @@
 	width: 14%;
 }
 .countdown-section {
+<<<<<<< HEAD
 	display: inline-block;
 	font-size: 12px;
 	text-align: center;
 }
 .countdown-amount {
     font-size: 22px;
+=======
+	display: block;
+	float: left;
+	font-size: 75%;
+	text-align: center;
+}
+.countdown-amount {
+    font-size: 200%;
+>>>>>>> 770ffe392e80c811e49010091eff71df9d4360eb
 }
 .countdown-period {
     display: block;
 }
 .countdown-descr {
+<<<<<<< HEAD
 	display: inline-block;
+=======
+	display: block;
+>>>>>>> 770ffe392e80c811e49010091eff71df9d4360eb
 	width: 100%;
 }
