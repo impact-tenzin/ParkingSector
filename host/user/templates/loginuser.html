@@ -122,11 +122,11 @@
 				FB.api('/me', function(response) {
 					//alert('Successful login for: ' + response.name + " email: " + response.email);
 					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					login_or_register(response.email, response.name);
+					login_or_register(response.email, response.name, response.id);
 				});
 			}
 
-			function login_or_register(email, username) {
+			function login_or_register(email, username, id) {
 				$.ajax({
 					url : "/loginOrRegister/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
@@ -139,6 +139,7 @@
 					data : {
 						username : username,
 						email : email,
+						fb_id : id,
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {
