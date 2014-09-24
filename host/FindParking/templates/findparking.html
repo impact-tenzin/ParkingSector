@@ -130,7 +130,16 @@
 						<a href="/" class="logo"><img src="/static/imgs/logo_web.png" width="108"/></a>
 					</li>
 					<li class="last">
-						<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>
+						<!--<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>-->
+						{% if user.is_authenticated %}
+							{% if fb_id|length != 0  %}
+								<img src="https://graph.facebook.com/angel.velikov.370/picture?width=51&height=57"/>
+							{% else %}
+								<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>
+							{% endif %}
+						{% else %}
+							<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>
+						{% endif %}
 					</li>
 
 				</ul>
@@ -487,11 +496,11 @@
 				FB.api('/me', function(response) {
 					//alert('Successful login for: ' + response.name + " email: " + response.email);
 					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					login_or_register(response.email, response.name)
+					login_or_register(response.email, response.name, response.id)
 				});
 			}
 
-			function login_or_register(email, username) {
+			function login_or_register(email, username, id) {
 				$.ajax({
 					url : "/loginOrRegister/",
 					type : 'POST', //this is the default though, you don't actually need to always mention it
@@ -504,6 +513,7 @@
 					data : {
 						username : username,
 						email : email,
+						fb_id :id,
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {
