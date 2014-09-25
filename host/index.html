@@ -658,30 +658,6 @@
 				}
 			}
 
-			function get_fb_id()
-			{
-				$.ajax({
-						url : "/getFbId/",
-						type : 'GET', //this is the default though, you don't actually need to always mention it
-						xhrFields : {
-							withCredentials : true
-						},
-						headers : {
-							'X-Requested-With' : 'XMLHttpRequest'
-						},
-						success : function(data) {
-							if (data.length > 0) {
-								$("#i").remove();
-								var src = "https://graph.facebook.com/" + data + "/picture";
-								$("#my_image").attr("src", src);
-							}
-						},
-						error : function(error) {
-							// Log any error.
-							console.log("ERROR:", error);
-						},
-					});
-				}
 		window.onload = function() {
 			//loadDatePickers();
 			load();

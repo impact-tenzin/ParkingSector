@@ -154,30 +154,7 @@
 					},
 				});
 			}
-			
-			function get_fbid_if_user_loggedin() {
-				$.ajax({
-					url : "/checkForLogin/",
-					type : 'GET', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					success : function(data) {
-							//alert(data);
-					},
-					error : function(error) {
-						// Log any error.
-						console.log("ERROR:", error);
-					},
-				});
-			}
-			
-			window.onload = function () {
-				get_fbid_if_user_loggedin();
-			};
+
 		</script>
 
 	</body>
