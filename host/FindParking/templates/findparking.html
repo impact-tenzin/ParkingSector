@@ -131,15 +131,7 @@
 					</li>
 					<li class="last">
 						<!--<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>-->
-						{% if user.is_authenticated %}
-							{% if fb_id|length != 0  %}
-								<a href="/profile"><i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/></a>
-							{% else %}
-								<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>
-							{% endif %}
-						{% else %}
-							<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>
-						{% endif %}
+							<a href="/profile"><i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/></a>
 					</li>
 
 				</ul>
@@ -172,9 +164,7 @@
 			var directionDisplay, directionsService = new google.maps.DirectionsService();
 			var autocomplete;
 			var dragendListener;
-			
 
-			
 			// defines if there is a place that matches the address
 			function searchLocations() {
 				if ("{{loadDefaultParkings}}" == "defaultSofia" || "{{geolocate}}" == "true") {
@@ -219,7 +209,7 @@
 				map.setZoom(16);
 
 				//if ("{{chosenParking}}" != "")
-					//triggerWindowForChosenParking("{{chosenParking.lat}}", "{{chosenParking.lng}}");
+				//triggerWindowForChosenParking("{{chosenParking.lat}}", "{{chosenParking.lng}}");
 			}
 
 			// executes on page onload
@@ -515,14 +505,12 @@
 					data : {
 						username : username,
 						email : email,
-						fb_id :id,
+						fb_id : id,
 						csrfmiddlewaretoken : '{{ csrf_token }}'
 					},
 					success : function(data) {
 						if (data == 'fblogin complete' || data == "registration with fb complete") {
-							$("#i").remove();
-							var src = "https://graph.facebook.com/"+data+"/picture";
-							$("#my_image").attr("src",src);
+							get_fb_id();
 							var msg = "Влязохте успешно!";
 							$('.msg').html(msg);
 							setTimeout(function() {
@@ -538,32 +526,58 @@
 					},
 				});
 			}
+
 			//user profile image
 			function get_fbid_if_user_loggedin() {
-				if("{{user.is_authenticated}}"=="True"){
-				$.ajax({
-				url : "/getFbId/",
-				type : 'GET', //this is the default though, you don't actually need to always mention it
-				xhrFields : {
-				withCredentials : true
-				},
-				headers : {
-				'X-Requested-With' : 'XMLHttpRequest'
-				},
-				success : function(data) {
-					if (data.length > 0){
-					$("#i").remove();
-					var src = "https://graph.facebook.com/"+data+"/picture";
-					$("#my_image").attr("src",src);
-					}
-				},
-				error : function(error) {
-				// Log any error.
-				console.log("ERROR:", error);
-				},
-				});
+				if ("{{user.is_authenticated}}" == "True") {
+					$.ajax({
+						url : "/getFbId/",
+						type : 'GET', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						success : function(data) {
+							if (data.length > 0) {
+								$("#i").remove();
+								var src = "https://graph.facebook.com/" + data + "/picture";
+								$("#my_image").attr("src", src);
+							}
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
+						},
+					});
 				}
 			}
+
+			function get_fb_id()
+			{
+				$.ajax({
+						url : "/getFbId/",
+						type : 'GET', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						success : function(data) {
+							if (data.length > 0) {
+								$("#i").remove();
+								var src = "https://graph.facebook.com/" + data + "/picture";
+								$("#my_image").attr("src", src);
+							}
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
+						},
+					});
+				}
 
 			window.onload = function() {
 				loadTimePicker();
