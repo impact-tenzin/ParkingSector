@@ -133,7 +133,7 @@
 						<!--<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>-->
 						{% if user.is_authenticated %}
 							{% if fb_id|length != 0  %}
-								<a href="/profile"><img class="profile" src="https://graph.facebook.com/angel.velikov.370/picture?width=51&height=57"/></a>
+								<a href="/profile"><i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/></a>
 							{% else %}
 								<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>
 							{% endif %}
@@ -172,7 +172,9 @@
 			var directionDisplay, directionsService = new google.maps.DirectionsService();
 			var autocomplete;
 			var dragendListener;
+			
 
+			
 			// defines if there is a place that matches the address
 			function searchLocations() {
 				if ("{{loadDefaultParkings}}" == "defaultSofia" || "{{geolocate}}" == "true") {
@@ -518,6 +520,9 @@
 					},
 					success : function(data) {
 						if (data == 'fblogin complete' || data == "registration with fb complete") {
+							$("#i").remove();
+							var src = "https://graph.facebook.com/"+data+"/picture";
+							$("#my_image").attr("src",src);
 							var msg = "Влязохте успешно!";
 							$('.msg').html(msg);
 							setTimeout(function() {
@@ -533,13 +538,39 @@
 					},
 				});
 			}
-
+			//user profile image
+			function get_fbid_if_user_loggedin() {
+				if("{{user.is_authenticated}}"=="True"){
+				$.ajax({
+				url : "/getFbId/",
+				type : 'GET', //this is the default though, you don't actually need to always mention it
+				xhrFields : {
+				withCredentials : true
+				},
+				headers : {
+				'X-Requested-With' : 'XMLHttpRequest'
+				},
+				success : function(data) {
+					if (data.length > 0){
+					$("#i").remove();
+					var src = "https://graph.facebook.com/"+data+"/picture";
+					$("#my_image").attr("src",src);
+					}
+				},
+				error : function(error) {
+				// Log any error.
+				console.log("ERROR:", error);
+				},
+				});
+				}
+			}
 
 			window.onload = function() {
 				loadTimePicker();
 				load();
 				if (!mobilecheck())
 					leftMenu._openMenu();
+				get_fbid_if_user_loggedin();
 			};
 		</script>
 	</body>

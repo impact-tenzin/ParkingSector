@@ -565,4 +565,5 @@ def password_reset(request, activation_key, user_id):
 
 def get_fb_id(request):
     fb_id = RegularUser.objects.get(user=request.user.id).fb_id
-    return HttpResponse(fb_id, content_type="text/html; charset=utf-8")
+    if len(fb_id) > 0:
+        return HttpResponse(fb_id, content_type="text/html; charset=utf-8")
