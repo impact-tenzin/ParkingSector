@@ -61,7 +61,7 @@
                     </li>
 					<li>
 						{% if user.is_authenticated %}
-							<a href="/profile" class="lasta" id="dropdownMenu1" data-toggle="dropdown"><!--<i id="i" class="fa fa-user">--></i><img class="profile" id="my_image" src="https://graph.facebook.com/Authenticated/picture"/> {{ user.username }}<b class="caret"></b></a>
+							<a href="/profile" class="lasta" id="dropdownMenu1" data-toggle="dropdown"><!--<i id="i" class="fa fa-user">--></i><img class="profile" id="my_image" src="/static/imgs/default.jpg" width="50" height="50"/> {{ user.username }}<b class="caret"></b></a>
 
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation">
