@@ -60,16 +60,8 @@
                     <li><a href="/templates/scroller.html" class="btn-three">Как работи</a>
                     </li>
 					<li>
-						<!--{% if user.is_authenticated %}
-									<a class="login btn-three" href="/login/user">{{ user.username }}</a>
-								{% else %}
-									<a class="login btn-three" class="btn-four" href="/login/user">Login</a>
-								{% endif %}-->
 						{% if user.is_authenticated %}
-							<a href="/login/user" class="btn-three" id="dropdownMenu1" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username }}<b class="caret"></b></a>
-							{% else %}
-							<a class="login btn-three" class="btn-four" href="/login/user">Login</a>
-							{% endif %}
+							<a href="/profile" class="lasta" id="dropdownMenu1" data-toggle="dropdown"><!--<i id="i" class="fa fa-user">--></i><img class="profile" id="my_image" src="https://graph.facebook.com/Authenticated/picture"/> {{ user.username }}<b class="caret"></b></a>
 
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation">
@@ -79,6 +71,9 @@
 									<a href="/logout" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>
 								</li>
 							</ul>
+						{% else %}
+									<a class="login btn-three" class="btn-four" href="/login/user">Login</a>
+						{% endif %}
                     </li>
 					{% if user.is_authenticated %}
 					{% else %}
@@ -429,7 +424,7 @@
 	<script type="text/javascript" src="/static/js/jquery.countdown.js"></script>
 	<script>
 		var newYear = new Date();
-		newYear = new Date(newYear.getFullYear() + 1, 8, 25);
+		newYear = new Date(newYear.getFullYear(), 9, 5);
 		$('#defaultCountdown').countdown({
 			until : newYear
 		});
@@ -636,7 +631,57 @@
 		 document.getElementById("home").className = "intro-header2";
 		 setTimeout(f1, 3000);
 		 }		*/
+								//user profile image
+			function get_fbid_if_user_loggedin() {
+				if ("{{user.is_authenticated}}" == "True") {
+					$.ajax({
+						url : "/getFbId/",
+						type : 'GET', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						success : function(data) {
+							if (data.length > 0) {
+								$("#i").remove();
+								var src = "https://graph.facebook.com/" + data + "/picture";
+								$("#my_image").attr("src", src);
+							}
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
+						},
+					});
+				}
+			}
 
+			function get_fb_id()
+			{
+				$.ajax({
+						url : "/getFbId/",
+						type : 'GET', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						success : function(data) {
+							if (data.length > 0) {
+								$("#i").remove();
+								var src = "https://graph.facebook.com/" + data + "/picture";
+								$("#my_image").attr("src", src);
+							}
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
+						},
+					});
+				}
 		window.onload = function() {
 			//loadDatePickers();
 			load();
@@ -647,6 +692,7 @@
 			//trial
 			/*$(document.getElementById("home")).switchClass( "intro-header", "intro-header1", 1000, "easeInOutQuad" );*/
 			/*start_carousel();*/
+			get_fbid_if_user_loggedin();
 			$(".intro-header").bgswitcher({
 				images : ["stadium.jpg", "car-lot.jpg", "map_sofia.jpg"],
 				effect : "drop",

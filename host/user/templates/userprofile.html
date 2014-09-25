@@ -45,12 +45,7 @@
 							<a href="/findparking" class="btn-three">Намери място</a>
 						</li>
 						<li>
-							{% if user.is_authenticated %}
-							<a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown"><i class="fa fa-user"></i> {{ user.username }}<b class="caret"></b></a>
-							{% else %}
-							<a href="#" class="btn-three" id="dropdownMenu1" data-toggle="dropdown">Logout</a>
-							{% endif %}
-
+							<a href="#" class="lasta" id="dropdownMenu1" data-toggle="dropdown"><!--<i id="i" class="fa fa-user">--></i><img class="profile" id="my_image" src="https://graph.facebook.com/Authenticated/picture"/>{{user.username}}<b class="caret"></b></a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation">
 									<a href="/profile" role="menuitem" tabindex="-1" href="#"> Профил</a>
@@ -510,9 +505,60 @@
 					},
 				});
 			}
-			
+						//user profile image
+			function get_fbid_if_user_loggedin() {
+				if ("{{user.is_authenticated}}" == "True") {
+					$.ajax({
+						url : "/getFbId/",
+						type : 'GET', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						success : function(data) {
+							if (data.length > 0) {
+								$("#i").remove();
+								var src = "https://graph.facebook.com/" + data + "/picture";
+								$("#my_image").attr("src", src);
+							}
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
+						},
+					});
+				}
+			}
+
+			function get_fb_id()
+			{
+				$.ajax({
+						url : "/getFbId/",
+						type : 'GET', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						success : function(data) {
+							if (data.length > 0) {
+								$("#i").remove();
+								var src = "https://graph.facebook.com/" + data + "/picture";
+								$("#my_image").attr("src", src);
+							}
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
+						},
+					});
+				}
 			window.onload = function() {
 				getBookingRequests();
+				get_fbid_if_user_loggedin();
 			};
 		</script>
 	</body>
