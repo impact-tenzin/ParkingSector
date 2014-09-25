@@ -341,3 +341,10 @@ background: #eec500 !important;
 .btnHolder{
 	text-align: center;
 }
+.profile{
+	border-radius: 60% !important;
+}
+.lasta{
+	padding-top: 1px !important;
+	padding-bottom: 1px !important;
+}

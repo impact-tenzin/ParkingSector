@@ -499,3 +499,10 @@ ul.intro-social-buttons li a{
 	text-decoration: none;
 	color: #333;
 }
+.profile{
+	border-radius: 60% !important;
+}
+.lasta{
+	padding-top: 1px !important;
+	padding-bottom: 1px !important;
+}
