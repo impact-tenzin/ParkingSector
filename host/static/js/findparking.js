@@ -173,7 +173,7 @@ function checkIfParkingWorks(parking) {
 // create marker on map and there are two types, one for active parkings and one for those that do not work
 // during the selected hours
 function createMarker(parking, i) {
-	if (parking.hasInfo || parking.isClient) {
+	//if (parking.hasInfo || parking.isClient) {
 		//if (checkIfParkingWorks(parking)) {
 		//calcPrice(parking);
 		var marker = new MarkerWithLabel({
@@ -208,7 +208,7 @@ function createMarker(parking, i) {
 		 markers.push(marker);
 		 }*/
 
-	} else {
+	/*} else {
 		var marker = new MarkerWithLabel({
 			position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
 			draggable : false,
@@ -222,7 +222,7 @@ function createMarker(parking, i) {
 		marker.lat = parking.lat;
 		addClickListener(marker, i, parking);
 		markers.push(marker);
-	}
+	}*/
 }
 
 // add proper onclick events depending on active or nonactive parking
@@ -375,7 +375,7 @@ function showMarkerWindow(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	//highlightParking(parking);
 	var priceList = getPriceListForParking(parking);
-	var html = "<div class='infoWindow withinfo' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + "<div class='win-price'><span>" + parking.pricePerHour + " лв/час</span></div>" + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span><div class='parameters'>" + parking.workFrom + " - " + parking.workTo + "</div></div>" + "<span class='win-info'>Ценоразпис:</span><br><div class='pricelistHolder'><div class='priceBox'>1ч - " + priceList.oneHour + "</div><div class='priceBox'>2ч - " + priceList.twoHours + "</div><div class='priceBox'>3ч - " + priceList.threeHours + "</div><div class='priceBox'>4ч - " + priceList.fourHours + "</div><br><div class='priceBox'>5ч - " + priceList.fiveHours + "</div><div class='priceBox'>6ч - " + priceList.sixHours + "</div><div class='priceBox'>7ч - " + priceList.sevenHours + "</div><div class='priceBox'>8ч - " + priceList.eightHours + "</div><br><div class='priceBox'>9ч - " + priceList.nineHours + "</div><div class='priceBox'>10ч - " + priceList.tenHours + "</div><div class='priceBox'>11ч - " + priceList.elevenHours + "</div><div class='priceBox'>12ч - " + priceList.twelveHours + "</div></div>" + "<div class='win-book' onclick='bookingRequest();'>Запази място</div>" + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>" + "<div class='arrow-down'></div>";
+	var html = "<div class='infoWindow withinfo' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + showPricePerHour(parking.pricePerHour) + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span>" + showWorkingHours(parking.workFrom, parking.workTo) + "</div>" + "<span class='win-info'>Ценоразпис:</span>"+ showPriceList(parking.pricePerHour, priceList) + showBookingOrNavigationButton(parking.hasInfo) + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>" + "<div class='arrow-down'></div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
@@ -394,6 +394,38 @@ function showMarkerWindow(parking, marker) {
 	};
 	ib.setOptions(myOptions);
 	ib.open(map, marker);
+}
+
+function showPricePerHour(pricePerHour)
+{
+	if(pricePerHour <= 0)
+		return "";
+	else
+		return "<div class='win-price'><span>" + pricePerHour + " лв/час</span></div>";
+}
+
+function showWorkingHours(workFrom, workTo)
+{
+	if(workFrom == 0.00 && workTo == 0.00)
+		return "<div class='parameters'>--</div>";
+	else
+		return "<div class='parameters'>" + workFrom + " - " + workTo + "</div>";
+}
+
+function showPriceList(pricePerHour ,priceList)
+{
+	if(pricePerHour <= 0)
+		return "<div class='parameters'>няма информация</div>";
+	else
+		return "<br><div class='pricelistHolder'><div class='priceBox'>1ч - " + priceList.oneHour + "</div><div class='priceBox'>2ч - " + priceList.twoHours + "</div><div class='priceBox'>3ч - " + priceList.threeHours + "</div><div class='priceBox'>4ч - " + priceList.fourHours + "</div><br><div class='priceBox'>5ч - " + priceList.fiveHours + "</div><div class='priceBox'>6ч - " + priceList.sixHours + "</div><div class='priceBox'>7ч - " + priceList.sevenHours + "</div><div class='priceBox'>8ч - " + priceList.eightHours + "</div><br><div class='priceBox'>9ч - " + priceList.nineHours + "</div><div class='priceBox'>10ч - " + priceList.tenHours + "</div><div class='priceBox'>11ч - " + priceList.elevenHours + "</div><div class='priceBox'>12ч - " + priceList.twelveHours + "</div></div>";
+}
+
+function showBookingOrNavigationButton(hasInfo)
+{
+	if(hasInfo)
+		return "<div class='win-book' onclick='bookingRequest();'>Запази място</div>";
+	else
+		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div>";
 }
 
 // information window for nonactive parkings that is shown on clicking a marker
@@ -455,7 +487,7 @@ function distToMeters(distance) {
 }
 
 // remove after filling info
-function showMarkerWindowNoInfo(parking, marker) {
+/*function showMarkerWindowNoInfo(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	var html = "<div class='infoWindow noinfo'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>Предстои да добавим информация за паркинга.</div>";
 	var myOptions = {
@@ -476,7 +508,7 @@ function showMarkerWindowNoInfo(parking, marker) {
 	};
 	ib.setOptions(myOptions);
 	ib.open(map, marker);
-}
+}*/
 
 /*
 $('#location').bind("keyup keypress", function(e) {
@@ -758,7 +790,7 @@ function renderBookingMsg(data) {
 
 function notClientShowNavigation() {
 	$('.msg-directions').html("");
-	$('.msg-directions').html("Паркингът не работи с ParkingSector!");
+	//$('.msg-directions').html("Паркингът не работи с ParkingSector!");
 	$('.directionsBox').show();
 }
 
