@@ -190,6 +190,7 @@ function createMarker(parking, i) {
 		marker.lng = parking.lng;
 		addClickListener(marker, i, parking);
 		markers.push(marker);
+		
 		/*
 		 } else {
 		 var marker = new MarkerWithLabel({
