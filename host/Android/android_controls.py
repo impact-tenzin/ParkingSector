@@ -421,8 +421,9 @@ def create_regular_user(request):
                 
     return HttpResponse("registration complete", content_type="text/html; charset=utf-8")
 
-@csrf_exempt
+
 #url: android_resetEmail request: POST, response: "verified email"
+@csrf_exempt
 def check_for_valid_email(request):
     if 'android' in mobile(request):
             email = request.POST["email"]
@@ -430,8 +431,9 @@ def check_for_valid_email(request):
                 user = User.objects.get(email=email)
             except User.DoesNotExist:
                 try:
-                    user = RegularUser.objects.get(fb_email=email).user
-                except RegularUser.DoesNotExist:
+                    #user = RegularUser.objects.get(fb_email=email).user
+                    user = User.objects.get(id=RegularUser.objects.get(fb_email=email).user_id)
+                except:
                     return HttpResponse("invalid email", content_type="text/html; charset=utf-8")
                 
             activation_key = generate_activation_key()
@@ -441,9 +443,9 @@ def check_for_valid_email(request):
             return HttpResponse("verified email", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
-    
-@csrf_exempt
+
 #url: android_getUsername request: GET, response: user.username
+@csrf_exempt
 def get_username(request):
     if 'android' in mobile(request):
         if user_is_logged_in(request.GET['session_key']):
