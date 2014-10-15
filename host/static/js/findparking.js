@@ -173,7 +173,7 @@ function checkIfParkingWorks(parking) {
 // create marker on map and there are two types, one for active parkings and one for those that do not work
 // during the selected hours
 function createMarker(parking, i) {
-	//if (parking.hasInfo || parking.isClient) {
+	//if (parking.hasInfo || parking.supportsBooking) {
 		//if (checkIfParkingWorks(parking)) {
 		//calcPrice(parking);
 		var marker = new MarkerWithLabel({
@@ -375,7 +375,7 @@ function showMarkerWindow(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	//highlightParking(parking);
 	var priceList = getPriceListForParking(parking);
-	var html = "<div class='infoWindow withinfo' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + showPricePerHour(parking.pricePerHour) + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span>" + showWorkingHours(parking.workFrom, parking.workTo) + "</div>" + "<span class='win-info'>Ценоразпис:</span>"+ showPriceList(parking.pricePerHour, priceList) + showBookingOrNavigationButton(parking.isClient) + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>" + "<div class='arrow-down'></div>";
+	var html = "<div class='infoWindow withinfo' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + showPricePerHour(parking.pricePerHour) + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span>" + showWorkingHours(parking.workFrom, parking.workTo) + "</div>" + "<span class='win-info'>Ценоразпис:</span>"+ showPriceList(parking.pricePerHour, priceList) + showBookingOrNavigationButton(parking.supportsBooking) + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>" + "<div class='arrow-down'></div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
@@ -420,9 +420,9 @@ function showPriceList(pricePerHour ,priceList)
 		return "<br><div class='pricelistHolder'><div class='priceBox'>1ч - " + priceList.oneHour + "</div><div class='priceBox'>2ч - " + priceList.twoHours + "</div><div class='priceBox'>3ч - " + priceList.threeHours + "</div><div class='priceBox'>4ч - " + priceList.fourHours + "</div><br><div class='priceBox'>5ч - " + priceList.fiveHours + "</div><div class='priceBox'>6ч - " + priceList.sixHours + "</div><div class='priceBox'>7ч - " + priceList.sevenHours + "</div><div class='priceBox'>8ч - " + priceList.eightHours + "</div><br><div class='priceBox'>9ч - " + priceList.nineHours + "</div><div class='priceBox'>10ч - " + priceList.tenHours + "</div><div class='priceBox'>11ч - " + priceList.elevenHours + "</div><div class='priceBox'>12ч - " + priceList.twelveHours + "</div></div>";
 }
 
-function showBookingOrNavigationButton(isClient)
+function showBookingOrNavigationButton(supportsBooking)
 {
-	if(isClient)
+	if(supportsBooking)
 		return "<div class='win-book' onclick='bookingRequest();'>Запази място</div>";
 	else
 		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div>";
@@ -561,7 +561,7 @@ function bookingRequest() {
 			if (data == "Not authenticated")
 				bookingMsg(parking_id);
 			else {
-				if (!parkings.filter(function(parking){return parking.id == parking_id;})[0].isClient) {
+				if (!parkings.filter(function(parking){return parking.id == parking_id;})[0].supportsBooking) {
 					notClientShowNavigation();
 				} else
 					preConfirmBooking(data);
@@ -938,8 +938,8 @@ function parseAjaxParkings(ajaxParkings) {
 		var currentParking = new Object();
 		currentParking.id = parseInt(ajaxParkings[i].pk);
 		currentParking.availableSpaces = parseFloat(ajaxParkings[i].fields['availableSpaces']);
-		currentParking.isClient = ajaxParkings[i].fields['isClient'];
-		currentParking.hasInfo = ajaxParkings[i].fields['hasInfo'];
+		currentParking.supportsBooking = ajaxParkings[i].fields['supportsBooking'];
+		//currentParking.hasInfo = ajaxParkings[i].fields['hasInfo'];
 		currentParking.name = ajaxParkings[i].fields['name'];
 		currentParking.address = ajaxParkings[i].fields['address'];
 		currentParking.lat = parseFloat(ajaxParkings[i].fields['lat']);
