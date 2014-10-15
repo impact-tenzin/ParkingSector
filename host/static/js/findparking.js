@@ -161,7 +161,7 @@ return methods[i];
 
 function checkIfParkingWorks(parking) {
 	var arrival = parseFloat((parseFloat($('.arrival-time').val().split(' ')[1].replace(":", "."))).toFixed(2));
-	var duration = parseInt($( "#duration option:selected" ).val());
+	var duration = parseInt($("#duration option:selected").val());
 	var departure = arrival + duration;
 
 	if (arrival >= (parseFloat(parking.workFrom)).toFixed(2) && arrival <= (parseFloat(parking.workTo)).toFixed(2) && departure <= (parseFloat(parking.workTo)).toFixed(2) && departure >= (parseFloat(parking.workFrom)).toFixed(2))
@@ -174,55 +174,55 @@ function checkIfParkingWorks(parking) {
 // during the selected hours
 function createMarker(parking, i) {
 	//if (parking.hasInfo || parking.supportsBooking) {
-		//if (checkIfParkingWorks(parking)) {
-		//calcPrice(parking);
-		var marker = new MarkerWithLabel({
-			position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
-			draggable : false,
-			map : map,
-			labelVisible : true,
-			icon : "/static/imgs/parkingPointer.png",
-			//labelContent : "<p>" + parking.price + " " + "<span class='spanlv'>лв</span>" + "</p>",
-			labelAnchor : new google.maps.Point(30, 33),
-			labelClass : "labels", // the CSS class for the label
-		});
-		marker.lat = parking.lat;
-		marker.lng = parking.lng;
-		addClickListener(marker, i, parking);
-		markers.push(marker);
-		
-		/*
-		 } else {
-		 var marker = new MarkerWithLabel({
-		 position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
-		 draggable : false,
-		 map : map,
-		 labelVisible : true,
-		 icon : "/static/imgs/parkingPointerBlurredNA.png",
-		 //labelContent : "<p>N/A</p>",
-		 labelAnchor : new google.maps.Point(30, 33),
-		 labelClass : "labels", // the CSS class for the label
-		 });
-		 marker.lat = parking.lat;
-		 addClickListener(marker, i, parking);
-		 markers.push(marker);
-		 }*/
+	//if (checkIfParkingWorks(parking)) {
+	//calcPrice(parking);
+	var marker = new MarkerWithLabel({
+		position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
+		draggable : false,
+		map : map,
+		labelVisible : true,
+		icon : "/static/imgs/parkingPointer.png",
+		//labelContent : "<p>" + parking.price + " " + "<span class='spanlv'>лв</span>" + "</p>",
+		labelAnchor : new google.maps.Point(30, 33),
+		labelClass : "labels", // the CSS class for the label
+	});
+	marker.lat = parking.lat;
+	marker.lng = parking.lng;
+	addClickListener(marker, i, parking);
+	markers.push(marker);
+
+	/*
+	 } else {
+	 var marker = new MarkerWithLabel({
+	 position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
+	 draggable : false,
+	 map : map,
+	 labelVisible : true,
+	 icon : "/static/imgs/parkingPointerBlurredNA.png",
+	 //labelContent : "<p>N/A</p>",
+	 labelAnchor : new google.maps.Point(30, 33),
+	 labelClass : "labels", // the CSS class for the label
+	 });
+	 marker.lat = parking.lat;
+	 addClickListener(marker, i, parking);
+	 markers.push(marker);
+	 }*/
 
 	/*} else {
-		var marker = new MarkerWithLabel({
-			position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
-			draggable : false,
-			map : map,
-			labelVisible : true,
-			icon : "/static/imgs/parkingPointerNoInfo.png",
-			//labelContent : "",
-			labelAnchor : new google.maps.Point(30, 33),
-			labelClass : "labels", // the CSS class for the label
-		});
-		marker.lat = parking.lat;
-		addClickListener(marker, i, parking);
-		markers.push(marker);
-	}*/
+	 var marker = new MarkerWithLabel({
+	 position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
+	 draggable : false,
+	 map : map,
+	 labelVisible : true,
+	 icon : "/static/imgs/parkingPointerNoInfo.png",
+	 //labelContent : "",
+	 labelAnchor : new google.maps.Point(30, 33),
+	 labelClass : "labels", // the CSS class for the label
+	 });
+	 marker.lat = parking.lat;
+	 addClickListener(marker, i, parking);
+	 markers.push(marker);
+	 }*/
 }
 
 // add proper onclick events depending on active or nonactive parking
@@ -375,7 +375,7 @@ function showMarkerWindow(parking, marker) {
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	//highlightParking(parking);
 	var priceList = getPriceListForParking(parking);
-	var html = "<div class='infoWindow withinfo' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + showPricePerHour(parking.pricePerHour) + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span>" + showWorkingHours(parking.workFrom, parking.workTo) + "</div>" + "<span class='win-info'>Ценоразпис:</span>"+ showPriceList(parking.pricePerHour, priceList) + showBookingOrNavigationButton(parking.supportsBooking) + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>" + "<div class='arrow-down'></div>";
+	var html = "<div class='infoWindow withinfo' id='" + parking.lat + ";" + parking.lng + "'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>" + parking.address + "</div>" + showPricePerHour(parking.pricePerHour) + "<div class='win-distance'><span class='win-info'>Разстояние:</span><div class='parameters'>" + distToMeters(parking.distance) + "</div></div>" + "<div class='win-time'><span class='win-info'>Работно време:</span>" + showWorkingHours(parking.workFrom, parking.workTo) + "</div>" + "<span class='win-info'>Ценоразпис:</span>" + showPriceList(parking.pricePerHour, priceList) + showBookingOrNavigationButton(parking.supportsBooking) + "<div id='window-selected-id' class=" + "'" + parking.id + "'" + "hidden></div>" + "</div>" + "<div class='arrow-down'></div>";
 	var myOptions = {
 		content : html,
 		disableAutoPan : false,
@@ -396,33 +396,29 @@ function showMarkerWindow(parking, marker) {
 	ib.open(map, marker);
 }
 
-function showPricePerHour(pricePerHour)
-{
-	if(pricePerHour <= 0)
+function showPricePerHour(pricePerHour) {
+	if (pricePerHour <= 0)
 		return "";
 	else
 		return "<div class='win-price'><span>" + pricePerHour + " лв/час</span></div>";
 }
 
-function showWorkingHours(workFrom, workTo)
-{
-	if(workFrom == 0.00 && workTo == 0.00)
+function showWorkingHours(workFrom, workTo) {
+	if ((workFrom == 0.00 && workTo == 0.00) || isNaN(workFrom) || workFrom == undefined || workFrom == null || isNaN(workTo) || workTo == undefined || workTo == null)
 		return "<div class='parameters'>--</div>";
 	else
 		return "<div class='parameters'>" + workFrom + " - " + workTo + "</div>";
 }
 
-function showPriceList(pricePerHour ,priceList)
-{
-	if(pricePerHour <= 0)
+function showPriceList(pricePerHour, priceList) {
+	if (pricePerHour <= 0)
 		return "<div class='parameters'>няма информация</div>";
 	else
 		return "<br><div class='pricelistHolder'><div class='priceBox'>1ч - " + priceList.oneHour + "</div><div class='priceBox'>2ч - " + priceList.twoHours + "</div><div class='priceBox'>3ч - " + priceList.threeHours + "</div><div class='priceBox'>4ч - " + priceList.fourHours + "</div><br><div class='priceBox'>5ч - " + priceList.fiveHours + "</div><div class='priceBox'>6ч - " + priceList.sixHours + "</div><div class='priceBox'>7ч - " + priceList.sevenHours + "</div><div class='priceBox'>8ч - " + priceList.eightHours + "</div><br><div class='priceBox'>9ч - " + priceList.nineHours + "</div><div class='priceBox'>10ч - " + priceList.tenHours + "</div><div class='priceBox'>11ч - " + priceList.elevenHours + "</div><div class='priceBox'>12ч - " + priceList.twelveHours + "</div></div>";
 }
 
-function showBookingOrNavigationButton(supportsBooking)
-{
-	if(supportsBooking)
+function showBookingOrNavigationButton(supportsBooking) {
+	if (supportsBooking)
 		return "<div class='win-book' onclick='bookingRequest();'>Запази място</div>";
 	else
 		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div>";
@@ -488,26 +484,26 @@ function distToMeters(distance) {
 
 // remove after filling info
 /*function showMarkerWindowNoInfo(parking, marker) {
-	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
-	var html = "<div class='infoWindow noinfo'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>Предстои да добавим информация за паркинга.</div>";
-	var myOptions = {
-		content : html,
-		disableAutoPan : false,
-		maxWidth : 0,
-		pixelOffset : new google.maps.Size(-140, 0),
-		zIndex : null,
-		boxStyle : {
-			height : "0px",
-			width : "0px",
-		},
-		closeBoxURL : "",
-		infoBoxClearance : new google.maps.Size(1, 1),
-		isHidden : false,
-		pane : "floatPane",
-		enableEventPropagation : false
-	};
-	ib.setOptions(myOptions);
-	ib.open(map, marker);
+map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
+var html = "<div class='infoWindow noinfo'>" + "<span class='glyphicon glyphicon-remove closeX' onclick='closeBox();'></span>" + "<div class='win-address'>Предстои да добавим информация за паркинга.</div>";
+var myOptions = {
+content : html,
+disableAutoPan : false,
+maxWidth : 0,
+pixelOffset : new google.maps.Size(-140, 0),
+zIndex : null,
+boxStyle : {
+height : "0px",
+width : "0px",
+},
+closeBoxURL : "",
+infoBoxClearance : new google.maps.Size(1, 1),
+isHidden : false,
+pane : "floatPane",
+enableEventPropagation : false
+};
+ib.setOptions(myOptions);
+ib.open(map, marker);
 }*/
 
 /*
