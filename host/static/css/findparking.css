@@ -566,8 +566,8 @@ body {
 	right: 0px;
 	margin: 10% auto 0px auto;
 	background-color: rgba(255, 255, 255, 0.85);
-	border-radius: 0px !important;
-	border: 1px solid #000 !important;
+	border-radius: 10px !important;
+	border: 1px solid #bbb !important;
 	padding: 10px 25px 20px;
 	z-index: 9999;
 	text-align: center !important;
@@ -707,12 +707,14 @@ body {
 	cursor: pointer;
 }
 .directionsButton {
+	font-family: Calibri;
 	display: inline-block;
 	/*width: 49%;*/
 	margin: 0px;
+	border-radius: 5px;
 	border: 1px solid #FFF;
 	text-align: center;
-	font-size: 16px;
+	font-size: 17px !important;
 	/*height: 30px;*/
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -816,17 +818,18 @@ body {
 	font-size: 24px;
 }
 .question {
-	font-family: Verdana;
-	font-size: 18px;
-	color: #333;
+	font-family: Calibri;
+	font-size: 20px;
+	color: #666;
 }
 .adp-directions, .adp-placemark, .adp-summary {
 	width: 330px !important;
 }
 .adress {
+	padding-left: 3px;
 	height: 34px;
-	border-radius: 0px;
-	border: 1px solid #333;
+	border-radius: 5px;
+	border: 1px solid #ccc;
 	width: 50%;
 }
 .gn-menu-main .big {
