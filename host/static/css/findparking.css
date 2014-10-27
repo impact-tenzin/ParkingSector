@@ -839,3 +839,16 @@ body {
 .profile{
 	border-radius: 60% !important;
 }
+.first{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	color: #379ef8;
+	cursor: pointer;
+}
+.first:active{
+	color: #fff;
+	background: #379ef8;
+}
+.leftnew{
+	margin-left: 38px;
+}
