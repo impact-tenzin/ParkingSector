@@ -1256,11 +1256,13 @@ function clearLocations() {
 
 function clearFilteredParkings() {
 	$(".currentParkings").html("");
+	$(".freeParkings").html("");
 }
 
 function displayFoundParkings(parkings) {
 	clearFilteredParkings();
 	var hotCounter = 0;
+	// rendering private parkings in left side bar
 	for (var i = 0, len = parkings.length; i < len; i++) {
 		//if (checkIfParkingWorks(parkings[i]) && parkings[i].pricePerHour != 0) {
 		if (parkings[i].pricePerHour > 0) {
@@ -1279,6 +1281,26 @@ function displayFoundParkings(parkings) {
 			addOnclick(parkingLi, i, parkings);
 			hotCounter++;
 		}
+	}
+	
+	//rendering free parkings in left side bar
+	hotCounter = 0;
+	for (var i = 0, len = publicParkings.length; i < len; i++) {
+		//if (checkIfParkingWorks(parkings[i]) && parkings[i].pricePerHour != 0) {
+			//calcPrice(parkings[i]);
+			var parkingLi = document.createElement('li');
+			if (publicParkings[i].distance > 0.5)
+				if (hotCounter < 3)
+					parkingLi.innerHTML = "<a class='hot'><span class='leftPad'><i class='fa fa-thumbs-o-up'></i> <i class='fa fa-car'></i>  - безплатен - " + (Math.round(publicParkings[i].distance * 10) / 10).toFixed(1) + " км <i class='fa fa-check'></i></span>";
+				else
+					parkingLi.innerHTML = "<a><span class='leftPad'><i class='fa fa-car'></i>  -  безплатен - " + (Math.round(publicParkings[i].distance * 10) / 10).toFixed(1) + " км <i class='fa fa-check'></i></span>";
+			else if (hotCounter < 3)
+				parkingLi.innerHTML = "<a class='hot'><span class='leftPad'><i class='fa fa-thumbs-o-up'></i> <i class='fa fa-car'></i>  - безплатен - " + (publicParkings[i].distance).toFixed(3) * 1000 + " м <i class='fa fa-check'></i></span>";
+			else
+				parkingLi.innerHTML = "<a><span class='leftPad'><i class='fa fa-car'></i>  - безплатен - " + (publicParkings[i].distance).toFixed(3) * 1000 + " м <i class='fa fa-check'></i></span>";
+			$(".freeParkings").append(parkingLi);
+			addOnclick(parkingLi, i, publicParkings);
+			hotCounter++;
 	}
 	//showOrHide();
 }
@@ -1512,4 +1534,16 @@ function clearLocationsButLeaveParkingDestination(parkingLat, parkingLng) {
 		markers[i].setMap(null);
 	};
 	markers.length = 0;
+}
+
+function showFreeParkings()
+{
+	$(".priveteParkings").hide();
+	$(".freeParkings").show();
+}
+
+function showPrivateParkings()
+{
+	$(".freeParkings").hide();
+	$(".priveteParkings").show();
 }
