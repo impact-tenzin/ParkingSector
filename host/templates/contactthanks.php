@@ -136,10 +136,7 @@
 							
 							<!-- Intro Section Button -->	
 							<div class="intro_button text-center">
-								<form action="contactengine.php" method="post">
-								<input name="Email" type="text" id="Email" placeholder="Вашият имейл" class="email"/>
-								<button type="submit" name="submit" id="Submit" class="btn btn-primary btn-lg">Изпрати</button>
-								</form>
+								<h3>Благодарим Ви за информацията.</h3>
 							</div>
 								
 						</div>	<!-- End Intro Section Description -->	
