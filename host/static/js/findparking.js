@@ -107,7 +107,7 @@ function getCoords(autocomplete) {
 }
 
 //remove last else and previous else-if -> only else when filling all info
-function triggerWindowForChosenParking(lat, lng) {
+/*function triggerWindowForChosenParking(lat, lng) {
 	for (var i = 0, len = parkings.length; i < len; i++) {
 		if (lat == parkings[i].lat) {
 			if (markers[i].icon == "/static/imgs/parkingPointer.png" || markers[i].icon == "/static/imgs/parkingPointerBlurred.png") {
@@ -122,7 +122,7 @@ function triggerWindowForChosenParking(lat, lng) {
 			}
 		}
 	};
-}
+}*/
 
 // get the length of parkings that are active
 /*
@@ -176,21 +176,38 @@ function createMarker(parking, i) {
 	//if (parking.hasInfo || parking.supportsBooking) {
 	//if (checkIfParkingWorks(parking)) {
 	//calcPrice(parking);
-	var marker = new MarkerWithLabel({
-		position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
-		draggable : false,
-		map : map,
-		labelVisible : true,
-		icon : "/static/imgs/parkingPointer.png",
-		//labelContent : "<p>" + parking.price + " " + "<span class='spanlv'>лв</span>" + "</p>",
-		labelAnchor : new google.maps.Point(30, 33),
-		labelClass : "labels", // the CSS class for the label
-	});
-	marker.lat = parking.lat;
-	marker.lng = parking.lng;
-	addClickListener(marker, i, parking);
-	markers.push(marker);
-
+	if (!parking.isPublic) {
+		var marker = new MarkerWithLabel({
+			position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
+			draggable : false,
+			map : map,
+			labelVisible : true,
+			icon : "/static/imgs/parkingPointer.png",
+			//labelContent : "<p>" + parking.price + " " + "<span class='spanlv'>лв</span>" + "</p>",
+			labelAnchor : new google.maps.Point(30, 33),
+			labelClass : "labels", // the CSS class for the label
+		});
+		marker.lat = parking.lat;
+		marker.lng = parking.lng;
+		addClickListener(marker, i, parking);
+		markers.push(marker);
+	}
+	else{
+		var marker = new MarkerWithLabel({
+			position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
+			draggable : false,
+			map : map,
+			labelVisible : true,
+			icon : "/static/imgs/public_parking.png",
+			//labelContent : "<p>" + parking.price + " " + "<span class='spanlv'>лв</span>" + "</p>",
+			//labelAnchor : new google.maps.Point(30, 33),
+			labelClass : "labels", // the CSS class for the label
+		});
+		marker.lat = parking.lat;
+		marker.lng = parking.lng;
+		addClickListener(marker, i, parking);
+		markers.push(marker);
+	}
 	/*
 	 } else {
 	 var marker = new MarkerWithLabel({
@@ -227,12 +244,12 @@ function createMarker(parking, i) {
 
 // add proper onclick events depending on active or nonactive parking
 function addClickListener(marker, i, parking) {
-	if (marker.icon == "/static/imgs/parkingPointer.png" || marker.icon == "/static/imgs/parkingPointerBlurred.png")
+	//if (marker.icon == "/static/imgs/parkingPointer.png" || marker.icon == "/static/imgs/parkingPointerBlurred.png")
 		handlers[i] = google.maps.event.addListener(marker, 'click', function() {
 			$('.directionsBox').hide();
 			showMarkerWindow(parking, marker);
 		});
-	else if (marker.icon == "/static/imgs/parkingPointerBlurredNA.png")
+	/*else if (marker.icon == "/static/imgs/public_parking.png")
 		handlers[i] = google.maps.event.addListener(marker, 'click', function() {
 			$('.directionsBox').hide();
 			showMarkerWindowNA(parking, marker);
@@ -240,7 +257,7 @@ function addClickListener(marker, i, parking) {
 	else
 		handlers[i] = google.maps.event.addListener(marker, 'click', function() {
 			showMarkerWindowNoInfo(parking, marker);
-		});
+		});*/
 }
 
 // calculating price for the selected time frame
@@ -555,13 +572,14 @@ function bookingRequest() {
 		//dataType : 'json',
 		success : function(data) {
 			if (data == "Not authenticated")
-				bookingMsg(parking_id);
+				$('.signInBox').show();
 			else {
 				if (!parkings.filter(function(parking){return parking.id == parking_id;})[0].supportsBooking) {
 					notClientShowNavigation();
 				} else
 					preConfirmBooking(data);
 			}
+			markBooking(parking_id);
 		},
 		error : function(error) {
 
@@ -582,12 +600,10 @@ function preConfirmBooking(data) {
 	}
 }
 
-function bookingMsg(idOfParkingClicked) {
-	$('.signInBox').show();
+/*function bookingMsg() {
 
 	//var idOfParkingClicked = getParkingId(address);
-	markBooking(idOfParkingClicked);
-}
+}*/
 
 /*function getParkingId(address) {
  for (var i = 0; i < parkings.length; i++) {
@@ -887,6 +903,11 @@ function ajaxCall(lat, lng) {
 			for (var i = 0, len = parkings.length; i < len; i++) {
 				createMarker(parkings[i], i);
 			}
+
+			publicParkings = parkings.filter(function(parking) {
+				return parking.isPublic;
+			});
+
 			allParkings = parkings;
 			sortAscendingByPrice(allParkings);
 			filterParkingsAndDisplay(allParkings);
@@ -935,6 +956,7 @@ function parseAjaxParkings(ajaxParkings) {
 		currentParking.id = parseInt(ajaxParkings[i].pk);
 		currentParking.availableSpaces = parseFloat(ajaxParkings[i].fields['availableSpaces']);
 		currentParking.supportsBooking = ajaxParkings[i].fields['supportsBooking'];
+		currentParking.isPublic = ajaxParkings[i].fields['isPublic'];
 		//currentParking.hasInfo = ajaxParkings[i].fields['hasInfo'];
 		currentParking.name = ajaxParkings[i].fields['name'];
 		currentParking.address = ajaxParkings[i].fields['address'];
@@ -1041,6 +1063,11 @@ function getSofiaParkings() {
 			for (var i = 0, len = parkings.length; i < len; i++) {
 				createMarker(parkings[i], i);
 			}
+
+			publicParkings = parkings.filter(function(parking) {
+				return parking.isPublic;
+			});
+
 			allParkings = parkings;
 			sortAscendingByPrice(allParkings);
 			filterParkingsAndDisplay(allParkings);

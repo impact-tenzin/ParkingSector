@@ -20,7 +20,7 @@ class ParkingMarker(models.Model):
     city = models.CharField(max_length=50,null = True, blank=True)
     bookingCounter = models.IntegerField(null = True, blank=True, default = 0)
     supportsBooking = models.BooleanField(default=False)
-    #hasInfo = models.BooleanField(default=False)
+    isPublic = models.BooleanField(default=False)
     features = models.ForeignKey('ParkingFeatures',null = True, blank=True,default = 1)
     paymentMethod = models.ForeignKey('PaymentMethod',null = True, blank=True,default = 1)
     contacts = models.ForeignKey('Contacts',null = True, blank=True,default = 1)

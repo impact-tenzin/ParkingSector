@@ -61,15 +61,16 @@ def sofia_parkings(request):
                         for parking in parkings
             ]
         
-            payment_methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id)
-                                   for parking in parkings
-            ]
+            #payment_methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id)
+            #                       for parking in parkings
+            #]
                 
             price_lists = [PriceList.objects.get(id=parking.priceList_id)
                                for parking in parkings
             ]
         
-            combined = list(chain(parkings, payment_methods, features, price_lists))
+            #combined = list(chain(parkings, payment_methods, features, price_lists))
+            combined = list(chain(parkings, features, price_lists))
             data = serializers.serialize("json", combined)
             return HttpResponse(data, content_type="application/json; charset=utf-8")
         else:
@@ -91,10 +92,10 @@ def ajax_call(request, latlng):
                     if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5
             ]
         
-            methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id)
-                        for parking in ParkingMarker.objects.all() 
-                        if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5
-            ]
+            #methods = [PaymentMethod.objects.get(id=parking.paymentMethod_id)
+            #            for parking in ParkingMarker.objects.all() 
+            #            if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5
+            #]
         
             features = [ParkingFeatures.objects.get(id=parking.features_id)
                         for parking in ParkingMarker.objects.all() 
@@ -106,7 +107,8 @@ def ajax_call(request, latlng):
                            if distance([parking.lat, parking.lng], [float(lat), float(lng)]) < 0.5
             ]
                 
-            combined = list(chain(parkings, methods, features, price_lists))
+            #combined = list(chain(parkings, methods, features, price_lists))
+            combined = list(chain(parkings, features, price_lists))
             data = serializers.serialize("json", combined)
             return HttpResponse(data, content_type="application/json; charset=utf-8")
         else:
