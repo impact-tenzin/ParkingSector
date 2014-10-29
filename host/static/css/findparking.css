@@ -852,3 +852,103 @@ body {
 .leftnew{
 	margin-left: 38px;
 }
+/*green*/
+.infoWindow2 {
+	position: absolute;
+	background-color: #f2f2f2;/*#2f2f2e;*/
+	opacity: 0.9;
+	width: 255px;
+	padding: 5px 5px 0px 5px;
+	border-radius: 4px;
+	border: 3px solid #1f9450;
+}
+.withinfo2{
+	bottom: 70px;
+	left: 17px;
+	color: #DDD !important;
+}
+.noinfo2{
+	bottom:45px;
+	left:17px;
+}
+.markerCenterWindow2{
+	position: absolute;
+	background-color: #80d894;
+	opacity: 0.9;
+	min-width: 105px;
+	font-weight: 400;
+	font-size: 15px;
+	padding-left: 5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border-radius: 4px;
+	border: 3px solid #1f9450;
+	bottom:45px;
+	left:87px;
+	color: #FFF !important;
+}
+
+.win-address2 {
+	font-size: 15px;
+	color: #333;
+}
+.win-price2 span {
+	background-color: #f7685c;
+	color: #FFF;
+	padding: 0px 5px;
+}
+.win-price2 {
+	margin-bottom: 5px;
+	font-size: 14px;
+	color: #333 !important;
+}
+.win-distance2 {
+	width: 100%;
+	color: #333 !important;
+}
+.parameters2 {
+	width: 100%;
+	font-size: 14px;
+	text-align: center;
+	color: #333;/*rgb(27,162,217);*/
+}
+
+.win-info2 {
+	float: left;
+	font-size: 14px;
+	color: #333;
+	opacity: 0.8;
+}
+.win-book2 {
+	width: 100%;
+	height: 30px;
+	background-color: #1f9450;/*#2ecc71;*/
+	color: #FFFFFF;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 0px;
+	margin-bottom: 5px;
+	font-size: 16px;
+	cursor: pointer;
+}
+.closeX2 {
+	position: absolute !important;
+	top: 2px !important;
+	left: 220px;
+	padding-left: 5px;
+	font-size: 17px;
+	opacity: 0.6;
+	cursor: pointer;
+	color: #333 !important;
+}
+.arrow-down2 {
+	position: absolute !important;
+	top: -70px !important;
+	left: 110px;
+	width: 0; 
+	height: 0; 
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+	border-top: 25px solid #1f9450;/*#2ecc71;- blue #2f2f2e;
+	opacity: 0.9;*/
+}
