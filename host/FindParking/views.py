@@ -2,7 +2,7 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, HttpResponse
 from home.forms import LocationForm, SubscribeForm
-from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, PriceList
+from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, PriceList, Feedback
 from home.views import distance
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError

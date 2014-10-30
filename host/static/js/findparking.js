@@ -108,20 +108,20 @@ function getCoords(autocomplete) {
 
 //remove last else and previous else-if -> only else when filling all info
 /*function triggerWindowForChosenParking(lat, lng) {
-	for (var i = 0, len = parkings.length; i < len; i++) {
-		if (lat == parkings[i].lat) {
-			if (markers[i].icon == "/static/imgs/parkingPointer.png" || markers[i].icon == "/static/imgs/parkingPointerBlurred.png") {
-				showMarkerWindow(parkings[i], markers[i]);
-				break;
-			} else if (markers[i].icon == "/static/imgs/parkingPointerBlurredNA.png") {
-				showMarkerWindowNA(parkings[i], markers[i]);
-				break;
-			} else {
-				showMarkerWindowNoInfo(parkings[i], markers[i]);
-				break;
-			}
-		}
-	};
+for (var i = 0, len = parkings.length; i < len; i++) {
+if (lat == parkings[i].lat) {
+if (markers[i].icon == "/static/imgs/parkingPointer.png" || markers[i].icon == "/static/imgs/parkingPointerBlurred.png") {
+showMarkerWindow(parkings[i], markers[i]);
+break;
+} else if (markers[i].icon == "/static/imgs/parkingPointerBlurredNA.png") {
+showMarkerWindowNA(parkings[i], markers[i]);
+break;
+} else {
+showMarkerWindowNoInfo(parkings[i], markers[i]);
+break;
+}
+}
+};
 }*/
 
 // get the length of parkings that are active
@@ -191,8 +191,7 @@ function createMarker(parking, i) {
 		marker.lng = parking.lng;
 		addClickListener(marker, i, parking);
 		markers.push(marker);
-	}
-	else{
+	} else {
 		var marker = new MarkerWithLabel({
 			position : new google.maps.LatLng(parseFloat(parking.lat), parseFloat(parking.lng)),
 			draggable : false,
@@ -245,19 +244,19 @@ function createMarker(parking, i) {
 // add proper onclick events depending on active or nonactive parking
 function addClickListener(marker, i, parking) {
 	//if (marker.icon == "/static/imgs/parkingPointer.png" || marker.icon == "/static/imgs/parkingPointerBlurred.png")
-		handlers[i] = google.maps.event.addListener(marker, 'click', function() {
-			$('.directionsBox').hide();
-			showMarkerWindow(parking, marker);
-		});
+	handlers[i] = google.maps.event.addListener(marker, 'click', function() {
+		$('.directionsBox').hide();
+		showMarkerWindow(parking, marker);
+	});
 	/*else if (marker.icon == "/static/imgs/public_parking.png")
-		handlers[i] = google.maps.event.addListener(marker, 'click', function() {
-			$('.directionsBox').hide();
-			showMarkerWindowNA(parking, marker);
-		});
-	else
-		handlers[i] = google.maps.event.addListener(marker, 'click', function() {
-			showMarkerWindowNoInfo(parking, marker);
-		});*/
+	 handlers[i] = google.maps.event.addListener(marker, 'click', function() {
+	 $('.directionsBox').hide();
+	 showMarkerWindowNA(parking, marker);
+	 });
+	 else
+	 handlers[i] = google.maps.event.addListener(marker, 'click', function() {
+	 showMarkerWindowNoInfo(parking, marker);
+	 });*/
 }
 
 // calculating price for the selected time frame
@@ -633,8 +632,8 @@ function preConfirmBooking(data) {
 
 /*function bookingMsg() {
 
-	//var idOfParkingClicked = getParkingId(address);
-}*/
+ //var idOfParkingClicked = getParkingId(address);
+ }*/
 
 /*function getParkingId(address) {
  for (var i = 0; i < parkings.length; i++) {
@@ -938,9 +937,11 @@ function ajaxCall(lat, lng) {
 			publicParkings = parkings.filter(function(parking) {
 				return parking.isPublic;
 			});
-			
-			parkings = parkings.filter(function(parking){return !parking.isPublic});
-			
+
+			parkings = parkings.filter(function(parking) {
+				return !parking.isPublic
+			});
+
 			allParkings = parkings;
 			sortAscendingByPrice(allParkings);
 			filterParkingsAndDisplay(allParkings);
@@ -1100,9 +1101,11 @@ function getSofiaParkings() {
 			publicParkings = parkings.filter(function(parking) {
 				return parking.isPublic;
 			});
-			
-			parkings = parkings.filter(function(parking){return !parking.isPublic});
-			
+
+			parkings = parkings.filter(function(parking) {
+				return !parking.isPublic
+			});
+
 			allParkings = parkings;
 			sortAscendingByPrice(allParkings);
 			filterParkingsAndDisplay(allParkings);
@@ -1317,25 +1320,25 @@ function displayFoundParkings(parkings) {
 			hotCounter++;
 		}
 	}
-	
+
 	//rendering free parkings in left side bar
 	hotCounter = 0;
 	for (var i = 0, len = publicParkings.length; i < len; i++) {
 		//if (checkIfParkingWorks(parkings[i]) && parkings[i].pricePerHour != 0) {
-			//calcPrice(parkings[i]);
-			var parkingLi = document.createElement('li');
-			if (publicParkings[i].distance > 0.5)
-				if (hotCounter < 3)
-					parkingLi.innerHTML = "<a class='hot'><span class='leftPad'><i class='fa fa-thumbs-o-up'></i> <i class='fa fa-car'></i>  - безплатен - " + (Math.round(publicParkings[i].distance * 10) / 10).toFixed(1) + " км <i class='fa fa-check'></i></span>";
-				else
-					parkingLi.innerHTML = "<a><span class='leftPad'><i class='fa fa-car'></i>  -  безплатен - " + (Math.round(publicParkings[i].distance * 10) / 10).toFixed(1) + " км <i class='fa fa-check'></i></span>";
-			else if (hotCounter < 3)
-				parkingLi.innerHTML = "<a class='hot'><span class='leftPad'><i class='fa fa-thumbs-o-up'></i> <i class='fa fa-car'></i>  - безплатен - " + (publicParkings[i].distance).toFixed(3) * 1000 + " м <i class='fa fa-check'></i></span>";
+		//calcPrice(parkings[i]);
+		var parkingLi = document.createElement('li');
+		if (publicParkings[i].distance > 0.5)
+			if (hotCounter < 3)
+				parkingLi.innerHTML = "<a class='hot'><span class='leftPad'><i class='fa fa-thumbs-o-up'></i> <i class='fa fa-car'></i>  - безплатен - " + (Math.round(publicParkings[i].distance * 10) / 10).toFixed(1) + " км <i class='fa fa-check'></i></span>";
 			else
-				parkingLi.innerHTML = "<a><span class='leftPad'><i class='fa fa-car'></i>  - безплатен - " + (publicParkings[i].distance).toFixed(3) * 1000 + " м <i class='fa fa-check'></i></span>";
-			$(".freeParkings").append(parkingLi);
-			addOnclick(parkingLi, i, publicParkings);
-			hotCounter++;
+				parkingLi.innerHTML = "<a><span class='leftPad'><i class='fa fa-car'></i>  -  безплатен - " + (Math.round(publicParkings[i].distance * 10) / 10).toFixed(1) + " км <i class='fa fa-check'></i></span>";
+		else if (hotCounter < 3)
+			parkingLi.innerHTML = "<a class='hot'><span class='leftPad'><i class='fa fa-thumbs-o-up'></i> <i class='fa fa-car'></i>  - безплатен - " + (publicParkings[i].distance).toFixed(3) * 1000 + " м <i class='fa fa-check'></i></span>";
+		else
+			parkingLi.innerHTML = "<a><span class='leftPad'><i class='fa fa-car'></i>  - безплатен - " + (publicParkings[i].distance).toFixed(3) * 1000 + " м <i class='fa fa-check'></i></span>";
+		$(".freeParkings").append(parkingLi);
+		addOnclick(parkingLi, i, publicParkings);
+		hotCounter++;
 	}
 	//showOrHide();
 }
@@ -1571,31 +1574,32 @@ function clearLocationsButLeaveParkingDestination(parkingLat, parkingLng) {
 	markers.length = 0;
 }
 
-function showFreeParkings()
-{
+function showFreeParkings() {
 	$(".priveteParkings").hide();
 	$(".freeParkings").show();
 }
 
-function showPrivateParkings()
-{
+function showPrivateParkings() {
 	$(".freeParkings").hide();
 	$(".priveteParkings").show();
 }
 
-function saveFeedback()
-{
-	if ($("#booking").prop("freespaces", false) && $("#other").prop("checked", false) &&
-		 $("#radio_1").prop("checked", false) && $("#useful").prop("checked", false) && $("#notuseful").prop("checked", false)){
+function saveFeedback() {
+	if (!$("#booking").prop("checked") && !$("#other").prop("checked") && !$("#freespaces").prop("checked") && !$("#useful").prop("checked") && !$("#notuseful").prop("checked")) {
 		return;
 	}
-	
-	var booking = $("#booking").prop("checked", true) ? "yes" : "no";
-	var freespaces = $("#freespaces").prop("checked", true) ? "yes" : "no";
-	//var booking = $("#booking").prop("checked", true) ? "yes" : "no";
-	var useful = $("#useful").prop("checked", true) ? "yes" : "no";
-	var notuseful = $("#notuseful").prop("checked", true) ? "yes" : "no";
-	
+
+	if ($("#booking").prop("checked")) var booking = "yes"
+	else var booking = "--";
+	if ($("#freespaces").prop("checked")) var freespaces = "yes"
+	else var freespaces = "--";
+	if ($("#other").prop("checked")) var other = $("#solution").val()
+	else var other = "";
+	if ($("#useful").prop("checked")) var useful = "yes"
+	else var useful = "--";
+	if ($("#notuseful").prop("checked")) var notuseful = "yes"
+	else var notuseful = "--";
+
 	$.ajax({
 		url : "/saveFeedback/",
 		type : 'POST', //this is the default though, you don't actually need to always mention it
@@ -1606,14 +1610,19 @@ function saveFeedback()
 			'X-Requested-With' : 'XMLHttpRequest'
 		},
 		data : {
-			booking: booking,
-			freespaces: freespaces,
-			other: other,
-			useful: useful,
-			notuseful: notuseful
+			booking : booking,
+			freeSpaces : freespaces,
+			other : other,
+			useful : useful,
+			notUseful : notuseful
 		},
 		success : function(data) {
-			
+			$('.solution').hide();
+			$('.feedback').html("<div class='thank-you'>Благодарим Ви!</div>");
+			setTimeout(function() {
+				$('.bgy').hide();
+				$('.feedback').hide();
+			}, 3000);
 		},
 		error : function(error) {
 			// Log any error.
@@ -1621,5 +1630,13 @@ function saveFeedback()
 
 		},
 	});
-		
+
+}
+
+function showTextbox()
+{
+	if($("#other").prop("checked"))
+		$('.solution').show();
+	else
+		$('.solution').hide();
 }
