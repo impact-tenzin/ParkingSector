@@ -56,23 +56,24 @@
 			<div class="bgy">
 			</div>
 			<div class="feedback">
-				<form class="form-feedback">
 					<div class="col-md-5 radio">
 					<div class="row">
 					<p>Какво бихте искали да можете с Parkingsector?</p>
 					</div>
 					<div class="row">
 					<div class="col-md-5">
-					<input type="checkbox" name="wish" value="запазване на паркомясто"> запазване на паркомясто
+					<input type="checkbox" name="wish" id="wish1" value="запазване на паркомясто"> 
+					<label for="wish1">запазване на паркомясто</label>
 					</div>
 					<div class="col-md-5">
-					<input type="checkbox" name="wish" value="свободни места на паркингите"> свободни места на паркингите
+					<input type="checkbox" name="wish" id="wish2" value="свободни места на паркингите"> 
+					<label for="wish2">свободни места на паркингите</label>
 					</div>
 					<div class="col-md-1">
-					<input type="checkbox" name="wish" value="друго" style="float:left;">
+					<input type="checkbox" name="wish" id="wish3" value="друго" style="float:left;">
 					</div>
 					<div class="col-md-1 leftpad">
-					друго
+					<label for="wish3">друго</label>
 					</div>
 					</div>
 
@@ -83,10 +84,10 @@
 					</div>
 					<div class="row">
 					<div class="col-md-5">
-					<input type="radio" name="value" value="полезен">полезен<br>
+					<input type="radio" name="value" id="value1" value="полезен"><label for="value1">полезен</label><br>
 					</div>
 					<div class="col-md-7">
-					<input type="radio" name="value" value="не ми върши работа" />не ми върши работа<br>
+					<input type="radio" name="value" id="value2" value="не ми върши работа" /><label for="value2">не ми върши работа</label><br>
 					</div>
 					</div>
 					</div>
@@ -95,7 +96,6 @@
 					<button type="submit" name="Submit" id="Submit">Изпрати</button>
 					</div>
 					</div>
-				</form>
 			</div>
 			<!--Confrim booking form-->
 			<div class='confirmBox subscribeBox' hidden>
@@ -636,6 +636,11 @@
 				load();
 				if (!mobilecheck())
 					leftMenu._openMenu();
+				
+				if(mobilecheck() || screen.width < 1100){
+					$('.bgy').hide();
+					$('.feedback').hide();
+				}
 				get_fbid_if_user_loggedin();
 			};
 		</script>
