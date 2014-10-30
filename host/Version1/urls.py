@@ -71,6 +71,7 @@ urlpatterns = patterns('',
     url(r'^resetpassword/(?P<activation_key>.*)/(?P<user_id>.*)', 'user.views.password_reset'),
     url(r'^checkForValidEmail/$', 'user.views.check_for_valid_email'),
     url(r'^setNewPassword/$', 'user.email_confirmation.set_new_password'),
+    url(r'^saveFeedback/$', 'FindParking.views.save_feedback'),
     #url(r'^leavingDriver/', 'parkingclient.views.LeavingDriver'),
     #url(r'^arrivingDriver/', 'parkingclient.views.ArrivingDriver'),
     #override the default urls

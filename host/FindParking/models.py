@@ -93,3 +93,14 @@ class Contacts(models.Model):
     
     def __unicode__(self):
         return unicode(str(self.id))
+    
+class Feedback(models.Model):
+    booking = models.CharField(max_length=5,null = True, blank=True)
+    freeSpaces = models.CharField(max_length=5,null = True, blank=True)
+    other = models.TextField(null = True, blank=True)
+    useful = models.CharField(max_length=5,null = True, blank=True)
+    notUseful = models.CharField(max_length=5,null = True, blank=True)
+
+    def __unicode__(self):
+        return unicode(str(self.id))
+    

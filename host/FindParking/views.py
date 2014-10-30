@@ -102,3 +102,4 @@ def save_viewer(request):
             return HttpResponse("existing", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")
+def save_feedback(request):    if request.is_ajax():            booking = request.POST['booking']            freeSpaces = request.POST['freeSpaces']            other = request.POST['other']            useful = request.POST['useful']            notUseful = request.POST['notUseful']            to_add = Feedback.objects.create(booking=booking, freeSpaces=freeSpaces, other=other, useful=useful, notUseful=notUseful)            to_add.save()            return HttpResponse("thanks", content_type="text/html; charset=utf-8")    else:        return HttpResponse("Error", content_type="text/html; charset=utf-8")
