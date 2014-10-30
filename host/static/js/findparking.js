@@ -1599,7 +1599,9 @@ function saveFeedback() {
 	else var useful = "--";
 	if ($("#notuseful").prop("checked")) var notuseful = "yes"
 	else var notuseful = "--";
-
+	
+	if(booking == "--" && freespaces == "--" && useful == "--" && notuseful == "--" && other == "") return;
+	
 	$.ajax({
 		url : "/saveFeedback/",
 		type : 'POST', //this is the default though, you don't actually need to always mention it
