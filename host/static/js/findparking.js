@@ -1582,3 +1582,44 @@ function showPrivateParkings()
 	$(".freeParkings").hide();
 	$(".priveteParkings").show();
 }
+
+function saveFeedback()
+{
+	if ($("#booking").prop("freespaces", false) && $("#other").prop("checked", false) &&
+		 $("#radio_1").prop("checked", false) && $("#useful").prop("checked", false) && $("#notuseful").prop("checked", false)){
+		return;
+	}
+	
+	var booking = $("#booking").prop("checked", true) ? "yes" : "no";
+	var freespaces = $("#freespaces").prop("checked", true) ? "yes" : "no";
+	//var booking = $("#booking").prop("checked", true) ? "yes" : "no";
+	var useful = $("#useful").prop("checked", true) ? "yes" : "no";
+	var notuseful = $("#notuseful").prop("checked", true) ? "yes" : "no";
+	
+	$.ajax({
+		url : "/saveFeedback/",
+		type : 'POST', //this is the default though, you don't actually need to always mention it
+		xhrFields : {
+			withCredentials : true
+		},
+		headers : {
+			'X-Requested-With' : 'XMLHttpRequest'
+		},
+		data : {
+			booking: booking,
+			freespaces: freespaces,
+			other: other,
+			useful: useful,
+			notuseful: notuseful
+		},
+		success : function(data) {
+			
+		},
+		error : function(error) {
+			// Log any error.
+			console.log("ERROR:", error);
+
+		},
+	});
+		
+}
