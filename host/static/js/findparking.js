@@ -938,7 +938,9 @@ function ajaxCall(lat, lng) {
 			publicParkings = parkings.filter(function(parking) {
 				return parking.isPublic;
 			});
-
+			
+			parkings = parkings.filter(function(parking){return !parking.isPublic});
+			
 			allParkings = parkings;
 			sortAscendingByPrice(allParkings);
 			filterParkingsAndDisplay(allParkings);
@@ -1098,7 +1100,9 @@ function getSofiaParkings() {
 			publicParkings = parkings.filter(function(parking) {
 				return parking.isPublic;
 			});
-
+			
+			parkings = parkings.filter(function(parking){return !parking.isPublic});
+			
 			allParkings = parkings;
 			sortAscendingByPrice(allParkings);
 			filterParkingsAndDisplay(allParkings);
