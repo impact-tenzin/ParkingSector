@@ -1044,3 +1044,11 @@ border: solid 1px #3b7200;
 background-color: #88c72a;
 
 }
+.thank-you{
+	text-align: center;
+	margin-left: 70%;
+	font-size: 16px;
+	font-family: Verdana;
+	color: #333;
+	margin-top: 15px;
+}
