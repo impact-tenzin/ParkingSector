@@ -1012,11 +1012,19 @@ background-color: #88c72a;
 	padding-right: 10px;
 	z-index: 900;
 	position: absolute;
-	top: 65px;
+	top: 60px;
 	left: 500px;
 	background: #fcf9d4;
 	border: 1px solid #ccc;
 	border-radius: 5px;
+	font: 14px;
+	width: 220px;
+}
+.solution input[type=text]{
+	font-family: Verdana;
+	font: 14px;
+	color: #000;
+	width: 195px;
 }
 .solution button{
 	margin-top: -4px;
