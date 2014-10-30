@@ -960,7 +960,7 @@ body {
 	top:0px;
 	left: 12%;
 	height: 60px;
-	width: 755px;
+	width: 875px;
 	background: #fcf9d4;
 	border: 1px solid #ccc;
 	border-radius: 5px;
@@ -1000,4 +1000,7 @@ text-decoration: none;
 border: solid 1px #3b7200;
 background-color: #88c72a;
 
+}
+.leftpad{
+	margin-left: -15px;
 }
