@@ -952,3 +952,52 @@ body {
 	border-top: 25px solid #1f9450;/*#2ecc71;- blue #2f2f2e;
 	opacity: 0.9;*/
 }
+
+/*Feedback*/
+.bgy{
+	z-index: 900;
+	position: absolute;
+	top:0px;
+	left: 12%;
+	height: 60px;
+	width: 755px;
+	background: #fcf9d4;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.feedback{
+	padding-left: 6px;
+	padding-top: 2px;
+	height: 60px;
+
+	position: absolute;
+	top: 0px;
+	left: 12%;
+	z-index: 1000;
+	line-height: 1.00 !important;
+}
+.form-feedback{
+	font-family: Verdana;
+}
+.radio{
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+.feedback button{
+	margin-top: 14px;
+	padding: 2px 2px 2px 2px;
+	-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+	font-family: Helvetica, Arial, sans-serif;
+font-size: 16px;
+font-weight: bold;
+color: #FFFFFF;
+padding: 8px 15px;
+text-shadow: 2px 2px 1px #595959;
+filter: dropshadow(color=#595959, offx=1, offy=1);
+text-decoration: none;
+border: solid 1px #3b7200;
+background-color: #88c72a;
+
+}
