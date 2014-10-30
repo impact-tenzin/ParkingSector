@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 from django.contrib import admin
-from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, Contacts, PriceList
+from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, Contacts, PriceList, Feedback
 
 class ParkingAdmin(admin.ModelAdmin):
     ordering = ['id']
@@ -21,8 +21,8 @@ class PaymentAdmin(admin.ModelAdmin):
 class ContactsAdmin(admin.ModelAdmin):
     ordering = ['id']
     search_fields = ['id']
-    list_display = ['id', 'contactNames', 'contactPosition', 'contactMail', 'contactPhone','website']
-    admin.site.register(PriceList, PriceListAdmin)
+    list_display = ['id', 'contactNames', 'contactPosition', 'contactMail', 'contactPhone','website']class FeedbackAdmin(admin.ModelAdmin):    ordering = ['id']    search_fields = ['id']    list_display = ['id', 'booking', 'freeSpaces', 'other', 'useful','notUseful']
+admin.site.register(Feedback, FeedbackAdmin)   admin.site.register(PriceList, PriceListAdmin)
 admin.site.register(ParkingFeatures, ParkingFeaturesAdmin)
 admin.site.register(ParkingMarker, ParkingAdmin)
 admin.site.register(PaymentMethod, PaymentAdmin)
