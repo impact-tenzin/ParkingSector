@@ -105,6 +105,22 @@
 				</div>
 				</div>
 			</div>
+			<!--Feedback Mobile-->
+			<div class="feedbackholder" hidden>
+				<div class="col-md-12">
+					<p>Какво бихте искали да можете/видите с Parkingsector?</p>
+					<input type="checkbox" name="wish" id="booking2" value="запазване на паркомясто"> 
+					<label for="booking2"> запазване на паркомясто</label><br>
+					<input type="checkbox" name="wish" id="freespaces2" value="свободни места на паркингите"> 
+					<label for="freespaces2"> свободни места на паркингите</label><br>
+					<input type="checkbox" name="wish" id="other2" value="друго" onchange="showTextbox();" style="float:left;">  
+					<label for="other2">  друго</label><br><br>
+					<p>Сайта е:</p>
+					<input type="radio" name="value" id="useful2" value="полезен"> <label for="useful2"> полезен</label><br>
+					<input type="radio" name="value" id="notuseful2" value="не ми върши работа" /> <label for="notuseful2"> не ми върши работа</label><br><br>
+					<p align="center"><button name="Submit" id="Submit" onclick="saveFeedback();">Изпрати</button></p>
+				</div>
+			</div>
 			<!--Confrim booking form-->
 			<div class='confirmBox subscribeBox' hidden>
 				<span class='glyphicon glyphicon-remove close' onclick='closeConfirm();'></span>

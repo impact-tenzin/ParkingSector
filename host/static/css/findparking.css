@@ -1052,3 +1052,25 @@ background-color: #88c72a;
 	color: #333;
 	margin-top: 15px;
 }
+.feedbackholder{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	border: 1px solid #bbb;
+	border-radius: 5px;
+	position: absolute;
+	top: 60px;
+	left: 20px;
+	z-index: 900;
+	background: #fff;
+	width: 280px;
+}
+.feedbackholder button{
+	border: 1px solid #b6b6b6;
+	border-radius: 7px;
+	padding: 5px 10px 5px 10px;
+	background: #fff;
+	color: #6a605e;
+	font-weight: bold;
+}
