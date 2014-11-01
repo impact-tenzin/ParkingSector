@@ -1552,8 +1552,11 @@ function generateDirections(request) {
 			$(".parkingsBar").hide();
 			$("#results").show();
 			leftMenu._openMenu();
-
-			google.maps.event.removeListener(dragendListener);
+			
+			setTimeout(function() {
+				$('.feedbackholder').show();
+			}, 5000);
+			//google.maps.event.removeListener(dragendListener);
 			/*
 			 var myRoute = response.routes[0].legs[0];
 			 for (var i = 0; i < myRoute.steps.length; i++) {
