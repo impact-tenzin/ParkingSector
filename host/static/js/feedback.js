@@ -98,7 +98,6 @@ function sendFeedbackData2(booking, freespaces, other, useful, notuseful)
 			$('.solution2').hide();
 			$('.feedbackholder').html("<div class='thank-you2'>Благодарим Ви!</div>");
 			setTimeout(function() {
-				$('.bgy').hide();
 				$('.feedbackholder').hide();
 			}, 3000);
 		},

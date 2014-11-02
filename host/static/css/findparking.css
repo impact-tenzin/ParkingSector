@@ -853,7 +853,16 @@ body {
 	margin-left: 38px;
 }
 /*green*/
-.infoWindow2 {
+/*.infoWindow2 {
+	position: absolute;
+	background-color: #f2f2f2;
+	opacity: 0.9;
+	width: 255px;
+	padding: 5px 5px 0px 5px;
+	border-radius: 4px;
+	border: 3px solid #1f9450;
+}*/
+.withinfo2{
 	position: absolute;
 	background-color: #f2f2f2;/*#2f2f2e;*/
 	opacity: 0.9;
@@ -861,8 +870,6 @@ body {
 	padding: 5px 5px 0px 5px;
 	border-radius: 4px;
 	border: 3px solid #1f9450;
-}
-.withinfo2{
 	bottom: 70px;
 	left: 17px;
 	color: #DDD !important;
