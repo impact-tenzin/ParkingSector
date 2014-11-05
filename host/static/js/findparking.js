@@ -1552,10 +1552,12 @@ function generateDirections(request) {
 			$(".parkingsBar").hide();
 			$("#results").show();
 			leftMenu._openMenu();
-			
-			setTimeout(function() {
-				$('.feedbackholder').show();
-			}, 5000);
+
+			if (!$(".feedback").is(":visible")) {
+				setTimeout(function() {
+					$('.feedbackholder').show();
+				}, 5000);
+			}
 			//google.maps.event.removeListener(dragendListener);
 			/*
 			 var myRoute = response.routes[0].legs[0];
