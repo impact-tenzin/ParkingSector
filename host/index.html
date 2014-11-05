@@ -100,7 +100,7 @@
                         <h3 class="special-heading">Намерете вашето място за паркиране.</h3>
 						<h3 class="special-subheading">Изберете от над 5000 места в няколко града!</h3>
 						<div class="searchbox">
-							<form method="post" class="formAddress" id="location">
+							<form method="post" class="formAddress" id="location" action="/getLocation/">
 							{% load widget_tweaks %}
 							{% csrf_token %}
 								{{ addressForm.address |attr:"id:addressInput"|attr:"class:cform-text" | attr:"size:40"| attr:"placeholder: Къде ще паркирате?" }}
