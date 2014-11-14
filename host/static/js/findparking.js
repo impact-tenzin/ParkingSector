@@ -419,7 +419,7 @@ function showPricePerHour(pricePerHour) {
 	if (pricePerHour <= 0)
 		return "";
 	else
-		return "<div class='win-price'><span>" + pricePerHour + " лв/час</span></div>";
+		return "<div class='win-price'><span>" + pricePerHour + " лв/час</span></div><div><iframe src='//www.facebook.com/plugins/share_button.php?href=http://www.parkingsector.bg&amp;layout=button&amp;appId=279009708952641' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowTransparency='true'></iframe></div>";
 }
 
 function showWorkingHours(workFrom, workTo) {
