@@ -415,11 +415,16 @@ function showMarkerWindow(parking, marker) {
 	ib.open(map, marker);
 }
 
+function getFbShareButton()
+{
+	return "<iframe src='//www.facebook.com/plugins/share_button.php?href=http://www.parkingsector.bg&amp;layout=button&amp;appId=279009708952641' scrolling='no' frameborder='0' style='float:right; width:90px; height:20px; border:none; overflow:hidden;' allowTransparency='true'></iframe>";
+}
+
 function showPricePerHour(pricePerHour) {
 	if (pricePerHour <= 0)
-		return "";
+		return getFbShareButton();
 	else
-		return "<div class='win-price'><span>" + pricePerHour + " лв/час</span></div><div><iframe src='//www.facebook.com/plugins/share_button.php?href=http://www.parkingsector.bg&amp;layout=button&amp;appId=279009708952641' scrolling='no' frameborder='0' style='border:none; overflow:hidden;' allowTransparency='true'></iframe></div>";
+		return "<div class='win-price'><span>" + pricePerHour + " лв/час</span>"+getFbShareButton()+"</div>";
 }
 
 function showWorkingHours(workFrom, workTo) {
@@ -445,9 +450,9 @@ function showBookingOrNavigationButton(supportsBooking) {
 
 function showPricePerHour2(pricePerHour) {
 	if (pricePerHour <= 0)
-		return "";
+		return getFbShareButton();
 	else
-		return "<div class='win-price2'><span>" + pricePerHour + " лв/час</span></div>";
+		return "<div class='win-price2'><span>" + pricePerHour + " лв/час</span>"+getFbShareButton()+"</div>";
 }
 
 function showWorkingHours2(workFrom, workTo) {
