@@ -36,18 +36,18 @@ class ParkingMarker(models.Model):
         return self.lng;
 
 class PriceList(models.Model):
-    oneHour = models.FloatField()
-    twoHours = models.FloatField()
-    threeHours = models.FloatField()
-    fourHours = models.FloatField()
-    fiveHours = models.FloatField()
-    sixHours = models.FloatField()
-    sevenHours = models.FloatField()
-    eightHours = models.FloatField()
-    nineHours = models.FloatField()
-    tenHours = models.FloatField()
-    elevenHours = models.FloatField()
-    twelveHours = models.FloatField()
+    oneHour = models.FloatField(default = -1)
+    twoHours = models.FloatField(default = -1)
+    threeHours = models.FloatField(default = -1)
+    fourHours = models.FloatField(default = -1)
+    fiveHours = models.FloatField(default = -1)
+    sixHours = models.FloatField(default = -1)
+    sevenHours = models.FloatField(default = -1)
+    eightHours = models.FloatField(default = -1)
+    nineHours = models.FloatField(default = -1)
+    tenHours = models.FloatField(default = -1)
+    elevenHours = models.FloatField(default = -1)
+    twelveHours = models.FloatField(default = -1)
     
     def __unicode__(self):
         return unicode(str(self.id))
