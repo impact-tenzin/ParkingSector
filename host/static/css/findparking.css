@@ -510,7 +510,7 @@ body {
 	opacity: 0.8;
 }
 .win-book {
-	width: 100%;
+	width: 49%;
 	height: 30px;
 	background-color: #002847;/*#2ecc71;*/
 	color: #FFFFFF;
@@ -520,6 +520,21 @@ body {
 	margin-bottom: 5px;
 	font-size: 16px;
 	cursor: pointer;
+	display: inline-block;
+	margin-right: 2px;
+}
+.rate {
+	width: 49%;
+	height: 30px;
+	background-color: #002847;/*#2ecc71;*/
+	color: #FFFFFF;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 0px;
+	margin-bottom: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	display: inline-block;
 }
 .closeX {
 	position: absolute !important;
