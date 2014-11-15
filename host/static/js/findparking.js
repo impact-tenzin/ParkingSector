@@ -445,7 +445,7 @@ function showBookingOrNavigationButton(supportsBooking) {
 	if (supportsBooking)
 		return "<div class='win-book' onclick='bookingRequest();'>Запази място</div>";
 	else
-		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div>";
+		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='notClientShowNavigation();'>Оцени</div>";
 }
 
 function showPricePerHour2(pricePerHour) {
@@ -473,7 +473,7 @@ function showBookingOrNavigationButton2(supportsBooking) {
 	if (supportsBooking)
 		return "<div class='win-book2' onclick='bookingRequest();'>Запази място</div>";
 	else
-		return "<div class='win-book2' onclick='notClientShowNavigation();'>Навигация</div>";
+		return "<div class='win-book2' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='notClientShowNavigation();'>Оцени</div>";
 }
 
 // information window for nonactive parkings that is shown on clicking a marker
