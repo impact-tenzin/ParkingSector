@@ -72,6 +72,7 @@ Tags: responsive, html5 template, one page, landing, startup, business, company,
 h1, h2, h3, h4, h5, h6 {
 	margin-top: 0; 
 	margin-bottom: 10px;
+	color: #444;
 }
 
 /*------------------------------------------*/
@@ -897,4 +898,36 @@ nav a#pull {
     background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
     background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
     background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+.holder{
+	position: absolute;
+	top: 100px;
+	left: 0px;
+	padding: 10px;
+	width: 400px;
+	background: #fff;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+}
+.black{
+	color: #444;
+}
+.silver{
+	background: #ccc;
+	color: #eee;
+}
+#intro {
+	background-image: none;
+}
+select{
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+.push-bottom {
+	margin-bottom: 15px;
+}
+.push{
+	padding-top: 10px;
+	text-align: left;
 }
