@@ -43,7 +43,7 @@
 	<body>
 	
 	
-		<!-- CONTENT WRAPPER
+		<!-- Probvai na TOZI div
 		============================================= -->
 		<div id="content-wrapper">
 		
@@ -105,11 +105,11 @@
         <hr class="colorgraph">
 		<div class="row">
 			<div class="col-md-12 black">
-				<div class="col-md-6">
-				<input type="radio" name="parking" value="free"> свободен
+				<div class="col-md-8">
+				<input type="radio" name="parking" id="free" value="free"> <label for="free">свободен (безплатен)</label>
 				</div>
-				<div class="col-md-6">
-				<input type="radio" name="parking" value="payed"> платен
+				<div class="col-md-4">
+				<input type="radio" name="parking" id="payed" value="payed"> <label for="payed">платен</label>
 				</div>
 			</div>
 		</div><br>
@@ -119,8 +119,8 @@
         <div class="form-group black">
 		<div class="push-bottom">
 			<div class="col-md-4">
-			<p>Цена за час</p>
-		   <select class="black">
+			<label for="price">Цена за час</label>
+		   <select class="black" id="price">
 				<option value="1">1 лв</option>
 				<option value="2">2 лв</option>
 				<option value="3">3 лв</option>
@@ -136,8 +136,8 @@
 			</select> 
 			</div>
 			<div class="col-md-4">
-			<p>Работи от:</p>
-		   <select class="black">
+			<label for="from">Работи от:</label>
+		   <select class="black" id="from">
 				<option value="1">1 ч</option>
 				<option value="2">2 ч</option>
 				<option value="3">3 ч</option>
@@ -153,8 +153,8 @@
 			</select> 
 			</div>
 			<div class="col-md-4">
-			<p>до:</p>
-		   <select class="black">
+			<label for="to">до:</label><br>
+		   <select class="black" id="to">
 				<option value="1">13 ч</option>
 				<option value="2">14 ч</option>
 				<option value="3">15 ч</option>
@@ -174,15 +174,15 @@
 		<div class="form-group black">
 			<div class="col-md-4">
 				<br>
-				<input type="checkbox" name="others" value="carwash"> автомивка
+				<input type="checkbox" name="others" id="carwash" value="carwash"> <label for="carwash">автомивка</label>
 			</div>
 			<div class="col-md-4">
 			<br>
-				<input type="checkbox" name="others" value="roof"> закрит
+				<input type="checkbox" name="others" id="roof" value="roof">  <label for="roof">закрит</label>
 			</div>
 			<div class="col-md-4">
 			<br>
-				<input type="checkbox" name="others" value="security"> охраняем
+				<input type="checkbox" name="others" id="security" value="security">  <label for="security">охраняем</label>
 			</div>
 		</div>
         <!--<div class="row">
@@ -198,13 +198,7 @@
           </div>
         </div>-->
         <div class="row">
-          <div class="col-xs-3 col-sm-3 col-md-3">
-            <span class="button-checkbox"><br><br>
-            <button type="button" class="btn silver" data-color="info" tabindex="7">Съгласен съм</button>
-            <input type="checkbox" name="t_and_c" id="t_and_c" class="hidden" value="1">
-            </span>
-          </div>
-          <div class="col-xs-8 col-sm-8 col-md-8 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 black"><br>
+          <div class="col-xs-12 col-sm-12 col-md-12 black"><br>
             При кликване на <strong class="label label-primary">Изпрати</strong>, Вие се съгласявате с <a href="#" data-toggle="modal" data-target="#t_and_c_m">Правилата за ползване</a> на този сайт.
           </div>
         </div>
