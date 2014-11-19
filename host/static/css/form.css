@@ -33,7 +33,7 @@ Tags: responsive, html5 template, one page, landing, startup, business, company,
    ========================================================================== */
  
 #content-wrapper {
-	margin-top: 65px;
+	margin-top: 50px;
 }  
  
 /*------------------------------------------*/
@@ -161,9 +161,7 @@ ul {
 	padding: 0 15px;
 	font-size: 14px;
 	font-family: 'Lato', sans-serif;
-	text-transform: uppercase;
-	font-weight: 900;
-	line-height: 65px;
+	line-height: 50px;
 	border-bottom: 3px solid transparent;
 	-webkit-transition: all 250ms ease-in-out;
 	-moz-transition: all 250ms ease-in-out;

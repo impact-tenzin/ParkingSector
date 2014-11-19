@@ -22,6 +22,7 @@ body {
 	margin: 0 auto;
 	height: 100%;
 	width: 100%;
+	margin-top: 55px;
 }
 .pac-container{
 	z-index: 999999;
@@ -979,7 +980,7 @@ body {
 .bgy{
 	z-index: 900;
 	position: absolute;
-	top:0px;
+	top: -55px;
 	left: 12%;
 	height: 60px;
 	width: 830px;
@@ -993,7 +994,7 @@ body {
 	height: 60px;
 
 	position: absolute;
-	top: 0px;
+	top: -55px;
 	left: 12%;
 	z-index: 1000;
 	line-height: 1.00 !important;
@@ -1135,4 +1136,85 @@ background-color: #88c72a;
 	color: #6a605e;
 	font-weight: bold;
 
+}
+/*Rate and Review*/
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+	background: #fff !important;
+}
+
+.chat li.right .chat-body
+{
+    margin-left: 60px;
+	background: #fff !important;
+}
+
+.chat li.left
+{
+	background: #fff !important;
+}
+
+.chat li.right
+{
+	background: #fff !important;
+}
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+.fa-star{
+	color: yellow;
+}
+.panel{
+	margin-top: 40px;
+}
+.custom{
+	margin-left: 63% !important;
 }
