@@ -104,3 +104,15 @@ class Feedback(models.Model):
     def __unicode__(self):
         return unicode(str(self.id))
     
+class ParkingRequest(models.Model):
+    user_id = models.IntegerField()
+    pricePerHour = models.CharField(max_length=10,null = True, blank=True)
+    workHours = models.CharField(max_length=12,null = True, blank=True)
+    lat = models.CharField(max_length=12)
+    lng = models.CharField(max_length=12)
+    type = models.CharField(max_length=5,null = True, blank=True)
+    features = models.CharField(max_length=35,null = True, blank=True)
+    
+    def __unicode__(self):
+        return unicode(str(self.id))
+    

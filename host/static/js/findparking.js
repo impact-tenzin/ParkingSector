@@ -1,14 +1,3 @@
-$('#loginFormPassword').keydown(function(event) {
-
-	var keypressed = event.keyCode || event.which;
-
-	if (keypressed == 13) {
-
-		$(".signInButton").trigger("click");
-
-	}
-
-});
 /*
  function setFocus() {
  $(".searchBar").focus();
@@ -807,21 +796,6 @@ function checkForProperTimeDuration() {
 	if (endtime >= starttime && ((endtime / 3600000) - (starttime / 3600000)) >= 0)
 		return true;
 	return false;
-}
-
-function renderBookingMsg(data) {
-	$('.msg').html("");
-	if (data == "User does not exist" || data == "Cant authenticate") {
-		var msg = "Грешно потребителско име или парола!";
-		$('.msg').html(msg);
-	} else if (data == "Login Successful") {
-		var msg = "Влязохте успешно!";
-		$('.msg').html(msg);
-		setTimeout(function() {
-			$('.signInBox').hide();
-			bookingRequest();
-		}, 1500);
-	}
 }
 
 /*function parkingNotClientMessage() {

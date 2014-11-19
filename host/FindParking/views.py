@@ -2,7 +2,7 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, HttpResponse
 from home.forms import LocationForm, SubscribeForm
-from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, PriceList, Feedback
+from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod, PriceList, Feedback, ParkingRequest
 from home.views import distance
 from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
@@ -102,4 +102,4 @@ def save_viewer(request):
             return HttpResponse("existing", content_type="text/html; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")@csrf_exempt
-def save_feedback(request):    if request.is_ajax():            booking = request.POST['booking']            freeSpaces = request.POST['freeSpaces']            other = request.POST['other']            useful = request.POST['useful']            notUseful = request.POST['notUseful']            to_add = Feedback.objects.create(booking=booking, freeSpaces=freeSpaces, other=other, useful=useful, notUseful=notUseful)            to_add.save()            return HttpResponse("thanks", content_type="text/html; charset=utf-8")    else:        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+def save_feedback(request):    if request.is_ajax():            booking = request.POST['booking']            freeSpaces = request.POST['freeSpaces']            other = request.POST['other']            useful = request.POST['useful']            notUseful = request.POST['notUseful']            to_add = Feedback.objects.create(booking=booking, freeSpaces=freeSpaces, other=other, useful=useful, notUseful=notUseful)            to_add.save()            return HttpResponse("thanks", content_type="text/html; charset=utf-8")    else:        return HttpResponse("Error", content_type="text/html; charset=utf-8")    @csrf_exemptdef add_parking(request):    if request.is_ajax():            id = request.user.id            workHours = request.POST['workHours']            lat = request.POST['lat']            lng = request.POST['lng']            type = request.POST['type']            features = request.POST['features']            pricePerHour = request.POST['pricePerHour']            to_add = ParkingRequest.objects.create(user_id=id, workHours=workHours, lat=lat, lng=lng, type=type, features=features, pricePerHour=pricePerHour)            to_add.save()            return HttpResponse("successful", content_type="text/html; charset=utf-8")    else:        return HttpResponse("Error", content_type="text/html; charset=utf-8")    def add_parking_view(request):    return render_to_response('pinparking.html', {}, context_instance=RequestContext(request))

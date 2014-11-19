@@ -65,6 +65,7 @@ def handle_login_user_request(request, form):
                                       {'form': form},
                                       context_instance=RequestContext(request))
 
+@csrf_exempt
 def facebook_login(request):
     if request.is_ajax():
         if request.method == "POST":

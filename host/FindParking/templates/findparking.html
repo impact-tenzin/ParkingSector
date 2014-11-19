@@ -19,7 +19,7 @@
 		<link rel="stylesheet" href="/static/css/jquery.datetimepicker.css">
 		<script src="/static/js/jquery.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.datetimepicker.js"></script>
-		
+
 		<!-- Facebook meta tags -->
 		<meta property="og:locale" content="bg_BG">
 		<meta property="og:type" content="website">
@@ -31,7 +31,7 @@
 		<meta property="og:description" content="ParkingSector">
 		<meta name="description" content="Първата платформа в България, която показва паркинги и техните цени около вас в реално време.">
 		<meta property="og:description" content="Първата платформа в България, която показва паркинги и техните цени около вас в реално време.">
-		
+
 		<link rel="image_src" href="http://parkingsector.bg/static/imgs/favicon.png" / >
 		<meta property="og:image" content="http://parkingsector.bg/static/imgs/favicon.png">
 		<meta property="og:image:type" content="image/png">
@@ -42,6 +42,7 @@
 
 	<body>
 		<div class="wrapper">
+			<div id="map"></div>
 			<!--Sign in before booking if not logged in-->
 			<div class='signInBox subscribeBox' hidden>
 				<span class='glyphicon glyphicon-remove close' onclick='closeSignIn();'></span>
@@ -221,7 +222,6 @@
 				</div>
 			</div>
 			<!--Confrim booking form-->
-			<div id="map"></div>
 			<div class="container">
 				<ul id="gn-menu" class="gn-menu-main">
 					<li class="gn-trigger">
@@ -266,6 +266,7 @@
 			</div><!-- /container -->
 
 		</div>
+		<script src="/static/js/findparkingAndAddParkingFbLoginFunctions.js"></script>
 		<script src="/static/test/js/classie.js"></script>
 		<script src="/static/test/js/gnmenu.js"></script>
 		<script>
@@ -504,35 +505,6 @@
 				});
 			}
 
-			function signIn() {
-				$.ajax({
-					url : "/signIn/",
-					type : 'POST', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					data : {
-						name : $('.sign-name').val(),
-						pass : $('.sign-pass').val(),
-						csrfmiddlewaretoken : '{{ csrf_token }}'
-					},
-					dataType : 'html',
-
-					success : function(data) {
-						renderBookingMsg(data);
-					},
-					error : function(error) {
-
-						// Log any error.
-						console.log("ERROR:", error);
-
-					},
-				});
-			}
-
 			function confirmBooking() {
 				var parking_id = parseInt($('#window-selected-id').attr('class'));
 
@@ -612,50 +584,6 @@
 				return true;
 			}
 
-			function testAPI() {
-				//console.log('Welcome!  Fetching your information.... ');
-				FB.api('/me', function(response) {
-					//alert('Successful login for: ' + response.name + " email: " + response.email);
-					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-					login_or_register(response.email, response.name, response.id)
-				});
-			}
-
-			function login_or_register(email, username, id) {
-				$.ajax({
-					url : "/loginOrRegister/",
-					type : 'POST', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					data : {
-						username : username,
-						email : email,
-						fb_id : id,
-						csrfmiddlewaretoken : '{{ csrf_token }}'
-					},
-					success : function(data) {
-						if (data == 'fblogin complete' || data == "registration with fb complete") {
-							get_fb_id();
-							var msg = "Влязохте успешно!";
-							$('.msg').html(msg);
-							setTimeout(function() {
-								$('.signInBox').hide();
-								bookingRequest();
-							}, 1500);
-						} else
-							alert(data);
-					},
-					error : function(error) {
-						// Log any error.
-						console.log("ERROR:", error);
-					},
-				});
-			}
-
 			//user profile image
 			function get_fbid_if_user_loggedin() {
 				if ("{{user.is_authenticated}}" == "True") {
@@ -681,30 +609,6 @@
 						},
 					});
 				}
-			}
-
-			function get_fb_id() {
-				$.ajax({
-					url : "/getFbId/",
-					type : 'GET', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					success : function(data) {
-						if (data.length > 0) {
-							$("#i").remove();
-							var src = "https://graph.facebook.com/" + data + "/picture";
-							$("#my_image").attr("src", src);
-						}
-					},
-					error : function(error) {
-						// Log any error.
-						console.log("ERROR:", error);
-					},
-				});
 			}
 
 
