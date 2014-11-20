@@ -23,3 +23,13 @@ class LicencePlates(models.Model):
     
     def __unicode__(self):
         return str(self.licence_plate)
+    
+class ParkingReview(models.Model):
+        parking_id = models.IntegerField()
+        username = models.CharField(max_length=20)
+        fb_id = models.CharField(max_length=16, null=True, blank=True)
+        review = models.TextField()
+        date = models.CharField(max_length=16)
+        
+        def __unicode__(self):
+                return unicode(self.id)

@@ -336,6 +336,7 @@ function getDistance(zoom) {
 var coloredParkingId;
 function closeBox() {
 	ib.close();
+	$(".rateAndReviewBox").hide();
 	//$("#" + coloredParkingId).parent().attr('class', 'displayedParking non-highlighted');
 }
 
@@ -376,7 +377,11 @@ $('.currentParkings')
 
 // information window for active parkings that is shown on clicking a marker
 //<span id='displayedPercentage'>" + "--" + "</span> needs api + formula to calculate percentage
+var idOfOpenParkingWindow;
 function showMarkerWindow(parking, marker) {
+	//for rate and review system we need parking_id
+	idOfOpenParkingWindow = parking.id;
+	
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	//highlightParking(parking);
 	var priceList = getPriceListForParking(parking);
@@ -402,6 +407,8 @@ function showMarkerWindow(parking, marker) {
 	};
 	ib.setOptions(myOptions);
 	ib.open(map, marker);
+	if(!$('#reviewBox').is(":hidden"))
+		getReviews();
 }
 
 function getFbShareButton()
@@ -434,7 +441,7 @@ function showBookingOrNavigationButton(supportsBooking) {
 	if (supportsBooking)
 		return "<div class='win-book' onclick='bookingRequest();'>Запази място</div>";
 	else
-		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='notClientShowNavigation();'>Оцени</div>";
+		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='getReviews();'>Оцени</div>";
 }
 
 function showPricePerHour2(pricePerHour) {
@@ -462,7 +469,7 @@ function showBookingOrNavigationButton2(supportsBooking) {
 	if (supportsBooking)
 		return "<div class='win-book2' onclick='bookingRequest();'>Запази място</div>";
 	else
-		return "<div class='win-book2' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='notClientShowNavigation();'>Оцени</div>";
+		return "<div class='win-book2' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='getReviews();'>Оцени</div>";
 }
 
 // information window for nonactive parkings that is shown on clicking a marker
@@ -889,6 +896,7 @@ function ajaxCall(lat, lng) {
 			paymentMethods = [];
 			features = [];
 			markers = [];
+			priceLists = [];
 
 			//var splitedData = data.split("<>");
 			var parkingsData = data.filter(function(item) {
@@ -1053,6 +1061,7 @@ function getSofiaParkings() {
 			paymentMethods = [];
 			features = [];
 			markers = [];
+			priceLists = [];
 
 			//var splitedData = data.split("<>");
 			var parkingsData = data.filter(function(item) {

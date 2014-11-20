@@ -6,12 +6,13 @@ from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext
 from user.forms import LoginForm, RegistrationForm
 from client.models import Client, BookedSpots
-from user.models import RegularUser, LicencePlates, UserProfile
+from user.models import RegularUser, LicencePlates, UserProfile, ParkingReview
 from FindParking.models import ParkingMarker, PriceList
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
+from django.core import serializers
 from client.errors_and_messages import register_error
 from user.email_confirmation import send_confirmation_email, send_account_activation_email, send_email_with_token_to_reset_password, send_email_after_fbregister
 from django.conf import settings
@@ -566,5 +567,27 @@ def password_reset(request, activation_key, user_id):
 
 def get_fb_id(request):
     fb_id = RegularUser.objects.get(user=request.user.id).fb_id
-    if len(fb_id) > 0:
-        return HttpResponse(fb_id, content_type="text/html; charset=utf-8")
+    return HttpResponse(fb_id, content_type="text/html; charset=utf-8")
+
+@csrf_exempt 
+def save_review(request):
+    if request.is_ajax():
+        username = request.user.username
+        fb_id = RegularUser.objects.get(user=request.user.id).fb_id
+        parking_id = request.POST['parking_id']
+        review = request.POST['review']
+        date = request.POST['date']
+        to_add = ParkingReview.objects.create(parking_id=parking_id, review=review, username=username, fb_id=fb_id, date=date)
+        to_add.save()
+        return HttpResponse("successful", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def get_reviews(request):
+    if request.is_ajax():
+        parking_id = request.GET['parking_id']
+        reviews = ParkingReview.objects.filter(parking_id=parking_id)
+        data = serializers.serialize("json", reviews)
+        return HttpResponse(data, content_type="application/json; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
