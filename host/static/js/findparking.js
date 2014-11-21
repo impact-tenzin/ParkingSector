@@ -469,7 +469,7 @@ function showBookingOrNavigationButton2(supportsBooking) {
 	if (supportsBooking)
 		return "<div class='win-book2' onclick='bookingRequest();'>Запази място</div>";
 	else
-		return "<div class='win-book2' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='getReviews();'>Оцени</div>";
+		return "<div class='win-book2' onclick='notClientShowNavigation();'>Навигация</div><div class='rate2' onclick='getReviews();'>Оцени</div>";
 }
 
 // information window for nonactive parkings that is shown on clicking a marker

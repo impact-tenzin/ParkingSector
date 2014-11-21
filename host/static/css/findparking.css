@@ -537,6 +537,20 @@ body {
 	cursor: pointer;
 	display: inline-block;
 }
+
+.rate2 {
+	width: 49%;
+	height: 30px;
+	background-color: #1f9450;/*#2ecc71;*/
+	color: #FFFFFF;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 0px;
+	margin-bottom: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	display: inline-block;
+}
 .closeX {
 	position: absolute !important;
 	top: px !important;
@@ -953,7 +967,7 @@ body {
 	opacity: 0.8;
 }
 .win-book2 {
-	width: 100%;
+	width: 49%;
 	height: 30px;
 	background-color: #1f9450;/*#2ecc71;*/
 	color: #FFFFFF;
@@ -963,6 +977,8 @@ body {
 	margin-bottom: 5px;
 	font-size: 16px;
 	cursor: pointer;
+	display: inline-block;
+	margin-right: 2px;
 }
 .closeX2 {
 	position: absolute !important;
