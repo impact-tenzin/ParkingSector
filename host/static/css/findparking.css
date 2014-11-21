@@ -539,8 +539,18 @@ body {
 }
 .closeX {
 	position: absolute !important;
-	top: 2px !important;
+	top: px !important;
 	left: 220px;
+	padding-left: 5px;
+	font-size: 17px;
+	opacity: 0.6;
+	cursor: pointer;
+	color: #FFF !important;
+}
+.closeX3 {
+	position: absolute !important;
+	top: 48px !important;
+	left: 440px;
 	padding-left: 5px;
 	font-size: 17px;
 	opacity: 0.6;
@@ -1188,7 +1198,7 @@ background-color: #88c72a;
 .panel-body
 {
     overflow-y: scroll;
-    height: 250px;
+    height: 350px;
 }
 
 ::-webkit-scrollbar-track
