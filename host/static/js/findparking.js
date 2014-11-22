@@ -381,7 +381,7 @@ var idOfOpenParkingWindow;
 function showMarkerWindow(parking, marker) {
 	//for rate and review system we need parking_id
 	idOfOpenParkingWindow = parking.id;
-	
+
 	map.panTo(new google.maps.LatLng(parking.lat + getDistance(map.zoom), parking.lng));
 	//highlightParking(parking);
 	var priceList = getPriceListForParking(parking);
@@ -407,12 +407,10 @@ function showMarkerWindow(parking, marker) {
 	};
 	ib.setOptions(myOptions);
 	ib.open(map, marker);
-	if(!$('#reviewBox').is(":hidden"))
-		getReviews();
+	actualiseReviewsAndRatings();
 }
 
-function getFbShareButton()
-{
+function getFbShareButton() {
 	return "<iframe src='//www.facebook.com/plugins/share_button.php?href=http://www.parkingsector.bg&amp;layout=button&amp;appId=279009708952641' scrolling='no' frameborder='0' style='float:right; width:90px; height:20px; border:none; overflow:hidden;' allowTransparency='true'></iframe>";
 }
 
@@ -420,7 +418,7 @@ function showPricePerHour(pricePerHour) {
 	if (pricePerHour <= 0)
 		return getFbShareButton();
 	else
-		return "<div class='win-price'><span>" + pricePerHour + " лв/час</span>"+getFbShareButton()+"</div>";
+		return "<div class='win-price'><span>" + pricePerHour + " лв/час</span>" + getFbShareButton() + "</div>";
 }
 
 function showWorkingHours(workFrom, workTo) {
@@ -441,14 +439,14 @@ function showBookingOrNavigationButton(supportsBooking) {
 	if (supportsBooking)
 		return "<div class='win-book' onclick='bookingRequest();'>Запази място</div>";
 	else
-		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='getReviews();'>Оцени</div>";
+		return "<div class='win-book' onclick='notClientShowNavigation();'>Навигация</div><div class='rate' onclick='getReviews();getRating();'>Оцени</div>";
 }
 
 function showPricePerHour2(pricePerHour) {
 	if (pricePerHour <= 0)
 		return getFbShareButton();
 	else
-		return "<div class='win-price2'><span>" + pricePerHour + " лв/час</span>"+getFbShareButton()+"</div>";
+		return "<div class='win-price2'><span>" + pricePerHour + " лв/час</span>" + getFbShareButton() + "</div>";
 }
 
 function showWorkingHours2(workFrom, workTo) {
@@ -469,7 +467,7 @@ function showBookingOrNavigationButton2(supportsBooking) {
 	if (supportsBooking)
 		return "<div class='win-book2' onclick='bookingRequest();'>Запази място</div>";
 	else
-		return "<div class='win-book2' onclick='notClientShowNavigation();'>Навигация</div><div class='rate2' onclick='getReviews();'>Оцени</div>";
+		return "<div class='win-book2' onclick='notClientShowNavigation();'>Навигация</div><div class='rate2' onclick='getReviews();getRating();'>Оцени</div>";
 }
 
 // information window for nonactive parkings that is shown on clicking a marker
@@ -1575,4 +1573,16 @@ function showFreeParkings() {
 function showPrivateParkings() {
 	$(".freeParkings").hide();
 	$(".priveteParkings").show();
+}
+
+function getCurrentParkingIdOfOpenedParkingWindow() {
+	return idOfOpenParkingWindow;
+}
+
+function actualiseReviewsAndRatings() {
+	if (!$('#reviewBox').is(":hidden")){
+		getReviews();
+		getRating();
+		$(".group-stars").show();
+	}
 }

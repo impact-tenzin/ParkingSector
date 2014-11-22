@@ -16,7 +16,7 @@
 function getReviews() {
 	
 	//var parking_id = parseInt($('#window-selected-id').attr('class'));
-	var parking_id = idOfOpenParkingWindow;
+	var parking_id = getCurrentParkingIdOfOpenedParkingWindow();
 	$('#reviewBox').html("");
 	$(".rateAndReviewBox").show();
 

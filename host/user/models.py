@@ -33,3 +33,11 @@ class ParkingReview(models.Model):
         
         def __unicode__(self):
                 return unicode(self.id)
+            
+class ParkingRating(models.Model):
+        parking_id = models.IntegerField()
+        raters = models.IntegerField()
+        rating = models.FloatField()
+   
+        def __unicode__(self):
+                return unicode(self.id)

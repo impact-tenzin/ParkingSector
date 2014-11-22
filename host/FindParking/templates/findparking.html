@@ -11,14 +11,20 @@
 		<link rel="stylesheet" type="text/css" href="/static/css/findparking.css" >
 		<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" >
 		<link href="static/bootstrap/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+		<script src="/static/js/jquery.js"></script>
 		<script src="/static/test/js/modernizr.custom.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 		<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerwithlabel/src/markerwithlabel.js" type="text/javascript"></script>
 		<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js" type="text/javascript"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<link rel="stylesheet" href="/static/css/jquery.datetimepicker.css">
-		<script src="/static/js/jquery.js"></script>
 		<script type="text/javascript" src="/static/js/jquery.datetimepicker.js"></script>
+
+		<!-- five star rating -->
+		<script type="text/javascript" src="/static/js/jquery-rating.js"></script>
+		<link rel="stylesheet" type="text/css" href="/static/css/jquery-rating.css">
+		<!-- five star rating -->
 
 		<!-- Facebook meta tags -->
 		<meta property="og:locale" content="bg_BG">
@@ -226,11 +232,18 @@
 				<div class="row">
 					<div class="col-md-5 col-md-offset-7 custom">
 						<div class="panel panel-primary">
-							<div class="panel-heading">
+							<div class="panel-heading ratingDiv">
+								<span class="group-stars">
+									 <div id="star1"   class="jr-ratenode"></div>
+									  <div id="star2"  class="jr-ratenode"></div> 
+									  <div id="star3"  class="jr-ratenode"></div>
+									   <div id="star4"  class="jr-ratenode"></div> 
+									   <div id="star5"  class="jr-ratenode"></div> 
+								</span>
 								<span class="glyphicon glyphicon-comment"></span> Оцени
 								<div class="text-right">
 									<span class="glyphicon glyphicon-remove closeX3" onclick="closeRateAndReviewBox();"></span>
-									<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+									<!--<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>-->
 								</div>
 							</div>
 							<div class="panel-body">
@@ -316,6 +329,7 @@
 		<script src="/static/js/fblogin.js"></script>
 		<script src="/static/js/findparking.js" type="text/javascript"></script>
 		<script src="/static/js/feedback.js" type="text/javascript"></script>
+		<script src="/static/js/five-star-rating.js" type="text/javascript"></script>
 		<script>
 			var map;
 			var markers = [];

@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext
 from user.forms import LoginForm, RegistrationForm
 from client.models import Client, BookedSpots
-from user.models import RegularUser, LicencePlates, UserProfile, ParkingReview
+from user.models import RegularUser, LicencePlates, UserProfile, ParkingReview, ParkingRating
 from FindParking.models import ParkingMarker, PriceList
 from django.contrib.auth import authenticate, login, logout
 from django.core import serializers
@@ -589,5 +589,28 @@ def get_reviews(request):
         reviews = ParkingReview.objects.filter(parking_id=parking_id)
         data = serializers.serialize("json", reviews)
         return HttpResponse(data, content_type="application/json; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+@csrf_exempt 
+def add_rating(request):
+    if request.is_ajax():
+        parking_id = request.POST['parking_id']
+        rating = float(request.POST['rating'])
+        current = ParkingRating.objects.get(parking_id=parking_id)
+        new_raters = current.raters + 1
+        new_rating = float(current.rating + rating)
+        #current_rating = (float(current.rating + rating))/(float(new_raters))
+        ParkingRating.objects.filter(parking_id=parking_id).update(rating=new_rating, raters=new_raters)
+        return HttpResponse("successful", content_type="text/html; charset=utf-8")
+    else:
+        return HttpResponse("Error", content_type="text/html; charset=utf-8")
+    
+def get_rating(request):
+    if request.is_ajax():
+        parking_id = request.GET['parking_id']
+        current = ParkingRating.objects.get(parking_id=parking_id)
+        rating = (float(current.rating))/(float(current.raters))
+        return HttpResponse(rating, content_type="application/json; charset=utf-8")
     else:
         return HttpResponse("Error", content_type="text/html; charset=utf-8")

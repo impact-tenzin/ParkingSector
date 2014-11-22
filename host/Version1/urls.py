@@ -77,6 +77,8 @@ urlpatterns = patterns('',
     url(r'^addParkingView/$', 'FindParking.views.add_parking_view'),
     url(r'^addParkingReview/$', 'user.views.save_review'),
     url(r'^getParkingReviews/$', 'user.views.get_reviews'),
+    url(r'^getRating/$', 'user.views.get_rating'),
+    url(r'^addRating/$', 'user.views.add_rating'),
     #url(r'^leavingDriver/', 'parkingclient.views.LeavingDriver'),
     #url(r'^arrivingDriver/', 'parkingclient.views.ArrivingDriver'),
     #override the default urls
