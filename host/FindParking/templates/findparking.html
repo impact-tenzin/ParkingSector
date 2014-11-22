@@ -229,13 +229,12 @@
 							<div class="panel-heading">
 								<span class="glyphicon glyphicon-comment"></span> Оцени
 								<div class="text-right">
-								<span class="glyphicon glyphicon-remove closeX3" onclick="closeRateAndReviewBox();"></span>
+									<span class="glyphicon glyphicon-remove closeX3" onclick="closeRateAndReviewBox();"></span>
 									<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
 								</div>
 							</div>
 							<div class="panel-body">
-								<ul class="chat" id="reviewBox" name="">
-								</ul>
+								<ul class="chat" id="reviewBox" name=""></ul>
 							</div>
 							<div class="panel-footer">
 								<div class="input-group">
@@ -288,15 +287,12 @@
 					<li class="last">
 						<!--<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>-->
 						<!--<a href="/profile" class="user-icon"><i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/></a>-->
-						<div class="dropdown">
-						<a href="/profile" class="user-icon dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-							<i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/>
-							<span class="caret"></span>
-						</a>
+						<div id="dropdownMenu">
+							<a href="/profile" class="user-icon dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true"> <i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/> <span class="caret"></span> </a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								<li role="presentation">
-									<a href="/profile" role="menuitem" tabindex="-1" href="#"> Профил</a>
-								</li>
+								<!--<li role="presentation">
+								<a href="/profile" role="menuitem" tabindex="-1" href="#"> Профил</a>
+								</li>-->
 								<li role="presentation">
 									<a href="/logout" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>
 								</li>
@@ -340,9 +336,7 @@
 			//var dragendListener;
 			var publicParkings = [];
 			var parkingReviews = [];
-			
-			
-			
+
 			// defines if there is a place that matches the address
 			function searchLocations() {
 				if ("{{loadDefaultParkings}}" == "defaultSofia" || "{{geolocate}}" == "true") {
@@ -649,6 +643,7 @@
 								$("#i").remove();
 								var src = "https://graph.facebook.com/" + data + "/picture";
 								$("#my_image").attr("src", src);
+								addDropDownToPicture();
 							}
 						},
 						error : function(error) {

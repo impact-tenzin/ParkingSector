@@ -87,6 +87,7 @@ function signIn() {
 
 					success : function(data) {
 						renderBookingMsg(data);
+						addDropDownToPicture();
 					},
 					error : function(error) {
 
@@ -96,6 +97,11 @@ function signIn() {
 					},
 				});
 			}
+
+function addDropDownToPicture()
+{
+	$("#dropdownMenu").attr("class", "dropdown");
+}
 
 function get_fb_id() {
 	$.ajax({
@@ -112,6 +118,7 @@ function get_fb_id() {
 				$("#i").remove();
 				var src = "https://graph.facebook.com/" + data + "/picture";
 				$("#my_image").attr("src", src);
+				addDropDownToPicture();
 			}
 		},
 		error : function(error) {
