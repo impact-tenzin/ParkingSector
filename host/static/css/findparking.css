@@ -537,10 +537,34 @@ body {
 	cursor: pointer;
 	display: inline-block;
 }
+
+.rate2 {
+	width: 49%;
+	height: 30px;
+	background-color: #1f9450;/*#2ecc71;*/
+	color: #FFFFFF;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 0px;
+	margin-bottom: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	display: inline-block;
+}
 .closeX {
 	position: absolute !important;
-	top: 2px !important;
+	top: px !important;
 	left: 220px;
+	padding-left: 5px;
+	font-size: 17px;
+	opacity: 0.6;
+	cursor: pointer;
+	color: #FFF !important;
+}
+.closeX3 {
+	position: absolute !important;
+	top: 48px !important;
+	left: 440px;
 	padding-left: 5px;
 	font-size: 17px;
 	opacity: 0.6;
@@ -943,7 +967,7 @@ body {
 	opacity: 0.8;
 }
 .win-book2 {
-	width: 100%;
+	width: 49%;
 	height: 30px;
 	background-color: #1f9450;/*#2ecc71;*/
 	color: #FFFFFF;
@@ -953,6 +977,8 @@ body {
 	margin-bottom: 5px;
 	font-size: 16px;
 	cursor: pointer;
+	display: inline-block;
+	margin-right: 2px;
 }
 .closeX2 {
 	position: absolute !important;
@@ -1188,7 +1214,7 @@ background-color: #88c72a;
 .panel-body
 {
     overflow-y: scroll;
-    height: 250px;
+    height: 350px;
 }
 
 ::-webkit-scrollbar-track
@@ -1217,4 +1243,7 @@ background-color: #88c72a;
 }
 .custom{
 	margin-left: 63% !important;
+}
+.dropdown-menu{
+	left: -95px !important;
 }

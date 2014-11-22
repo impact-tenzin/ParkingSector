@@ -929,3 +929,22 @@ select{
 	padding-top: 10px;
 	text-align: left;
 }
+.dropdown{
+	width: 65px;
+}
+.dropdown a:focus{
+	background: #fff !important;
+}
+.dropdown-toggle{
+	width: 65px !important;
+	height: 50px !important;
+}
+.user-icon:active{
+	background: #eee;
+}
+.last{
+	width: 65px !important;
+}
+#my_image{
+	padding: 0px !important;
+}
