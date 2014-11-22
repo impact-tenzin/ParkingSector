@@ -1,505 +1,505 @@
-﻿<!DOCTYPE html>
-<!-- Crossway - Startup Landing Page Template design by DSA79 (http://www.dsathemes.com) -->
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<html lang="en">
-	<!--<![endif]-->
-
-	<head>
-
-		<!-- Basic -->
-		<meta charset="utf-8">
-		<title>ParkingSector.bg | За Нас</title>
-		<meta name="author" content="Angel Velikov">
-
-		<!-- Mobile Specific Metas -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-		<!-- Libs CSS -->
-		<link href="/static/bootstrap/css/style.css" rel="stylesheet">
-		<link href="/static/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/static/bootstrap/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-		<!-- On Scroll Animations -->
-		<link href="/static/css/animate.css" rel="stylesheet">
-
-		<!-- Template CSS -->
-		<link href="/static/css/style2.css" rel="stylesheet">
-		<link href="/static/css/form.css" rel="stylesheet">
-
-		<!-- Responsive CSS -->
-		<link href="/static/css/responsive.css" rel="stylesheet">
-
-		<!-- Favicons -->
-		<link rel="shortcut icon" href="#">
-		<link rel="apple-touch-icon" sizes="114x114" href="#">
-		<link rel="apple-touch-icon" sizes="72x72" href="#">
-		<link rel="apple-touch-icon" href="#">
-
-		<link href="/static/css/addParking.css" rel="stylesheet">
-		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-
-	</head>
-
-	<body>
-
-		<!-- Probvai na TOZI div
-		============================================= -->
-		<div id="content-wrapper">
-			<div id="map"></div>
-
-			<!-- SignIn Box-->
-			<div class='signInBox subscribeBox' hidden>
-				<span class='glyphicon glyphicon-remove close' onclick='closeSignIn();'></span>
-				<p class='top-label'>
-					Влезте в профила си
-				</p>
-				<div class='under-label-line'></div>
-				<p class="msg">
-					За да добавите паркинг трябва да влезете в профила си!
-				</p>
-				<div class='sub-wrapper'>
-					<div>
-						<input type="text" class="sign-name form-control subscribePanel" placeholder="Потребителско име" />
-					</div>
-					<div>
-						<input id="loginFormPassword" type="password" class="sign-pass form-control subscribePanel" placeholder="Парола" />
-					</div>
-				</div>
-				<button class='signInButton subscribeButton' onclick='signIn();'>
-					Готово!
-				</button>
-				<div id="loginbutton" onclick="fb_login();">
-					<p>
-						или
-					<p>
-						<img src="/static/imgs/facebook-login-bg.png" width="240"/>
-				</div>
-			</div>
-			<!-- SignIn Box-->
-
-			<!-- INTRO
-			============================================= -->
-			<section id="intro" class="intro-parallax">
-				<div class="container">
-
-					<!-- Header -->
-					<header id="header">
-						<div class="row">
-							<!-- Navigation -->
-							<nav class="navbar navbar-default navbar-fixed-top">
-								<div class="container">
-									<!-- Brand and toggle get grouped for better mobile display -->
-									<div class="navbar-header page-scroll">
-										<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-											<span class="sr-only">Toggle navigation</span>
-											<span class="icon-bar"></span>
-											<span class="icon-bar"></span>
-											<span class="icon-bar"></span>
-										</button>
-										<a class="navbar-brand" style="padding-top:2px !important;" href="/"><img src='/static/imgs/logo_web.png'/></a>
-
-									</div>
-
-									<!-- Collect the nav links, forms, and other content for toggling -->
-									<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-										<ul class="nav navbar-nav navbar-right">
-											<li class="last">
-												<!--<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>-->
-												<a class="user-icon"><img class="profile" id="my_image" src="/static/imgs/default.jpg" width="90" height="50"/></a>
-											</li>
-											<li class="hidden">
-												<a href="#page-top"></a>
-											</li>
-											<li>
-												<a href="/">Начало</a>
-											</li>
-											<li>
-												<a href="/templates/about.html">За нас</a>
-											</li>
-											<li>
-												<a href="/templates/contact.html">Контакти</a>
-											</li>
-										</ul>
-									</div>
-									<!-- /.navbar-collapse -->
-								</div>
-								<!-- /.container-fluid -->
-							</nav>
-
-						</div>
-					</header>
-					<!-- End Header -->
-					<div class="holder">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-								<form role="form" id="addForm">
-									<h2>Въведете паркинг <small>и ни помогнете да разширим услугата.</small></h2>
-									<hr class="colorgraph">
-									<div class="row">
-										<div class="col-md-12 black">
-											<div class="col-md-8">
-												<input type="radio" name="parking" id="free" value="free">
-												<label for="free">свободен (безплатен)</label>
-											</div>
-											<div class="col-md-4">
-												<input type="radio" name="parking" id="paid" value="paid">
-												<label for="paid">платен</label>
-											</div>
-										</div>
-									</div>
-									<br>
-									<div class="form-group">
-										<input type="text" name="display_name" id="display_name" class="form-control input-lg latlng" placeholder="Координати" readonly tabindex="3">
-									</div>
-									<div class="form-group black">
-										<div class="push-bottom">
-											<div class="col-md-4">
-												<label for="price">Цена за час</label>
-												<select class="black priceOptions" id="price">
-													<option value="1">1 лв</option>
-													<option value="2">2 лв</option>
-													<option value="3">3 лв</option>
-													<option value="4">4 лв</option>
-													<option value="5">5 лв</option>
-													<option value="6">6 лв</option>
-													<option value="7">7 лв</option>
-													<option value="8">8 лв</option>
-													<option value="9">9 лв</option>
-													<option value="10">10 лв</option>
-													<option value="11">11 лв</option>
-													<option value="12">12 лв</option>
-												</select>
-											</div>
-											<div class="col-md-4">
-												<label for="from">Работи от:</label>
-												<select class="black workFrom" id="from">
-													<option value="12">0 ч</option>
-													<option value="1">1 ч</option>
-													<option value="2">2 ч</option>
-													<option value="3">3 ч</option>
-													<option value="4">4 ч</option>
-													<option value="5">5 ч</option>
-													<option value="6">6 ч</option>
-													<option value="7">7 ч</option>
-													<option value="8">8 ч</option>
-													<option value="9">9 ч</option>
-													<option value="10">10 ч</option>
-													<option value="11">11 ч</option>
-													<option value="12">12 ч</option>
-												</select>
-											</div>
-											<div class="col-md-4">
-												<label for="to">до:</label>
-												<br>
-												<select class="black workTo" id="to">
-													<option value="1">13 ч</option>
-													<option value="2">14 ч</option>
-													<option value="3">15 ч</option>
-													<option value="4">16 ч</option>
-													<option value="5">17 ч</option>
-													<option value="6">18 ч</option>
-													<option value="7">19 ч</option>
-													<option value="8">20 ч</option>
-													<option value="9">21 ч</option>
-													<option value="10">22 ч</option>
-													<option value="11">23 ч</option>
-													<option value="12" selected>24 ч</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<br>
-									<div class="form-group black">
-										<div class="col-md-4">
-											<br>
-											<input type="checkbox" class="carwash" name="others" id="carwash" value="carwash">
-											<label for="carwash">автомивка</label>
-										</div>
-										<div class="col-md-4">
-											<br>
-											<input type="checkbox" class="indoor" name="others" id="roof" value="roof">
-											<label for="roof">закрит</label>
-										</div>
-										<div class="col-md-4">
-											<br>
-											<input type="checkbox" class="security" name="others" id="security" value="security">
-											<label for="security">охраняем</label>
-										</div>
-									</div>
-									<!--<div class="row">
-									<div class="col-xs-6 col-sm-6 col-md-6">
-									<div class="form-group">
-									<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
-									</div>
-									</div>
-									<div class="col-xs-6 col-sm-6 col-md-6">
-									<div class="form-group">
-									<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
-									</div>
-									</div>
-									</div>-->
-									<div class="row">
-										<div class="col-xs-12 col-sm-12 col-md-12 black">
-											<br>
-											При кликване на <strong class="label label-primary">Изпрати</strong>, Вие се съгласявате с <a href="#" data-toggle="modal" data-target="#t_and_c_m">Правилата за ползване</a> на този сайт.
-										</div>
-									</div>
-									<hr class="colorgraph">
-								</form>
-								<div class="row">
-									<div class="col-xs-6 col-md-6 col-md-offset-3 col-xs-offset-6 text-center">
-										<input type="submit" value="Изпрати" onclick="checkForLogin();" class="btn btn-primary btn-block btn-lg" tabindex="7">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Modal -->
-					<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-										?
-									</button>
-									<h4 class="modal-title" id="myModalLabel">Правила за ползване</h4>
-								</div>
-								<div class="modal-body">
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
-									</p>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
-									</p>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
-									</p>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
-									</p>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
-									</p>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
-									</p>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
-									</p>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-dismiss="modal">
-										Съгласен съм
-									</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-						<!-- /.modal-dialog -->
-					</div>
-					<!-- /.modal -->
-
-				</div>
-				<!-- End container -->
-			</section>
-			<!-- END INTRO -->
-
-		</div>
-		<!-- END CONTENT WRAPPER -->
-
-		<!-- EXTERNAL SCRIPTS
-		============================================= -->
-		<script src="/static/js/contact/jquery-2.1.0.min.js" type="text/javascript"></script>
-		<script src="/static/js/contact/bootstrap.min.js" type="text/javascript"></script>
-
-		<script src="/static/js/contact/modernizr.custom.js" type="text/javascript"></script>
-
-		<script src="/static/js/contact/jquery.parallax-1.1.3.js" type="text/javascript"></script>
-
-		<script src="/static/js/contact/waypoints.min.js" type="text/javascript"></script>
-		<script src="/static/js/contact/animations.js" type="text/javascript"></script>
-		<script src="/static/js/contact/custom.js" type="text/javascript"></script>
-		<script src="/static/js/fblogin.js"></script>
-		<script src="/static/js/findparkingAndAddParkingFbLoginFunctions.js"></script>
-
-		<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-		<![endif]-->
-
-		<script>
-			var map;
-			var markersArray = [];
-			function load() {
-				map = new google.maps.Map(document.getElementById("map"), {
-					center : new google.maps.LatLng(42.7000, 23.3333),
-					zoom : 14,
-					mapTypeId : google.maps.MapTypeId.ROADMAP,
-					disableDefaultUI : true,
-					//panControl : true,
-					zoomControl : true,
-					zoomControlOptions : {
-						position : google.maps.ControlPosition.RIGHT_CENTER
-					},
-					mapTypeControl : true,
-					scaleControl : true,
-					streetViewControl : true,
-					streetViewControlOptions : {
-						position : google.maps.ControlPosition.RIGHT_CENTER
-					},
-					overviewMapControl : true
-				});
-
-				google.maps.event.addListener(map, "click", function(event) {
-					// place a marker
-					placeMarker(event.latLng);
-
-					var latlng = (event.latLng.lat()).toFixed(8) + " , " + (event.latLng.lng()).toFixed(8);
-					// display the lat/lng in your form's lat/lng fields
-					$("#display_name").val("").val(latlng);
-				});
-
-			}
-
-			function placeMarker(location) {
-				// first remove all markers if there are any
-				deleteOverlays();
-
-				if ($('#free').is(':checked')) {
-					var marker = new google.maps.Marker({
-						position : location,
-						map : map,
-						icon : "/static/imgs/public_parking.png",
-					});
-				} else {
-					var marker = new google.maps.Marker({
-						position : location,
-						map : map,
-						icon : "/static/imgs/parkingPointer.png",
-					});
-				}
-
-				// add marker in markers array
-				markersArray.push(marker);
-
-				// map.setCenter(location);
-			}
-
-			// Deletes all markers in the array by removing references to them
-			function deleteOverlays() {
-				if (markersArray) {
-					for (i in markersArray) {
-						markersArray[i].setMap(null);
-					}
-					markersArray.length = 0;
-				}
-			}
-
-
-			$("#free").click(function() {
-				$('#price').attr('disabled', 'disabled');
-				$('#price').css({
-					opacity : 0.5
-				});
-			});
-
-			$("#paid").click(function() {
-				$('#price').attr('disabled', false);
-				$('#price').css({
-					opacity : 1
-				});
-			});
-
-			function addParking() {
-				if ($(".latlng").val() == "") {
-					alert("Моля отбележете на картата къде се намира паркингът!");
-					return;
-				}
-
-				var lat = $(".latlng").val().split(",")[0].trim();
-				var lng = $(".latlng").val().split(",")[1].trim();
-				var type = "--";
-				if ($('#free').is(':checked'))
-					type = "free";
-				if ($('#paid').is(':checked'))
-					type = "paid";
-				var pricePerHour = $(".priceOptions option:selected").text();
-				var workHours = $(".workFrom option:selected").text() + " - " + $(".workTo option:selected").text();
-				var features = "";
-				if ($('.carwash').is(':checked'))
-					features = features + " carwash";
-				if ($('.security').is(':checked'))
-					features = features + " security";
-				if ($('.indoor').is(':checked'))
-					features = features + " indoor";
-
-				$.ajax({
-					url : "/addParking/",
-					type : 'POST', //this is the default though, you don't actually need to always mention it
-					xhrFields : {
-						withCredentials : true
-					},
-					headers : {
-						'X-Requested-With' : 'XMLHttpRequest'
-					},
-					data : {
-						lat : lat,
-						lng : lng,
-						type : type,
-						pricePerHour : pricePerHour,
-						features : features,
-						workHours : workHours,
-					},
-					success : function(data) {
-						deleteOverlays();
-						$("#addForm")[0].reset();
-						alert("Благодарим Ви!");
-					},
-					error : function(error) {
-						alert("Съжаляваме, възникна грешка по време на заявката. Моля, опитайте отново! Благодарим Ви!");
-						// Log any error.
-						console.log("ERROR:", error);
-
-					},
-				});
-			}
-
-			//user profile image
-			function get_fbid_if_user_loggedin() {
-				if ("{{user.is_authenticated}}" == "True") {
-					$.ajax({
-						url : "/getFbId/",
-						type : 'GET', //this is the default though, you don't actually need to always mention it
-						xhrFields : {
-							withCredentials : true
-						},
-						headers : {
-							'X-Requested-With' : 'XMLHttpRequest'
-						},
-						success : function(data) {
-							if (data.length > 0) {
-								$("#i").remove();
-								var src = "https://graph.facebook.com/" + data + "/picture";
-								$("#my_image").attr("src", src);
-							}
-						},
-						error : function(error) {
-							// Log any error.
-							console.log("ERROR:", error);
-						},
-					});
-				}
-			}
-
-
-			window.onload = function() {
-				load();
-				get_fbid_if_user_loggedin();
-			};
-		</script>
-	</body>
-
+﻿<!DOCTYPE html>
+<!-- Crossway - Startup Landing Page Template design by DSA79 (http://www.dsathemes.com) -->
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+	<!--<![endif]-->
+
+	<head>
+
+		<!-- Basic -->
+		<meta charset="utf-8">
+		<title>ParkingSector.bg | За Нас</title>
+		<meta name="author" content="Angel Velikov">
+
+		<!-- Mobile Specific Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<!-- Libs CSS -->
+		<link href="/static/bootstrap/css/style.css" rel="stylesheet">
+		<link href="/static/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/bootstrap/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- On Scroll Animations -->
+		<link href="/static/css/animate.css" rel="stylesheet">
+
+		<!-- Template CSS -->
+		<link href="/static/css/style2.css" rel="stylesheet">
+		<link href="/static/css/form.css" rel="stylesheet">
+
+		<!-- Responsive CSS -->
+		<link href="/static/css/responsive.css" rel="stylesheet">
+
+		<!-- Favicons -->
+		<link rel="shortcut icon" href="#">
+		<link rel="apple-touch-icon" sizes="114x114" href="#">
+		<link rel="apple-touch-icon" sizes="72x72" href="#">
+		<link rel="apple-touch-icon" href="#">
+
+		<link href="/static/css/addParking.css" rel="stylesheet">
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+
+	</head>
+
+	<body>
+
+		<!-- Probvai na TOZI div
+		============================================= -->
+		<div id="content-wrapper">
+			<div id="map"></div>
+
+			<!-- SignIn Box-->
+			<div class='signInBox subscribeBox' hidden>
+				<span class='glyphicon glyphicon-remove close' onclick='closeSignIn();'></span>
+				<p class='top-label'>
+					Влезте в профила си
+				</p>
+				<div class='under-label-line'></div>
+				<p class="msg">
+					За да добавите паркинг трябва да влезете в профила си!
+				</p>
+				<div class='sub-wrapper'>
+					<div>
+						<input type="text" class="sign-name form-control subscribePanel" placeholder="Потребителско име" />
+					</div>
+					<div>
+						<input id="loginFormPassword" type="password" class="sign-pass form-control subscribePanel" placeholder="Парола" />
+					</div>
+				</div>
+				<button class='signInButton subscribeButton' onclick='signIn();'>
+					Готово!
+				</button>
+				<div id="loginbutton" onclick="fb_login();">
+					<p>
+						или
+					<p>
+						<img src="/static/imgs/facebook-login-bg.png" width="240"/>
+				</div>
+			</div>
+			<!-- SignIn Box-->
+
+			<!-- INTRO
+			============================================= -->
+			<section id="intro" class="intro-parallax">
+				<div class="container">
+
+					<!-- Header -->
+					<header id="header">
+						<div class="row">
+							<!-- Navigation -->
+							<nav class="navbar navbar-default navbar-fixed-top">
+								<div class="container">
+									<!-- Brand and toggle get grouped for better mobile display -->
+									<div class="navbar-header page-scroll">
+										<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+											<span class="sr-only">Toggle navigation</span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+										<a class="navbar-brand" style="padding-top:2px !important;" href="/"><img src='/static/imgs/logo_web.png'/></a>
+
+									</div>
+
+									<!-- Collect the nav links, forms, and other content for toggling -->
+									<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+										<ul class="nav navbar-nav navbar-right">
+											<li class="last">
+												<!--<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>-->
+												<!--<a class="user-icon"><img class="profile" id="my_image" src="/static/imgs/default.jpg" width="90" height="50"/></a>-->												<div class="dropdown">												<a href="/profile" class="user-icon dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">													<img class="profile" id="my_image" src="/static/imgs/default.jpg" width="90" height="50"/>													<span class="caret"></span>												</a>													<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">														<li role="presentation">															<a href="/profile" role="menuitem" tabindex="-1" href="#"> Профил</a>														</li>														<li role="presentation">															<a href="/logout" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>														</li>													</ul>												</div>
+											</li>
+											<li class="hidden">
+												<a href="#page-top"></a>
+											</li>
+											<li>
+												<a href="/">Начало</a>
+											</li>
+											<li>
+												<a href="/templates/about.html">За нас</a>
+											</li>
+											<li>
+												<a href="/templates/contact.html">Контакти</a>
+											</li>
+										</ul>
+									</div>
+									<!-- /.navbar-collapse -->
+								</div>
+								<!-- /.container-fluid -->
+							</nav>
+
+						</div>
+					</header>
+					<!-- End Header -->
+					<div class="holder">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 text-center">
+								<form role="form" id="addForm">
+									<h2>Въведете паркинг <small>и ни помогнете да разширим услугата.</small></h2>
+									<hr class="colorgraph">
+									<div class="row">
+										<div class="col-md-12 black">
+											<div class="col-md-8">
+												<input type="radio" name="parking" id="free" value="free">
+												<label for="free">свободен (безплатен)</label>
+											</div>
+											<div class="col-md-4">
+												<input type="radio" name="parking" id="paid" value="paid">
+												<label for="paid">платен</label>
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="form-group">
+										<input type="text" name="display_name" id="display_name" class="form-control input-lg latlng" placeholder="Координати" readonly tabindex="3">
+									</div>
+									<div class="form-group black">
+										<div class="push-bottom">
+											<div class="col-md-4">
+												<label for="price">Цена за час</label>
+												<select class="black priceOptions" id="price">
+													<option value="1">1 лв</option>
+													<option value="2">2 лв</option>
+													<option value="3">3 лв</option>
+													<option value="4">4 лв</option>
+													<option value="5">5 лв</option>
+													<option value="6">6 лв</option>
+													<option value="7">7 лв</option>
+													<option value="8">8 лв</option>
+													<option value="9">9 лв</option>
+													<option value="10">10 лв</option>
+													<option value="11">11 лв</option>
+													<option value="12">12 лв</option>
+												</select>
+											</div>
+											<div class="col-md-4">
+												<label for="from">Работи от:</label>
+												<select class="black workFrom" id="from">
+													<option value="12">0 ч</option>
+													<option value="1">1 ч</option>
+													<option value="2">2 ч</option>
+													<option value="3">3 ч</option>
+													<option value="4">4 ч</option>
+													<option value="5">5 ч</option>
+													<option value="6">6 ч</option>
+													<option value="7">7 ч</option>
+													<option value="8">8 ч</option>
+													<option value="9">9 ч</option>
+													<option value="10">10 ч</option>
+													<option value="11">11 ч</option>
+													<option value="12">12 ч</option>
+												</select>
+											</div>
+											<div class="col-md-4">
+												<label for="to">до:</label>
+												<br>
+												<select class="black workTo" id="to">
+													<option value="1">13 ч</option>
+													<option value="2">14 ч</option>
+													<option value="3">15 ч</option>
+													<option value="4">16 ч</option>
+													<option value="5">17 ч</option>
+													<option value="6">18 ч</option>
+													<option value="7">19 ч</option>
+													<option value="8">20 ч</option>
+													<option value="9">21 ч</option>
+													<option value="10">22 ч</option>
+													<option value="11">23 ч</option>
+													<option value="12" selected>24 ч</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<br>
+									<div class="form-group black">
+										<div class="col-md-4">
+											<br>
+											<input type="checkbox" class="carwash" name="others" id="carwash" value="carwash">
+											<label for="carwash">автомивка</label>
+										</div>
+										<div class="col-md-4">
+											<br>
+											<input type="checkbox" class="indoor" name="others" id="roof" value="roof">
+											<label for="roof">закрит</label>
+										</div>
+										<div class="col-md-4">
+											<br>
+											<input type="checkbox" class="security" name="others" id="security" value="security">
+											<label for="security">охраняем</label>
+										</div>
+									</div>
+									<!--<div class="row">
+									<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+									<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+									</div>
+									</div>
+									<div class="col-xs-6 col-sm-6 col-md-6">
+									<div class="form-group">
+									<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+									</div>
+									</div>
+									</div>-->
+									<div class="row">
+										<div class="col-xs-12 col-sm-12 col-md-12 black">
+											<br>
+											При кликване на <strong class="label label-primary">Изпрати</strong>, Вие се съгласявате с <a href="#" data-toggle="modal" data-target="#t_and_c_m">Правилата за ползване</a> на този сайт.
+										</div>
+									</div>
+									<hr class="colorgraph">
+								</form>
+								<div class="row">
+									<div class="col-xs-6 col-md-6 col-md-offset-3 col-xs-offset-6 text-center">
+										<input value="Изпрати" onclick="checkForLogin();" class="btn btn-primary btn-block btn-lg" tabindex="7">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Modal -->
+					<div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										?
+									</button>
+									<h4 class="modal-title" id="myModalLabel">Правила за ползване</h4>
+								</div>
+								<div class="modal-body">
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
+									</p>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
+									</p>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
+									</p>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
+									</p>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
+									</p>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
+									</p>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.
+									</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-dismiss="modal">
+										Съгласен съм
+									</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal -->
+
+				</div>
+				<!-- End container -->
+			</section>
+			<!-- END INTRO -->
+
+		</div>
+		<!-- END CONTENT WRAPPER -->
+
+		<!-- EXTERNAL SCRIPTS
+		============================================= -->
+		<script src="/static/js/contact/jquery-2.1.0.min.js" type="text/javascript"></script>
+		<script src="/static/js/contact/bootstrap.min.js" type="text/javascript"></script>
+
+		<script src="/static/js/contact/modernizr.custom.js" type="text/javascript"></script>
+
+		<script src="/static/js/contact/jquery.parallax-1.1.3.js" type="text/javascript"></script>
+
+		<script src="/static/js/contact/waypoints.min.js" type="text/javascript"></script>
+		<script src="/static/js/contact/animations.js" type="text/javascript"></script>
+		<script src="/static/js/contact/custom.js" type="text/javascript"></script>
+		<script src="/static/js/fblogin.js"></script>
+		<script src="/static/js/findparkingAndAddParkingFbLoginFunctions.js"></script>
+
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+
+		<script>
+			var map;
+			var markersArray = [];
+			function load() {
+				map = new google.maps.Map(document.getElementById("map"), {
+					center : new google.maps.LatLng(42.7000, 23.3333),
+					zoom : 14,
+					mapTypeId : google.maps.MapTypeId.ROADMAP,
+					disableDefaultUI : true,
+					//panControl : true,
+					zoomControl : true,
+					zoomControlOptions : {
+						position : google.maps.ControlPosition.RIGHT_CENTER
+					},
+					mapTypeControl : true,
+					scaleControl : true,
+					streetViewControl : true,
+					streetViewControlOptions : {
+						position : google.maps.ControlPosition.RIGHT_CENTER
+					},
+					overviewMapControl : true
+				});
+
+				google.maps.event.addListener(map, "click", function(event) {
+					// place a marker
+					placeMarker(event.latLng);
+
+					var latlng = (event.latLng.lat()).toFixed(8) + " , " + (event.latLng.lng()).toFixed(8);
+					// display the lat/lng in your form's lat/lng fields
+					$("#display_name").val("").val(latlng);
+				});
+
+			}
+
+			function placeMarker(location) {
+				// first remove all markers if there are any
+				deleteOverlays();
+
+				if ($('#free').is(':checked')) {
+					var marker = new google.maps.Marker({
+						position : location,
+						map : map,
+						icon : "/static/imgs/public_parking.png",
+					});
+				} else {
+					var marker = new google.maps.Marker({
+						position : location,
+						map : map,
+						icon : "/static/imgs/parkingPointer.png",
+					});
+				}
+
+				// add marker in markers array
+				markersArray.push(marker);
+
+				// map.setCenter(location);
+			}
+
+			// Deletes all markers in the array by removing references to them
+			function deleteOverlays() {
+				if (markersArray) {
+					for (i in markersArray) {
+						markersArray[i].setMap(null);
+					}
+					markersArray.length = 0;
+				}
+			}
+
+
+			$("#free").click(function() {
+				$('#price').attr('disabled', 'disabled');
+				$('#price').css({
+					opacity : 0.5
+				});
+			});
+
+			$("#paid").click(function() {
+				$('#price').attr('disabled', false);
+				$('#price').css({
+					opacity : 1
+				});
+			});
+
+			function addParking() {
+				if ($(".latlng").val() == "") {
+					alert("Моля отбележете на картата къде се намира паркингът!");
+					return;
+				}
+
+				var lat = $(".latlng").val().split(",")[0].trim();
+				var lng = $(".latlng").val().split(",")[1].trim();
+				var type = "--";
+				if ($('#free').is(':checked'))
+					type = "free";
+				if ($('#paid').is(':checked'))
+					type = "paid";
+				var pricePerHour = $(".priceOptions option:selected").text();
+				var workHours = $(".workFrom option:selected").text() + " - " + $(".workTo option:selected").text();
+				var features = "";
+				if ($('.carwash').is(':checked'))
+					features = features + " carwash";
+				if ($('.security').is(':checked'))
+					features = features + " security";
+				if ($('.indoor').is(':checked'))
+					features = features + " indoor";
+
+				$.ajax({
+					url : "/addParking/",
+					type : 'POST', //this is the default though, you don't actually need to always mention it
+					xhrFields : {
+						withCredentials : true
+					},
+					headers : {
+						'X-Requested-With' : 'XMLHttpRequest'
+					},
+					data : {
+						lat : lat,
+						lng : lng,
+						type : type,
+						pricePerHour : pricePerHour,
+						features : features,
+						workHours : workHours,
+					},
+					success : function(data) {
+						deleteOverlays();
+						$("#addForm")[0].reset();
+						alert("Благодарим Ви!");
+					},
+					error : function(error) {
+						alert("Съжаляваме, възникна грешка по време на заявката. Моля, опитайте отново! Благодарим Ви!");
+						// Log any error.
+						console.log("ERROR:", error);
+
+					},
+				});
+			}
+
+			//user profile image
+			function get_fbid_if_user_loggedin() {
+				if ("{{user.is_authenticated}}" == "True") {
+					$.ajax({
+						url : "/getFbId/",
+						type : 'GET', //this is the default though, you don't actually need to always mention it
+						xhrFields : {
+							withCredentials : true
+						},
+						headers : {
+							'X-Requested-With' : 'XMLHttpRequest'
+						},
+						success : function(data) {
+							if (data.length > 0) {
+								$("#i").remove();
+								var src = "https://graph.facebook.com/" + data + "/picture";
+								$("#my_image").attr("src", src);
+							}
+						},
+						error : function(error) {
+							// Log any error.
+							console.log("ERROR:", error);
+						},
+					});
+				}
+			}
+
+
+			window.onload = function() {
+				load();
+				get_fbid_if_user_loggedin();
+			};
+		</script>
+	</body>
+
 </html>
