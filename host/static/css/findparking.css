@@ -1244,3 +1244,6 @@ background-color: #88c72a;
 .custom{
 	margin-left: 63% !important;
 }
+.dropdown-menu{
+	left: -95px !important;
+}

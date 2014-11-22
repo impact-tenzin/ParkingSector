@@ -288,8 +288,11 @@
 					<li class="last">
 						<!--<a href="/profile" class="user-icon"><i class="fa fa-user"></i></a>-->
 						<!--<a href="/profile" class="user-icon"><i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/></a>-->
-						<a href="#" class="lasta" id="dropdownMenu1" data-toggle="dropdown"><i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/><b class="caret"></b></a>
-
+						<div class="dropdown">
+						<a href="/profile" class="user-icon dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+							<i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/>
+							<span class="caret"></span>
+						</a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 								<li role="presentation">
 									<a href="/profile" role="menuitem" tabindex="-1" href="#"> Профил</a>
@@ -298,6 +301,7 @@
 									<a href="/logout" role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Изход</a>
 								</li>
 							</ul>
+						</div>
 					</li>
 
 				</ul>
@@ -305,6 +309,7 @@
 			</div><!-- /container -->
 
 		</div>
+		<script src="/static/bootstrap/js/bootstrap.js"></script>
 		<script src="/static/js/findparkingAndAddParkingFbLoginFunctions.js"></script>
 		<script src="/static/test/js/classie.js"></script>
 		<script src="/static/test/js/gnmenu.js"></script>
