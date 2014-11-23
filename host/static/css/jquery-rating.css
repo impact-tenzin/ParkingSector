@@ -11,7 +11,7 @@
    width: 0px;
    height: 0px;
    border-right:  10px solid transparent;
-   border-bottom: 7px  solid #CC6600;
+   border-bottom: 7px  solid yellow /*#CC6600*/;
    border-left:   10px solid transparent;
    -moz-transform:    rotate(35deg);
    -webkit-transform: rotate(35deg);
@@ -19,7 +19,7 @@
    -o-transform:      rotate(35deg);
 }
 .jr-rating:before{
-   border-bottom: 8px solid #CC6600;
+   border-bottom: 8px solid yellow /*#CC6600*/;
    border-left: 3px solid transparent;
    border-right: 3px solid transparent;
    position: absolute;
@@ -43,7 +43,7 @@
    width: 0px;
    height: 0px;
    border-right: 10px solid transparent;
-   border-bottom: 7px solid #CC6600;
+   border-bottom: 7px solid yellow /*#CC6600*/;
    border-left: 10px solid transparent;
    -webkit-transform: rotate(-70deg);
    -moz-transform:    rotate(-70deg);
