@@ -19,7 +19,7 @@
 		<script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js" type="text/javascript"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<link rel="stylesheet" href="/static/css/jquery.datetimepicker.css">
-		<script type="text/javascript" src="/static/js/jquery.datetimepicker.js"></script>
+		<!--<script type="text/javascript" src="/static/js/jquery.datetimepicker.js"></script>-->
 
 		<!-- five star rating -->
 		<script type="text/javascript" src="/static/js/jquery-rating.js"></script>
@@ -233,13 +233,7 @@
 					<div class="col-md-5 col-md-offset-7 custom">
 						<div class="panel panel-primary">
 							<div class="panel-heading ratingDiv">
-								<span class="group-stars">
-									 <div id="star1"   class="jr-ratenode"></div>
-									  <div id="star2"  class="jr-ratenode"></div> 
-									  <div id="star3"  class="jr-ratenode"></div>
-									   <div id="star4"  class="jr-ratenode"></div> 
-									   <div id="star5"  class="jr-ratenode"></div> 
-								</span>
+								<span class="group-stars"> <div id="star1"   class="jr-ratenode"></div> <div id="star2"  class="jr-ratenode"></div> <div id="star3"  class="jr-ratenode"></div> <div id="star4"  class="jr-ratenode"></div> <div id="star5"  class="jr-ratenode"></div> </span>
 								<span class="glyphicon glyphicon-comment"></span> Оцени
 								<div class="text-right">
 									<span class="glyphicon glyphicon-remove closeX3" onclick="closeRateAndReviewBox();"></span>
@@ -302,7 +296,7 @@
 						<!--<a href="/profile" class="user-icon"><i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/></a>-->
 						<div id="dropdownMenu">
 							<a href="/profile" class="user-icon dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true"> <i id="i" class="fa fa-user"></i><img class="profile" id="my_image" src=""/> <span class="caret"></span> </a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							<ul class="dropdownOptions" role="menu" aria-labelledby="dropdownMenu1" hidden>
 								<!--<li role="presentation">
 								<a href="/profile" role="menuitem" tabindex="-1" href="#"> Профил</a>
 								</li>-->
