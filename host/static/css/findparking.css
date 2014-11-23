@@ -1245,5 +1245,9 @@ background-color: #88c72a;
 	margin-left: 63% !important;
 }
 .dropdown-menu{
-	left: -95px !important;
+	left: 1039px !important;
+}
+#dropdownMenu1{
+	padding-right: 7px;
+	padding-left: 7px;
 }
