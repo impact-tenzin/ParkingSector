@@ -100,7 +100,8 @@ function signIn() {
 
 function addDropDownToPicture()
 {
-	$("#dropdownMenu").attr("class", "dropdown");
+	$(".dropdownOptions").attr("class", "dropdown-menu dropdownOptions");
+	//$(".dropdownOptions").show();
 }
 
 function get_fb_id() {
