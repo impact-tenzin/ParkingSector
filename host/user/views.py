@@ -16,15 +16,15 @@ from django.core import serializers
 from client.errors_and_messages import register_error
 from user.email_confirmation import send_confirmation_email, send_account_activation_email, send_email_with_token_to_reset_password, send_email_after_fbregister
 from django.conf import settings
-import pusher
+#import pusher
 import string
 import random
 
-pusher.app_id = settings.PUSHER_APP_ID
-pusher.key = settings.PUSHER_KEY
-pusher.secret = settings.PUSHER_SECRET
+#pusher.app_id = settings.PUSHER_APP_ID
+#pusher.key = settings.PUSHER_KEY
+#pusher.secret = settings.PUSHER_SECRET
 
-p = pusher.Pusher()
+#p = pusher.Pusher()
 
 def login_request(request, type):
         if request.user.is_authenticated():
@@ -183,7 +183,8 @@ def profile(request):
             RegularUser.objects.get(user=request.user.id)
             user = User.objects.get(id=request.user.id)
             if user.is_active == True:
-                return render_to_response('userprofile.html', {}, context_instance=RequestContext(request))
+                #return render_to_response('userprofile.html', {}, context_instance=RequestContext(request))
+                return HttpResponseRedirect('/')
             else:
                 form = LoginForm(request.POST)
                 return render_to_response('loginuser.html',
@@ -411,7 +412,7 @@ def create_regular_user(request, reg_form):
     
     #reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
     #login(request, reguser)
-                
+    
     regform = RegistrationForm()
     context = {
                'form': regform,

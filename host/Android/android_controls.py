@@ -136,8 +136,11 @@ def login_request(request):
             if user is not None:
                 #user.backend = 'django.contrib.auth.backends.ModelBackend'
                 #login(request, user)
-                session_key = create_and_begin_session(user)
-                return HttpResponse(session_key, content_type="text/html; charset=utf-8")
+                if user.is_active == True:
+                    session_key = create_and_begin_session(user)
+                    return HttpResponse(session_key, content_type="text/html; charset=utf-8")
+                else:
+                    return HttpResponse("unactivated account", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("User is None", content_type="text/html; charset=utf-8")
         except:
