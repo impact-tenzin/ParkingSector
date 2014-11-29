@@ -405,13 +405,27 @@ def username_unique(username):
 #url: android_register request: POST, response: "registration complete" 
 @csrf_exempt
 def create_regular_user(request):
+    try:
+        User.objects.get(username=username=request.POST['username'])
+        return HttpResponse("username match", content_type="text/html; charset=utf-8")
+    except User.DoesNotExist:
+        try:
+            User.objects.get(email=request.POST['email'])
+            return HttpResponse("email match", content_type="text/html; charset=utf-8")
+        except User.DoesNotExist:
+            try:
+                RegularUser.objects.get(fb_email=request.POST['email'])
+                return HttpResponse("email match", content_type="text/html; charset=utf-8")
+            except RegularUser.DoesNotExist:        
+                pass
+    
     user = User.objects.create_user(username=request.POST['username'],
                                     email=request.POST['email'],
                                     password=request.POST['password'],
                                     )
     user.is_active = False
     user.save()
-
+    
     regular_user = RegularUser(user=user)
     regular_user.save()
     

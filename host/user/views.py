@@ -412,7 +412,7 @@ def create_regular_user(request, reg_form):
     
     #reguser = authenticate(username=reg_form.cleaned_data['username'], password=reg_form.cleaned_data['password'])
     #login(request, reguser)
-    
+                
     regform = RegistrationForm()
     context = {
                'form': regform,
