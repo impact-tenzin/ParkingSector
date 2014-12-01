@@ -142,7 +142,7 @@ def login_request(request):
                 else:
                     return HttpResponse("unactivated account", content_type="text/html; charset=utf-8")
             else:
-                return HttpResponse("User is None", content_type="text/html; charset=utf-8")
+                return HttpResponse("Wrong username or password", content_type="text/html; charset=utf-8")
         except:
             return HttpResponse("User does not exist", content_type="text/html; charset=utf-8")
     else:
@@ -406,7 +406,7 @@ def username_unique(username):
 @csrf_exempt
 def create_regular_user(request):
     try:
-        User.objects.get(username=username=request.POST['username'])
+        User.objects.get(username=request.POST['username'])
         return HttpResponse("username match", content_type="text/html; charset=utf-8")
     except User.DoesNotExist:
         try:

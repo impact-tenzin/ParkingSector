@@ -110,11 +110,11 @@ def send_email_after_fbregister(email):
     from_email = settings.DEFAULT_FROM_EMAIL           
     date = str(datetime.datetime.now().strftime("%d %B"))
     
-    current_site = Site.objects.get_current().domain
-    reset_link = "http://" + current_site + "/password/reset/"
+    #current_site = Site.objects.get_current().domain
+    #reset_link = "http://" + current_site + "/password/reset/"
     
-    text_content = render_to_string(template_text, {"reset_link": reset_link, "date":date})
-    html_content = render_to_string(template_html, {"reset_link": reset_link, "date":date})
+    text_content = render_to_string(template_text, {"date":date})
+    html_content = render_to_string(template_html, {"date":date})
 
     msg = EmailMultiAlternatives(subject, text_content, from_email, [email])
     msg.attach_alternative(html_content, "text/html")
