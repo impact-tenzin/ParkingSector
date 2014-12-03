@@ -509,3 +509,9 @@ ul.intro-social-buttons li a{
 .grey{
 	color: #999 !important;
 }
+.modal-dialog{
+	width: 900px !important;
+}
+.modal-content{
+	background: #eee !important;
+}
