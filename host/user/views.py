@@ -55,7 +55,13 @@ def handle_login_user_request(request, form):
                         login(request, reguser)
                         return HttpResponseRedirect('/')
                     else:
-                        return HttpResponseRedirect('/profile/')
+                        form = LoginForm(request.POST)
+                        return render_to_response('loginuser.html',
+                                           {
+                                            'msg': 'Акаунтът Ви не е активиран!',
+                                            'form': form
+                                            },
+                                            context_instance=RequestContext(request))
                 except RegularUser.DoesNotExist:
                     return render_to_response('loginuser.html',
                                               {'form': form, 'msg':'Грешно потребителско име или парола'},
@@ -76,23 +82,37 @@ def facebook_login(request):
             email = request.POST['email']
             username = request.POST['username']
             fb_id = request.POST['fb_id']
+            has_fb = True
             try:
                 reguser = User.objects.get(id=RegularUser.objects.get(fb_email=email).user_id)
             except RegularUser.DoesNotExist:
                 try:
+                    has_fb = False
                     reguser = User.objects.get(email=email)
                 except User.DoesNotExist:
+                    #if user logs in for the first time with facebook acc
                     return register_user_with_fb(request, email, username, fb_id)
             if reguser is not None:
-                add_fb_id_if_absent(reguser, fb_id)
-                if reguser.is_active == False:
-                    user_profile = UserProfile.objects.get(user_id=reguser.id)
-                    user_profile.delete()
-                    reguser.is_active = True
-                    reguser.save()
-                reguser.backend = 'django.contrib.auth.backends.ModelBackend'
-                login(request, reguser)
-                return HttpResponse("fblogin complete", content_type="text/html; charset=utf-8")
+                
+                if has_fb:
+                    add_fb_id_if_absent(reguser, fb_id)
+                    reguser.backend = 'django.contrib.auth.backends.ModelBackend'
+                    login(request, reguser)          
+                    return HttpResponse("fblogin complete", content_type="text/html; charset=utf-8")
+                else:
+                    if reguser.is_active == False:
+                        user_profile = UserProfile.objects.get(user_id=reguser.id)
+                        user_profile.delete()
+                        reguser.is_active = True
+                        reguser.save()
+                    fb_user = RegularUser.objects.get(user=reguser.id)
+                    fb_user.fb_name = username
+                    fb_user.fb_email = email
+                    fb_user.fb_id = fb_id
+                    fb_user.save()
+                    reguser.backend = 'django.contrib.auth.backends.ModelBackend'
+                    login(request, reguser)
+                    return HttpResponse("fblogin complete", content_type="text/html; charset=utf-8")
             else:
                 return HttpResponse("Cant authenticate", content_type="text/html; charset=utf-8")
         else:
