@@ -308,7 +308,7 @@ background: #f09e00 !important;
 }
 /*End Colors*/
 .entries{
-	background: #dd3333;
+	background: #fff;
 	margin-top: 25px;
 	margin-bottom: 25px;
 	padding-top: 1px;
@@ -321,11 +321,11 @@ background: #f09e00 !important;
 	vertical-align: middle;
 }
 .entries span{
-	color: #fff;
+	color: #333;
 }
 .entries i{
 	margin-right: 10px;
-	color: #fff;
+	color: #333;
 	font-size: 28px;
 }
 .number{
