@@ -51,8 +51,11 @@ def handle_login_user_request(request, form):
             if reguser is not None:
                 try:
                     RegularUser.objects.get(user=reguser.id)
-                    login(request, reguser)
-                    return HttpResponseRedirect('/profile/')
+                    if reguser.is_active == True:
+                        login(request, reguser)
+                        return HttpResponseRedirect('/')
+                    else:
+                        return HttpResponseRedirect('/profile/')
                 except RegularUser.DoesNotExist:
                     return render_to_response('loginuser.html',
                                               {'form': form, 'msg':'Грешно потребителско име или парола'},
@@ -82,6 +85,11 @@ def facebook_login(request):
                     return register_user_with_fb(request, email, username, fb_id)
             if reguser is not None:
                 add_fb_id_if_absent(reguser, fb_id)
+                if reguser.is_active == False:
+                    user_profile = UserProfile.objects.get(user_id=reguser.id)
+                    user_profile.delete()
+                    reguser.is_active = True
+                    reguser.save()
                 reguser.backend = 'django.contrib.auth.backends.ModelBackend'
                 login(request, reguser)
                 return HttpResponse("fblogin complete", content_type="text/html; charset=utf-8")
