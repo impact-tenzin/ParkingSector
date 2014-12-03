@@ -1241,8 +1241,15 @@ background-color: #88c72a;
 .panel{
 	margin-top: 40px;
 }
-.custom{
-	margin-left: 63% !important;
+@media screen and (min-width: 600px) {
+	.custom{
+		margin-left: 63% !important;
+	}
+}
+@media screen and (max-width: 600px) {
+	.custom{
+		margin-left: 0% !important;
+	}
 }
 .dropdown-menu{
 	left: 1039px !important;
