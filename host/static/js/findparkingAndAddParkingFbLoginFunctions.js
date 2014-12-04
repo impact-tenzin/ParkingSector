@@ -59,7 +59,12 @@ function renderBookingMsg(data) {
 	if (data == "User does not exist" || data == "Cant authenticate") {
 		var msg = "Грешно потребителско име или парола!";
 		$('.msg').html(msg);
-	} else if (data == "Login Successful") {
+	}
+	else if(data == "unactivated account"){
+		var msg = "Не сте активирали акаунта си. Моля, проверете електроннта си поща!";
+		$('.msg').html(msg);
+	}
+	else if (data == "Login Successful") {
 		var msg = "Влязохте успешно!";
 		$('.msg').html(msg);
 		setTimeout(function() {

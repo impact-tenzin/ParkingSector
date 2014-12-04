@@ -260,6 +260,8 @@ def signin_before_booking(request):
             password = request.POST['pass']
             reguser = authenticate(username=username, password=password)
             if reguser is not None:
+                if reguser.is_active == False:
+                    return HttpResponse("unactivated account", content_type="text/html; charset=utf-8")
                 try:
                     RegularUser.objects.get(user=reguser.id)
                     login(request, reguser)
