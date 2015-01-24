@@ -3,10 +3,11 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, HttpResponse
 from home.forms import LocationForm, SubscribeForm
 from FindParking.models import ParkingMarker, ParkingFeatures, PaymentMethod
-from home.models import Viewer, Statistics, Locations, Events
+from home.models import Viewer, Statistics, Locations, Events, ParkingReport
 from django.db import IntegrityError
 import math
 import threading
+import datetime
 
 #customers = int(Statistics.objects.get(name__exact='customers').stat)
 
@@ -187,3 +188,66 @@ def redirect_to_map_from_event(request, latlng):
                     'lng':lng,
                     }
     return render_to_response('findparking.html', context , context_instance=RequestContext(request))
+
+def delete_reports_older_than_sixty_minuts():
+    minutes = 60
+    ParkingReports.filter(minutes__gt=duration(time)).delete()
+
+def duration(time):
+    return (datetime.datetime.now() - time).seconds/3600
+
+
+def get_average(value):
+    if value == 1:
+        return 17
+    if value == 2:
+        return 51
+    if value == 3:
+        return 83
+    
+    #report bug and send bug report email
+    return 0
+       
+def report_availability(request):
+    delete_reports_older_than_sixty_minuts()
+    
+    lat = request.POST['lat']
+    lng = request.POST['lng']
+    value = request.POST['value']
+    time = datetime.datetime.now()
+    report = ParkingReport.objects.create(lat=lat, lng=lng, value=value, time=time)
+    report.save()
+    return HttpResponse("Successful", content_type="text/html; charset=utf-8")
+    
+def calculate_availability(request):
+    report_lat = request.GET['lat']
+    report_lng = request.GET['lng']
+    radius = 0.05
+    region_filtered_reports = ParkingReport.objects.filter(radius__gt=distance([lat, lng], [float(report_lat), float(report_lng)]))
+    
+    if len(region_filtered_reports) == 0:
+        return HttpResponse("NoReports", content_type="text/html; charset=utf-8")
+    
+    time_now = datetime.datetime.now()
+    time_filtered_reports = [report for report in region_filtered_reports
+                                if (time_now - report.time).seconds/3600 < 60
+                             ]
+    
+    if len(time_filtered_reports)==0:
+        return HttpResponse("Successful", content_type="text/html; charset=utf-8")
+    
+    time_filtered_reports.sort(key=lambda report: report.time) 
+    reports_length = len(time_filtered_reports)
+      
+    if reports_length==1:
+        result_percentage = get_average(time_filtered_reports[0].value)
+    
+    if reports_length>=2:
+        last_report = time_filtered_reports[-1]
+        second_last = time_filtered_reports[-2]
+        
+        if (last_report - second_last).seconds/3600 < 10:
+            if last_report.value = second_last.value:
+                pass
+    
+    

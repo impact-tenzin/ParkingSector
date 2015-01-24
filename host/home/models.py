@@ -28,3 +28,9 @@ class Events(models.Model):
     lng = models.FloatField()
     name = models.CharField(max_length = 100)
     image = models.CharField(max_length = 50)
+    
+class ParkingReport(models.Model):
+    lat = models.FloatField()
+    lng = models.FloatField()
+    value = models.IntegerField()
+    time = models.DateTimeField()
